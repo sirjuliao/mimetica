@@ -102,31 +102,16 @@
             <p class="mbr-text mbr-fonts-style align-center mt-2 display-7">
                 Calibrada com mais de 40 fontes de dados reais do Brasil </p>
         </div>
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-3 card">
-                <img src="assets/images/bancocentral.png" alt="Mobirise Website Builder">
-            </div>
-            <div class="col-md-3 card">
-                <img src="assets/images/datasus.png" alt="Mobirise Website Builder">
-            </div>
-            <div class="col-md-3 card">
-                <img src="assets/images/google.png" alt="Mobirise Website Builder">
-            </div>
-            <div class="col-md-3 card">
-                <img src="assets/images/ibge.png" alt="Mobirise Website Builder">
-            </div>
-            <div class="col-md-3 card">
-                <img src="assets/images/ifood.png" alt="Mobirise Website Builder">
-            </div>
-            <div class="col-md-3 card">
-                <img src="assets/images/meta.png" alt="Mobirise Website Builder">
-            </div>
-            <div class="col-md-3 card">
-                <img src="assets/images/reclame.png" alt="Mobirise Website Builder">
-            </div>
-            <div class="col-md-3 card">
-                <img src="assets/images/serasa.png" alt="Mobirise Website Builder">
-            </div>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:24px; margin-top:24px;">
+            <img src="assets/images/bancocentral.png" alt="Banco Central" style="height:36px; object-fit:contain; opacity:0.6;">
+            <img src="assets/images/datasus.png" alt="DATASUS" style="height:36px; object-fit:contain; opacity:0.6;">
+            <img src="assets/images/google.png" alt="Google Trends" style="height:36px; object-fit:contain; opacity:0.6;">
+            <img src="assets/images/ibge.png" alt="IBGE" style="height:36px; object-fit:contain; opacity:0.6;">
+            <img src="assets/images/ifood.png" alt="iFood" style="height:36px; object-fit:contain; opacity:0.6;">
+            <img src="assets/images/meta.png" alt="Meta" style="height:36px; object-fit:contain; opacity:0.6;">
+            <img src="assets/images/reclame.png" alt="Reclame Aqui" style="height:36px; object-fit:contain; opacity:0.6;">
+            <img src="assets/images/serasa.png" alt="Serasa" style="height:36px; object-fit:contain; opacity:0.6;">
+        </div>
         </div>
     </div>
 </section>
@@ -363,17 +348,18 @@ function renderUltimoPost(data) {
   var date = new Date(p.published.$t).toLocaleDateString('pt-BR', {day:'2-digit', month:'short', year:'numeric'}).toUpperCase();
   var summary = p.summary ? p.summary.$t : '';
 
+  var isMobile = window.innerWidth < 768;
   document.getElementById('ultimo-post').innerHTML =
     '<a href="blog.html?post=0" style="text-decoration:none; color:inherit;">' +
-    '<div style="display:flex; border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08); background:#fff; min-height:340px;">' +
-      (img ? '<div style="flex:0 0 45%;"><img src="' + img + '" style="width:100%; height:100%; object-fit:cover;"></div>' : '') +
-      '<div style="flex:1; padding:36px; display:flex; flex-direction:column; justify-content:space-between;">' +
+    '<div style="display:flex; flex-direction:' + (isMobile ? 'column' : 'row') + '; border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08); background:#fff;">' +
+      (img ? '<div style="' + (isMobile ? 'width:100%; height:200px;' : 'flex:0 0 45%;') + '"><img src="' + img + '" style="width:100%; height:100%; object-fit:cover;"></div>' : '') +
+      '<div style="flex:1; padding:' + (isMobile ? '20px' : '36px') + '; display:flex; flex-direction:column; justify-content:space-between;">' +
         '<div>' +
           (label ? '<span style="background:#f0f0f0; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:600;">' + label + '</span>' : '') +
-          '<h2 style="font-size:24px; font-weight:700; color:#111; margin:16px 0 10px; line-height:1.3;">' + p.title.$t + '</h2>' +
+          '<h2 style="font-size:' + (isMobile ? '20px' : '24px') + '; font-weight:700; color:#111; margin:16px 0 10px; line-height:1.3;">' + p.title.$t + '</h2>' +
           (summary ? '<p style="font-size:14px; color:#666; line-height:1.6; margin:0;">' + summary + '</p>' : '') +
         '</div>' +
-        '<div style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid #f0f0f0; padding-top:16px;">' +
+        '<div style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid #f0f0f0; padding-top:16px; margin-top:16px;">' +
           '<div style="display:flex; align-items:center; gap:10px;">' +
             '<div style="width:32px; height:32px; border-radius:50%; background:#111; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:700;">' + (autor ? autor[0].toUpperCase() : '') + '</div>' +
             '<div>' +
@@ -398,17 +384,16 @@ function renderUltimoPost(data) {
 
     lista.innerHTML +=
       '<a href="blog.html?post=' + (i+1) + '" style="text-decoration:none; color:inherit;">' +
-      '<div style="display:flex; align-items:center; justify-content:space-between; padding:18px 0; border-bottom:1px solid #e8e8e8;">' +
-        '<h3 style="font-size:15px; font-weight:600; color:#111; margin:0; flex:1;">' + post.title.$t + '</h3>' +
-        '<div style="display:flex; align-items:center; gap:16px; margin-left:20px; flex-shrink:0;">' +
-          '<span style="font-size:12px; font-weight:600; color:#999; text-transform:uppercase;">' + aut + '</span>' +
-          '<span style="font-size:12px; color:#bbb;">' + dt + '</span>' +
-          (lbl ? '<span style="background:' + bg + '; color:' + tc + '; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700;">' + lbl + '</span>' : '') +
+      '<div style="display:flex; flex-wrap:wrap; align-items:' + (isMobile ? 'flex-start' : 'center') + '; justify-content:space-between; padding:16px 0; border-bottom:1px solid #e8e8e8; gap:8px;">' +
+        '<h3 style="font-size:14px; font-weight:600; color:#111; margin:0; flex:1; min-width:60%;">' + post.title.$t + '</h3>' +
+        '<div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">' +
+          (isMobile ? '' : '<span style="font-size:12px; font-weight:600; color:#999; text-transform:uppercase;">' + aut + '</span>') +
+          '<span style="font-size:11px; color:#bbb;">' + dt + '</span>' +
+          (lbl ? '<span style="background:' + bg + '; color:' + tc + '; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700;">' + lbl + '</span>' : '') +
         '</div>' +
       '</div></a>';
   });
 
-  // Link ver todos
   lista.innerHTML += '<div style="text-align:right; margin-top:16px;"><a href="blog.html" style="font-size:13px; font-weight:600; color:#111; text-decoration:none;">Ver todos os posts →</a></div>';
 }
 </script>
