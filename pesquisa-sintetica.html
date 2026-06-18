@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monte sua população sintética - Mimetica</title>
+  <link rel="shortcut icon" href="assets/images/logo-color.png" type="image/x-icon">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css">
+  <style>
+    body { background: #f3f3f3; }
+
+    .form-wrapper {
+      max-width: 860px;
+      margin: 60px auto;
+      padding: 0 20px 80px;
+    }
+
+    .form-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    .step-block {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .step-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: #999;
+      margin-left: 38px;
+      margin-bottom: 16px;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-left: 38px;
+    }
+
+    .chip {
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 1.5px solid #ddd;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .chip:hover { border-color: #111; color: #111; }
+
+    .chip.selected {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    .chip.selected.verde { background: #27ae60; border-color: #27ae60; }
+    .chip.selected.azul { background: #2b6cc0; border-color: #2b6cc0; }
+    .chip.selected.rosa { background: #c0392b; border-color: #c0392b; }
+    .chip.selected.roxo { background: #8e44ad; border-color: #8e44ad; }
+
+    .form-input {
+      width: 100%;
+      border: 1.5px solid #ddd;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #111;
+      outline: none;
+      transition: border 0.2s;
+      margin-left: 0;
+      background: #fafafa;
+    }
+
+    .form-input:focus { border-color: #111; background: #fff; }
+
+    .range-wrapper {
+      margin-left: 38px;
+      margin-top: 8px;
+    }
+
+    .range-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .range-sub {
+      font-size: 12px;
+      color: #999;
+    }
+
+    input[type=range] {
+      width: 100%;
+      accent-color: #111;
+      margin-top: 8px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover { background: #333; }
+
+    .success-msg {
+      display: none;
+      background: #e8fdf0;
+      border: 1.5px solid #27ae60;
+      border-radius: 12px;
+      padding: 20px 24px;
+      color: #27ae60;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    /* Navbar */
+    .navbar { background: #f3f3f3 !important; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg" style="padding: 16px 24px; background:#f3f3f3; border-bottom: 1px solid #e8e8e8;">
+  <a href="index.html" style="display:flex; align-items:center; text-decoration:none; gap:10px;">
+    <img src="assets/images/logo-color.png" style="height:36px;">
+    <span style="font-size:18px; font-weight:700; color:#111;">mimetica</span>
+  </a>
+</nav>
+
+<!-- FORM -->
+<div class="form-wrapper">
+  <h1 class="form-title">Monte sua população sintética</h1>
+  <p class="form-subtitle">Configure quem vai responder. O substrato sintético monta a população na hora.</p>
+
+  <form id="synth-form" action="https://formspree.io/f/xnjykvgb" method="POST">
+
+    <!-- Campos ocultos para chips -->
+    <input type="hidden" name="Classe Social" id="field-classe">
+    <input type="hidden" name="Geração" id="field-geracao">
+    <input type="hidden" name="Gênero" id="field-genero">
+    <input type="hidden" name="Região" id="field-regiao">
+    <input type="hidden" name="Amostra" id="field-amostra" value="500">
+
+    <!-- 1. Nome e empresa -->
+    <div class="step-block">
+      <div class="step-header">
+        <span class="step-number">1</span>
+        <span class="step-label">Seus dados</span>
+      </div>
+      <p class="step-desc">Para entrarmos em contato com o resultado</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <input type="text" name="Nome" placeholder="Seu nome" class="form-input" style="flex:1; min-width:200px;" required>
+        <input type="email" name="Email" placeholder="Seu email" class="form-input" style="flex:1; min-width:200px;" required>
+        <input type="text" name="Empresa" placeholder="Empresa (opcional)" class="form-input" style="flex:1; min-width:200px;">
+      </div>
+    </div>
+
+    <!-- 2. Questionário -->
+    <div class="step-block">
+      <div class="step-header">
+        <span class="step-number">2</span>
+        <span class="step-label">Questionário</span>
+      </div>
+      <p class="step-desc">Descreva o que quer perguntar ou cole seu roteiro abaixo</p>
+      <textarea name="Questionário" class="form-input" rows="4" placeholder="Ex: Quero entender a percepção de preço de um novo produto de higiene pessoal para a classe B..." required></textarea>
+    </div>
+
+    <!-- 3. Amostra -->
+    <div class="step-block">
+      <div class="step-header">
+        <span class="step-number">3</span>
+        <span class="step-label">Amostra</span>
+      </div>
+      <p class="step-desc">Quantos consumidores sintéticos vão responder</p>
+      <div class="range-wrapper">
+        <div class="range-value" id="range-display">500 <span class="range-sub">sintéticos</span></div>
+        <input type="range" min="100" max="5000" step="100" value="500" oninput="updateRange(this.value)">
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:#bbb; margin-top:4px;">
+          <span>100</span><span>5.000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Classe social -->
+    <div class="step-block">
+      <div class="step-header">
+        <span class="step-number">4</span>
+        <span class="step-label">Classe social</span>
+      </div>
+      <p class="step-desc">Selecione uma ou mais</p>
+      <div class="chip-group" id="chips-classe">
+        <span class="chip verde" onclick="toggleChip(this, 'classe')">Classe A</span>
+        <span class="chip verde" onclick="toggleChip(this, 'classe')">Classe B</span>
+        <span class="chip verde" onclick="toggleChip(this, 'classe')">Classe C</span>
+        <span class="chip verde" onclick="toggleChip(this, 'classe')">Classe D/E</span>
+      </div>
+    </div>
+
+    <!-- 5. Geração -->
+    <div class="step-block">
+      <div class="step-header">
+        <span class="step-number">5</span>
+        <span class="step-label">Geração / faixa etária</span>
+      </div>
+      <p class="step-desc">Selecione uma ou mais</p>
+      <div class="chip-group" id="chips-geracao">
+        <span class="chip azul" onclick="toggleChip(this, 'geracao')">Gen Z · 18–28</span>
+        <span class="chip azul" onclick="toggleChip(this, 'geracao')">Millennial · 29–44</span>
+        <span class="chip azul" onclick="toggleChip(this, 'geracao')">Gen X · 45–60</span>
+        <span class="chip azul" onclick="toggleChip(this, 'geracao')">Boomer · 60+</span>
+      </div>
+    </div>
+
+    <!-- 6. Gênero -->
+    <div class="step-block">
+      <div class="step-header">
+        <span class="step-number">6</span>
+        <span class="step-label">Gênero</span>
+      </div>
+      <p class="step-desc">Vai além de masculino e feminino</p>
+      <div class="chip-group" id="chips-genero">
+        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Mulher cis</span>
+        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Homem cis</span>
+        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Mulher trans</span>
+        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Homem trans</span>
+        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Não-binário</span>
+        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Prefere não dizer</span>
+      </div>
+    </div>
+
+    <!-- 7. Região -->
+    <div class="step-block">
+      <div class="step-header">
+        <span class="step-number">7</span>
+        <span class="step-label">Região do Brasil</span>
+      </div>
+      <p class="step-desc">Onde os respondentes vivem</p>
+      <div class="chip-group" id="chips-regiao">
+        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Norte</span>
+        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Nordeste</span>
+        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Centro-Oeste</span>
+        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Sudeste</span>
+        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Sul</span>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="step-block">
+      <button type="submit" class="submit-btn">Rodar pesquisa →</button>
+      <div class="success-msg" id="success-msg">✅ Recebemos seu pedido! Entraremos em contato em breve.</div>
+    </div>
+
+  </form>
+</div>
+
+<script>
+function toggleChip(el, group) {
+  el.classList.toggle('selected');
+  var selected = [];
+  document.querySelectorAll('#chips-' + group + ' .chip.selected').forEach(function(c) {
+    selected.push(c.textContent.trim());
+  });
+  document.getElementById('field-' + group).value = selected.join(', ');
+}
+
+function updateRange(val) {
+  document.getElementById('range-display').innerHTML = parseInt(val).toLocaleString('pt-BR') + ' <span class="range-sub">sintéticos</span>';
+  document.getElementById('field-amostra').value = val;
+}
+
+// Envio via fetch para não redirecionar
+document.getElementById('synth-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var form = this;
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(function(r) {
+    if (r.ok) {
+      document.getElementById('success-msg').style.display = 'block';
+      form.reset();
+      document.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('selected'); });
+      updateRange(500);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
