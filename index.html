@@ -142,6 +142,82 @@
 	</div>
 </section>
 
+<section style="background:#0d0d12; padding:80px 0 60px;">
+  <div class="container">
+    <div style="margin-bottom:3rem;">
+      <div style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:#26a69a; font-family:monospace; margin-bottom:1rem; display:flex; align-items:center; gap:10px;">
+        <div style="width:28px; height:1px; background:#26a69a;"></div> A população sintética
+      </div>
+      <h2 style="font-size:clamp(2rem,5vw,3.2rem); font-weight:700; color:#fff; line-height:1.1; margin-bottom:1rem;">
+        12 perfis.<br><span style="background:linear-gradient(90deg,#e91e8c,#ef6c47); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">O Brasil completo.</span>
+      </h2>
+      <p style="color:rgba(240,238,248,0.5); font-size:1rem; line-height:1.7; max-width:580px;">
+        Calibrados com IBGE, Banco Central, Nielsen e comportamento digital em tempo real. Cada um acorda com o Brasil de hoje.
+      </p>
+    </div>
+  </div>
+
+  <div style="overflow:hidden; margin-top:1rem;">
+    <div id="mim-track" style="display:flex; gap:16px; width:max-content; animation:mimMarquee 35s linear infinite;">
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes mimMarquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+#mim-track:hover { animation-play-state:paused; }
+.mim-tile {
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  padding:1.5rem 1.4rem;
+  width:220px; flex-shrink:0;
+  transition:border-color 0.25s, background 0.25s;
+  cursor:default;
+}
+.mim-tile:hover { border-color:rgba(255,255,255,0.15); background:rgba(255,255,255,0.07); }
+.mim-region { font-size:0.65rem; font-family:monospace; color:rgba(240,238,248,0.3); margin-bottom:0.6rem; }
+.mim-name { font-size:1.1rem; font-weight:500; color:#fff; margin-bottom:0.15rem; }
+.mim-role { font-size:0.75rem; color:rgba(240,238,248,0.45); margin-bottom:0.75rem; }
+.mim-income { font-family:monospace; font-size:0.78rem; margin-bottom:0.6rem; }
+.mim-desc { font-size:0.75rem; color:rgba(240,238,248,0.45); line-height:1.6; margin-bottom:0.75rem; }
+.mim-dot { width:6px; height:6px; border-radius:50%; animation:mimBlink 2s ease-in-out infinite; }
+@keyframes mimBlink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+</style>
+
+<script>
+(function(){
+  var profiles = [
+    {name:'Fernanda', role:'Gestora doméstica', region:'Goiânia · GO', income:'R$ 7.200', desc:'Alta sens. preço em commodities. Decide no app às 21h.', color:'#8bc34a'},
+    {name:'Carlos', role:'Autônomo', region:'São Paulo · SP', income:'R$ 2.100', desc:'Extremamente sensível a preço. Atacarejo quinzenal.', color:'#ef6c47'},
+    {name:'Beatriz', role:'Executiva de marketing', region:'Pinheiros · SP', income:'R$ 22.000', desc:'Compra por conveniência e experiência, nunca por preço.', color:'#26a69a'},
+    {name:'Rafael', role:'Analista Jr.', region:'Belo Horizonte · MG', income:'R$ 3.800', desc:'Jovem aspiracional. Parcela tudo. Alta aspiração de marca.', color:'#e91e8c'},
+    {name:'Mariana', role:'UX Designer', region:'Recife · PE', income:'R$ 5.500', desc:'80% das compras online. Lê reviews antes de qualquer decisão.', color:'#29b6f6'},
+    {name:'Seu Antônio', role:'Aposentado', region:'Interior · PR', income:'R$ 3.200', desc:'Fidelidade máxima. Analógico conectado. Mercado de bairro.', color:'#8bc34a'},
+    {name:'Yasmin', role:'E-commerce', region:'Manaus · AM', income:'R$ 4.100', desc:'Custo elevado por logística. Alta sens. a prazo de entrega.', color:'#ef6c47'},
+    {name:'Gabriela', role:'Engenheira civil', region:'Porto Alegre · RS', income:'R$ 6.800', desc:'Decisão racional. Valoriza durabilidade e evidência técnica.', color:'#26a69a'},
+    {name:'Juliana', role:'Em licença-maternidade', region:'Campinas · SP', income:'R$ 8.500', desc:'Alta WTP em categorias infantis. Grupo de mães como influência.', color:'#e91e8c'},
+    {name:'Diego', role:'Empreendedor informal', region:'Salvador · BA', income:'R$ 2.800–6.000', desc:'Renda variável. Compra em volume quando tem caixa.', color:'#29b6f6'},
+    {name:'Prof. Ana', role:'Professora estadual', region:'Fortaleza · CE', income:'R$ 5.100', desc:'Classe média em aperto. Downgrade silencioso de marcas.', color:'#8bc34a'},
+    {name:'Lucas', role:'Estudante + bico', region:'São Paulo · SP', income:'R$ 1.200', desc:'Consumo por identidade. Boicota. Compra em lives.', color:'#ef6c47'},
+  ];
+  var track = document.getElementById('mim-track');
+  var all = profiles.concat(profiles);
+  all.forEach(function(p) {
+    var tile = document.createElement('div');
+    tile.className = 'mim-tile';
+    tile.innerHTML =
+      '<div class="mim-region">' + p.region + '</div>' +
+      '<div class="mim-name">' + p.name + '</div>' +
+      '<div class="mim-role">' + p.role + '</div>' +
+      '<div class="mim-income" style="color:' + p.color + '">' + p.income + '</div>' +
+      '<div class="mim-desc">' + p.desc + '</div>' +
+      '<div class="mim-dot" style="background:' + p.color + '"></div>';
+    track.appendChild(tile);
+  });
+})();
+</script>
+
 <section data-bs-version="5.1" class="features19 cid-vmEzbME4uu" id="features019-d">
 	
 
