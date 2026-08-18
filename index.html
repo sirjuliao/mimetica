@@ -38,10 +38,12 @@
   --card: #ffffff;
   --dark: #1d1d1f;
   --mid: #6e6e73;
+  --faint: #a0a0a5;
   --line: #e8e8ea;
   --teal: #26a69a;
   --pink: #e91e8c;
   --orange: #ef6c47;
+  --confetti-3: #2C9BD1;
   --radius: 20px;
   --radius-sm: 14px;
 }
@@ -108,13 +110,51 @@ body {
 #header10-7 {
   background: var(--bg) !important;
   padding: 100px 0 64px !important;
+  position: relative;
+  overflow: hidden;
 }
 #header10-7 .container-fluid {
   max-width: 860px;
   margin: 0 auto;
   padding: 0 24px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.82rem; font-weight: 500; color: var(--mid);
+  border: 1px solid var(--line); border-radius: 999px; padding: 0.45rem 0.9rem 0.45rem 1.05rem;
+  margin-bottom: 1.6rem;
+}
+.hero-pill b { color: var(--dark); font-weight: 600; }
+.hero-pill svg { width: 13px; height: 13px; flex-shrink: 0; }
+.iso-field { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.iso-tile {
+  position: absolute;
+  width: 132px; padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 24px 48px -24px rgba(20,24,26,0.22);
+  will-change: transform;
+}
+.iso-tile .bar { width: 26px; height: 5px; border-radius: 3px; margin-bottom: 9px; }
+.iso-tile .l1 { width: 80%; height: 7px; border-radius: 3px; background: var(--line); margin-bottom: 6px; }
+.iso-tile .l2 { width: 55%; height: 7px; border-radius: 3px; background: var(--line); }
+.iso-tile.t1 { top: 6%; left: 2%; }
+.iso-tile.t1 .bar { background: var(--pink); }
+.iso-tile.t2 { top: 58%; left: -1%; width: 112px; }
+.iso-tile.t2 .bar { background: var(--confetti-3); }
+.iso-tile.t3 { top: 10%; right: 1%; }
+.iso-tile.t3 .bar { background: var(--orange); }
+.iso-tile.t4 { top: 62%; right: 0%; width: 118px; }
+.iso-tile.t4 .bar { background: var(--teal); }
+.iso-tile.t5 { top: 2%; left: 24%; width: 96px; opacity: 0.7; }
+.iso-tile.t5 .bar { background: var(--confetti-3); }
+.iso-tile.t6 { top: 4%; right: 23%; width: 96px; opacity: 0.7; }
+.iso-tile.t6 .bar { background: var(--pink); }
+@media (max-width: 980px) { .iso-tile { display: none; } }
 #header10-7 .row { justify-content: center !important; }
 #header10-7 .mbr-section-title {
   color: var(--dark) !important;
@@ -184,97 +224,65 @@ body {
   color: var(--dark) !important;
 }
 
-/* ── FEATURES19 (4 cards) ── */
-#features019-d {
-  background: var(--bg-alt) !important;
-  padding: 96px 0 72px !important;
-  border-top: 1px solid var(--line);
-}
-#features019-d .container {
-  max-width: 1160px;
-}
-#features019-d .mbr-section-title {
-  font-size: clamp(1.7rem, 3.4vw, 2.6rem) !important;
+/* ── CHAPTER — bloco centralizado de largura cheia, com slot de imagem ── */
+.chapter { padding: clamp(5rem,11vw,8.5rem) 0; border-top: 1px solid var(--line); }
+.chapter.alt { background: var(--bg-alt); }
+.chapter .center-col { max-width: 680px; margin: 0 auto; text-align: center; padding: 0 24px; }
+.chapter h2 {
+  font-size: clamp(1.9rem,4.4vw,3.2rem) !important;
   font-weight: 700 !important;
-  letter-spacing: -0.025em !important;
+  letter-spacing: -0.03em !important;
   color: var(--dark) !important;
 }
-#features019-d .mbr-text {
-  color: var(--mid) !important;
-  max-width: 560px;
-  margin: 0 auto;
+.chapter .chapter-body {
+  font-size: clamp(1.05rem,1.35vw,1.2rem);
+  color: var(--mid);
+  max-width: 44ch;
+  margin: 1.2rem auto 0;
 }
-#features019-d .item-wrapper {
-  background: #fff !important;
-  border-radius: var(--radius-sm) !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  border: 1px solid var(--line) !important;
-  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
-  height: 100%;
+.art-slot {
+  margin: clamp(2.5rem,6vw,3.5rem) auto 0;
+  max-width: 720px;
+  aspect-ratio: 16/9.5;
+  border: 1.5px dashed var(--line);
+  border-radius: 20px;
+  background: var(--bg-alt);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
-#features019-d .item-wrapper:hover {
-  transform: translateY(-3px) !important;
-  box-shadow: 0 16px 40px -18px rgba(0,0,0,0.16) !important;
-}
-#features019-d .img-wrapper {
-  border-radius: 0 !important;
-  margin-bottom: 0 !important;
-  overflow: hidden !important;
-}
-#features019-d .img-wrapper img {
-  width: 100% !important;
-  height: 190px !important;
-  object-fit: cover !important;
-  border-radius: 0 !important;
-  transition: transform 0.4s ease !important;
-  display: block !important;
-}
-#features019-d .item-wrapper:hover .img-wrapper img {
-  transform: scale(1.04) !important;
-}
-#features019-d .card-box {
-  padding: 24px !important;
-}
-#features019-d .card-title {
-  font-size: 1rem !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.01em !important;
-  color: var(--dark) !important;
-  margin-bottom: 8px !important;
-}
-#features019-d .card-text {
-  font-size: 0.875rem !important;
-  color: var(--mid) !important;
-  line-height: 1.6 !important;
+.chapter.alt .art-slot { background: var(--bg); }
+.art-slot .park { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; will-change: transform; }
+.art-slot .park span {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--faint);
 }
 
-/* ── MOS — faixa clara ── */
+/* ── MOS — specs, centralizado ── */
 #article22-i {
   background: var(--bg-alt) !important;
   padding: 96px 0 !important;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  text-align: center;
 }
-#article22-i .container {
-  max-width: 1160px;
-}
+#article22-i .container { max-width: 1160px; }
 #article22-i .mbr-section-title {
   color: var(--dark) !important;
-  font-size: clamp(1.7rem, 3.4vw, 2.6rem) !important;
+  font-size: clamp(1.9rem, 4.4vw, 3.2rem) !important;
   font-weight: 700 !important;
-  letter-spacing: -0.025em !important;
-  line-height: 1.15 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.1 !important;
 }
-#article22-i ol li {
-  color: var(--mid) !important;
-  font-size: 0.95rem !important;
-  line-height: 1.75 !important;
-  margin-bottom: 0.8rem;
+.specs-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2.5rem;
+  margin-top: clamp(3rem,6vw,4.5rem); max-width: 920px; margin-inline: auto;
 }
-#article22-i ol li strong { color: var(--dark) !important; }
-#article22-i ol li::marker { color: var(--teal); font-weight: 700; }
-#article22-i .item-wrapper { background: transparent !important; padding: 0 !important; }
+@media (max-width: 860px) { .specs-grid { grid-template-columns: 1fr; } }
+.spec-item { border-top: 1px solid var(--line); padding-top: 1.2rem; text-align: left; }
+.spec-item .n { font-family: ui-monospace,"SF Mono",Menlo,monospace; color: var(--teal); font-size: 0.8rem; margin-bottom: 0.6rem; display: block; letter-spacing: 0.06em; }
+.spec-item p { color: var(--mid); font-size: 0.98rem; line-height: 1.6; }
 
 /* ── ACCORDION — flat ── */
 #list01-j {
@@ -337,29 +345,22 @@ section:has(#blog-grid) .container {
   max-width: 1160px;
 }
 
-/* ── CTA final — único bloco em card, fecho da página ── */
+/* ── CTA final — faixa plana centralizada, fecho da página ── */
 #article13-k {
-  background: var(--bg) !important;
-  padding: 96px 0 !important;
-}
-#article13-k .container {
-  max-width: 1160px;
-}
-#article13-k .card {
   background: var(--bg-alt) !important;
-  border: 1px solid var(--line) !important;
-  border-radius: var(--radius) !important;
-  padding: 72px 64px !important;
-  text-align: center;
+  padding: clamp(5.5rem,12vw,8.5rem) 0 !important;
+  border-top: 1px solid var(--line);
 }
+#article13-k .container { max-width: 760px; }
+#article13-k .card { background: transparent !important; border: none !important; padding: 0 !important; text-align: center; }
 #article13-k .card-title {
   color: var(--dark) !important;
-  font-size: clamp(1.8rem, 4vw, 3rem) !important;
+  font-size: clamp(2rem, 5vw, 3.8rem) !important;
   font-weight: 700 !important;
   letter-spacing: -0.03em !important;
   line-height: 1.1 !important;
 }
-#article13-k .mbr-section-btn { justify-content: center !important; }
+#article13-k .mbr-section-btn { justify-content: center !important; margin-top: 0.5rem; }
 #article13-k .card-wrapper { background: transparent !important; padding: 0 !important; }
 
 /* ── FOOTER — plano, sem card ── */
@@ -418,6 +419,9 @@ section:has(#blog-grid) .container {
 					</li>
 					<li class="nav-item">
 						<a class="nav-link link text-black text-primary display-4" href="blog.html">Blog<br></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link link text-black text-primary display-4" href="pesquisa-sintetica.html">População</a>
 					</li></ul>
 				
 				<div class="navbar-buttons mbr-section-btn"><a class="btn btn-black display-4" href="index.html#header10-7">Entrar</a></div>
@@ -433,9 +437,21 @@ section:has(#blog-grid) .container {
     
     
 
+    <div class="iso-field" aria-hidden="true">
+        <div class="iso-tile t1" data-depth="0.06"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
+        <div class="iso-tile t2" data-depth="0.1"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
+        <div class="iso-tile t3" data-depth="0.08"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
+        <div class="iso-tile t4" data-depth="0.12"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
+        <div class="iso-tile t5" data-depth="0.05"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
+        <div class="iso-tile t6" data-depth="0.09"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
+    </div>
     <div class="align-center container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-9">
+                <div class="hero-pill">
+                    <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="var(--teal)" stroke-width="1.4"/><path d="M8 4.5v4l2.6 1.5" stroke="var(--teal)" stroke-width="1.4" stroke-linecap="round"/></svg>
+                    Novo no motor: <b>simulação de cenários comerciais</b>
+                </div>
                 <h1 class="mbr-section-title mbr-fonts-style mb-3 display-1"><strong>Antecipe cenários e decisões de negócios.</strong></h1>
                 <p class="mbr-text mbr-fonts-style display-7">
                     Um motor de simulação generativa de comportamento, calibrado por dado real, que testa decisão de mercado, preço e comportamento de consumidor para tomada de decisões.</p>
@@ -552,9 +568,6 @@ section:has(#blog-grid) .container {
 <section style="background:var(--bg-alt); padding:80px 0 96px; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
   <div class="container">
     <div style="margin-bottom:3rem;">
-      <div style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--teal); font-family:monospace; margin-bottom:1rem; display:flex; align-items:center; gap:10px;">
-        <div style="width:28px; height:1px; background:var(--teal);"></div> A população generativa
-      </div>
       <h2 style="font-size:clamp(2rem,5vw,3.2rem); font-weight:700; color:var(--dark); line-height:1.1; margin-bottom:1rem;">
         12 perfis.<br><span style="color:var(--teal);">O Brasil completo.</span>
       </h2>
@@ -625,65 +638,43 @@ section:has(#blog-grid) .container {
 })();
 </script>
 
-<section data-bs-version="5.1" class="features19 cid-vmEzbME4uu" id="features019-d" style="padding-top:80px;">
-	
+<section id="features019-d" class="chapter" style="padding-top:clamp(5rem,11vw,8.5rem);">
+	<div class="center-col">
+		<h2 class="mbr-fonts-style"><strong>Um motor, várias decisões.</strong></h2>
+		<p class="chapter-body">O mesmo motor de simulação generativa se aplica a diferentes frentes — cada uma calibrada com o dado disponível para aquele contexto.</p>
+	</div>
+</section>
 
-	
-	
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-12 mb-5 content-head">
-				<h3 class="mbr-section-title mbr-fonts-style align-center mb-2 display-2"><strong>Um motor, várias decisões.</strong></h3>
-				<p class="mbr-text mbr-fonts-style align-center display-7">O mesmo motor de simulação generativa se aplica a diferentes frentes — cada uma calibrada com o dado disponível para aquele contexto.</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="item features-without-image col-12 col-lg-3 item-mb">
-				<div class="item-wrapper">
-					<div class="card-box align-left">
-						<div class="img-wrapper mb-3">
-							<img class="" src="assets/images/mbr.jpg" alt="">
-						</div>
-						<h1 class="card-title mbr-fonts-style display-5"><strong>Comportamento de mercado e consumidor</strong></h1>
-						<p class="card-text mbr-fonts-style display-7">Teste preço, conceito e mensagem com milhares de respondentes generativos, calibrados por dado real, em horas em vez de semanas.<br></p>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-3 item-mb">
-				<div class="item-wrapper">
-					<div class="card-box align-left">
-						<div class="img-wrapper mb-3">
-							<img class="" src="assets/images/mbr-3.jpg" alt="">
-						</div>
-						<h1 class="card-title mbr-fonts-style display-5"><strong>Cenários comerciais</strong></h1>
-						<p class="card-text mbr-fonts-style display-7">Simulação de decisão comercial — de precificação a como uma negociação de conta tende a se desenrolar — a partir do histórico e do dado que a própria empresa já tem.<br></p>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-3 item-mb">
-				<div class="item-wrapper">
-					<div class="card-box align-left">
-						<div class="img-wrapper mb-3">
-							<img class="" src="assets/images/mbr-1.jpg" alt="">
-						</div>
-						<h1 class="card-title mbr-fonts-style display-5"><strong>Monitoramento contínuo</strong></h1>
-						<p class="card-text mbr-fonts-style display-7">Acompanhe como o mercado real diverge do cenário simulado entre uma rodada de pesquisa e outra, com alerta antecipado quando algo muda.<br></p>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-3 item-mb">
-				<div class="item-wrapper">
-					<div class="card-box align-left">
-						<div class="img-wrapper mb-3">
-							<img class="" src="assets/images/mbr-2.jpg" alt="">
-						</div>
-						<h1 class="card-title mbr-fonts-style display-5"><strong>E-commerce</strong></h1>
-						<p class="card-text mbr-fonts-style display-7">Apps de precificação, vitrine e promoções calibrados pelo mesmo motor, direto na operação (Nuvemshop).<br></p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="mim-cta-strip"><a href="pesquisa-sintetica.html">Fale com um consultor →</a></div>
+<section class="chapter reveal">
+	<div class="center-col">
+		<h2 class="mbr-fonts-style"><strong>Comportamento de mercado e consumidor</strong></h2>
+		<p class="chapter-body">Teste preço, conceito e mensagem com milhares de respondentes generativos, calibrados por dado real, em horas em vez de semanas.</p>
+		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — comportamento de mercado</span></div></div>
+	</div>
+</section>
+
+<section class="chapter alt reveal">
+	<div class="center-col">
+		<h2 class="mbr-fonts-style"><strong>Cenários comerciais</strong></h2>
+		<p class="chapter-body">Simulação de decisão comercial — de precificação a como uma negociação de conta tende a se desenrolar — a partir do histórico e do dado que a própria empresa já tem.</p>
+		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — cenários comerciais</span></div></div>
+	</div>
+</section>
+
+<section class="chapter reveal">
+	<div class="center-col">
+		<h2 class="mbr-fonts-style"><strong>Monitoramento contínuo</strong></h2>
+		<p class="chapter-body">Acompanhe como o mercado real diverge do cenário simulado entre uma rodada de pesquisa e outra, com alerta antecipado quando algo muda.</p>
+		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — monitoramento contínuo</span></div></div>
+	</div>
+</section>
+
+<section class="chapter alt reveal">
+	<div class="center-col">
+		<h2 class="mbr-fonts-style"><strong>E-commerce</strong></h2>
+		<p class="chapter-body">Apps de precificação, vitrine e promoções calibrados pelo mesmo motor, direto na operação (Nuvemshop).</p>
+		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — e-commerce</span></div></div>
+		<div class="mim-cta-strip" style="padding-top:2rem;"><a href="pesquisa-sintetica.html">Fale com um consultor →</a></div>
 	</div>
 </section>
 
@@ -703,29 +694,19 @@ section:has(#blog-grid) .container {
   
   
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-4">
-        <div class="col-12 col-md-12">
-          <h5 class="mbr-section-title mbr-fonts-style mt-0 mb-4 display-2"><strong>MOS · Mimetica Operational System</strong></h5>
-          <h6 class="mbr-section-subtitle mbr-fonts-style mt-0 mb-4 display-7"></h6>
-          
-        </div>
+    <h5 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>40+ integrações, sempre ligadas.</strong></h5>
+    <div class="specs-grid">
+      <div class="spec-item">
+        <span class="n">FONTES</span>
+        <p>IBGE, Banco Central, DATASUS, Nielsen, Serasa, Google Trends, Meta e social listening — dados em fluxo contínuo, todo dia.</p>
       </div>
-
-      <div class="col-lg-8 side-features">
-        <div class="item-wrapper align-left">
-          <div class="counter-container mbr-text mbr-fonts-style display-7">
-            <ol>
-              <li><strong>40+ integrações, sempre ligadas.</strong>&nbsp;O MOS conecta IBGE, Banco Central, DATASUS, Nielsen, Serasa, Google Trends, Meta e social listening, entre 40+ fontes. Os dados entram em fluxo contínuo e cada arquétipo acorda com o Brasil de hoje.</li>
-              <li><strong>Pronto para as industrias que mais pesquisam.</strong>&nbsp;Modelos calibrados por setor, com a linguagem e os drivers de decisão de cada um. Aferição do share em tempo real.</li>
-              <li><strong>Arquétipos calibrados com gente real.</strong>&nbsp;Cada arquétipo é gerido no MOS: ancorado nas 40+ integrações e refinado com dados de respondentes reais (CRM, NPS, sell-out) e respomdentes reais.</li>
-            </ol>
-          </div>
-        </div>
-
-
-
-
+      <div class="spec-item">
+        <span class="n">SETORES</span>
+        <p>Modelos calibrados por indústria, com a linguagem e os drivers de decisão de cada uma. Aferição de share em tempo real.</p>
+      </div>
+      <div class="spec-item">
+        <span class="n">CALIBRAÇÃO</span>
+        <p>Arquétipos refinados com dados de respondentes reais — CRM, NPS, sell-out — não só dado público.</p>
       </div>
     </div>
   </div>
@@ -870,16 +851,11 @@ function renderUltimoPost(data) {
 <script src="https://mimetize.blogspot.com/feeds/posts/default?alt=json&max-results=3&callback=renderUltimoPost"></script>
 </section>
 
-<section id="quem-somos" style="background:var(--bg); padding:96px 0;">
-  <div class="container" style="max-width:820px;">
-    <div class="row justify-content-center">
-      <div class="col-12">
-        <h4 style="font-size:0.7rem; letter-spacing:0.16em; color:var(--teal); font-weight:700; font-family:monospace; margin-bottom:1rem;">QUEM SOMOS</h4>
-        <h2 style="font-size:clamp(1.7rem,3.4vw,2.6rem); font-weight:700; letter-spacing:-0.025em; color:var(--dark); margin-bottom:1.5rem;">De onde viemos</h2>
-        <p style="font-size:1.1rem; line-height:1.75; color:var(--mid);">A Mimética nasceu como um motor de simulação de comportamento — construído para testar decisão antes que ela acontecesse de verdade. Com o tempo, passamos a receber briefings de pesquisa de mercado de empresas que precisavam entender comportamento de consumidor com mais velocidade do que a pesquisa tradicional permite. Isso nos levou a montar, dentro do motor que já existia, uma frente dedicada de pesquisa — hoje aplicada a saúde, alimentos, varejo e outras decisões de negócio.</p>
-        <div class="mim-cta-strip" style="text-align:left; padding-top:16px;"><a href="pesquisa-sintetica.html">Fale com um consultor →</a></div>
-      </div>
-    </div>
+<section id="quem-somos" class="chapter alt reveal">
+  <div class="center-col">
+    <h2 style="letter-spacing:-0.03em; color:var(--dark);">De onde viemos</h2>
+    <p class="chapter-body" style="max-width:60ch;">A Mimética nasceu como um motor de simulação de cenários e comportamento. Com o tempo, passamos a simular e entender comportamento de consumidor. Isso nos levou a montar, dentro do motor que já existia, uma frente dedicada de pesquisa, hoje aplicada a saúde, alimentos, varejo e outras decisões de negócio.</p>
+    <div class="mim-cta-strip" style="padding-top:16px;"><a href="pesquisa-sintetica.html">Fale com um consultor →</a></div>
   </div>
 </section>
 
@@ -892,7 +868,7 @@ function renderUltimoPost(data) {
             <div class="card col-md-12 col-lg-11">
                 <div class="card-wrapper">
                     <div class="card-box align-left">
-                        <h4 class="card-title mbr-fonts-style display-2"><strong>Teste sua próxima decisão para tomada de decisões.</strong></h4>
+                        <h4 class="card-title mbr-fonts-style display-2"><strong>Teste sua próxima decisão, simule.</strong></h4>
 
                         <div class="mbr-section-btn mt-4"><a class="btn btn-black display-4" href="pesquisa-sintetica.html">COMECE AGORA&nbsp;</a></div>
                     </div>
@@ -985,19 +961,26 @@ document.addEventListener('DOMContentLoaded', function() {
     observer.observe(el);
   });
 
-  // Parallax sutil no hero
-  window.addEventListener('scroll', function() {
-    var scrollY = window.scrollY;
-    var hero = document.querySelector('section:first-of-type');
-    if (hero) {
-      hero.style.backgroundPositionY = (scrollY * 0.4) + 'px';
-      var heroContent = hero.querySelector('.container');
-      if (heroContent) {
-        heroContent.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
-        heroContent.style.opacity = Math.max(0, 1 - (scrollY / 500));
-      }
+  // Parallax: tiles do hero e slots de imagem se movem em velocidades diferentes
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reducedMotion) {
+    var parallaxEls = document.querySelectorAll('[data-depth]');
+    var ticking = false;
+    function updateParallax() {
+      var vh = window.innerHeight;
+      parallaxEls.forEach(function(el) {
+        var rect = el.getBoundingClientRect();
+        var center = rect.top + rect.height / 2;
+        var offset = (center - vh / 2) * parseFloat(el.dataset.depth);
+        el.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
+      });
+      ticking = false;
     }
-  });
+    window.addEventListener('scroll', function() {
+      if (!ticking) { window.requestAnimationFrame(updateParallax); ticking = true; }
+    }, { passive: true });
+    updateParallax();
+  }
 });
 </script>
 
