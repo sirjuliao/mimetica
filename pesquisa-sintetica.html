@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <title>Monte sua população sintética - Mimetica</title>
+  <title>Monte sua população generativa - Mimetica</title>
   <link rel="shortcut icon" href="assets/images/logo-color.png" type="image/x-icon">
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -216,8 +216,8 @@
 
 <!-- FORM -->
 <div class="form-wrapper">
-  <h1 class="form-title">Monte sua população sintética</h1>
-  <p class="form-subtitle">Configure quem vai responder. O substrato sintético monta a população na hora.</p>
+  <h1 class="form-title">Monte sua população generativa</h1>
+  <p class="form-subtitle">Configure quem vai responder. O substrato generativo monta a população na hora.</p>
 
   <form id="synth-form" action="https://formspree.io/f/xnjykvgb" method="POST">
 
@@ -258,9 +258,9 @@
         <span class="step-number">3</span>
         <span class="step-label">Amostra</span>
       </div>
-      <p class="step-desc">Quantos consumidores sintéticos vão responder</p>
+      <p class="step-desc">Quantos consumidores generativos vão responder</p>
       <div class="range-wrapper">
-        <div class="range-value" id="range-display">500 <span class="range-sub">sintéticos</span></div>
+        <div class="range-value" id="range-display">500 <span class="range-sub">generativos</span></div>
         <input type="range" min="100" max="5000" step="100" value="500" oninput="updateRange(this.value)">
         <div style="display:flex; justify-content:space-between; font-size:12px; color:#bbb; margin-top:4px;">
           <span>100</span><span>5.000</span>
@@ -351,7 +351,7 @@ function toggleChip(el, group) {
 }
 
 function updateRange(val) {
-  document.getElementById('range-display').innerHTML = parseInt(val).toLocaleString('pt-BR') + ' <span class="range-sub">sintéticos</span>';
+  document.getElementById('range-display').innerHTML = parseInt(val).toLocaleString('pt-BR') + ' <span class="range-sub">generativos</span>';
   document.getElementById('field-amostra').value = val;
 }
 
@@ -379,7 +379,7 @@ document.getElementById('synth-form').addEventListener('submit', function(e) {
         <div class="row">
             <div class="col-12 col-lg-6 center mt-2 mb-3">
                 <p class="mbr-fonts-style copyright mb-0 display-7">
-                    © Copyright 2030 MIMETICA - All Rights Reserved
+                    © Copyright 2026 MIMETICA - All Rights Reserved
                 </p>
             </div>
             <div class="col-12 col-lg-6 center">
