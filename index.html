@@ -26,21 +26,22 @@
 
 
 
-  <style>h1,h2,h3,h4,h5,h6,.card-title,.mbr-section-title,.mbr-section-subtitle{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif!important;color:#111!important;}</style>
+  <style>h1,h2,h3,h4,h5,h6,.card-title,.mbr-section-title,.mbr-section-subtitle{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif!important;color:#f4f4f5!important;}</style>
 
 <style>
 /* ═══════════════════════════════════
-   MIMETICA — FLAT WHITE, APPLE/SIMILE STYLE
+   MIMETICA — DARK, APPLE/SIMILE STYLE
    ═══════════════════════════════════ */
 :root {
-  --bg: #ffffff;
-  --bg-alt: #FAFAFA;
-  --card: #ffffff;
-  --dark: #1d1d1f;
-  --mid: #6e6e73;
-  --faint: #a0a0a5;
-  --line: #e8e8ea;
-  --teal: #26a69a;
+  --bg: #050506;
+  --bg-alt: #0b0b0d;
+  --card: #0b0b0d;
+  --card-2: #101013;
+  --dark: #f4f4f5;
+  --mid: #9a9aa2;
+  --faint: #55555c;
+  --line: #202024;
+  --teal: #2bb3a3;
   --pink: #e91e8c;
   --orange: #ef6c47;
   --confetti-3: #2C9BD1;
@@ -60,7 +61,7 @@ body {
 
 /* ── NAV ── */
 .navbar {
-  background: rgba(255,255,255,0.85) !important;
+  background: rgba(5,5,6,0.82) !important;
   backdrop-filter: blur(20px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
   border-bottom: 1px solid var(--line) !important;
@@ -68,6 +69,7 @@ body {
 .navbar-caption {
   font-weight: 700 !important;
   letter-spacing: -0.02em !important;
+  color: var(--dark) !important;
 }
 .nav-link {
   font-weight: 500 !important;
@@ -76,13 +78,14 @@ body {
 }
 .btn-black {
   background: var(--dark) !important;
+  color: #050506 !important;
   border-radius: 980px !important;
   font-weight: 600 !important;
   font-size: 0.8rem !important;
   padding: 9px 20px !important;
   transition: opacity 0.2s !important;
 }
-.btn-black:hover { opacity: 0.75 !important; }
+.btn-black:hover { opacity: 0.78 !important; }
 .btn-outline-mim {
   background: transparent !important;
   border: 1.5px solid var(--dark) !important;
@@ -94,7 +97,7 @@ body {
   transition: background 0.2s !important;
   display: inline-block;
 }
-.btn-outline-mim:hover { background: rgba(0,0,0,0.04) !important; }
+.btn-outline-mim:hover { background: rgba(255,255,255,0.06) !important; }
 .mim-cta-strip { text-align:center; padding: 8px 0; }
 .mim-cta-strip a {
   color: var(--dark) !important;
@@ -137,32 +140,6 @@ body {
 }
 .hero-pill b { color: var(--dark); font-weight: 600; }
 .hero-pill svg { width: 13px; height: 13px; flex-shrink: 0; }
-.iso-field { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-.iso-tile {
-  position: absolute;
-  width: 132px; padding: 12px 14px;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: 0 24px 48px -24px rgba(20,24,26,0.22);
-  will-change: transform;
-}
-.iso-tile .bar { width: 26px; height: 5px; border-radius: 3px; margin-bottom: 9px; }
-.iso-tile .l1 { width: 80%; height: 7px; border-radius: 3px; background: var(--line); margin-bottom: 6px; }
-.iso-tile .l2 { width: 55%; height: 7px; border-radius: 3px; background: var(--line); }
-.iso-tile.t1 { top: 6%; left: 2%; }
-.iso-tile.t1 .bar { background: var(--pink); }
-.iso-tile.t2 { top: 58%; left: -1%; width: 112px; }
-.iso-tile.t2 .bar { background: var(--confetti-3); }
-.iso-tile.t3 { top: 10%; right: 1%; }
-.iso-tile.t3 .bar { background: var(--orange); }
-.iso-tile.t4 { top: 62%; right: 0%; width: 118px; }
-.iso-tile.t4 .bar { background: var(--teal); }
-.iso-tile.t5 { top: 2%; left: 24%; width: 96px; opacity: 0.7; }
-.iso-tile.t5 .bar { background: var(--confetti-3); }
-.iso-tile.t6 { top: 4%; right: 23%; width: 96px; opacity: 0.7; }
-.iso-tile.t6 .bar { background: var(--pink); }
-@media (max-width: 980px) { .iso-tile { display: none; } }
 #header10-7 .row { justify-content: center !important; }
 #header10-7 .mbr-section-title {
   color: var(--dark) !important;
@@ -183,7 +160,7 @@ body {
 }
 #header10-7 .mbr-section-btn .btn-black {
   background: var(--dark) !important;
-  color: #fff !important;
+  color: #050506 !important;
 }
 #header10-7 .image-wrap {
   margin-top: 56px !important;
@@ -195,9 +172,9 @@ body {
   box-shadow: 0 30px 80px -24px rgba(0,0,0,0.18) !important;
 }
 
-/* ── LOGOS — faixa clara, sem card ── */
+/* ── LOGOS — faixa escura ── */
 #clients1-8 {
-  background: var(--bg-alt) !important;
+  background: var(--bg) !important;
   padding: 56px 0 !important;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -214,7 +191,7 @@ body {
   font-weight: 600 !important;
   letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
-  color: #a0a0a5 !important;
+  color: var(--mid) !important;
 }
 
 /* ── FEATURES12 (screenshot) — flat ── */
@@ -234,7 +211,7 @@ body {
   color: var(--dark) !important;
 }
 
-/* ── CHAPTER — bloco centralizado de largura cheia, com slot de imagem ── */
+/* ── CHAPTER — bloco centralizado de largura cheia ── */
 .chapter { padding: clamp(5rem,11vw,8.5rem) 0; border-top: 1px solid var(--line); }
 .chapter.alt { background: var(--bg-alt); }
 .chapter .center-col { max-width: 680px; margin: 0 auto; text-align: center; padding: 0 24px; }
@@ -250,26 +227,28 @@ body {
   max-width: 44ch;
   margin: 1.2rem auto 0;
 }
-.art-slot {
-  margin: clamp(2.5rem,6vw,3.5rem) auto 0;
-  max-width: 720px;
-  aspect-ratio: 16/9.5;
-  border: 1.5px dashed var(--line);
-  border-radius: 20px;
-  background: var(--bg-alt);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  position: relative;
-}
-.chapter.alt .art-slot { background: var(--bg); }
-.art-slot .park { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; will-change: transform; }
-.art-slot .park span {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--faint);
-}
 #features019-d { position: relative; overflow: hidden; }
 #populacao-generativa { position: relative; overflow: hidden; }
+
+/* ── PILARES — grade de cards com canvas ── */
+.pillars-section { background: var(--bg); padding: clamp(2rem,5vw,3.5rem) 0 clamp(5rem,11vw,8rem); border-top: 1px solid var(--line); }
+.pillars-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+  max-width: 1100px; margin: clamp(3rem,6vw,4rem) auto 0; padding: 0 24px;
+}
+@media (max-width: 860px) { .pillars-grid { grid-template-columns: 1fr; } }
+.pillar-card {
+  position: relative; aspect-ratio: 4/3; border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; background: var(--card-2);
+}
+.pillar-card canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pillar-copy {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 1.75rem 1.75rem 1.5rem;
+  background: linear-gradient(to top, rgba(5,5,6,0.94), rgba(5,5,6,0));
+}
+.pillar-copy h3 { color: var(--dark); font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+.pillar-copy p { color: var(--mid); font-size: 0.88rem; line-height: 1.55; max-width: 34ch; }
+.pillar-copy .mim-cta-strip { text-align: left; padding: 10px 0 0; }
 
 /* ── MOS — specs, centralizado ── */
 #article22-i {
@@ -326,7 +305,7 @@ body {
   margin-bottom: 10px !important;
   overflow: hidden !important;
   box-shadow: none !important;
-  background: #fff !important;
+  background: var(--card-2) !important;
 }
 #list01-j .card-header {
   background: transparent !important;
@@ -342,14 +321,15 @@ body {
 #list01-j .panel-text {
   font-size: 0.975rem !important;
   line-height: 1.7 !important;
-  color: #444 !important;
+  color: var(--mid) !important;
   font-style: italic !important;
   border-left: 3px solid var(--teal) !important;
   padding-left: 16px !important;
   margin: 0 !important;
 }
+#list01-j .sign { color: var(--mid) !important; }
 
-/* ── BLOG — faixa clara ── */
+/* ── BLOG — faixa escura ── */
 section:has(#blog-grid) {
   background: var(--bg-alt) !important;
   padding: 96px 0 !important;
@@ -417,7 +397,7 @@ section:has(#blog-grid) .container {
 						<img src="assets/images/logo-color.png" alt="mimetica tech research" style="height: 3rem;">
 					</a>
 				</span>
-				<span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary logo" href="index.html">mimetica</a></span>
+				<span class="navbar-caption-wrap"><a class="navbar-caption logo" href="index.html">mimetica</a></span>
 			</div>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 				<div class="hamburger">
@@ -455,14 +435,6 @@ section:has(#blog-grid) .container {
     
 
     <canvas class="bg-canvas" id="canvas-hero" aria-hidden="true"></canvas>
-    <div class="iso-field" aria-hidden="true">
-        <div class="iso-tile t1" data-depth="0.06"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
-        <div class="iso-tile t2" data-depth="0.1"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
-        <div class="iso-tile t3" data-depth="0.08"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
-        <div class="iso-tile t4" data-depth="0.12"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
-        <div class="iso-tile t5" data-depth="0.05"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
-        <div class="iso-tile t6" data-depth="0.09"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
-    </div>
     <div class="align-center container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-9">
@@ -519,8 +491,8 @@ section:has(#blog-grid) .container {
 <style>
 @keyframes fontesMarquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 #fontes-track:hover { animation-play-state:paused; }
-#fontes-track img { filter:grayscale(1); opacity:0.45; transition:opacity 0.2s; }
-#fontes-track img:hover { opacity:0.8; }
+#fontes-track img { filter:grayscale(1) brightness(0) invert(1); opacity:0.4; transition:opacity 0.2s; }
+#fontes-track img:hover { opacity:0.75; }
 </style>
 
 <section data-bs-version="5.1" class="features12 cid-vmEwRwBaPd" id="features012-c">
@@ -606,7 +578,7 @@ section:has(#blog-grid) .container {
 @keyframes mimMarquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 #mim-track:hover { animation-play-state:paused; }
 .mim-tile {
-  background:#fff;
+  background:var(--card-2);
   border:1px solid var(--line);
   border-radius:12px;
   padding:1.5rem 1.4rem;
@@ -614,8 +586,8 @@ section:has(#blog-grid) .container {
   transition:border-color 0.25s, box-shadow 0.25s;
   cursor:default;
 }
-.mim-tile:hover { border-color:var(--teal); box-shadow:0 12px 30px -16px rgba(0,0,0,0.16); }
-.mim-region { font-size:0.65rem; font-family:monospace; color:#a0a0a5; margin-bottom:0.6rem; }
+.mim-tile:hover { border-color:var(--teal); box-shadow:0 12px 30px -16px rgba(0,0,0,0.5); }
+.mim-region { font-size:0.65rem; font-family:monospace; color:var(--mid); margin-bottom:0.6rem; }
 .mim-name { font-size:1.1rem; font-weight:500; color:var(--dark); margin-bottom:0.15rem; }
 .mim-role { font-size:0.75rem; color:var(--mid); margin-bottom:0.75rem; }
 .mim-income { font-family:monospace; font-size:0.78rem; margin-bottom:0.6rem; color:var(--teal); }
@@ -657,49 +629,50 @@ section:has(#blog-grid) .container {
 })();
 </script>
 
-<section id="features019-d" class="chapter" style="padding-top:clamp(5rem,11vw,8.5rem);">
-	<canvas class="bg-canvas" id="canvas-motor" aria-hidden="true"></canvas>
+<section id="features019-d" class="chapter" style="padding-top:clamp(5rem,11vw,8.5rem); padding-bottom:0; border-bottom:none;">
 	<div class="center-col">
 		<h2 class="mbr-fonts-style"><strong>Um motor, várias aplicações.</strong></h2>
 		<p class="chapter-body">A mesma tecnologia se adapta a diferentes frentes — cada uma ajustada ao dado disponível para aquele contexto.</p>
 	</div>
 </section>
 
-<section class="chapter reveal">
-	<div class="center-col">
-		<h2 class="mbr-fonts-style"><strong>Comportamento de mercado e consumidor</strong></h2>
-		<p class="chapter-body">Teste preço, conceito e mensagem com milhares de respondentes generativos, validados por dados reais, em horas em vez de semanas.</p>
-		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — comportamento de mercado</span></div></div>
+<section class="pillars-section reveal">
+	<div class="pillars-grid">
+		<div class="pillar-card">
+			<canvas id="canvas-comportamento" aria-hidden="true"></canvas>
+			<div class="pillar-copy">
+				<h3>Comportamento de mercado e consumidor</h3>
+				<p>Teste preço, conceito e mensagem com milhares de respondentes generativos, validados por dados reais, em horas em vez de semanas.</p>
+			</div>
+		</div>
+		<div class="pillar-card">
+			<canvas id="canvas-cenarios" aria-hidden="true"></canvas>
+			<div class="pillar-copy">
+				<h3>Cenários comerciais</h3>
+				<p>Simulação de decisão comercial — de precificação a como uma negociação de conta tende a se desenrolar — a partir do histórico da própria empresa.</p>
+			</div>
+		</div>
+		<div class="pillar-card">
+			<canvas id="canvas-monitoramento" aria-hidden="true"></canvas>
+			<div class="pillar-copy">
+				<h3>Monitoramento contínuo</h3>
+				<p>Acompanhe como o mercado real diverge do cenário simulado entre uma rodada de pesquisa e outra, com alerta antecipado quando algo muda.</p>
+			</div>
+		</div>
+		<div class="pillar-card">
+			<canvas id="canvas-ecommerce" aria-hidden="true"></canvas>
+			<div class="pillar-copy">
+				<h3>E-commerce</h3>
+				<p>Apps de precificação, vitrine e promoções construídos sobre o mesmo motor, direto na operação (Nuvemshop).</p>
+			</div>
+		</div>
 	</div>
+	<div class="mim-cta-strip" style="padding-top:2.5rem;"><a href="pesquisa-sintetica.html">Fale com um consultor →</a></div>
 </section>
 
-<section class="chapter alt reveal">
-	<div class="center-col">
-		<h2 class="mbr-fonts-style"><strong>Cenários comerciais</strong></h2>
-		<p class="chapter-body">Simulação de decisão comercial — de precificação a como uma negociação de conta tende a se desenrolar — a partir do histórico e dos dados que a própria empresa já tem.</p>
-		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — cenários comerciais</span></div></div>
-	</div>
-</section>
-
-<section class="chapter reveal">
-	<div class="center-col">
-		<h2 class="mbr-fonts-style"><strong>Monitoramento contínuo</strong></h2>
-		<p class="chapter-body">Acompanhe como o mercado real diverge do cenário simulado entre uma rodada de pesquisa e outra, com alerta antecipado quando algo muda.</p>
-		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — monitoramento contínuo</span></div></div>
-	</div>
-</section>
-
-<section class="chapter alt reveal">
-	<div class="center-col">
-		<h2 class="mbr-fonts-style"><strong>E-commerce</strong></h2>
-		<p class="chapter-body">Apps de precificação, vitrine e promoções construídos sobre o mesmo motor, direto na operação (Nuvemshop).</p>
-		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — e-commerce</span></div></div>
-		<div class="mim-cta-strip" style="padding-top:2rem;"><a href="pesquisa-sintetica.html">Fale com um consultor →</a></div>
-	</div>
-</section>
-
-<section style="background:var(--bg-alt); padding:96px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-  <div class="container">
+<section id="dif" style="background:var(--bg-alt); padding:96px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:relative; overflow:hidden;">
+  <canvas class="bg-canvas" id="canvas-dif" aria-hidden="true"></canvas>
+  <div class="container" style="position:relative; z-index:1;">
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
         <h2 class="mbr-fonts-style" style="color:var(--dark); font-size:clamp(1.7rem,3.4vw,2.6rem); font-weight:700; letter-spacing:-0.025em; margin-bottom:1rem;">Não é um LLM opinando.</h2>
@@ -710,8 +683,6 @@ section:has(#blog-grid) .container {
 </section>
 
 <section data-bs-version="5.1" class="article22 cid-vmHF0KsgTw" id="article22-i">
-  <canvas class="bg-canvas" id="canvas-setores" aria-hidden="true"></canvas>
-
 
 
   <div class="container">
@@ -822,11 +793,11 @@ section:has(#blog-grid) .container {
 	</div>
 </section>
 
-<section style="padding: 60px 0; background:#f3f3f3;">
+<section style="padding: 60px 0; background:var(--bg-alt);">
 <div class="container">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-    <h2 style="font-size:28px; font-weight:700; color:#111; margin:0;">Direto do blog</h2>
-    <a href="blog.html" style="font-size:13px; font-weight:600; color:#111; text-decoration:none;">Ver todos os posts →</a>
+    <h2 style="font-size:28px; font-weight:700; color:var(--dark); margin:0;">Direto do blog</h2>
+    <a href="blog.html" style="font-size:13px; font-weight:600; color:var(--dark); text-decoration:none;">Ver todos os posts →</a>
   </div>
   <div id="blog-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:24px;"></div>
 </div>
@@ -835,8 +806,8 @@ function renderUltimoPost(data) {
   var posts = data.feed.entry || [];
   if (posts.length === 0) return;
   var grid = document.getElementById('blog-grid');
-  var colors = {'Healthcare':'#fde8e8','Automotivo':'#e8f0fd','Varejo':'#e8fdf0','Tecnologia':'#f5e8fd'};
-  var textColors = {'Healthcare':'#c0392b','Automotivo':'#2b6cc0','Varejo':'#27ae60','Tecnologia':'#8e44ad'};
+  var colors = {'Healthcare':'rgba(233,76,76,0.14)','Automotivo':'rgba(43,108,192,0.16)','Varejo':'rgba(43,179,163,0.16)','Tecnologia':'rgba(142,68,173,0.18)'};
+  var textColors = {'Healthcare':'#e88888','Automotivo':'#6fa8e8','Varejo':'#4fd6c2','Tecnologia':'#c191dd'};
   var categoriasPt = {'Healthcare':'Saúde','Automotivo':'Automotivo','Varejo':'Varejo','Tecnologia':'Tecnologia'};
 
   posts.forEach(function(post, i) {
@@ -845,24 +816,24 @@ function renderUltimoPost(data) {
     var aut = post.author ? post.author[0].name.$t : '';
     var dt = new Date(post.published.$t).toLocaleDateString('pt-BR', {day:'2-digit', month:'short', year:'numeric'}).toUpperCase();
     var summary = post.summary ? post.summary.$t.substring(0, 100) + '...' : '';
-    var bg = colors[lbl] || '#f0f0f0';
-    var tc = textColors[lbl] || '#555';
+    var bg = colors[lbl] || 'rgba(255,255,255,0.06)';
+    var tc = textColors[lbl] || '#9a9aa2';
 
     grid.innerHTML +=
       '<a href="blog.html?post=' + i + '" style="text-decoration:none; color:inherit;">' +
-      '<div style="border-radius:14px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; display:flex; flex-direction:column; transition:transform 0.2s;" onmouseover="this.style.transform=\'translateY(-4px)\'" onmouseout="this.style.transform=\'none\'">' +
+      '<div style="border-radius:14px; overflow:hidden; border:1px solid #202024; background:#101013; display:flex; flex-direction:column; transition:transform 0.2s, border-color 0.2s;" onmouseover="this.style.transform=\'translateY(-4px)\';this.style.borderColor=\'#2bb3a3\'" onmouseout="this.style.transform=\'none\';this.style.borderColor=\'#202024\'">' +
         (img ? '<img src="' + img + '" style="width:100%; height:190px; object-fit:cover;">' : '') +
         '<div style="padding:20px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">' +
           '<div>' +
             (lbl ? '<span style="background:' + bg + '; color:' + tc + '; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:700;">' + (categoriasPt[lbl] || lbl) + '</span>' : '') +
-            '<h3 style="font-size:16px; font-weight:700; color:#111; margin:10px 0 8px; line-height:1.3;">' + post.title.$t + '</h3>' +
-            (summary ? '<p style="font-size:13px; color:#666; margin:0 0 16px; line-height:1.5;">' + summary + '</p>' : '') +
+            '<h3 style="font-size:16px; font-weight:700; color:#f4f4f5; margin:10px 0 8px; line-height:1.3;">' + post.title.$t + '</h3>' +
+            (summary ? '<p style="font-size:13px; color:#9a9aa2; margin:0 0 16px; line-height:1.5;">' + summary + '</p>' : '') +
           '</div>' +
-          '<div style="display:flex; align-items:center; gap:8px; border-top:1px solid #f0f0f0; padding-top:12px;">' +
-            '<div style="width:28px; height:28px; border-radius:50%; background:#111; display:flex; align-items:center; justify-content:center; color:#fff; font-size:11px; font-weight:700;">' + (aut ? aut[0].toUpperCase() : '') + '</div>' +
+          '<div style="display:flex; align-items:center; gap:8px; border-top:1px solid #202024; padding-top:12px;">' +
+            '<div style="width:28px; height:28px; border-radius:50%; background:#f4f4f5; display:flex; align-items:center; justify-content:center; color:#050506; font-size:11px; font-weight:700;">' + (aut ? aut[0].toUpperCase() : '') + '</div>' +
             '<div>' +
-              '<p style="margin:0; font-size:12px; font-weight:600; color:#111;">' + aut + '</p>' +
-              '<p style="margin:0; font-size:11px; color:#999;">' + dt + '</p>' +
+              '<p style="margin:0; font-size:12px; font-weight:600; color:#f4f4f5;">' + aut + '</p>' +
+              '<p style="margin:0; font-size:11px; color:#55555c;">' + dt + '</p>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -1009,8 +980,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 /* ═══════════════════════════════════
    CAMPOS DE PONTOS GENERATIVOS — Canvas + GSAP ScrollTrigger
-   Adaptado do protótipo mimetica-parallax-prototipo.html: mesma lógica de
-   geração de pontos, cores/alfas recalibrados pro tema claro do site real.
+   Tema escuro: pulsos viajando, glow, malha do hero reativa ao cursor,
+   rede de partículas — mesma lógica do protótipo aprovado.
    ═══════════════════════════════════ */
 (function(){
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
@@ -1018,9 +989,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var narrow = window.innerWidth < 860;
+  var TEAL = '43,179,163';
+  var WHITE = '244,244,245';
 
-  var TEAL = '38,166,154';  // var(--teal) #26a69a
-  var DARK = '29,29,31';    // var(--dark) #1d1d1f
+  function glow(ctx,color,blur){ ctx.shadowColor='rgb('+color+')'; ctx.shadowBlur=blur; }
+  function noGlow(ctx){ ctx.shadowBlur=0; }
+  function quadPoint(sx,sy,cx,cy,ex,ey,tt){
+    return { x:(1-tt)*(1-tt)*sx+2*(1-tt)*tt*cx+tt*tt*ex, y:(1-tt)*(1-tt)*sy+2*(1-tt)*tt*cy+tt*tt*ey };
+  }
 
   function rand(a,b){ return a + Math.random()*(b-a); }
   function lerp(a,b,t){ return a + (b-a)*t; }
@@ -1049,253 +1025,171 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var fields = [];
 
-  /* ---------- 1. HERO — malha em perspectiva convergindo ---------- */
-  function makePerspectiveField(canvas, color){
-    var c = setupCanvas(canvas);
-    var pts = [];
-    function build(){
-      pts = [];
-      var w = c.w, h = c.h;
-      var rows = narrow ? 14 : 22, cols = narrow ? 22 : 40;
-      var vanishX = w*1.05, vanishY = -h*0.18;
-      for (var r=0; r<rows; r++){
-        var d = Math.pow(r/(rows-1), 1.6);
-        var y = lerp(vanishY, h*1.05, d);
-        for (var col=0; col<cols; col++){
-          var baseX = lerp(-w*0.12, w*1.12, col/(cols-1));
-          var x = lerp(vanishX, baseX, d);
-          pts.push({ bx:x, by:y, depth:d, phase: Math.random()*Math.PI*2 });
-        }
-      }
-    }
+  /* 1. HERO — malha em perspectiva, reage sutilmente ao cursor */
+  function makePerspective(canvas,color){
+    var c = setupCanvas(canvas); var pts=[];
+    var mouse = { x:-9999, y:-9999 };
+    canvas.parentElement.addEventListener('mousemove', function(e){
+      var rect = canvas.getBoundingClientRect();
+      mouse.x = (e.clientX-rect.left)*c.dpr; mouse.y = (e.clientY-rect.top)*c.dpr;
+    });
+    canvas.parentElement.addEventListener('mouseleave', function(){ mouse.x=-9999; mouse.y=-9999; });
+    function build(){ pts=[]; var w=c.w,h=c.h; var rows=narrow?16:24, cols=narrow?26:44; var vx=w*1.05, vy=-h*0.18;
+      for (var r=0;r<rows;r++){ var d=Math.pow(r/(rows-1),1.6); var y=lerp(vy,h*1.05,d);
+        for (var col=0;col<cols;col++){ var bx=lerp(-w*0.12,w*1.12,col/(cols-1)); var x=lerp(vx,bx,d); pts.push({bx:x,by:y,depth:d,phase:Math.random()*6.28}); } } }
     build();
-    return {
-      canvas: canvas, c: c, progress: 1,
-      draw: function(t){
-        var ctx = c.ctx;
-        ctx.clearRect(0,0,c.w,c.h);
-        ctx.fillStyle = 'rgb(' + color + ')';
-        for (var i=0;i<pts.length;i++){
-          var p = pts[i];
-          var jitter = reduceMotion ? 0 : Math.sin(t*0.0006 + p.phase) * 1.2 * p.depth;
-          var r = lerp(0.5, 1.7, p.depth) * c.dpr;
-          var a = lerp(0.03, 0.22, p.depth) * this.progress;
-          ctx.globalAlpha = a;
-          ctx.beginPath();
-          ctx.arc(p.bx, p.by + jitter, r, 0, Math.PI*2);
-          ctx.fill();
-        }
-        ctx.globalAlpha = 1;
-      }
-    };
+    return { c:c, progress:1, draw:function(t){ var ctx=c.ctx; ctx.clearRect(0,0,c.w,c.h); ctx.fillStyle='rgb('+color+')';
+      var influence = c.w*0.1;
+      for (var i=0;i<pts.length;i++){ var p=pts[i];
+        var j=reduceMotion?0:Math.sin(t*0.0006+p.phase)*1.4*p.depth;
+        var px=p.bx, py=p.by+j;
+        var dx=px-mouse.x, dy=py-mouse.y, dist=Math.sqrt(dx*dx+dy*dy);
+        if (!reduceMotion && dist < influence){ var f=(1-dist/influence)*16*c.dpr; var inv=1/(dist||1); px+=dx*inv*f; py+=dy*inv*f; }
+        var r=lerp(0.6,2.2,p.depth)*c.dpr; var a=lerp(0.12,0.8,p.depth)*this.progress;
+        ctx.globalAlpha=a; ctx.beginPath(); ctx.arc(px,py,r,0,6.283); ctx.fill(); }
+      ctx.globalAlpha=1; } };
   }
 
-  /* ---------- 2. FONTES — cluster na base com raízes subindo ---------- */
-  function makeRootField(canvas, color){
-    var c = setupCanvas(canvas);
-    var cluster = [], roots = [];
-    function build(){
-      var w = c.w, h = c.h;
-      cluster = [];
-      var n = narrow ? 160 : 320;
-      for (var i=0;i<n;i++){
-        var ang = Math.random()*Math.PI*2;
-        var rad = Math.sqrt(Math.random()) * w*0.2;
-        cluster.push({ x: w*0.5 + Math.cos(ang)*rad, y: h*0.95 + Math.sin(ang)*rad*0.18, r: rand(0.8,2)*c.dpr });
-      }
-      roots = [];
-      var lines = narrow ? 8 : 14;
-      for (var j=0;j<lines;j++){
-        var sx = w*0.5 + rand(-w*0.16, w*0.16);
-        var sy = h*0.92 + rand(-h*0.02, h*0.02);
-        var ex = sx + rand(-w*0.24, w*0.24);
-        var ey = -h*0.05;
-        var cx = lerp(sx, ex, 0.5) + rand(-w*0.12, w*0.12);
-        var cy = lerp(sy, ey, 0.4);
-        roots.push({ sx:sx, sy:sy, cx:cx, cy:cy, ex:ex, ey:ey, revealAt: j/lines * 0.7 });
-      }
-    }
+  /* 2. FONTES — cluster com raízes subindo + pulso de dado viajando por cada linha */
+  function makeRoot(canvas,color){
+    var c = setupCanvas(canvas); var cluster=[], roots=[];
+    function build(){ var w=c.w,h=c.h; cluster=[]; var n=narrow?180:360;
+      for (var i=0;i<n;i++){ var ang=Math.random()*6.283; var rad=Math.sqrt(Math.random())*w*0.22; cluster.push({x:w*0.5+Math.cos(ang)*rad,y:h*0.92+Math.sin(ang)*rad*0.18,r:rand(1,2.6)*c.dpr,phase:Math.random()*6.28}); }
+      roots=[]; var lines=narrow?9:16;
+      for (var j=0;j<lines;j++){ var sx=w*0.5+rand(-w*0.18,w*0.18), sy=h*0.9+rand(-h*0.02,h*0.02), ex=sx+rand(-w*0.28,w*0.28), ey=-h*0.05, cx=lerp(sx,ex,0.5)+rand(-w*0.15,w*0.15), cy=lerp(sy,ey,0.4);
+        roots.push({sx:sx,sy:sy,cx:cx,cy:cy,ex:ex,ey:ey,revealAt:j/lines*0.7,pulseOffset:Math.random(),speed:rand(0.00018,0.00032)}); } }
     build();
-    return {
-      canvas: canvas, c: c, progress: 0,
-      draw: function(t){
-        var ctx = c.ctx;
-        ctx.clearRect(0,0,c.w,c.h);
-        ctx.strokeStyle = 'rgba(' + color + ',0.32)';
-        ctx.lineWidth = Math.max(1, c.dpr);
-        for (var i=0;i<roots.length;i++){
-          var rt = roots[i];
-          var local = smoothstep(rt.revealAt, rt.revealAt + 0.28, this.progress);
-          if (local <= 0) continue;
-          ctx.globalAlpha = local;
-          ctx.beginPath();
-          ctx.moveTo(rt.sx, rt.sy);
-          var steps = 24;
-          for (var s=1; s<=steps*local; s++){
-            var tt = s/steps;
-            var xx = (1-tt)*(1-tt)*rt.sx + 2*(1-tt)*tt*rt.cx + tt*tt*rt.ex;
-            var yy = (1-tt)*(1-tt)*rt.sy + 2*(1-tt)*tt*rt.cy + tt*tt*rt.ey;
-            ctx.lineTo(xx, yy);
-          }
-          ctx.stroke();
-        }
-        ctx.fillStyle = 'rgb(' + color + ')';
-        ctx.globalAlpha = clampNum(this.progress*1.4, 0, 1) * 0.5;
-        for (var k=0;k<cluster.length;k++){
-          var p = cluster[k];
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-          ctx.fill();
-        }
-        ctx.globalAlpha = 1;
-      }
-    };
+    return { c:c, progress:0, draw:function(t){ var ctx=c.ctx; ctx.clearRect(0,0,c.w,c.h); ctx.strokeStyle='rgba('+color+',0.45)'; ctx.lineWidth=Math.max(1,c.dpr);
+      for (var i=0;i<roots.length;i++){ var rt=roots[i]; var local=smoothstep(rt.revealAt,rt.revealAt+0.28,this.progress); if(local<=0) continue;
+        ctx.globalAlpha=local*0.7; ctx.beginPath(); ctx.moveTo(rt.sx,rt.sy); var steps=24;
+        for (var s=1;s<=steps*local;s++){ var tt=s/steps; var pt=quadPoint(rt.sx,rt.sy,rt.cx,rt.cy,rt.ex,rt.ey,tt); ctx.lineTo(pt.x,pt.y); } ctx.stroke();
+        if (local>=1 && !reduceMotion){ var tt2=((t*rt.speed)+rt.pulseOffset)%1; var pp=quadPoint(rt.sx,rt.sy,rt.cx,rt.cy,rt.ex,rt.ey,tt2);
+          var fade = Math.sin(tt2*Math.PI);
+          ctx.save(); glow(ctx,color,7*c.dpr); ctx.fillStyle='rgb('+color+')'; ctx.globalAlpha=fade*0.95;
+          ctx.beginPath(); ctx.arc(pp.x,pp.y,2*c.dpr,0,6.283); ctx.fill(); ctx.restore(); } }
+      noGlow(ctx); ctx.fillStyle='rgb('+color+')'; ctx.globalAlpha=clampNum(this.progress*1.4,0,1)*0.85;
+      for (var k=0;k<cluster.length;k++){ var p=cluster[k]; var br=reduceMotion?0:Math.sin(t*0.0012+p.phase)*0.3;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r+br,0,6.283); ctx.fill(); } ctx.globalAlpha=1; } };
   }
 
-  /* ---------- 3. "12 perfis" — 12 clusters distintos ---------- */
-  function makeClusterGrid(canvas, color){
-    var c = setupCanvas(canvas);
-    var groups = [];
-    function build(){
-      groups = [];
-      var w = c.w, h = c.h;
-      var cols = narrow ? 3 : 6, rows = narrow ? 4 : 2;
-      for (var i=0;i<12;i++){
-        var col = i % cols, row = Math.floor(i/cols);
-        var cx = lerp(w*0.08, w*0.92, cols>1 ? col/(cols-1) : 0.5);
-        var cy = lerp(h*0.22, h*0.82, rows>1 ? row/(rows-1) : 0.5);
-        var dots = [];
-        var n = Math.round(rand(6,11));
-        for (var d=0; d<n; d++){
-          var ang = Math.random()*Math.PI*2;
-          var rad = Math.sqrt(Math.random()) * w*0.03;
-          dots.push({ ox: Math.cos(ang)*rad, oy: Math.sin(ang)*rad, r: rand(0.9,2)*c.dpr, phase: Math.random()*6.28 });
-        }
-        groups.push({ cx:cx, cy:cy, dots:dots, order: i/12 });
-      }
-    }
+  /* 3. 12 PERFIS — clusters com leve "respiração" coletiva */
+  function makeClusterGrid(canvas,color){
+    var c = setupCanvas(canvas); var groups=[];
+    function build(){ groups=[]; var w=c.w,h=c.h; var cols=narrow?3:6, rows=narrow?4:2;
+      for (var i=0;i<12;i++){ var col=i%cols, row=Math.floor(i/cols); var cx=lerp(w*0.08,w*0.92,cols>1?col/(cols-1):0.5); var cy=lerp(h*0.24,h*0.78,rows>1?row/(rows-1):0.5);
+        var dots=[]; var n=Math.round(rand(7,13));
+        for (var d=0;d<n;d++){ var ang=Math.random()*6.283; var rad=Math.sqrt(Math.random())*w*0.032; dots.push({ox:Math.cos(ang)*rad,oy:Math.sin(ang)*rad,r:rand(1,2.3)*c.dpr,phase:Math.random()*6.28}); }
+        groups.push({cx:cx,cy:cy,dots:dots,order:i/12,breathePhase:Math.random()*6.28}); } }
     build();
-    return {
-      canvas: canvas, c: c, progress: 0,
-      draw: function(t){
-        var ctx = c.ctx;
-        ctx.clearRect(0,0,c.w,c.h);
-        ctx.fillStyle = 'rgb(' + color + ')';
-        for (var i=0;i<groups.length;i++){
-          var g = groups[i];
-          var local = smoothstep(g.order*0.6, g.order*0.6+0.35, this.progress);
-          if (local<=0) continue;
-          for (var d=0; d<g.dots.length; d++){
-            var dot = g.dots[d];
-            var jitter = reduceMotion ? 0 : Math.sin(t*0.001 + dot.phase)*1;
-            ctx.globalAlpha = local*0.4;
-            ctx.beginPath();
-            ctx.arc(g.cx+dot.ox, g.cy+dot.oy+jitter, dot.r*local, 0, Math.PI*2);
-            ctx.fill();
-          }
-        }
-        ctx.globalAlpha = 1;
-      }
-    };
+    return { c:c, progress:1, draw:function(t){ var ctx=c.ctx; ctx.clearRect(0,0,c.w,c.h); ctx.fillStyle='rgb('+color+')';
+      for (var i=0;i<groups.length;i++){ var g=groups[i]; var local=smoothstep(g.order*0.5,g.order*0.5+0.35,this.progress); if(local<=0) continue;
+        var breathe = reduceMotion?1:1+Math.sin(t*0.0009+g.breathePhase)*0.08;
+        for (var d=0;d<g.dots.length;d++){ var dot=g.dots[d]; var j=reduceMotion?0:Math.sin(t*0.0011+dot.phase)*1.3; ctx.globalAlpha=local*0.8;
+          ctx.beginPath(); ctx.arc(g.cx+dot.ox*breathe,g.cy+dot.oy*breathe+j,dot.r*local,0,6.283); ctx.fill(); } } ctx.globalAlpha=1; } };
   }
 
-  /* ---------- 4. "Um motor, várias aplicações" — feixe radial ---------- */
-  function makeBurstField(canvas, color){
-    var c = setupCanvas(canvas);
-    var rays = [];
-    function build(){
-      rays = [];
-      var n = narrow ? 14 : 26;
-      for (var i=0;i<n;i++){
-        var ang = (i/n) * Math.PI*2 + rand(-0.06,0.06);
-        rays.push({ ang: ang, len: rand(0.35,1) });
-      }
-    }
+  /* 4. COMPORTAMENTO — pontos convergindo, sinais viajando até o centro */
+  function makeConverge(canvas,color){
+    var c = setupCanvas(canvas); var pts=[], cx=0, cy=0;
+    function build(){ var w=c.w,h=c.h; cx=w*0.5; cy=h*0.5; pts=[]; var n=narrow?14:22;
+      for (var i=0;i<n;i++){ var ang=Math.random()*6.283; var rad=rand(w*0.22,w*0.46); pts.push({x:cx+Math.cos(ang)*rad,y:cy+Math.sin(ang)*rad*0.7,r:rand(1.2,2.4)*c.dpr,phase:Math.random()*6.28,pulseOffset:Math.random(),speed:rand(0.00022,0.00038)}); } }
     build();
-    return {
-      canvas: canvas, c: c, progress: 0,
-      draw: function(t){
-        var ctx = c.ctx;
-        var w = c.w, h = c.h;
-        var cx = w*0.5, cy = h*0.42;
-        var maxLen = Math.min(w,h)*0.5;
-        ctx.clearRect(0,0,w,h);
-        ctx.strokeStyle = 'rgba(' + color + ',0.3)';
-        ctx.lineWidth = Math.max(1, c.dpr*0.8);
-        ctx.fillStyle = 'rgb(' + color + ')';
-        for (var i=0;i<rays.length;i++){
-          var ry = rays[i];
-          var wob = reduceMotion ? 0 : Math.sin(t*0.0007 + i)*0.02;
-          var L = maxLen * ry.len * this.progress;
-          var ex = cx + Math.cos(ry.ang+wob)*L;
-          var ey = cy + Math.sin(ry.ang+wob)*L;
-          ctx.globalAlpha = 0.18 * this.progress + 0.04;
-          ctx.beginPath();
-          ctx.moveTo(cx,cy);
-          ctx.lineTo(ex,ey);
-          ctx.stroke();
-          ctx.globalAlpha = 0.4 * this.progress;
-          ctx.beginPath();
-          ctx.arc(ex, ey, 1.6*c.dpr, 0, Math.PI*2);
-          ctx.fill();
-        }
-        ctx.globalAlpha = this.progress * 0.5;
-        ctx.beginPath();
-        ctx.arc(cx, cy, 2.8*c.dpr, 0, Math.PI*2);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-    };
+    return { c:c, progress:0, draw:function(t){ var ctx=c.ctx; ctx.clearRect(0,0,c.w,c.h);
+      ctx.strokeStyle='rgba('+color+',0.18)'; ctx.lineWidth=Math.max(1,c.dpr*0.7);
+      for (var i=0;i<pts.length;i++){ var p=pts[i]; var j=reduceMotion?0:Math.sin(t*0.0006+p.phase)*2;
+        var px=p.x, py=p.y+j;
+        ctx.globalAlpha=0.45*this.progress; ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(cx,cy); ctx.stroke();
+        ctx.fillStyle='rgb('+color+')'; ctx.globalAlpha=0.7*this.progress; ctx.beginPath(); ctx.arc(px,py,p.r,0,6.283); ctx.fill();
+        if (!reduceMotion && this.progress>0.4){ var tt=((t*p.speed)+p.pulseOffset)%1; var sx=px+(cx-px)*tt, sy=py+(cy-py)*tt; var fade=Math.sin(tt*Math.PI);
+          ctx.save(); glow(ctx,color,6*c.dpr); ctx.globalAlpha=fade*0.9; ctx.beginPath(); ctx.arc(sx,sy,1.7*c.dpr,0,6.283); ctx.fill(); ctx.restore(); } }
+      noGlow(ctx);
+      var pulse = reduceMotion?0:Math.sin(t*0.0022)*0.4+0.6;
+      ctx.strokeStyle='rgba('+color+','+(0.5*this.progress)+')'; ctx.lineWidth=Math.max(1,c.dpr);
+      ctx.beginPath(); ctx.arc(cx,cy,(5+pulse*4)*c.dpr,0,6.283); ctx.stroke();
+      ctx.fillStyle='rgb('+color+')'; ctx.globalAlpha=this.progress; ctx.beginPath(); ctx.arc(cx,cy,3*c.dpr,0,6.283); ctx.fill(); ctx.globalAlpha=1; } };
   }
 
-  /* ---------- 5. Setores — campo esparso e discreto ---------- */
-  function makeSparseField(canvas, color, opts){
-    opts = opts || {};
-    var c = setupCanvas(canvas);
-    var pts = [];
-    function build(){
-      pts = [];
-      var w = c.w, h = c.h;
-      var n = opts.count || (narrow ? 24 : 40);
-      for (var i=0;i<n;i++){
-        pts.push({ x: rand(0,w), y: rand(0,h), r: rand(0.7,1.6)*c.dpr, phase: Math.random()*6.28 });
-      }
-    }
+  /* 5. CENÁRIOS — árvore de decisão, dado fluindo pelo caminho em destaque */
+  function makeBranch(canvas,color){
+    var c = setupCanvas(canvas); var trunk=null, branches=[], mainPath=[];
+    function build(){ var w=c.w,h=c.h; trunk={sx:w*0.1,sy:h*0.55,ex:w*0.4,ey:h*0.55};
+      branches=[
+        {sx:w*0.4,sy:h*0.55,ex:w*0.68,ey:h*0.26,main:false},
+        {sx:w*0.4,sy:h*0.55,ex:w*0.68,ey:h*0.55,main:true},
+        {sx:w*0.4,sy:h*0.55,ex:w*0.68,ey:h*0.82,main:false},
+        {sx:w*0.68,sy:h*0.55,ex:w*0.92,ey:h*0.4,main:false},
+        {sx:w*0.68,sy:h*0.55,ex:w*0.92,ey:h*0.68,main:true}
+      ];
+      mainPath = [trunk.sx,trunk.sy, trunk.ex,trunk.ey, branches[1].ex,branches[1].ey, branches[4].ex,branches[4].ey]; }
     build();
-    return {
-      canvas: canvas, c: c, progress: 0,
-      draw: function(t){
-        var ctx = c.ctx;
-        ctx.clearRect(0,0,c.w,c.h);
-        ctx.fillStyle = 'rgb(' + color + ')';
-        for (var i=0;i<pts.length;i++){
-          var p = pts[i];
-          var jitter = reduceMotion ? 0 : Math.sin(t*0.0005+p.phase)*0.8;
-          ctx.globalAlpha = 0.28 * this.progress;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y+jitter, p.r, 0, Math.PI*2);
-          ctx.fill();
-        }
-        ctx.globalAlpha = 1;
+    return { c:c, progress:0, draw:function(t){ var ctx=c.ctx; ctx.clearRect(0,0,c.w,c.h);
+      ctx.lineWidth=Math.max(1.2,c.dpr); ctx.strokeStyle='rgba('+color+',0.3)';
+      ctx.globalAlpha=this.progress; ctx.beginPath(); ctx.moveTo(trunk.sx,trunk.sy); ctx.lineTo(trunk.ex,trunk.ey); ctx.stroke();
+      for (var i=0;i<branches.length;i++){ var b=branches[i]; ctx.strokeStyle = b.main ? 'rgba('+color+',0.85)' : 'rgba('+color+',0.24)';
+        ctx.globalAlpha=this.progress; ctx.beginPath(); ctx.moveTo(b.sx,b.sy); ctx.lineTo(b.ex,b.ey); ctx.stroke();
+        ctx.fillStyle = b.main ? 'rgb('+color+')' : 'rgba('+color+',0.4)'; ctx.beginPath(); ctx.arc(b.ex,b.ey,(b.main?2.6:1.6)*c.dpr,0,6.283); ctx.fill(); }
+      ctx.fillStyle='rgb('+color+')'; ctx.beginPath(); ctx.arc(trunk.sx,trunk.sy,2.2*c.dpr,0,6.283); ctx.fill();
+      if (!reduceMotion && this.progress>0.7){
+        var segs = mainPath.length/2 - 1; var loopT = (t*0.00035)%1; var seg = Math.min(segs-1, Math.floor(loopT*segs)); var segT = loopT*segs - seg;
+        var x0=mainPath[seg*2], y0=mainPath[seg*2+1], x1=mainPath[seg*2+2], y1=mainPath[seg*2+3];
+        var px=lerp(x0,x1,segT), py=lerp(y0,y1,segT);
+        ctx.save(); glow(ctx,color,9*c.dpr); ctx.globalAlpha=0.95; ctx.fillStyle='rgb('+color+')';
+        ctx.beginPath(); ctx.arc(px,py,2.4*c.dpr,0,6.283); ctx.fill(); ctx.restore();
       }
-    };
+      ctx.globalAlpha=1; } };
+  }
+
+  /* 6. MONITORAMENTO — linha de pulso contínua + ping no ponto de alerta */
+  function makePulse(canvas,color){
+    var c = setupCanvas(canvas);
+    return { c:c, progress:0, draw:function(t){ var ctx=c.ctx; var w=c.w,h=c.h; ctx.clearRect(0,0,w,h);
+      var midY=h*0.55, amp=h*0.14; ctx.lineWidth=Math.max(1.4,c.dpr); ctx.lineJoin='round'; ctx.lineCap='round';
+      ctx.strokeStyle='rgba('+color+',0.2)'; ctx.beginPath();
+      for (var x=0;x<=w;x+=6){ var y=midY+Math.sin(x*0.012+(reduceMotion?0:t*0.0004))*amp*0.3; if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); } ctx.stroke();
+      ctx.strokeStyle='rgba('+color+',0.9)'; ctx.globalAlpha=this.progress; ctx.beginPath();
+      var alertX = w*0.62;
+      for (var xx=0;xx<=w*this.progress;xx+=4){ var yy=midY;
+        if (Math.abs(xx-alertX) < w*0.05){ yy = midY - Math.sin((xx-(alertX-w*0.05))/(w*0.1)*Math.PI)*amp; } else { yy = midY + Math.sin(xx*0.02+(reduceMotion?0:t*0.001))*amp*0.15; }
+        if (xx===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); } ctx.stroke();
+      if (this.progress > 0.6){ var pAlpha=(this.progress-0.6)/0.4;
+        ctx.save(); glow(ctx,color,8*c.dpr); ctx.fillStyle='rgb('+color+')'; ctx.globalAlpha=pAlpha; ctx.beginPath(); ctx.arc(alertX, midY-amp, 3*c.dpr, 0, 6.283); ctx.fill(); ctx.restore();
+        if (!reduceMotion){ var ringT=(t*0.0009)%1; ctx.strokeStyle='rgba('+color+','+(pAlpha*(1-ringT)*0.7)+')'; ctx.lineWidth=Math.max(1,c.dpr);
+          ctx.beginPath(); ctx.arc(alertX, midY-amp, (3+ringT*16)*c.dpr, 0, 6.283); ctx.stroke(); } }
+      ctx.globalAlpha=1; } };
+  }
+
+  /* 7. Campo esparso com micro-rede — pontos conectam vizinhos próximos */
+  function makeSparse(canvas,color,opts){
+    opts=opts||{}; var c=setupCanvas(canvas); var pts=[];
+    function build(){ pts=[]; var w=c.w,h=c.h; var n=opts.count||(narrow?32:50);
+      for (var i=0;i<n;i++){ pts.push({x:rand(0,w),y:rand(0,h),r:rand(0.9,1.9)*c.dpr,phase:Math.random()*6.28}); } }
+    build();
+    return { c:c, progress:0, draw:function(t){ var ctx=c.ctx; ctx.clearRect(0,0,c.w,c.h);
+      var maxDist = Math.min(c.w,c.h)*0.16; ctx.lineWidth=Math.max(0.6,c.dpr*0.5);
+      for (var i=0;i<pts.length;i++){ for (var j=i+1;j<pts.length;j++){ var dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y; var dist=Math.sqrt(dx*dx+dy*dy);
+        if (dist<maxDist){ var a=(1-dist/maxDist)*0.22*this.progress; ctx.strokeStyle='rgba('+color+','+a+')'; ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke(); } } }
+      ctx.fillStyle='rgb('+color+')';
+      for (var k=0;k<pts.length;k++){ var p=pts[k]; var j2=reduceMotion?0:Math.sin(t*0.0006+p.phase)*1.4;
+        ctx.globalAlpha=0.65*this.progress; ctx.beginPath(); ctx.arc(p.x,p.y+j2,p.r,0,6.283); ctx.fill(); } ctx.globalAlpha=1; } };
   }
 
   /* ---------- Instancia os campos ---------- */
-  var canvasHero = document.getElementById('canvas-hero');
-  var canvasFontes = document.getElementById('canvas-fontes');
-  var canvasPerfis = document.getElementById('canvas-perfis');
-  var canvasMotor = document.getElementById('canvas-motor');
-  var canvasSetores = document.getElementById('canvas-setores');
-  if (!canvasHero || !canvasFontes || !canvasPerfis || !canvasMotor || !canvasSetores) return;
+  var elHero=document.getElementById('canvas-hero'), elFontes=document.getElementById('canvas-fontes'),
+      elPerfis=document.getElementById('canvas-perfis'), elDif=document.getElementById('canvas-dif'),
+      elComp=document.getElementById('canvas-comportamento'), elCen=document.getElementById('canvas-cenarios'),
+      elMon=document.getElementById('canvas-monitoramento'), elEcom=document.getElementById('canvas-ecommerce');
+  if(!elHero||!elFontes||!elPerfis||!elDif||!elComp||!elCen||!elMon||!elEcom) return;
 
-  var hero = makePerspectiveField(canvasHero, DARK);
-  var fontes = makeRootField(canvasFontes, TEAL);
-  var perfis = makeClusterGrid(canvasPerfis, TEAL);
-  var motor = makeBurstField(canvasMotor, DARK);
-  var setores = makeSparseField(canvasSetores, TEAL, { count: narrow ? 24 : 40 });
+  var hero = makePerspective(elHero, WHITE);
+  var fontes = makeRoot(elFontes, TEAL);
+  var perfis = makeClusterGrid(elPerfis, TEAL);
+  var dif = makeSparse(elDif, WHITE, { count: narrow?28:44 });
+  var comp = makeConverge(elComp, TEAL);
+  var cen = makeBranch(elCen, TEAL);
+  var mon = makePulse(elMon, TEAL);
+  var ecom = makeSparse(elEcom, WHITE, { count: narrow?20:32 });
 
-  fields = [hero, fontes, perfis, motor, setores];
+  fields = [hero, fontes, perfis, dif, comp, cen, mon, ecom];
 
   /* ---------- ScrollTrigger: revela o padrão conforme a seção entra ---------- */
   function bindReveal(field, triggerEl, opts){
@@ -1310,22 +1204,21 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   bindReveal(fontes, '#clients1-8', { start:'top 90%', end:'top 15%' });
   bindReveal(perfis, '#populacao-generativa', { start:'top 88%', end:'top 25%' });
-  bindReveal(motor, '#features019-d', { start:'top 88%', end:'top 30%' });
-  bindReveal(setores, '#article22-i', { start:'top 90%', end:'top 30%' });
+  bindReveal(dif, '#dif', { start:'top 90%', end:'top 25%' });
+  bindReveal(comp, '#canvas-comportamento', { start:'top 88%', end:'top 35%' });
+  bindReveal(cen, '#canvas-cenarios', { start:'top 88%', end:'top 35%' });
+  bindReveal(mon, '#canvas-monitoramento', { start:'top 88%', end:'top 35%' });
+  bindReveal(ecom, '#canvas-ecommerce', { start:'top 88%', end:'top 35%' });
 
-  /* ---------- Parallax sutil dos canvases (transform/opacity, custo baixo) ---------- */
+  /* ---------- Parallax sutil do canvas do hero ---------- */
   if (!reduceMotion){
     gsap.to('#canvas-hero', {
-      yPercent: 8, ease: 'none',
+      yPercent: 10, ease: 'none',
       scrollTrigger: { trigger:'#header10-7', start:'top top', end:'bottom top', scrub: 0.6 }
     });
     gsap.to('#canvas-hero', {
       opacity: 0, ease: 'none',
       scrollTrigger: { trigger:'#header10-7', start:'bottom 90%', end:'bottom 25%', scrub: 0.6 }
-    });
-    gsap.to('#canvas-fontes', {
-      yPercent: -6, ease:'none',
-      scrollTrigger: { trigger:'#clients1-8', start:'top bottom', end:'bottom top', scrub: 0.6 }
     });
   }
 
