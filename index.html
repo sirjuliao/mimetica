@@ -11,7 +11,7 @@
   <meta name="twitter:title" content="mimetica tech research">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="assets/images/logo-color.png" type="image/x-icon">
-  <meta name="description" content="Mimética: motor de simulação de comportamento calibrado por dado real. Testamos decisão de mercado, preço e comportamento de consumidor antes da empresa colocar dinheiro nisso.">
+  <meta name="description" content="Mimetica: motor de simulação de comportamento ancorado em dados reais. Testamos decisão de mercado, preço e comportamento de consumidor antes da empresa colocar dinheiro nisso.">
   
   
   <title>mimetica tech research</title>
@@ -106,6 +106,14 @@ body {
 }
 .mim-cta-strip a:hover { opacity: 0.7; }
 
+/* ── Campos de pontos generativos (Canvas + GSAP ScrollTrigger) ── */
+.bg-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 0; }
+#header10-7 > *:not(canvas) { position: relative; z-index: 1; }
+#clients1-8 > *:not(canvas) { position: relative; z-index: 1; }
+#populacao-generativa > *:not(canvas) { position: relative; z-index: 1; }
+#features019-d > *:not(canvas) { position: relative; z-index: 1; }
+#article22-i > *:not(canvas) { position: relative; z-index: 1; }
+
 /* ── HERO — flat, sem card, centralizado ── */
 #header10-7 {
   background: var(--bg) !important;
@@ -193,6 +201,8 @@ body {
   padding: 56px 0 !important;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
 }
 #clients1-8 .images-container {
   max-width: 1100px;
@@ -258,6 +268,8 @@ body {
   font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--faint);
 }
+#features019-d { position: relative; overflow: hidden; }
+#populacao-generativa { position: relative; overflow: hidden; }
 
 /* ── MOS — specs, centralizado ── */
 #article22-i {
@@ -266,6 +278,8 @@ body {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 #article22-i .container { max-width: 1160px; }
 #article22-i .mbr-section-title {
@@ -344,6 +358,9 @@ section:has(#blog-grid) {
 section:has(#blog-grid) .container {
   max-width: 1160px;
 }
+/* Bug do tema Mobirise: esconde (visibility:hidden) imagens/títulos inseridos via JS
+   depois do carregamento inicial da página, achando que fazem parte de outro carrossel. */
+#blog-grid .hidden { visibility: visible !important; }
 
 /* ── CTA final — faixa plana centralizada, fecho da página ── */
 #article13-k {
@@ -424,7 +441,7 @@ section:has(#blog-grid) .container {
 						<a class="nav-link link text-black text-primary display-4" href="pesquisa-sintetica.html">População</a>
 					</li></ul>
 				
-				<div class="navbar-buttons mbr-section-btn"><a class="btn btn-black display-4" href="index.html#header10-7">Entrar</a></div>
+				<div class="navbar-buttons mbr-section-btn"><span class="btn btn-black display-4" style="opacity:0.55; cursor:default;" title="Login em breve">Em breve</span></div>
 			</div>
 		</div>
 	</nav>
@@ -437,6 +454,7 @@ section:has(#blog-grid) .container {
     
     
 
+    <canvas class="bg-canvas" id="canvas-hero" aria-hidden="true"></canvas>
     <div class="iso-field" aria-hidden="true">
         <div class="iso-tile t1" data-depth="0.06"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
         <div class="iso-tile t2" data-depth="0.1"><div class="bar"></div><div class="l1"></div><div class="l2"></div></div>
@@ -454,7 +472,7 @@ section:has(#blog-grid) .container {
                 </div>
                 <h1 class="mbr-section-title mbr-fonts-style mb-3 display-1"><strong>Antecipe cenários e decisões de negócios.</strong></h1>
                 <p class="mbr-text mbr-fonts-style display-7">
-                    Um motor de simulação generativa de comportamento, calibrado por dado real, que testa decisão de mercado, preço e comportamento de consumidor para tomada de decisões.</p>
+                    Um motor de simulação generativa de comportamento, calibrado por dados reais, que testa decisão de mercado, preço e comportamento de consumidor para o próximo passo do negócio.</p>
                 <div class="mbr-section-btn mt-3" style="display:flex; flex-wrap:wrap; gap:12px;">
                     <a class="btn btn-black display-4" href="#features019-d">Veja como simulamos&nbsp;</a>
                     <a class="btn btn-outline-mim display-4" href="pesquisa-sintetica.html">População&nbsp;</a>
@@ -468,13 +486,13 @@ section:has(#blog-grid) .container {
 </section>
 
 <section data-bs-version="5.1" class="clients1 cid-vmEbLrlDU0" id="clients1-8">
-    
+    <canvas class="bg-canvas" id="canvas-fontes" aria-hidden="true"></canvas>
     <div class="images-container container">
         <div class="mbr-section-head">
 
 
             <p class="mbr-text mbr-fonts-style align-center mt-2 display-7">
-                Calibrada com mais de 40 fontes de dados reais do Brasil </p>
+                Ancorada em mais de 40 fontes de dados reais do Brasil </p>
         </div>
     </div>
     <div style="overflow:hidden; margin-top:28px;">
@@ -512,7 +530,7 @@ section:has(#blog-grid) .container {
 		<div class="row justify-content-center">
 			<div class="col-12 content-head">
 				<div class="mbr-section-head mb-5">
-					<h1 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2" style="text-align:center;"><strong>A mimetica constrói representações digitais de segmentos reais e as mantém atualizadas, com dados sempre atualizados.</strong></h1>
+					<h1 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2" style="text-align:center;"><strong>A Mimetica constrói representações digitais de segmentos reais e as atualiza continuamente.</strong></h1>
 				</div>
 			</div>
 		</div>
@@ -565,14 +583,15 @@ section:has(#blog-grid) .container {
 })();
 </script>
 
-<section style="background:var(--bg-alt); padding:80px 0 96px; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+<section id="populacao-generativa" style="background:var(--bg-alt); padding:80px 0 96px; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <canvas class="bg-canvas" id="canvas-perfis" aria-hidden="true"></canvas>
   <div class="container">
     <div style="margin-bottom:3rem;">
       <h2 style="font-size:clamp(2rem,5vw,3.2rem); font-weight:700; color:var(--dark); line-height:1.1; margin-bottom:1rem;">
         12 perfis.<br><span style="color:var(--teal);">O Brasil completo.</span>
       </h2>
       <p style="color:var(--mid); font-size:1rem; line-height:1.7; max-width:580px;">
-        Calibrados com IBGE, Banco Central, Nielsen e comportamento digital em tempo real. Cada um acorda com o Brasil de hoje.
+        Construídos com IBGE, Banco Central, Nielsen e comportamento digital em tempo real. Cada um acorda com o Brasil de hoje.
       </p>
     </div>
   </div>
@@ -639,16 +658,17 @@ section:has(#blog-grid) .container {
 </script>
 
 <section id="features019-d" class="chapter" style="padding-top:clamp(5rem,11vw,8.5rem);">
+	<canvas class="bg-canvas" id="canvas-motor" aria-hidden="true"></canvas>
 	<div class="center-col">
-		<h2 class="mbr-fonts-style"><strong>Um motor, várias decisões.</strong></h2>
-		<p class="chapter-body">O mesmo motor de simulação generativa se aplica a diferentes frentes — cada uma calibrada com o dado disponível para aquele contexto.</p>
+		<h2 class="mbr-fonts-style"><strong>Um motor, várias aplicações.</strong></h2>
+		<p class="chapter-body">A mesma tecnologia se adapta a diferentes frentes — cada uma ajustada ao dado disponível para aquele contexto.</p>
 	</div>
 </section>
 
 <section class="chapter reveal">
 	<div class="center-col">
 		<h2 class="mbr-fonts-style"><strong>Comportamento de mercado e consumidor</strong></h2>
-		<p class="chapter-body">Teste preço, conceito e mensagem com milhares de respondentes generativos, calibrados por dado real, em horas em vez de semanas.</p>
+		<p class="chapter-body">Teste preço, conceito e mensagem com milhares de respondentes generativos, validados por dados reais, em horas em vez de semanas.</p>
 		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — comportamento de mercado</span></div></div>
 	</div>
 </section>
@@ -656,7 +676,7 @@ section:has(#blog-grid) .container {
 <section class="chapter alt reveal">
 	<div class="center-col">
 		<h2 class="mbr-fonts-style"><strong>Cenários comerciais</strong></h2>
-		<p class="chapter-body">Simulação de decisão comercial — de precificação a como uma negociação de conta tende a se desenrolar — a partir do histórico e do dado que a própria empresa já tem.</p>
+		<p class="chapter-body">Simulação de decisão comercial — de precificação a como uma negociação de conta tende a se desenrolar — a partir do histórico e dos dados que a própria empresa já tem.</p>
 		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — cenários comerciais</span></div></div>
 	</div>
 </section>
@@ -672,7 +692,7 @@ section:has(#blog-grid) .container {
 <section class="chapter alt reveal">
 	<div class="center-col">
 		<h2 class="mbr-fonts-style"><strong>E-commerce</strong></h2>
-		<p class="chapter-body">Apps de precificação, vitrine e promoções calibrados pelo mesmo motor, direto na operação (Nuvemshop).</p>
+		<p class="chapter-body">Apps de precificação, vitrine e promoções construídos sobre o mesmo motor, direto na operação (Nuvemshop).</p>
 		<div class="art-slot"><div class="park" data-depth="0.12"><span>imagem — e-commerce</span></div></div>
 		<div class="mim-cta-strip" style="padding-top:2rem;"><a href="pesquisa-sintetica.html">Fale com um consultor →</a></div>
 	</div>
@@ -690,9 +710,10 @@ section:has(#blog-grid) .container {
 </section>
 
 <section data-bs-version="5.1" class="article22 cid-vmHF0KsgTw" id="article22-i">
-  
-  
-  
+  <canvas class="bg-canvas" id="canvas-setores" aria-hidden="true"></canvas>
+
+
+
   <div class="container">
     <h5 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>40+ integrações, sempre ligadas.</strong></h5>
     <div class="specs-grid">
@@ -702,11 +723,11 @@ section:has(#blog-grid) .container {
       </div>
       <div class="spec-item">
         <span class="n">SETORES</span>
-        <p>Modelos calibrados por indústria, com a linguagem e os drivers de decisão de cada uma. Aferição de share em tempo real.</p>
+        <p>Modelos ajustados por indústria, com a linguagem e os drivers de decisão de cada uma. Aferição de share em tempo real.</p>
       </div>
       <div class="spec-item">
-        <span class="n">CALIBRAÇÃO</span>
-        <p>Arquétipos refinados com dados de respondentes reais — CRM, NPS, sell-out — não só dado público.</p>
+        <span class="n">VALIDAÇÃO</span>
+        <p>Arquétipos refinados com dados de respondentes reais — CRM, NPS, sell-out — não só dados públicos.</p>
       </div>
     </div>
   </div>
@@ -732,7 +753,7 @@ section:has(#blog-grid) .container {
 							<div class="card-header" role="tab" id="headingOne">
 								<a role="button" class="panel-title collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-core="" href="#collapse1_6" aria-expanded="false" aria-controls="collapse1">
 									<h6 class="panel-title-edit mbr-semibold mbr-fonts-style mb-0 display-5">
-										LUCAS - Gen Z - 19 - São Paulo - R$ 1.200,00</h6>
+										LUCAS - Gen Z - Classe C - São Paulo - R$ 1.200,00</h6>
 									<span class="sign mbr-iconfont mobi-mbri-arrow-down"></span>
 								</a>
 							</div>
@@ -748,7 +769,7 @@ section:has(#blog-grid) .container {
 							<div class="card-header" role="tab" id="headingOne">
 								<a role="button" class="panel-title collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-core="" href="#collapse2_6" aria-expanded="false" aria-controls="collapse2">
 									<h6 class="panel-title-edit mbr-semibold mbr-fonts-style mb-0 display-5">
-										FERNANDA -Classe B - 38 - Goiania - R$ 7.200,00</h6>
+										FERNANDA - Millennial - Classe B - Goiânia - R$ 7.200,00</h6>
 									<span class="sign mbr-iconfont mobi-mbri-arrow-down"></span>
 								</a>
 							</div>
@@ -764,7 +785,7 @@ section:has(#blog-grid) .container {
 							<div class="card-header" role="tab" id="headingOne">
 								<a role="button" class="panel-title collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-core="" href="#collapse3_6" aria-expanded="false" aria-controls="collapse3">
 									<h6 class="panel-title-edit mbr-semibold mbr-fonts-style mb-0 display-5">
-										CARLOS - Baixa Renda - 29 - São Paulo - R$ 2.900,00</h6>
+										CARLOS - Gen X - Classe D/E - São Paulo - R$ 2.900,00</h6>
 									<span class="sign mbr-iconfont mobi-mbri-arrow-down"></span>
 								</a>
 							</div>
@@ -780,7 +801,7 @@ section:has(#blog-grid) .container {
 							<div class="card-header" role="tab" id="headingOne">
 								<a role="button" class="panel-title collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-core="" href="#collapse4_6" aria-expanded="false" aria-controls="collapse4">
 									<h6 class="panel-title-edit mbr-semibold mbr-fonts-style mb-0 display-5">
-										BEATRIZ - Premium - 44 - Pinheiros - R$ 22.000,00</h6>
+										BEATRIZ - Millennial - Classe A - Pinheiros - R$ 22.000,00</h6>
 									<span class="sign mbr-iconfont mobi-mbri-arrow-down"></span>
 								</a>
 							</div>
@@ -816,6 +837,7 @@ function renderUltimoPost(data) {
   var grid = document.getElementById('blog-grid');
   var colors = {'Healthcare':'#fde8e8','Automotivo':'#e8f0fd','Varejo':'#e8fdf0','Tecnologia':'#f5e8fd'};
   var textColors = {'Healthcare':'#c0392b','Automotivo':'#2b6cc0','Varejo':'#27ae60','Tecnologia':'#8e44ad'};
+  var categoriasPt = {'Healthcare':'Saúde','Automotivo':'Automotivo','Varejo':'Varejo','Tecnologia':'Tecnologia'};
 
   posts.forEach(function(post, i) {
     var img = post.media$thumbnail ? post.media$thumbnail.url.replace('/s72-c/', '/s400-c/') : '';
@@ -832,7 +854,7 @@ function renderUltimoPost(data) {
         (img ? '<img src="' + img + '" style="width:100%; height:190px; object-fit:cover;">' : '') +
         '<div style="padding:20px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">' +
           '<div>' +
-            (lbl ? '<span style="background:' + bg + '; color:' + tc + '; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:700;">' + lbl + '</span>' : '') +
+            (lbl ? '<span style="background:' + bg + '; color:' + tc + '; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:700;">' + (categoriasPt[lbl] || lbl) + '</span>' : '') +
             '<h3 style="font-size:16px; font-weight:700; color:#111; margin:10px 0 8px; line-height:1.3;">' + post.title.$t + '</h3>' +
             (summary ? '<p style="font-size:13px; color:#666; margin:0 0 16px; line-height:1.5;">' + summary + '</p>' : '') +
           '</div>' +
@@ -854,7 +876,7 @@ function renderUltimoPost(data) {
 <section id="quem-somos" class="chapter alt reveal">
   <div class="center-col">
     <h2 style="letter-spacing:-0.03em; color:var(--dark);">De onde viemos</h2>
-    <p class="chapter-body" style="max-width:60ch;">A Mimética nasceu como um motor de simulação de cenários e comportamento. Com o tempo, passamos a simular e entender comportamento de consumidor. Isso nos levou a montar, dentro do motor que já existia, uma frente dedicada de pesquisa, hoje aplicada a saúde, alimentos, varejo e outras decisões de negócio.</p>
+    <p class="chapter-body" style="max-width:60ch;">A Mimetica nasceu como um motor de simulação de cenários e comportamento. Com o tempo, passamos a simular e entender comportamento de consumidor. Isso nos levou a montar, dentro do motor que já existia, uma frente dedicada de pesquisa, hoje aplicada a saúde, alimentos, varejo e outras decisões de negócio.</p>
     <div class="mim-cta-strip" style="padding-top:16px;"><a href="pesquisa-sintetica.html">Fale com um consultor →</a></div>
   </div>
 </section>
@@ -911,7 +933,7 @@ function renderUltimoPost(data) {
             </div>
         </div>
     </div>
-</section><script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/mbr-switch-arrow/mbr-switch-arrow.js"></script>  <script src="assets/theme/js/script.js"></script>  
+</section><script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/mbr-switch-arrow/mbr-switch-arrow.js"></script>  <script src="assets/theme/js/script.js"></script>  <script src="assets/gsap/gsap.min.js"></script>  <script src="assets/gsap/ScrollTrigger.min.js"></script>  
   
   
  <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
@@ -982,6 +1004,342 @@ document.addEventListener('DOMContentLoaded', function() {
     updateParallax();
   }
 });
+</script>
+
+<script>
+/* ═══════════════════════════════════
+   CAMPOS DE PONTOS GENERATIVOS — Canvas + GSAP ScrollTrigger
+   Adaptado do protótipo mimetica-parallax-prototipo.html: mesma lógica de
+   geração de pontos, cores/alfas recalibrados pro tema claro do site real.
+   ═══════════════════════════════════ */
+(function(){
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var narrow = window.innerWidth < 860;
+
+  var TEAL = '38,166,154';  // var(--teal) #26a69a
+  var DARK = '29,29,31';    // var(--dark) #1d1d1f
+
+  function rand(a,b){ return a + Math.random()*(b-a); }
+  function lerp(a,b,t){ return a + (b-a)*t; }
+  function clampNum(v,a,b){ return Math.max(a, Math.min(b,v)); }
+  function smoothstep(edge0, edge1, x){
+    var t = clampNum((x-edge0)/(edge1-edge0), 0, 1);
+    return t*t*(3-2*t);
+  }
+  function debounce(fn, ms){
+    var t; return function(){ clearTimeout(t); t = setTimeout(fn, ms); };
+  }
+
+  function setupCanvas(canvas){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    function resize(){
+      var rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = Math.max(1, Math.round(rect.width*dpr));
+      canvas.height = Math.max(1, Math.round(rect.height*dpr));
+      canvas.style.width = rect.width+'px';
+      canvas.style.height = rect.height+'px';
+    }
+    resize();
+    window.addEventListener('resize', debounce(resize, 150));
+    return { ctx: canvas.getContext('2d'), get w(){ return canvas.width; }, get h(){ return canvas.height; }, dpr: dpr, resize: resize };
+  }
+
+  var fields = [];
+
+  /* ---------- 1. HERO — malha em perspectiva convergindo ---------- */
+  function makePerspectiveField(canvas, color){
+    var c = setupCanvas(canvas);
+    var pts = [];
+    function build(){
+      pts = [];
+      var w = c.w, h = c.h;
+      var rows = narrow ? 14 : 22, cols = narrow ? 22 : 40;
+      var vanishX = w*1.05, vanishY = -h*0.18;
+      for (var r=0; r<rows; r++){
+        var d = Math.pow(r/(rows-1), 1.6);
+        var y = lerp(vanishY, h*1.05, d);
+        for (var col=0; col<cols; col++){
+          var baseX = lerp(-w*0.12, w*1.12, col/(cols-1));
+          var x = lerp(vanishX, baseX, d);
+          pts.push({ bx:x, by:y, depth:d, phase: Math.random()*Math.PI*2 });
+        }
+      }
+    }
+    build();
+    return {
+      canvas: canvas, c: c, progress: 1,
+      draw: function(t){
+        var ctx = c.ctx;
+        ctx.clearRect(0,0,c.w,c.h);
+        ctx.fillStyle = 'rgb(' + color + ')';
+        for (var i=0;i<pts.length;i++){
+          var p = pts[i];
+          var jitter = reduceMotion ? 0 : Math.sin(t*0.0006 + p.phase) * 1.2 * p.depth;
+          var r = lerp(0.5, 1.7, p.depth) * c.dpr;
+          var a = lerp(0.03, 0.22, p.depth) * this.progress;
+          ctx.globalAlpha = a;
+          ctx.beginPath();
+          ctx.arc(p.bx, p.by + jitter, r, 0, Math.PI*2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }
+    };
+  }
+
+  /* ---------- 2. FONTES — cluster na base com raízes subindo ---------- */
+  function makeRootField(canvas, color){
+    var c = setupCanvas(canvas);
+    var cluster = [], roots = [];
+    function build(){
+      var w = c.w, h = c.h;
+      cluster = [];
+      var n = narrow ? 160 : 320;
+      for (var i=0;i<n;i++){
+        var ang = Math.random()*Math.PI*2;
+        var rad = Math.sqrt(Math.random()) * w*0.2;
+        cluster.push({ x: w*0.5 + Math.cos(ang)*rad, y: h*0.95 + Math.sin(ang)*rad*0.18, r: rand(0.8,2)*c.dpr });
+      }
+      roots = [];
+      var lines = narrow ? 8 : 14;
+      for (var j=0;j<lines;j++){
+        var sx = w*0.5 + rand(-w*0.16, w*0.16);
+        var sy = h*0.92 + rand(-h*0.02, h*0.02);
+        var ex = sx + rand(-w*0.24, w*0.24);
+        var ey = -h*0.05;
+        var cx = lerp(sx, ex, 0.5) + rand(-w*0.12, w*0.12);
+        var cy = lerp(sy, ey, 0.4);
+        roots.push({ sx:sx, sy:sy, cx:cx, cy:cy, ex:ex, ey:ey, revealAt: j/lines * 0.7 });
+      }
+    }
+    build();
+    return {
+      canvas: canvas, c: c, progress: 0,
+      draw: function(t){
+        var ctx = c.ctx;
+        ctx.clearRect(0,0,c.w,c.h);
+        ctx.strokeStyle = 'rgba(' + color + ',0.32)';
+        ctx.lineWidth = Math.max(1, c.dpr);
+        for (var i=0;i<roots.length;i++){
+          var rt = roots[i];
+          var local = smoothstep(rt.revealAt, rt.revealAt + 0.28, this.progress);
+          if (local <= 0) continue;
+          ctx.globalAlpha = local;
+          ctx.beginPath();
+          ctx.moveTo(rt.sx, rt.sy);
+          var steps = 24;
+          for (var s=1; s<=steps*local; s++){
+            var tt = s/steps;
+            var xx = (1-tt)*(1-tt)*rt.sx + 2*(1-tt)*tt*rt.cx + tt*tt*rt.ex;
+            var yy = (1-tt)*(1-tt)*rt.sy + 2*(1-tt)*tt*rt.cy + tt*tt*rt.ey;
+            ctx.lineTo(xx, yy);
+          }
+          ctx.stroke();
+        }
+        ctx.fillStyle = 'rgb(' + color + ')';
+        ctx.globalAlpha = clampNum(this.progress*1.4, 0, 1) * 0.5;
+        for (var k=0;k<cluster.length;k++){
+          var p = cluster[k];
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }
+    };
+  }
+
+  /* ---------- 3. "12 perfis" — 12 clusters distintos ---------- */
+  function makeClusterGrid(canvas, color){
+    var c = setupCanvas(canvas);
+    var groups = [];
+    function build(){
+      groups = [];
+      var w = c.w, h = c.h;
+      var cols = narrow ? 3 : 6, rows = narrow ? 4 : 2;
+      for (var i=0;i<12;i++){
+        var col = i % cols, row = Math.floor(i/cols);
+        var cx = lerp(w*0.08, w*0.92, cols>1 ? col/(cols-1) : 0.5);
+        var cy = lerp(h*0.22, h*0.82, rows>1 ? row/(rows-1) : 0.5);
+        var dots = [];
+        var n = Math.round(rand(6,11));
+        for (var d=0; d<n; d++){
+          var ang = Math.random()*Math.PI*2;
+          var rad = Math.sqrt(Math.random()) * w*0.03;
+          dots.push({ ox: Math.cos(ang)*rad, oy: Math.sin(ang)*rad, r: rand(0.9,2)*c.dpr, phase: Math.random()*6.28 });
+        }
+        groups.push({ cx:cx, cy:cy, dots:dots, order: i/12 });
+      }
+    }
+    build();
+    return {
+      canvas: canvas, c: c, progress: 0,
+      draw: function(t){
+        var ctx = c.ctx;
+        ctx.clearRect(0,0,c.w,c.h);
+        ctx.fillStyle = 'rgb(' + color + ')';
+        for (var i=0;i<groups.length;i++){
+          var g = groups[i];
+          var local = smoothstep(g.order*0.6, g.order*0.6+0.35, this.progress);
+          if (local<=0) continue;
+          for (var d=0; d<g.dots.length; d++){
+            var dot = g.dots[d];
+            var jitter = reduceMotion ? 0 : Math.sin(t*0.001 + dot.phase)*1;
+            ctx.globalAlpha = local*0.4;
+            ctx.beginPath();
+            ctx.arc(g.cx+dot.ox, g.cy+dot.oy+jitter, dot.r*local, 0, Math.PI*2);
+            ctx.fill();
+          }
+        }
+        ctx.globalAlpha = 1;
+      }
+    };
+  }
+
+  /* ---------- 4. "Um motor, várias aplicações" — feixe radial ---------- */
+  function makeBurstField(canvas, color){
+    var c = setupCanvas(canvas);
+    var rays = [];
+    function build(){
+      rays = [];
+      var n = narrow ? 14 : 26;
+      for (var i=0;i<n;i++){
+        var ang = (i/n) * Math.PI*2 + rand(-0.06,0.06);
+        rays.push({ ang: ang, len: rand(0.35,1) });
+      }
+    }
+    build();
+    return {
+      canvas: canvas, c: c, progress: 0,
+      draw: function(t){
+        var ctx = c.ctx;
+        var w = c.w, h = c.h;
+        var cx = w*0.5, cy = h*0.42;
+        var maxLen = Math.min(w,h)*0.5;
+        ctx.clearRect(0,0,w,h);
+        ctx.strokeStyle = 'rgba(' + color + ',0.3)';
+        ctx.lineWidth = Math.max(1, c.dpr*0.8);
+        ctx.fillStyle = 'rgb(' + color + ')';
+        for (var i=0;i<rays.length;i++){
+          var ry = rays[i];
+          var wob = reduceMotion ? 0 : Math.sin(t*0.0007 + i)*0.02;
+          var L = maxLen * ry.len * this.progress;
+          var ex = cx + Math.cos(ry.ang+wob)*L;
+          var ey = cy + Math.sin(ry.ang+wob)*L;
+          ctx.globalAlpha = 0.18 * this.progress + 0.04;
+          ctx.beginPath();
+          ctx.moveTo(cx,cy);
+          ctx.lineTo(ex,ey);
+          ctx.stroke();
+          ctx.globalAlpha = 0.4 * this.progress;
+          ctx.beginPath();
+          ctx.arc(ex, ey, 1.6*c.dpr, 0, Math.PI*2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = this.progress * 0.5;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 2.8*c.dpr, 0, Math.PI*2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    };
+  }
+
+  /* ---------- 5. Setores — campo esparso e discreto ---------- */
+  function makeSparseField(canvas, color, opts){
+    opts = opts || {};
+    var c = setupCanvas(canvas);
+    var pts = [];
+    function build(){
+      pts = [];
+      var w = c.w, h = c.h;
+      var n = opts.count || (narrow ? 24 : 40);
+      for (var i=0;i<n;i++){
+        pts.push({ x: rand(0,w), y: rand(0,h), r: rand(0.7,1.6)*c.dpr, phase: Math.random()*6.28 });
+      }
+    }
+    build();
+    return {
+      canvas: canvas, c: c, progress: 0,
+      draw: function(t){
+        var ctx = c.ctx;
+        ctx.clearRect(0,0,c.w,c.h);
+        ctx.fillStyle = 'rgb(' + color + ')';
+        for (var i=0;i<pts.length;i++){
+          var p = pts[i];
+          var jitter = reduceMotion ? 0 : Math.sin(t*0.0005+p.phase)*0.8;
+          ctx.globalAlpha = 0.28 * this.progress;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y+jitter, p.r, 0, Math.PI*2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }
+    };
+  }
+
+  /* ---------- Instancia os campos ---------- */
+  var canvasHero = document.getElementById('canvas-hero');
+  var canvasFontes = document.getElementById('canvas-fontes');
+  var canvasPerfis = document.getElementById('canvas-perfis');
+  var canvasMotor = document.getElementById('canvas-motor');
+  var canvasSetores = document.getElementById('canvas-setores');
+  if (!canvasHero || !canvasFontes || !canvasPerfis || !canvasMotor || !canvasSetores) return;
+
+  var hero = makePerspectiveField(canvasHero, DARK);
+  var fontes = makeRootField(canvasFontes, TEAL);
+  var perfis = makeClusterGrid(canvasPerfis, TEAL);
+  var motor = makeBurstField(canvasMotor, DARK);
+  var setores = makeSparseField(canvasSetores, TEAL, { count: narrow ? 24 : 40 });
+
+  fields = [hero, fontes, perfis, motor, setores];
+
+  /* ---------- ScrollTrigger: revela o padrão conforme a seção entra ---------- */
+  function bindReveal(field, triggerEl, opts){
+    opts = opts || {};
+    ScrollTrigger.create({
+      trigger: triggerEl,
+      start: opts.start || 'top 85%',
+      end: opts.end || 'bottom 20%',
+      scrub: opts.scrub !== undefined ? opts.scrub : 0.6,
+      onUpdate: function(self){ field.progress = self.progress; }
+    });
+  }
+  bindReveal(fontes, '#clients1-8', { start:'top 90%', end:'top 15%' });
+  bindReveal(perfis, '#populacao-generativa', { start:'top 88%', end:'top 25%' });
+  bindReveal(motor, '#features019-d', { start:'top 88%', end:'top 30%' });
+  bindReveal(setores, '#article22-i', { start:'top 90%', end:'top 30%' });
+
+  /* ---------- Parallax sutil dos canvases (transform/opacity, custo baixo) ---------- */
+  if (!reduceMotion){
+    gsap.to('#canvas-hero', {
+      yPercent: 8, ease: 'none',
+      scrollTrigger: { trigger:'#header10-7', start:'top top', end:'bottom top', scrub: 0.6 }
+    });
+    gsap.to('#canvas-hero', {
+      opacity: 0, ease: 'none',
+      scrollTrigger: { trigger:'#header10-7', start:'bottom 90%', end:'bottom 25%', scrub: 0.6 }
+    });
+    gsap.to('#canvas-fontes', {
+      yPercent: -6, ease:'none',
+      scrollTrigger: { trigger:'#clients1-8', start:'top bottom', end:'bottom top', scrub: 0.6 }
+    });
+  }
+
+  /* ---------- Loop de desenho ---------- */
+  function loop(t){
+    for (var i=0;i<fields.length;i++){ fields[i].draw(t); }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  ScrollTrigger.addEventListener('refreshInit', function(){
+    window.dispatchEvent(new Event('resize'));
+  });
+})();
 </script>
 
   </body>
