@@ -104,7 +104,12 @@ main section { position: relative; }
 main section > *:not(canvas) { position: relative; z-index: 1; }
 
 /* ── HERO ── */
-#hero { padding: calc(var(--nav-h) + 100px) 24px 64px; overflow: hidden; }
+#hero {
+  min-height: 100vh; min-height: 100svh;
+  display: flex; align-items: center; justify-content: center;
+  padding: calc(var(--nav-h) + 32px) 24px 64px;
+  overflow: hidden;
+}
 .hero-inner { max-width: 860px; margin: 0 auto; text-align: center; }
 .hero-pill {
   display: inline-flex; align-items: center; gap: 0.5rem;
@@ -676,14 +681,17 @@ function renderUltimoPost(data) {
       for (var r=0;r<rows;r++){ var d=Math.pow(r/(rows-1),1.6); var y=lerp(vy,h*1.05,d);
         for (var col=0;col<cols;col++){ var bx=lerp(-w*0.12,w*1.12,col/(cols-1)); var x=lerp(vx,bx,d); pts.push({bx:x,by:y,depth:d,phase:Math.random()*6.28}); } } }
     build();
-    return { c:c, progress:1, draw:function(t){ var ctx=c.ctx; ctx.clearRect(0,0,c.w,c.h); ctx.fillStyle='rgb('+color+')';
-      var influence = c.w*0.1;
+    return { c:c, progress:1, scrollT:0, draw:function(t){ var ctx=c.ctx; var w=c.w,h=c.h; ctx.clearRect(0,0,w,h); ctx.fillStyle='rgb('+color+')';
+      var influence = w*0.1;
+      var dive = this.scrollT*0.55;
       for (var i=0;i<pts.length;i++){ var p=pts[i];
-        var j=reduceMotion?0:Math.sin(t*0.0006+p.phase)*1.4*p.depth;
-        var px=p.bx, py=p.by+j;
+        var dEff = clampNum(p.depth+dive, 0, 1);
+        var j=reduceMotion?0:Math.sin(t*0.0006+p.phase)*1.4*dEff*(1+this.scrollT*1.6);
+        var drift = reduceMotion?0:this.scrollT*w*0.05*Math.sin(p.phase*0.7+this.scrollT*2.2);
+        var px=p.bx+drift, py=p.by+j;
         var dx=px-mouse.x, dy=py-mouse.y, dist=Math.sqrt(dx*dx+dy*dy);
         if (!reduceMotion && dist < influence){ var f=(1-dist/influence)*16*c.dpr; var inv=1/(dist||1); px+=dx*inv*f; py+=dy*inv*f; }
-        var r=lerp(0.6,2.2,p.depth)*c.dpr; var a=lerp(0.12,0.8,p.depth)*this.progress;
+        var r=lerp(0.6,2.4,dEff)*c.dpr; var a=lerp(0.12,0.85,dEff)*this.progress;
         ctx.globalAlpha=a; ctx.beginPath(); ctx.arc(px,py,r,0,6.283); ctx.fill(); }
       ctx.globalAlpha=1; } };
   }
@@ -845,8 +853,10 @@ function renderUltimoPost(data) {
   bindReveal(ecom, '#canvas-ecommerce', { start:'top 88%', end:'top 35%' });
 
   if (!reduceMotion){
-    gsap.to('#canvas-hero', { yPercent: 10, ease: 'none', scrollTrigger: { trigger:'#hero', start:'top top', end:'bottom top', scrub: 0.6 } });
+    gsap.to('#canvas-hero', { yPercent: 22, ease: 'none', scrollTrigger: { trigger:'#hero', start:'top top', end:'bottom top', scrub: 0.6 } });
     gsap.to('#canvas-hero', { opacity: 0, ease: 'none', scrollTrigger: { trigger:'#hero', start:'bottom 90%', end:'bottom 25%', scrub: 0.6 } });
+    ScrollTrigger.create({ trigger:'#hero', start:'top top', end:'bottom top', scrub: 0.6,
+      onUpdate: function(self){ hero.scrollT = self.progress; } });
   }
 
   function loop(t){ for (var i=0;i<fields.length;i++){ fields[i].draw(t); } requestAnimationFrame(loop); }
