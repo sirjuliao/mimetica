@@ -1,414 +1,105 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <title>Monte sua população generativa - Mimetica</title>
-  <link rel="shortcut icon" href="assets/images/logo-color.png" type="image/x-icon">
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/animatecss/animate.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link href="assets/fonts/style.css" rel="stylesheet">
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=yV17Ir"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=yV17Ir" type="text/css">
-  <style>
-    body, body * { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif !important; }
-    body { background: #FAFAFA; }
-
-    .form-wrapper {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 120px 20px 80px;
-    }
-
-    .form-title {
-      font-size: 32px;
-      font-weight: 700;
-      color: #111;
-      margin-bottom: 8px;
-    }
-
-    .form-subtitle {
-      font-size: 15px;
-      color: #666;
-      margin-bottom: 40px;
-    }
-
-    .step-block {
-      background: #fff;
-      border-radius: 16px;
-      padding: 28px 32px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
-
-    .step-number {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #111;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 10px;
-      flex-shrink: 0;
-    }
-
-    .step-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .step-label {
-      font-size: 16px;
-      font-weight: 700;
-      color: #111;
-    }
-
-    .step-desc {
-      font-size: 13px;
-      color: #999;
-      margin-left: 38px;
-      margin-bottom: 16px;
-    }
-
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-left: 38px;
-    }
-
-    .chip {
-      padding: 8px 18px;
-      border-radius: 20px;
-      border: 1.5px solid #ddd;
-      background: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      color: #555;
-      cursor: pointer;
-      transition: all 0.15s;
-      user-select: none;
-    }
-
-    .chip:hover { border-color: #111; color: #111; }
-
-    .chip.selected {
-      background: #111;
-      color: #fff;
-      border-color: #111;
-    }
-
-    .chip.selected.verde { background: #27ae60; border-color: #27ae60; }
-    .chip.selected.azul { background: #2b6cc0; border-color: #2b6cc0; }
-    .chip.selected.rosa { background: #c0392b; border-color: #c0392b; }
-    .chip.selected.roxo { background: #8e44ad; border-color: #8e44ad; }
-
-    .form-input {
-      width: 100%;
-      border: 1.5px solid #ddd;
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 14px;
-      color: #111;
-      outline: none;
-      transition: border 0.2s;
-      margin-left: 0;
-      background: #fafafa;
-    }
-
-    .form-input:focus { border-color: #111; background: #fff; }
-
-    .range-wrapper {
-      margin-left: 38px;
-      margin-top: 8px;
-    }
-
-    .range-value {
-      font-size: 28px;
-      font-weight: 700;
-      color: #111;
-      margin-bottom: 8px;
-    }
-
-    .range-sub {
-      font-size: 12px;
-      color: #999;
-    }
-
-    input[type=range] {
-      width: 100%;
-      accent-color: #111;
-      margin-top: 8px;
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 16px;
-      background: #111;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 8px;
-      transition: background 0.2s;
-    }
-
-    .submit-btn:hover { background: #333; }
-
-    .success-msg {
-      display: none;
-      background: #e8fdf0;
-      border: 1.5px solid #27ae60;
-      border-radius: 12px;
-      padding: 20px 24px;
-      color: #27ae60;
-      font-weight: 600;
-      text-align: center;
-      margin-top: 16px;
-    }
-
-    /* Navbar */
-    .navbar {
-      background: rgba(255,255,255,0.85) !important;
-      backdrop-filter: blur(20px) saturate(160%) !important;
-      -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
-      border-bottom: 1px solid #e8e8ea !important;
-    }
-    #footer02-y { background: #FAFAFA !important; padding: 40px 0 !important; border-top: 1px solid #e8e8ea !important; }
-    #footer02-y .container { max-width: 1160px; padding: 0 24px !important; }
-    #footer02-y .copyright { color: #6e6e73 !important; font-size: 0.8rem !important; }
-    #footer02-y .row-links-soc-item a { color: #6e6e73 !important; font-size: 0.82rem !important; font-weight: 500 !important; text-decoration: none !important; }
-    #footer02-y .row-links-soc-item a:hover { color: #1d1d1f !important; }
-  </style>
-  <style>h1,h2,h3,h4,h5,h6,.card-title,.mbr-section-title,.mbr-section-subtitle{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif!important;color:#111!important;}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>População · Mimetica</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
-<section data-bs-version="5.1" class="menu menu6 cid-vmE4ZNqkkp" once="menu" id="menu06-2">
-  <nav class="navbar navbar-dropdown opacityScroll navbar-expand-lg">
-    <div class="container">
-      <div class="navbar-brand">
-        <span class="navbar-logo">
-          <a href="index.html">
-            <img src="assets/images/logo-color.png" alt="mimetica tech research" style="height: 3rem;">
-          </a>
-        </span>
-        <span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary logo" href="index.html">mimetica</a></span>
-      </div>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <div class="hamburger"><span></span><span></span><span></span><span></span></div>
-      </button>
-      <div class="collapse navbar-collapse opacityScroll" id="navbarSupportedContent">
-        <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-          <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="pesquisa.html">Pesquisas</a></li>
-          <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="sistemas.html">Sistemas</a></li>
-          <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="blog.html">Blog</a></li>
-          <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="pesquisa-sintetica.html">População</a></li>
-        </ul>
-        <div class="navbar-buttons mbr-section-btn"><a class="btn btn-black display-4" href="index.html#header10-7">Entrar</a></div>
-      </div>
-    </div>
-  </nav>
+<nav>
+  <a class="logo" href="index.html"><img src="assets/logo.png" alt="Mimetica" width="28" height="28"><span class="logo-text">mimetica</span></a>
+  <div class="navlinks"><a href="pesquisa.html">Pesquisas</a><a href="sistemas.html">Sistemas</a><a href="blog.html">Blog</a><a href="pesquisa-sintetica.html" class="active">População</a></div>
+  <a class="navcta" href="#">Entrar</a>
+</nav>
+<section class="page-hero" id="page-hero">
+  <canvas class="bg-canvas" id="c-page-hero"></canvas>
+  <div class="wrap">
+    <div class="eyebrow reveal">População</div>
+    <h1 class="reveal">Monte sua população generativa.</h1>
+    <p class="lede reveal">O motor monta a população na hora. Descreva o que você quer perguntar, ajuste o perfil e peça a cotação.</p>
+  </div>
 </section>
 
-<!-- FORM -->
-<div class="form-wrapper">
-  <h1 class="form-title">Monte sua população generativa</h1>
-  <p class="form-subtitle">Configure quem vai responder. O substrato generativo monta a população na hora.</p>
-
-  <form id="synth-form" action="https://formspree.io/f/xnjykvgb" method="POST">
-
-    <!-- Campos ocultos para chips -->
-    <input type="hidden" name="Classe Social" id="field-classe">
-    <input type="hidden" name="Geração" id="field-geracao">
-    <input type="hidden" name="Gênero" id="field-genero">
-    <input type="hidden" name="Região" id="field-regiao">
-    <input type="hidden" name="Amostra" id="field-amostra" value="500">
-
-    <!-- 1. Nome e empresa -->
-    <div class="step-block">
-      <div class="step-header">
-        <span class="step-number">1</span>
-        <span class="step-label">Seus dados</span>
-      </div>
-      <p class="step-desc">Para entrarmos em contato com o resultado</p>
-      <div style="display:flex; gap:12px; flex-wrap:wrap;">
-        <input type="text" name="Nome" placeholder="Seu nome" class="form-input" style="flex:1; min-width:200px;" required>
-        <input type="email" name="Email" placeholder="Seu email" class="form-input" style="flex:1; min-width:200px;" required>
-        <input type="text" name="Empresa" placeholder="Empresa (opcional)" class="form-input" style="flex:1; min-width:200px;">
-      </div>
-    </div>
-
-    <!-- 2. Questionário -->
-    <div class="step-block">
-      <div class="step-header">
-        <span class="step-number">2</span>
-        <span class="step-label">Questionário</span>
-      </div>
-      <p class="step-desc">Descreva o que quer perguntar ou cole seu roteiro abaixo</p>
-      <textarea name="Questionário" class="form-input" rows="4" placeholder="Ex: Quero entender a percepção de preço de um novo produto de higiene pessoal para a classe B..." required></textarea>
-    </div>
-
-    <!-- 3. Amostra -->
-    <div class="step-block">
-      <div class="step-header">
-        <span class="step-number">3</span>
-        <span class="step-label">Amostra</span>
-      </div>
-      <p class="step-desc">Quantos consumidores generativos vão responder</p>
-      <div class="range-wrapper">
-        <div class="range-value" id="range-display">500 <span class="range-sub">generativos</span></div>
-        <input type="range" min="100" max="5000" step="100" value="500" oninput="updateRange(this.value)">
-        <div style="display:flex; justify-content:space-between; font-size:12px; color:#bbb; margin-top:4px;">
-          <span>100</span><span>5.000</span>
+<section class="configurator">
+  <div class="wrap">
+    <form class="config-card reveal" id="config-form" action="https://formspree.io/f/xnjykvgb" method="POST">
+      <div class="config-step">
+        <div class="step-label"><span class="step-n">1</span><h3>Seus dados</h3></div>
+        <p class="step-hint">Para onde enviamos o resultado.</p>
+        <div class="field-row">
+          <input class="field" type="text" name="Nome" placeholder="Nome" required />
+          <input class="field" type="text" name="Empresa" placeholder="Empresa" />
+        </div>
+        <div class="field-row" style="margin-top:14px;">
+          <input class="field" type="email" name="Email" placeholder="E-mail" required />
+          <input class="field" type="tel" name="Telefone" placeholder="Telefone (opcional)" />
         </div>
       </div>
-    </div>
 
-    <!-- 4. Classe social -->
-    <div class="step-block">
-      <div class="step-header">
-        <span class="step-number">4</span>
-        <span class="step-label">Classe social</span>
-      </div>
-      <p class="step-desc">Selecione uma ou mais</p>
-      <div class="chip-group" id="chips-classe">
-        <span class="chip verde" onclick="toggleChip(this, 'classe')">Classe A</span>
-        <span class="chip verde" onclick="toggleChip(this, 'classe')">Classe B</span>
-        <span class="chip verde" onclick="toggleChip(this, 'classe')">Classe C</span>
-        <span class="chip verde" onclick="toggleChip(this, 'classe')">Classe D/E</span>
-      </div>
-    </div>
-
-    <!-- 5. Geração -->
-    <div class="step-block">
-      <div class="step-header">
-        <span class="step-number">5</span>
-        <span class="step-label">Geração / faixa etária</span>
-      </div>
-      <p class="step-desc">Selecione uma ou mais</p>
-      <div class="chip-group" id="chips-geracao">
-        <span class="chip azul" onclick="toggleChip(this, 'geracao')">Gen Z · 18–28</span>
-        <span class="chip azul" onclick="toggleChip(this, 'geracao')">Millennial · 29–44</span>
-        <span class="chip azul" onclick="toggleChip(this, 'geracao')">Gen X · 45–60</span>
-        <span class="chip azul" onclick="toggleChip(this, 'geracao')">Boomer · 60+</span>
-      </div>
-    </div>
-
-    <!-- 6. Gênero -->
-    <div class="step-block">
-      <div class="step-header">
-        <span class="step-number">6</span>
-        <span class="step-label">Gênero</span>
-      </div>
-      <p class="step-desc">Vai além de masculino e feminino</p>
-      <div class="chip-group" id="chips-genero">
-        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Mulher cis</span>
-        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Homem cis</span>
-        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Mulher trans</span>
-        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Homem trans</span>
-        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Não-binário</span>
-        <span class="chip rosa" onclick="toggleChip(this, 'genero')">Prefere não dizer</span>
-      </div>
-    </div>
-
-    <!-- 7. Região -->
-    <div class="step-block">
-      <div class="step-header">
-        <span class="step-number">7</span>
-        <span class="step-label">Região do Brasil</span>
-      </div>
-      <p class="step-desc">Onde os respondentes vivem</p>
-      <div class="chip-group" id="chips-regiao">
-        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Norte</span>
-        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Nordeste</span>
-        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Centro-Oeste</span>
-        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Sudeste</span>
-        <span class="chip roxo" onclick="toggleChip(this, 'regiao')">Sul</span>
-      </div>
-    </div>
-
-    <!-- Submit -->
-    <div class="step-block">
-      <button type="submit" class="submit-btn">Cotar pesquisa →</button>
-      <div class="success-msg" id="success-msg">✅ Recebemos seu pedido! Entraremos em contato em breve.</div>
-    </div>
-
-  </form>
-</div>
-
-<script>
-function toggleChip(el, group) {
-  el.classList.toggle('selected');
-  var selected = [];
-  document.querySelectorAll('#chips-' + group + ' .chip.selected').forEach(function(c) {
-    selected.push(c.textContent.trim());
-  });
-  document.getElementById('field-' + group).value = selected.join(', ');
-}
-
-function updateRange(val) {
-  document.getElementById('range-display').innerHTML = parseInt(val).toLocaleString('pt-BR') + ' <span class="range-sub">generativos</span>';
-  document.getElementById('field-amostra').value = val;
-}
-
-// Envio via fetch para não redirecionar
-document.getElementById('synth-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var form = this;
-  fetch(form.action, {
-    method: 'POST',
-    body: new FormData(form),
-    headers: { 'Accept': 'application/json' }
-  }).then(function(r) {
-    if (r.ok) {
-      document.getElementById('success-msg').style.display = 'block';
-      form.reset();
-      document.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('selected'); });
-      updateRange(500);
-    }
-  });
-});
-</script>
-
-<section data-bs-version="5.1" class="footer2 cid-vmJhD26ci9" once="footers" id="footer02-y">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-6 center mt-2 mb-3">
-                <p class="mbr-fonts-style copyright mb-0 display-7">
-                    © Copyright 2026 MIMETICA - All Rights Reserved
-                </p>
-            </div>
-            <div class="col-12 col-lg-6 center">
-                <div class="row-links mt-2 mb-3">
-                    <ul class="row-links-soc">
-                        <li class="row-links-soc-item mbr-fonts-style display-7"><a href="index.html#footer02-y" class="text-primary">Instagram</a></li>
-                        <li class="row-links-soc-item mbr-fonts-style display-7"><a href="index.html#footer02-y" class="text-primary">TikTok</a></li>
-                        <li class="row-links-soc-item mbr-fonts-style display-7"><a href="index.html#footer02-y" class="text-primary">YouTube</a></li>
-                        <li class="row-links-soc-item mbr-fonts-style display-7"><a href="index.html#footer02-y" class="text-primary">Twitter</a></li>
-                    </ul>
-                </div>
-            </div>
+      <div class="config-step">
+        <div class="step-label"><span class="step-n">2</span><h3>Questionário</h3></div>
+        <p class="step-hint">Descreva o que quer perguntar ou cole seu roteiro abaixo.</p>
+        <div class="field-row" style="grid-template-columns:1fr; margin-top:0;">
+          <textarea class="field" name="Questionário" placeholder="Ex: queremos testar três variações de preço para o produto X, com foco em classe B e C..." required></textarea>
         </div>
-    </div>
+      </div>
+
+      <div class="config-step">
+        <div class="step-label"><span class="step-n">3</span><h3>Amostra</h3></div>
+        <div class="sample-row">
+          <span class="sample-value" id="sample-value">500<span class="unit">generativos</span></span>
+          <input type="range" id="sample-slider" min="100" max="5000" step="100" value="500" />
+          <div class="range-labels"><span>100</span><span>5.000</span></div>
+        </div>
+      </div>
+
+      <div class="config-step">
+        <div class="step-label"><span class="step-n">4</span><h3>Classe social</h3></div>
+        <div class="chip-row" data-group="classe">
+          <span class="chip">Classe A</span><span class="chip">Classe B</span><span class="chip">Classe C</span><span class="chip">Classe D/E</span>
+        </div>
+      </div>
+
+      <div class="config-step">
+        <div class="step-label"><span class="step-n">5</span><h3>Geração</h3></div>
+        <div class="chip-row" data-group="geracao">
+          <span class="chip">Gen Z (18–28)</span><span class="chip">Millennial (29–44)</span><span class="chip">Gen X (45–60)</span><span class="chip">Boomer (60+)</span>
+        </div>
+      </div>
+
+      <div class="config-step">
+        <div class="step-label"><span class="step-n">6</span><h3>Gênero</h3></div>
+        <div class="chip-row" data-group="genero">
+          <span class="chip">Cisgênero</span><span class="chip">Transgênero</span><span class="chip">Não-binário</span><span class="chip">Prefiro não dizer</span>
+        </div>
+      </div>
+
+      <div class="config-step">
+        <div class="step-label"><span class="step-n">7</span><h3>Região</h3></div>
+        <div class="chip-row" data-group="regiao">
+          <span class="chip">Norte</span><span class="chip">Nordeste</span><span class="chip">Centro-Oeste</span><span class="chip">Sudeste</span><span class="chip">Sul</span>
+        </div>
+      </div>
+
+      <div class="config-submit">
+        <button type="submit" class="btn btn-primary">Cotar pesquisa</button>
+        <p class="config-confirm" id="config-confirm">✅ Recebemos seu pedido! Entraremos em contato em breve</p>
+      </div>
+    </form>
+  </div>
 </section>
 
-<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/smoothscroll/smooth-scroll.js"></script>
-<script src="assets/ytplayer/index.js"></script>
-<script src="assets/dropdown/js/navbar-dropdown.js"></script>
-<script src="assets/mbr-switch-arrow/mbr-switch-arrow.js"></script>
-<script src="assets/theme/js/script.js"></script>
+<footer>
+  <div>© 2026 Mimetica</div>
+  <div><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a></div>
+</footer>
 
+<script src="assets/gsap.min.js"></script>
+<script src="assets/scrolltrigger.min.js"></script>
+<script src="assets/engine.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/page-populacao.js"></script>
 </body>
 </html>

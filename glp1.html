@@ -1,0 +1,1133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O que o GLP-1 nos ensinou a medir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="icon" href="assets/logo.png">
+<style>
+/* ============================================================
+   MIMETICA — sistema visual da proposta MOSAICO
+   Osso base · Grafite texto · Verde Grama acento · Noite×Lima ênfase
+   ============================================================ */
+:root{
+  --osso:#F5F3EE; --areia:#EAE6DB; --areia-2:#E2DDD0;
+  --ground:#F5F3EE; --panel:#EAE6DB;
+  --ink:#111114; --ink-2:#3C3A42; --ink-3:#8C887E;
+  --rule:#DAD5C7; --rule-2:#C7C1B1;
+  --verde:#2DA805; --verde-ink:#238404;
+  --noite:#0F1226; --lima:#C2DB4A;
+  --block-bg:#0F1226; --block-ink:#F5F3EE; --block-ink-2:#A7A6BC; --block-accent:#C2DB4A; --block-rule:#2A2E4B;
+  --badge-bg:#2DA805; --badge-ink:#FFFFFF; --warn:#A86D12;
+  --c1:#2F8F0A; --c2:#D42B72; --c3:#1B7FC4; --c4:#C0842A; --c5:#5B3FA3;
+  --fita-verde:#2DA805; --fita-lima:#C2DB4A; --fita-vermelho:#BB0A27; --fita-magenta:#E83886; --fita-azul:#2F9BE8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#050506; --panel:#101012; --areia:#101012; --areia-2:#18181B;
+    --ink:#F3F1EA; --ink-2:#C4C2CE; --ink-3:#8B8899;
+    --rule:#2A2A2E; --rule-2:#3A3A40;
+    --verde:#C2DB4A; --verde-ink:#D2E76A;
+    --block-bg:#141416; --block-ink:#F5F3EE; --block-ink-2:#AFADC0; --block-accent:#C2DB4A; --block-rule:#35353A;
+    --badge-bg:#C2DB4A; --badge-ink:#050506; --warn:#D9A63C;
+    --c1:#3FAF16; --c2:#E8478A; --c3:#3D93D8; --c4:#BC8129; --c5:#8464D6;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#050506; --panel:#101012; --areia:#101012; --areia-2:#18181B;
+  --ink:#F3F1EA; --ink-2:#C4C2CE; --ink-3:#8B8899;
+  --rule:#2A2A2E; --rule-2:#3A3A40;
+  --verde:#C2DB4A; --verde-ink:#D2E76A;
+  --block-bg:#141416; --block-ink:#F5F3EE; --block-ink-2:#AFADC0; --block-accent:#C2DB4A; --block-rule:#35353A;
+  --badge-bg:#C2DB4A; --badge-ink:#050506; --warn:#D9A63C;
+  --c1:#3FAF16; --c2:#E8478A; --c3:#3D93D8; --c4:#BC8129; --c5:#8464D6;
+}
+
+/* ============ BASE ============ */
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Figtree","Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(17.5px, 0.25vw + 14.6px, 19.5px); line-height:1.62; font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:"Figtree",sans-serif; font-weight:800; letter-spacing:-.025em; text-wrap:balance; line-height:1.11; margin:0; color:var(--ink)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+p{margin:0 0 1.05em}
+strong{font-weight:700}
+a{color:inherit; text-decoration-color:var(--verde); text-underline-offset:3px; text-decoration-thickness:1.5px}
+a:focus-visible{outline:2px solid var(--verde); outline-offset:3px}
+
+/* ============ LAYOUT ============ */
+.wrap{width:100%; max-width:1560px; margin:0 auto; padding:0 clamp(20px,4vw,64px)}
+.col{width:100%; max-width:clamp(660px, 46vw, 920px); margin:0 auto}
+.wide{width:100%; max-width:clamp(660px, 46vw, 920px); margin:0 auto}
+section.sec{padding:clamp(44px,6vw,76px) 0}
+.stack>*+*{margin-top:0}
+
+/* section head — badge + eyebrow + title, como na proposta */
+.shead{margin-bottom:24px}
+.slabel{display:flex; align-items:center; gap:13px; margin-bottom:20px}
+.badge{width:34px; height:34px; flex:none; border-radius:7px; background:var(--badge-bg); color:var(--badge-ink);
+  font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center}
+.eyebrow{font-family:"Figtree",sans-serif; font-size:11.5px; font-weight:700; letter-spacing:.19em; text-transform:uppercase; color:var(--verde-ink)}
+.eyebrow.muted{color:var(--ink-3)}
+.shead h2{font-size:clamp(28px,3.2vw,50px)}
+.shead h2::after{content:"."}
+.dek{color:var(--ink-2); font-size:clamp(17px,1.05vw,20px); margin-top:.75em; max-width:60ch}
+
+h3.sub{font-size:clamp(21px,2.6vw,26px); font-weight:800; margin:34px 0 14px}
+
+/* ============ PROGRESS ============ */
+#prog{position:fixed; top:0; left:0; height:3px; width:0; background:var(--verde); z-index:60}
+
+/* ============ COVER ============ */
+.cover{padding:clamp(40px,7vw,84px) 0 clamp(40px,6vw,64px); position:relative; overflow:hidden}
+.cover canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.55; pointer-events:none}
+.cover .wrap{position:relative}
+.cover .topline{display:flex; justify-content:space-between; align-items:flex-start; gap:24px; flex-wrap:wrap; margin-bottom:clamp(48px,10vw,120px)}
+.mark{display:flex; align-items:center; gap:12px; line-height:0}
+.logo{height:clamp(56px,7.4vw,78px); width:auto; display:block}
+.mark .wordmark{font-family:"Figtree",sans-serif; font-weight:700; font-size:clamp(20px,2.4vw,26px); letter-spacing:-.01em; line-height:1; color:var(--ink)}
+.cover .stamp{text-align:right; font-family:"Figtree",sans-serif; font-size:11px; font-weight:700; letter-spacing:.19em; text-transform:uppercase; color:var(--ink-3); line-height:1.7}
+.greenrule{width:64px; height:5px; background:var(--verde); border-radius:1px; margin-bottom:26px}
+.cover h1{font-size:clamp(42px,7.2vw,104px); letter-spacing:-.037em; line-height:1.02}
+.cover h1::after{content:"."}
+.cover h1 .h1sub{display:block; font-size:clamp(15px,1.4vw,20px); font-weight:600; letter-spacing:-.005em; color:var(--ink-3); margin-top:.35em}
+.cover h1:has(.h1sub)::after{content:none}
+.cover .sub{font-size:clamp(19px,1.8vw,28px); color:var(--ink-2); max-width:34ch; margin-top:26px; line-height:1.36; font-weight:400}
+.cover .foot{display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap;
+  margin-top:clamp(44px,8vw,96px); padding-top:18px; border-top:1px solid var(--rule-2); font-size:14.5px; font-weight:600}
+.cover .foot .r{font-family:"IBM Plex Mono",monospace; color:var(--verde-ink); font-weight:500; font-size:13.5px}
+
+/* running footer, igual ao rodapé da proposta */
+.runfoot{display:flex; justify-content:space-between; align-items:baseline; padding-top:14px; border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3)}
+.runfoot b{color:var(--verde-ink); font-weight:600; letter-spacing:0}
+
+/* ============ NOITE BLOCK ============ */
+.noite{background:var(--block-bg); color:var(--block-ink-2); padding:clamp(24px,3.6vw,34px) clamp(24px,3.6vw,36px); margin:34px 0}
+.noite .lbl{font-family:"Figtree",sans-serif; font-size:11px; font-weight:700; letter-spacing:.19em; text-transform:uppercase; color:var(--block-accent); display:block; margin-bottom:14px}
+.noite .claim{font-size:clamp(19px,2.5vw,25px); font-weight:800; color:var(--block-accent); letter-spacing:-.022em; line-height:1.26; margin:0}
+.noite p{color:var(--block-ink-2)} .noite p:last-child{margin-bottom:0}
+.noite strong{color:var(--block-ink)}
+
+/* proof block (página 05 da proposta) */
+.proof{background:var(--block-bg); padding:clamp(22px,3.4vw,32px); margin:20px 0}
+.proof .lbl{font-family:"Figtree",sans-serif; font-size:11px; font-weight:700; letter-spacing:.19em; text-transform:uppercase; color:var(--block-accent); margin-bottom:12px}
+.proof .head{display:flex; gap:clamp(18px,3vw,34px); align-items:center; flex-wrap:wrap}
+.proof .big{font-family:"IBM Plex Mono",monospace; font-size:clamp(44px,7.4vw,68px); font-weight:600; color:var(--block-accent); line-height:.95; letter-spacing:-.045em}
+.proof .head p{flex:1 1 260px; color:var(--block-ink-2); font-size:16px; margin:0}
+.proof .sub3{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:22px; margin-top:26px; padding-top:24px; border-top:1px solid var(--block-rule)}
+.proof .sub3 .v{font-family:"IBM Plex Mono",monospace; font-size:clamp(21px,2.8vw,26px); font-weight:600; color:var(--block-accent); letter-spacing:-.03em}
+.proof .sub3 .k{font-size:14px; color:var(--block-ink-2); margin-top:7px; line-height:1.4}
+
+/* ============ AREIA PANELS ============ */
+.panel{background:var(--areia); padding:clamp(20px,3vw,28px)}
+.panel:last-child{margin-bottom:0}
+.panel .lbl{font-family:"Figtree",sans-serif; font-size:11px; font-weight:700; letter-spacing:.19em; text-transform:uppercase; color:var(--verde-ink); display:block; margin-bottom:12px}
+.panel .lbl.muted{color:var(--ink-3)}
+.panel p:last-child{margin-bottom:0}
+.panel-bar{border-left:4px solid var(--verde)}
+
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:14px; margin:30px 0}
+.card{background:var(--areia); border-top:4px solid var(--verde); padding:20px 20px 22px}
+.card .n{font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:600; color:var(--verde-ink); margin-bottom:11px}
+.card h4{font-size:16.5px; font-weight:800; margin-bottom:9px; letter-spacing:-.015em}
+.card p{font-size:14.5px; color:var(--ink-2); line-height:1.52; margin:0}
+
+/* bar-left blocks (CAMADA 1 / 7.5 da proposta) */
+.blocks{display:flex; flex-direction:column; gap:22px; margin:30px 0}
+.blk{border-left:4px solid var(--verde); padding:2px 0 2px 20px}
+.blk .lbl{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:7px}
+.blk .lbl .a{font-family:"Figtree",sans-serif; font-size:11px; font-weight:700; letter-spacing:.17em; text-transform:uppercase; color:var(--verde-ink)}
+.blk .lbl .b{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3)}
+.blk h4{font-size:19px; font-weight:800; margin-bottom:8px; letter-spacing:-.02em}
+.blk p{font-size:15.5px; color:var(--ink-2); line-height:1.55; margin:0}
+.blk p+p{margin-top:.7em}
+
+/* subsections with hairline (7.1, 7.2 da proposta) */
+.subs{margin:28px 0}
+.subsec{padding-top:20px; margin-top:20px; border-top:1px solid var(--rule)}
+.subsec:first-child{border-top:0; margin-top:0; padding-top:0}
+.subsec .h{display:flex; align-items:baseline; gap:11px; margin-bottom:8px; flex-wrap:wrap}
+.subsec .h .num{font-family:"IBM Plex Mono",monospace; font-size:14px; font-weight:600; color:var(--verde-ink)}
+.subsec .h .t{font-size:17px; font-weight:800; letter-spacing:-.015em}
+.subsec p{font-size:15.5px; color:var(--ink-2); margin:0; line-height:1.55}
+
+/* stat row (página 06 da proposta) */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:26px; margin:30px 0; padding:22px 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+.stat .v{font-family:"IBM Plex Mono",monospace; font-size:clamp(23px,3.1vw,29px); font-weight:600; color:var(--verde-ink); letter-spacing:-.035em; line-height:1.06}
+.stat .k{font-size:13.5px; color:var(--ink-3); margin-top:9px; line-height:1.42}
+
+/* numbered list (Próximos passos) */
+.numlist{margin:28px 0}
+.numlist .it{display:grid; grid-template-columns:34px 1fr; gap:12px; padding:15px 0; border-bottom:1px solid var(--rule)}
+.numlist .it:first-child{border-top:1px solid var(--rule)}
+.numlist .it .n{font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:600; color:var(--verde-ink); padding-top:2px}
+.numlist .it p{margin:0; font-size:15.5px; color:var(--ink-2)}
+.numlist .it b{color:var(--ink); font-weight:700}
+
+/* quote */
+blockquote{margin:28px 0; padding:2px 0 2px 20px; border-left:4px solid var(--rule-2); font-size:18px; color:var(--ink-2); font-style:italic}
+blockquote .who{display:block; font-style:normal; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); margin-top:11px; line-height:1.6}
+
+/* table */
+.tblwrap{overflow-x:auto; margin:28px 0}
+table{width:100%; border-collapse:collapse; font-size:15px; min-width:560px}
+th,td{text-align:left; padding:13px 16px 13px 0; border-bottom:1px solid var(--rule); vertical-align:top}
+th{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--verde-ink); font-weight:700; border-bottom:1px solid var(--rule-2); padding-bottom:10px}
+td b{font-weight:700}
+td{color:var(--ink-2)} td:first-child{color:var(--ink)}
+
+/* pills */
+.pill{display:inline-flex; align-items:center; gap:7px; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; font-weight:500; border:1px solid currentColor}
+.pill.green{color:var(--verde-ink)} .pill.yellow{color:var(--warn)} .pill.red{color:var(--c2)}
+.pill .dot{width:7px; height:7px; border-radius:50%; background:currentColor; flex:none}
+.pillrow{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:12px}
+.pillrow span.txt{font-size:14.5px; color:var(--ink-2)}
+
+/* ============ FIGURES ============ */
+figure{margin:36px 0}
+.figbox{background:var(--areia); padding:clamp(20px,3vw,30px); overflow-x:auto}
+.figttl{font-size:16px; font-weight:800; letter-spacing:-.015em; margin-bottom:5px}
+.figsub{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3); letter-spacing:.02em; margin-bottom:22px}
+figcaption{font-size:14.5px; color:var(--ink-2); line-height:1.55; margin-top:14px; max-width:74ch}
+figcaption b{color:var(--ink); font-weight:700}
+
+.legend{display:flex; flex-wrap:wrap; gap:8px 22px; margin-bottom:20px; font-size:13px; color:var(--ink-2); font-weight:500}
+.legend span{display:inline-flex; align-items:center; gap:8px}
+.legend i{width:11px; height:11px; display:inline-block; flex:none}
+
+.rows{display:flex; flex-direction:column; gap:9px}
+.row{display:grid; grid-template-columns:minmax(96px,172px) 1fr; gap:14px; align-items:center}
+.row .lab{font-size:13.5px; color:var(--ink-2); line-height:1.24; font-weight:500}
+.track{position:relative; height:20px; display:flex; align-items:center; gap:2px}
+.bar{height:20px; transform-origin:left center; transform:scaleX(0); transition:transform .85s cubic-bezier(.22,.9,.28,1)}
+.in .bar{transform:scaleX(1)}
+.val{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--ink-2); white-space:nowrap; padding-left:3px; font-variant-numeric:tabular-nums}
+.stack-row{display:flex; height:22px; width:100%; gap:2px}
+.seg{height:22px; transform-origin:left center; transform:scaleX(0); transition:transform .8s cubic-bezier(.22,.9,.28,1)}
+.in .seg{transform:scaleX(1)}
+.axis{display:flex; justify-content:space-between; font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-top:12px; padding-top:9px; border-top:1px solid var(--rule-2)}
+
+svg .grid{stroke:var(--rule-2); stroke-width:1}
+svg .axl{fill:var(--ink-3); font-family:"IBM Plex Mono",monospace; font-size:10.5px}
+svg .linePath{fill:none; stroke:var(--c1); stroke-width:2.5; stroke-linecap:round; stroke-dasharray:1400; stroke-dashoffset:1400; transition:stroke-dashoffset 1.5s cubic-bezier(.3,.8,.3,1)}
+.in svg .linePath{stroke-dashoffset:0}
+svg .mk{fill:var(--areia); stroke:var(--c1); stroke-width:2.5; opacity:0; transition:opacity .5s ease .7s}
+.in svg .mk{opacity:1}
+svg .mklab{fill:var(--ink); font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:500; opacity:0; transition:opacity .5s ease .9s}
+svg .mksub{fill:var(--ink-3); font-family:"IBM Plex Mono",monospace; font-size:10px; opacity:0; transition:opacity .5s ease 1s}
+.in svg .mklab,.in svg .mksub{opacity:1}
+
+/* figuras dentro de bloco Noite */
+.noite .figttl{color:var(--block-ink)} .noite .figsub,.noite .legend,.noite .lab,.noite .val,.noite .axis{color:var(--block-ink-2)}
+.noite .axis{border-top-color:var(--block-rule)}
+
+#tip{position:fixed; z-index:80; pointer-events:none; background:var(--noite); color:#F5F3EE; padding:9px 12px;
+  font-family:"IBM Plex Mono",monospace; font-size:12px; line-height:1.5; opacity:0; transition:opacity .12s ease; max-width:255px}
+#tip.on{opacity:1}
+
+/* ============ CTA / FOOTER ============ */
+.close{padding:clamp(40px,6vw,72px) 0 clamp(30px,4vw,48px)}
+.cta{background:var(--block-bg); padding:clamp(28px,4.4vw,44px)}
+.cta .lbl{font-family:"Figtree",sans-serif; font-size:11px; font-weight:700; letter-spacing:.19em; text-transform:uppercase; color:var(--block-accent); margin-bottom:16px}
+.cta .claim{font-size:clamp(23px,3.4vw,33px); font-weight:800; color:var(--block-accent); letter-spacing:-.026em; line-height:1.18; margin-bottom:16px}
+.cta p{color:var(--block-ink-2); margin-bottom:1em; max-width:62ch}
+.cta a{color:var(--block-accent); font-weight:600}
+
+.endcols{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:30px; margin-top:44px; padding-top:28px; border-top:1px solid var(--rule)}
+.endcols h4{font-family:"Figtree",sans-serif; font-size:11px; font-weight:700; letter-spacing:.19em; text-transform:uppercase; color:var(--verde-ink); margin-bottom:13px}
+.endcols p,.endcols li{font-size:13.5px; color:var(--ink-2); line-height:1.6}
+.endcols ul{margin:0; padding:0; list-style:none}
+.endcols li{padding-left:16px; position:relative; margin-bottom:7px}
+.endcols li::before{content:""; position:absolute; left:0; top:.55em; width:7px; height:7px; background:var(--verde)}
+.livedoc{text-align:center; font-size:13px; color:var(--ink-3); margin:38px 0 22px}
+
+@media (max-width:600px){
+  .row{grid-template-columns:1fr; gap:5px}
+  .row .lab{font-size:13px}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important; transition:none !important}
+  .bar,.seg{transform:scaleX(1) !important}
+  svg .linePath{stroke-dashoffset:0 !important}
+  svg .mk,svg .mklab,svg .mksub{opacity:1 !important}
+}
+</style>
+<style>
+.mim-backbar{
+  position:sticky; top:0; z-index:70; display:flex; align-items:center; gap:8px;
+  padding:0.8rem clamp(1.2rem,4vw,2rem); background:var(--ground); border-bottom:1px solid var(--rule);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:0.86rem;
+}
+.mim-backbar a{ color:var(--ink-2); text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+.mim-backbar a:hover{ color:var(--verde-ink,var(--verde)); }
+</style>
+</head>
+<body>
+<div class="mim-backbar"><a href="blog.html">&larr; Voltar ao blog</a></div>
+<div id="prog"></div>
+<div id="tip" role="status" aria-live="polite"></div>
+
+<!-- ================= CAPA ================= -->
+<header class="cover">
+  <canvas id="micelio" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="col">
+      <div class="topline">
+        <div class="mark">
+          <img class="logo" alt="Mimetica" src="data:image/png;base64,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">
+          <span class="wordmark">mimetica</span>
+                  </div>
+        <div class="stamp">Pesquisa aplicada<br>Agosto de 2026</div>
+      </div>
+
+      <div class="greenrule"></div>
+      <h1>GLP-1, o mestre do MOS <span class="h1sub">(mimetica operational system)</span></h1>
+      <p class="sub">O acervo GLP-1 Brasil, estudo a estudo. Cada um construiu uma capacidade do nosso sistema de ensaios de comportamento humano.</p>
+
+      <div class="foot">
+        <span>Mimetica · Human Behavior Trials</span>
+        <span class="r">16 min · registro ADR-042</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 01 ================= -->
+<section class="sec">
+  <div class="wrap"><div class="col">
+    <div class="shead">
+      <div class="slabel"><div class="badge">01</div><div class="eyebrow">A Solução</div></div>
+      <h2>A pergunta que muda a cada resposta</h2>
+      <p class="dek">Uma rede de fast food quer saber o que acontece com o fluxo das lojas se o preço da semaglutida cair 60%. Depois quer saber o que acontece se cair 80%. É sobre testar as duas coisas ao mesmo tempo que trata este artigo.</p>
+    </div>
+
+    <p>Em 2026, a patente da semaglutida se aproxima do vencimento no Brasil e o preço da caneta começa a cair por três caminhos ao mesmo tempo: piso CMED, genéricos nacionais e concorrência entre similares. Para uma rede de restaurantes, para um laboratório entrante, para uma operadora de saúde, a pergunta prática é a mesma: <em>o que muda no comportamento das pessoas quando o acesso muda?</em></p>
+
+    <p>Essa pergunta raramente aparece sozinha. Vem em cadeia: e se cair 60%? E se cair 80%? E se a queda vier só em algumas regiões? Cada variação é uma decisão diferente, e o valor de uma resposta está em poder comparar as três, lado a lado, no mesmo momento, o que a coleta humana tradicional dificilmente entrega dentro de um prazo e um custo compatíveis com decisão de negócio.</p>
+
+    <p>A Mimetica trabalha com ensaios comportamentais. Conduzimos o teste sobre um substrato de gente real e expandimos com disciplina estatística declarada. Isso permite testar a mesma pergunta sob hipóteses diferentes ao mesmo tempo. Também significa que nem toda resposta acerta, e é sobre isso que trata o resto deste artigo.</p>
+
+    <div class="noite">
+      <span class="lbl">A pergunta deste artigo</span>
+      <p class="claim">A pergunta que este artigo responde é outra: como sabemos quais respostas o ensaio acertou, antes de o cliente descobrir sozinho?</p>
+    </div>
+
+    <p>Escolhemos GLP-1 como primeiro tema de treino do motor, em 2024, de propósito. Havia pouca literatura, o comportamento estava mudando rápido, e o assunto tinha ramificação comercial em Saúde e em Alimentos ao mesmo tempo. Dois anos depois, o acervo GLP-1 é o lugar onde cada capacidade do MOS foi construída, testada e, em alguns casos, descartada. É por isso que ele serve de laboratório para explicar o método inteiro.</p>
+  </div></div>
+</section>
+
+<!-- ================= 02 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="col">
+      <div class="shead">
+        <div class="slabel"><div class="badge">02</div><div class="eyebrow">Como se julga um ensaio</div></div>
+        <h2>Erro absoluto, ordem, cobertura e confiança</h2>
+        <p class="dek">Antes de mostrar resultado é preciso declarar contra o quê o resultado é julgado. Usamos quatro medidas, e nenhuma delas é "parece plausível".</p>
+      </div>
+
+      <p>Um ensaio comportamental produz uma distribuição: dado um público e uma pergunta, qual a proporção de cada resposta. A pergunta de qualidade é o quanto essa distribuição se afasta da distribuição verdadeira: a que teríamos obtido perguntando a gente real, na mesma população, com o mesmo instrumento.</p>
+
+      <p>Julgar isso direito tem três momentos, e cada um pede uma prova diferente. No primeiro, o ensaio prevê: produz a distribuição acima. No segundo, alguém audita essa previsão contra o dado real, célula a célula, com teste de significância formal por trás: uma diferença só é reportada como real quando o teste confirma que ela não é fruto do acaso amostral, nunca por leitura visual da distância entre os números. No terceiro, e é o mais raro no mercado, o próprio ensaio declara o quanto confia na resposta antes de a verdade existir, porque na hora em que o relatório chega ao cliente, ainda não há dado humano para comparar. As três primeiras medidas abaixo pertencem ao segundo momento. A quarta pertence ao terceiro.</p>
+
+      <div class="subs">
+        <div class="subsec">
+          <div class="h"><span class="num">2.1</span><span class="t">Erro médio absoluto por opção</span></div>
+          <p>A média, sobre todas as opções de uma pergunta, da diferença entre a proporção prevista e a proporção observada, em pontos percentuais. É a medida que responde "quanto erramos, em média".</p>
+        </div>
+        <div class="subsec">
+          <div class="h"><span class="num">2.2</span><span class="t">Concordância de ordenação</span></div>
+          <p>Se o cliente vai decidir por ranking (qual marca lembra mais, qual barreira pesa mais), errar a magnitude importa menos que errar a ordem. Medimos se a ordem relativa entre as opções, qual fica em primeiro lugar, qual fica em segundo, bate entre o ensaio e a coleta humana, mesmo quando as proporções exatas não batem. Um erro pequeno de magnitude já basta para inverter duas opções próximas, e o contrário também vale.</p>
+        </div>
+        <div class="subsec">
+          <div class="h"><span class="num">2.3</span><span class="t">Cobertura fora da amostra</span></div>
+          <p>Reamostragens repetidas do dado real: em quantas delas o valor verdadeiro cai dentro do intervalo que o modelo declarou? Cobertura próxima do nominal indica intervalo honesto, não apenas ponto certeiro.</p>
+        </div>
+        <div class="subsec">
+          <div class="h"><span class="num">2.4</span><span class="t">Banda de confiança por pergunta</span></div>
+          <p>Emitida pergunta a pergunta, antes de qualquer comparação com dado humano. Indica o quanto o substrato de origem sustenta aquela pergunta específica.</p>
+          <div class="pillrow">
+            <span class="pill green"><span class="dot"></span>Verde</span>
+            <span class="txt">a pergunta está semanticamente próxima do que a semente já cobre</span>
+          </div>
+          <div class="pillrow">
+            <span class="pill yellow"><span class="dot"></span>Amarelo</span>
+            <span class="txt">está longe: o resultado é direcional, nunca decisório</span>
+          </div>
+          <div class="pillrow">
+            <span class="pill red"><span class="dot"></span>Vermelho</span>
+            <span class="txt">a distância é extrema: a resposta gerada não é publicada, a pergunta volta para coleta humana</span>
+          </div>
+        </div>
+      </div>
+
+      <p>A quarta medida é a mais importante do ponto de vista comercial, porque é a única que pertence ao terceiro momento: existe <em>antes</em> de haver verdade contra a qual comparar. Todo relatório da série GLP-1 carrega a banda impressa ao lado de cada pergunta, inclusive quando ela é desfavorável, que é a maioria dos casos na primeira onda.</p>
+    </div>
+
+    <div class="wide">
+      <figure>
+        <div class="figbox anim" id="fig-ic">
+          <div class="figttl">O que o tamanho da célula permite afirmar</div>
+          <div class="figsub">margem de erro (± p.p.) por número de respostas na célula · proporção 50/50 · 95% de confiança</div>
+          <div id="icchart"></div>
+        </div>
+        <figcaption>Nenhum volume de personas conserta uma célula pequena. Quando um corte demográfico fica com <b>n=12</b>, a margem passa de <b>±28 p.p.</b> e o corte não deve ser usado. Foi exatamente o que aconteceu com o recorte Sudeste da nossa primeira onda, e ele foi descartado. A curva é a mesma da estatística clássica; a diferença é que aqui ela é publicada junto com o resultado.</figcaption>
+      </figure>
+    </div>
+
+    <div class="col"><div class="runfoot"><span>Mimetica · acervo GLP-1 Brasil · como se julga um ensaio</span><b>02</b></div></div>
+  </div>
+</section>
+
+<!-- ================= 03 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="col">
+      <div class="shead">
+        <div class="slabel"><div class="badge">03</div><div class="eyebrow">O substrato</div></div>
+        <h2>Fala que não foi performada para um pesquisador</h2>
+        <p class="dek">A primeira camada é dado humano real, não gerado. É uma base conversacional entre pares, coletada onde as pessoas já estavam falando.</p>
+      </div>
+
+      <p>Um grupo de pacientes conversando entre si produz um tipo particular de fala: não performada. Ninguém ali está tentando parecer bem na frente de quem pergunta, porque ninguém está perguntando. Alguém escrevendo <em>"tô com medo do Poviztra… alguém usou, gente?"</em> às onze da noite não está respondendo a ninguém. Está com medo, e perguntando às colegas.</p>
+
+      <p>A base conversacional da nossa camada GLP-1 é uma comunidade brasileira de pacientes em tratamento, com <span class="mono">2.760</span> mensagens conversacionais numa janela de três semanas, das quais <span class="mono">100</span> participantes têm histórico rico o bastante para sustentar uma jornada individual reconstruída. Contas administrativas foram excluídas antes de qualquer classificação; os identificadores são pseudônimos irreversíveis.</p>
+    </div>
+
+    <div class="wide">
+      <figure>
+        <div class="figbox anim" id="fig-est">
+          <div class="figttl">Estágio de tratamento no fim da janela de observação</div>
+          <div class="figsub">n=100 participantes com histórico rico · último estado observável, não estado declarado</div>
+          <div class="rows" id="estrows"></div>
+          <div class="axis"><span>0%</span><span>40%</span></div>
+        </div>
+        <figcaption>Atribuição por classificação assistida em <b>72</b> casos e por heurística determinística sobre a sequência de estágios em <b>20</b>; <b>8</b> ficam sem evidência e são declarados como tal, em vez de imputados. A janela de três semanas sub-observa abandono por construção. A base conversacional captura quem <em>fica</em> no grupo.</figcaption>
+      </figure>
+    </div>
+
+    <div class="col">
+      <p>O que sai daí não é opinião agregada: é comportamento datado. Alguns achados dessa camada, todos rastreáveis a mensagens específicas:</p>
+
+      <div class="stats">
+        <div class="stat"><div class="v">14%</div><div class="k">negam explicitamente ter tido efeito colateral: o número defensável. Outros 58% não tocaram no assunto</div></div>
+        <div class="stat"><div class="v">6,6 kg</div><div class="k">perda média autorrelatada (n=37). Mediana de 5,0 kg. A média é puxada por dois ou três casos de 16 a 23 kg</div></div>
+        <div class="stat"><div class="v">19%</div><div class="k">reclamam de espera: consulta, validação de receita, suporte</div></div>
+        <div class="stat"><div class="v">6</div><div class="k">participantes com duas ou mais trocas de marca; duas delas são ida e volta</div></div>
+      </div>
+
+      <p>Dois achados dessa base conversacional mudaram recomendação comercial. O primeiro: <strong>a matriz de troca não é uma cascata descendente.</strong> Dos participantes que trocaram mais de uma vez, um terço voltou à marca de origem: há elasticidade de retorno, e não apenas <em>downtrading</em>. O segundo: entre as transições cujo motivo declarado era "outro", a releitura qualitativa mostrou que cerca de cinco em oito eram preço ou equivalência de marca não verbalizados. O motivo declarado subestimava o preço; a leitura do texto corrigiu.</p>
+
+      <div class="panel panel-bar">
+        <span class="lbl">Sinal temporal, não média</span>
+        <p>A recusa de receita escrita pelo nome do princípio ativo aparece uma vez no início da janela e três vezes nos últimos dias. Participantes citam uma norma nova, outro cita nota técnica em sentido contrário. Uma média mensal teria escondido isso. Fricção regulatória em escalada só é visível se a base conversacional for datada.</p>
+      </div>
+
+      <div class="runfoot" style="margin-top:36px"><span>Mimetica · acervo GLP-1 Brasil · o substrato</span><b>03</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 ================= -->
+<section class="sec">
+  <div class="wrap"><div class="col">
+    <div class="shead">
+      <div class="slabel"><div class="badge">04</div><div class="eyebrow">A validação fundacional</div></div>
+      <h2>92% contra resposta humana real</h2>
+      <p class="dek">O teste que autoriza tudo o que vem depois, e o que ele explicitamente não autoriza.</p>
+    </div>
+
+    <div class="proof">
+      <div class="lbl">Prova 1 · GLP-1</div>
+      <div class="head">
+        <div class="big">92%</div>
+        <p>O motor foi rodado dentro de uma comunidade real sobre obesidade e medicamentos GLP-1, com doze perguntas comportamentais. As respostas das personas ancoradas foram comparadas uma a uma com a resposta humana correspondente.</p>
+      </div>
+    </div>
+
+    <p>O escopo dessa prova é hoje descrito de forma mais ampla do que apenas GLP-1: cobre saúde mental, obesidade e conhecimento sobre medicamentos para perda de peso. É uma validação de fundação, não de produto. O que ela autoriza: redirecionar o mesmo motor para outro tema (chocolate, varejo, opinião pública) sem reconstruí-lo do zero. O que ela não autoriza é mais interessante.</p>
+
+    <div class="panel panel-bar">
+      <span class="lbl">A fronteira, dita na proposta</span>
+      <p>Um experimento interno posterior testou a crença ingênua de que um perfil suficientemente rico responde qualquer coisa. Um gêmeo digital carregado de personalidade acertava perguntas genéricas e errava decisões específicas de compra fora do domínio da semente. A formulação que passou a valer em todo material comercial: <strong>a base viva multiplica a leitura sobre o que já foi perguntado; tema novo pede semente nova.</strong></p>
+    </div>
+
+    <p>Comercialmente, isso é o desenho da receita: cada tema novo é uma nova mini-coleta de campo. Metodologicamente, é o que separa um motor de um oráculo.</p>
+
+    <div class="runfoot" style="margin-top:36px"><span>Mimetica · acervo GLP-1 Brasil · validação fundacional</span><b>04</b></div>
+  </div></div>
+</section>
+
+<!-- ================= 05 ================= -->
+<section class="sec">
+  <div class="wrap"><div class="col">
+    <div class="shead">
+      <div class="slabel"><div class="badge">05</div><div class="eyebrow">Nivela e Escala</div></div>
+      <h2>Expandir sem inventar</h2>
+      <p class="dek">A camada onde não há modelo de linguagem nenhum. É estatística, é antiga, e é auditável.</p>
+    </div>
+
+    <p>Antes de qualquer persona falar, a amostra real precisa ser corrigida e expandida. Essa camada é puramente estatística: reponderação iterativa contra marginais públicas (Censo e PNAD Contínua, cruzando região, sexo, idade e renda), seguida de síntese por doação a partir de casos reais semelhantes. Nenhum modelo generativo participa. O resultado é reproduzível linha a linha.</p>
+
+    <p>O caso auditado dessa camada não é GLP-1: é uma pesquisa nacional de vacinação, com um instituto público de pesquisa e um laboratório multinacional como clientes, e campo humano em painel. Ele entra aqui porque é a prova mais dura que temos de que a expansão não inventa.</p>
+
+    <div class="proof">
+      <div class="lbl">Prova 2 · Vacinação nacional</div>
+      <div class="head">
+        <div class="big">8,6×</div>
+        <p>350 respondentes reais expandidos em 3.000 perfis calibrados: 8,6 vezes de escala sobre a amostra real, com o erro medido contra o dado autêntico em cada célula.</p>
+      </div>
+      <div class="sub3">
+        <div><div class="v">&lt; 5 p.p.</div><div class="k">de erro médio absoluto contra o dado autêntico</div></div>
+        <div><div class="v">7 de 7</div><div class="k">marcas na ordem correta de lembrança</div></div>
+        <div><div class="v">95,5%</div><div class="k">de cobertura fora da amostra em 200 reamostragens</div></div>
+      </div>
+    </div>
+
+    <p>Essa camada segue faixas de piso e teto que usamos como referência em todo projeto, e que seguem em ajuste conforme reunimos mais ondas:</p>
+
+    <div class="blocks">
+      <div class="blk">
+        <div class="lbl"><span class="a">Piso</span><span class="b">mínimo por célula</span></div>
+        <h4>Cerca de trinta respondentes autênticos</h4>
+        <p>Em cada célula que será expandida. O corte não é arbitrário: segue o Teorema Central do Limite, abaixo de trinta observações por célula a aproximação normal que sustenta margem de erro e intervalo de confiança fica frágil. Abaixo disso, hoje optamos por não expandir a célula, e ela é reportada como insuficiente.</p>
+      </div>
+      <div class="blk">
+        <div class="lbl"><span class="a">Teto</span><span class="b">fator de referência</span></div>
+        <h4>Dez vezes como referência, quinze como limite</h4>
+        <p>Acima disso, pela nossa leitura atual, o intervalo cresce mais rápido que o ganho de leitura, e o número passa a precisar de acompanhante para sustentar decisão.</p>
+      </div>
+      <div class="blk">
+        <div class="lbl"><span class="a">Bloco sem autêntico</span><span class="b">o que evitamos</span></div>
+        <h4>Evitamos expandir sobre o vazio</h4>
+        <p>Um bloco de instrumento sem resposta autêntica hoje não entra na expansão, mesmo quando o cliente pede. É a prática que seguimos enquanto validamos o critério caso a caso.</p>
+      </div>
+    </div>
+
+    <div class="runfoot" style="margin-top:36px"><span>Mimetica · acervo GLP-1 Brasil · nivela e escala</span><b>05</b></div>
+  </div></div>
+</section>
+
+<!-- ================= 06 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="col">
+      <div class="shead">
+        <div class="slabel"><div class="badge">06</div><div class="eyebrow">O omnibus</div></div>
+        <h2>49 perguntas sobre um público inteiro</h2>
+        <p class="dek">A onda que provou que o instrumento roda em escala, e que produziu o inventário mais completo de defeitos que já publicamos.</p>
+      </div>
+
+      <p>Em maio de 2026 rodamos o questionário canônico GLP-1 completo sobre <span class="mono">2.516</span> personas brasileiras adultas, ancoradas em demografia pública, com sub-amostra de <span class="mono">200</span> por pergunta: <span class="mono">49</span> perguntas válidas, <span class="mono">8.210</span> respostas materializadas. Cada resposta vem acompanhada do raciocínio da persona, e cada pergunta vem com sua banda de confiança.</p>
+
+      <p>Os sinais convergentes vieram na direção esperada e bateram com fonte externa: <em>awareness</em> praticamente universal com Ozempic como marca dominante; associação a perda de peso, não a diabetes; redes sociais como canal de descoberta relevante; preço como barreira número um para quem não usa.</p>
+    </div>
+
+    <div class="wide">
+      <figure>
+        <div class="figbox anim" id="fig-canal">
+          <div class="figttl">Como as pessoas souberam do GLP-1 pela primeira vez</div>
+          <div class="figsub">Q8 · n=200 · banda de confiança amarela</div>
+          <div class="rows" id="canalrows"></div>
+          <div class="axis"><span>0%</span><span>50%</span></div>
+        </div>
+        <figcaption>A leitura que importa não é o topo isolado: é a jornada híbrida. Rede social desperta, médico valida. Uma campanha que trate os dois canais como concorrentes está lendo o funil errado.</figcaption>
+      </figure>
+    </div>
+
+    <div class="col">
+      <h3 class="sub">O que estava errado</h3>
+      <p>Essa é a parte da onda que mais nos serviu. Quatro defeitos foram identificados e documentados no próprio relatório entregue:</p>
+
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th style="width:22%">Defeito</th><th>Como apareceu</th><th style="width:26%">Correção</th></tr></thead>
+          <tbody>
+            <tr><td><b>Viés de saliência</b></td><td>Penetração de uso atual acima da prevalência real brasileira. O tema é saturado nos dados de treino, e isso infla a passagem de <em>awareness</em> para uso.</td><td>Ancorar a fatia de status de uso em fonte externa, em vez de deixá-la emergir.</td></tr>
+            <tr><td><b>Colapso modal</b></td><td>Duas perguntas com 87% e 92% concentrados na primeira opção: concentração alta demais para ser comportamento.</td><td>Marcadas como suspeitas no relatório; reescrita do instrumento.</td></tr>
+            <tr><td><b>Roteamento condicional ausente</b></td><td>Quem declarou não usar continuava respondendo o bloco de uso, gerando "não uso" como opção válida e contaminando distribuições.</td><td>Lógica de salto no processador de perguntas.</td></tr>
+            <tr><td><b>Bandas amarelas em maioria</b></td><td>O centroide da semente era sociodemográfico, semanticamente distante das perguntas de comportamento GLP-1.</td><td>Ampliar a semente com perguntas comportamentais ancoradas no tema.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="noite">
+        <span class="lbl">Por que isso está publicado</span>
+        <p>Seis perguntas da onda voltaram com zero respostas por uma falha de infraestrutura, e o relatório seguinte da mesma série documenta, no próprio corpo, um defeito de arquitetura encontrado durante a execução, com causa-raiz e recomendação técnica.</p>
+        <p style="margin-bottom:0">Nada disso melhora o resultado. O que melhora é a possibilidade de o cliente auditar o que recebeu, que é a única coisa que separa um ensaio de uma opinião bem escrita.</p>
+      </div>
+
+      <div class="runfoot" style="margin-top:36px"><span>Mimetica · acervo GLP-1 Brasil · o omnibus</span><b>06</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="col">
+      <div class="shead">
+        <div class="slabel"><div class="badge">07</div><div class="eyebrow">Lupa</div></div>
+        <h2>O corte que a amostra humana não paga</h2>
+        <p class="dek">A capacidade mais vendável, porque nenhum orçamento de campo sustenta esse nível de detalhe.</p>
+      </div>
+
+      <p>Num campo humano, cada cruzamento fino custa amostra, e amostra custa dinheiro. É por isso que tantos relatórios param no agregado. Sobre um substrato expandido, o cruzamento é uma consulta, e o custo marginal de olhar a mesma pergunta por classe, por idade e por região é próximo de zero. Desde que a célula aguente.</p>
+    </div>
+
+    <div class="wide">
+      <figure>
+        <div class="figbox anim" id="fig-classe">
+          <div class="figttl">A que as pessoas associam o GLP-1, por classe social</div>
+          <div class="figsub">Q9 · n=200 distribuídos · classes ABEP</div>
+          <div class="legend">
+            <span><i style="background:var(--c1)"></i>Perda de peso / obesidade</span>
+            <span><i style="background:var(--c4)"></i>Não sei</span>
+            <span><i style="background:var(--c3)"></i>Controle de diabetes tipo 2</span>
+          </div>
+          <div class="rows" id="classerows"></div>
+          <div class="axis"><span>0%</span><span>100%</span></div>
+        </div>
+        <figcaption>O agregado diz 67% "perda de peso". O corte diz outra coisa: <b>a classe E inverte completamente</b>: 80% respondem "não sei". Não é ruído de amostra pequena disfarçado de achado; é um gap de letramento que define se o público é endereçável por comunicação de marca ou apenas por política pública e cobertura.</figcaption>
+      </figure>
+    </div>
+
+    <div class="col">
+      <p>O mesmo instrumento, cortado por status de uso em vez de demografia, produziu o achado comercialmente mais forte de toda a série, e o mais inesperado:</p>
+    </div>
+
+    <div class="wide">
+      <figure>
+        <div class="figbox anim" id="fig-ff">
+          <div class="figttl">Reduziu ou parou de consumir fast food, por relação com o GLP-1</div>
+          <div class="figsub">Q19 cruzada com status de uso · % que declara redução</div>
+          <div class="rows" id="ffrows"></div>
+          <div class="axis"><span>0%</span><span>100%</span></div>
+        </div>
+        <figcaption><b>O efeito é grudento.</b> Entre quem usa de forma consolidada, a redução é universal, o que já era esperado. O achado é a linha do ex-usuário: <b>65% mantêm a redução mesmo tendo abandonado o medicamento.</b> Para uma rede de alimentação, isso significa que o impacto sobre o tíquete não se reverte quando o paciente para. Quem considera e quem nunca usou não mudou nada, o que serve de controle interno da leitura.</figcaption>
+      </figure>
+    </div>
+
+    <div class="col">
+      <p>Nem todo corte sobrevive. No mesmo relatório, o recorte por região trouxe o Sudeste com 58% de "não sei", contraintuitivo, já que se esperaria o oposto. A causa apareceu na própria tabela: a célula tinha <span class="mono">n=12</span>, margem acima de <span class="mono">±28 p.p.</span>, inutilizável. O corte foi marcado como descartado para uso comercial, com a instrução técnica de regerar a onda com amostragem aleatória em vez da fixa.</p>
+
+      <div class="noite">
+        <span class="lbl">A regra que isso virou</span>
+        <p class="claim">Nenhum recorte fino é prometido em proposta antes de a célula ser validada. A capacidade de cortar não é a permissão para cortar.</p>
+      </div>
+
+      <div class="runfoot" style="margin-top:36px"><span>Mimetica · acervo GLP-1 Brasil · lupa</span><b>07</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="col">
+      <div class="shead">
+        <div class="slabel"><div class="badge">08</div><div class="eyebrow">A persona ancorada</div></div>
+        <h2>Cinco arquétipos, dez vozes em debate</h2>
+        <p class="dek">É a persona, e o focus group é apenas um dos formatos em que ela pode ser consumida.</p>
+      </div>
+
+      <p>Uma distribuição responde "quanto". Uma persona ancorada responde "por quê", em primeira pessoa, com o histórico real de uma pessoa por trás. Da onda omnibus extraímos cinco arquétipos representando os clusters de uso, cada um com identidade, situação econômica e o raciocínio literal por trás de cada resposta.</p>
+    </div>
+
+    <div class="wide">
+      <div class="cards">
+        <div class="card"><div class="n">01</div><h4>Ex-usuária classe A</h4><p>52 anos, Recife. Parou por efeito colateral e custo. Reduziu fast food em mais de 75% e não voltaria. Segmento com poder de compra, perdido por qualidade.</p></div>
+        <div class="card"><div class="n">02</div><h4>Ex-usuária classe B1</h4><p>33 anos, São Luís. Perdeu mais de 10% do peso, parou por enjoo. Reativável se existir versão com menos efeito adverso.</p></div>
+        <div class="card"><div class="n">03</div><h4>Estudante classe A</h4><p>26 anos, Natal. Único caso em que o fast food voltou ao padrão anterior. Usou por três meses, não seis: o efeito grudento depende de tempo de exposição.</p></div>
+        <div class="card"><div class="n">04</div><h4>Sênior B1</h4><p>60 anos, Cuiabá. Recuperou o peso após parar e cristalizou percepção negativa. Não se reconquista com "tente de novo".</p></div>
+        <div class="card"><div class="n">05</div><h4>Classe E, nunca usou</h4><p>33 anos, São Leopoldo. Representa 34% da amostra. Não é mercado endereçável sob preço de mercado livre. Só via cobertura pública ou plano.</p></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3 class="sub">Perfil ausente não é perfil inventado</h3>
+
+      <p>Os cinco arquétipos acima não nasceram do zero nesta onda. Eles vêm de uma base de perfis brasileiros que a Mimetica mantém e calibra continuamente, formada pela base viva, por camadas comportamentais de cada região do país, e pelo dataset original usado para construir essa tipologia. Estudos de segmentação e de comportamento já publicados no mercado serviram de inspiração para desenhar essa base, não como fonte da clusterização. A clusterização é nossa.</p>
+
+      <p>Isso importa porque nenhuma amostra real cobre todos os perfis por igual. Alguns são mais comuns na população e dominam a amostra; outros aparecem pouco, ou não aparecem. Quando uma onda traz respostas reais, o primeiro uso delas é identificar quais perfis da base estão de fato representados ali. O segundo uso é mais delicado: os perfis que não apareceram nesta amostra específica não ficam sem resposta, porque cada um já tem padrão próprio, calibrado em outras ondas, sobre outros temas. Preencher a lacuna com esse padrão é diferente de inventar sobre o vazio. O perfil ausente tem amostra real por trás, só que de outro lugar.</p>
+
+      <p>A mesma trava da seção 04 vale aqui sem exceção: o padrão de um perfil só é reaproveitado quando o tema novo está perto do que aquele perfil já respondeu antes em algum lugar. Um perfil nunca testado em nada parecido com o tema da onda não é preenchido, é declarado ausente. Essa capacidade, prever a resposta de um perfil a partir do padrão que ele já tem noutro tema, ainda não tem prova publicada como as das seções 04 e 05. Fica registrada aqui como o que já observamos rodando, não como número fechado.</p>
+
+      <p>A persona ancorada é indiferente ao formato de saída. A mesma pessoa pode ser entrevistada individualmente, exposta a um estímulo, revisitada meses depois, ou colocada em debate com outras. Foi esse último formato que produziu o material mais denso da série.</p>
+
+      <h3 class="sub">Dez personas, três blocos, réplicas e tréplicas</h3>
+
+      <p>Em agosto de 2026 montamos um focus group com dez personas extraídas da base conversacional de pacientes, cada uma ancorada no histórico real de mensagens da participante correspondente, em arcos de 21 a 35 dias. O tema: confiança na indústria farmacêutica. Cada fala carrega a citação da mensagem real que a sustenta, e o documento abre com uma linha de <em>disclosure</em> declarando que as falas são geradas e que o exercício não substitui pesquisa primária com consumidores reais.</p>
+
+      <blockquote>Eu não preciso confiar na empresa. Eu confio no sistema que regula a empresa. A ANVISA aprovou? Está dentro da legalidade? É isso que me protege, não a boa vontade do laboratório.
+        <span class="who">A Institucionalista · RS · ancorada em "temos um órgão regulador que aprova os medicamentos"</span></blockquote>
+
+      <p>O valor não está nas falas isoladas, e sim no que emerge do debate: as personas discordam entre si e defendem posições ancoradas em experiências diferentes. Quatro achados saíram de lá:</p>
+
+      <div class="blocks">
+        <div class="blk">
+          <div class="lbl"><span class="a">Achado 01</span></div>
+          <h4>A confiança é instrumental, nunca afetiva</h4>
+          <p>Nenhuma das dez confia na "bondade" da farmacêutica. A confiança é delegada a procuradores: o regulador, o médico, o próprio corpo, o bolso. Campanha de propósito não move este público; prova institucional e funcional, sim.</p>
+        </div>
+        <div class="blk">
+          <div class="lbl"><span class="a">Achado 02</span></div>
+          <h4>Crise de segurança não gera troca reflexa, gera funil de verificação</h4>
+          <p>Fonte oficial, depois médico, depois grupo. Com dois desvios críticos: quem é sensível a segurança troca por desconforto antes de qualquer fato confirmado, e quem está no limite do orçamento não troca: <strong>abandona</strong>. Crise mal comunicada custa paciente ao mercado inteiro, não só à marca afetada.</p>
+        </div>
+        <div class="blk">
+          <div class="lbl"><span class="a">Achado 03</span></div>
+          <h4>O vácuo entre a manchete e o regulador pertence ao grupo</h4>
+          <p>"O grupo responde em minutos, o órgão responde em semanas." É nesse intervalo que pausas e decisões precipitadas acontecem. Quem comunica rápido e oficialmente ocupa um espaço que, do contrário, é preenchido por pares leigos.</p>
+        </div>
+        <div class="blk">
+          <div class="lbl"><span class="a">Achado 04</span></div>
+          <h4>Estabilidade é percebida como segurança</h4>
+          <p>Recomeçar titulação a cada susto também tem risco: enjoo, adaptação, fome de volta. Marcas incumbentes têm uma defesa natural; entrantes precisam reduzir o custo percebido da transição, não apenas o preço.</p>
+        </div>
+      </div>
+
+      <div class="runfoot" style="margin-top:36px"><span>Mimetica · acervo GLP-1 Brasil · persona ancorada</span><b>08</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 09 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="col">
+      <div class="shead">
+        <div class="slabel"><div class="badge">09</div><div class="eyebrow">Cenarização</div></div>
+        <h2>A pergunta que abriu o artigo</h2>
+        <p class="dek">Três futuros de preço da semaglutida, o mesmo instrumento, a mesma tarde.</p>
+      </div>
+
+      <p>Voltamos à pergunta do início. Sobre uma onda de 500 personas, rodamos cinco perguntas-chave sob três contextos macroeconômicos declarados no <em>prompt</em> de cada persona: primeiros genéricos nacionais com queda de 35%; expiração de patente com queda de 60%; e saturação com queda de 80% acompanhada de percepção de qualidade duvidosa.</p>
+    </div>
+
+    <div class="wide">
+      <figure>
+        <div class="figbox anim" id="fig-cen">
+          <div class="figttl">Valor máximo mensal aceitável declarado, por cenário</div>
+          <div class="figsub">n=45 a 67 por célula · margem ±12 p.p. · achados direcionais</div>
+          <div class="legend">
+            <span><i style="background:var(--c1)"></i>A · preço −35%</span>
+            <span><i style="background:var(--c2)"></i>B · preço −60%</span>
+            <span><i style="background:var(--c3)"></i>C · preço −80% + dúvida de qualidade</span>
+          </div>
+          <div class="rows" id="cenrows"></div>
+          <div class="axis"><span>0%</span><span>45%</span></div>
+        </div>
+        <figcaption>A disposição a pagar declarada ancora na faixa do cenário apresentado, sintoma clássico de ancoragem cognitiva. <b>É uma limitação, e ela é a leitura.</b> A resposta não é a disposição a pagar verdadeira; é a reação a um estímulo de preço, que é exatamente o que uma campanha de lançamento produz no mundo real.</figcaption>
+      </figure>
+    </div>
+
+    <div class="col">
+      <p>Dois resultados sobreviveram à margem larga e contradizem a hipótese ingênua:</p>
+
+      <div class="blocks">
+        <div class="blk">
+          <div class="lbl"><span class="a">Cenário C</span><span class="b">o paradoxo</span></div>
+          <h4>O preço mais baixo não maximiza adoção</h4>
+          <p>A queda de 80% acompanhada de sinal de qualidade duvidosa não produz a maior penetração. Pacientes reagem a bens de saúde com hesitação típica: preferem marca premium reconhecida. O paradoxo valida heterogeneidade de resposta e derruba a premissa "puramente racional".</p>
+        </div>
+        <div class="blk">
+          <div class="lbl"><span class="a">Alimentação</span><span class="b">o controle</span></div>
+          <h4>O efeito sobre fast food só existe com adoção real</h4>
+          <p>A estratégia alimentar declarada fica estável entre os três cenários. O comportamento é governado por uso efetivo do medicamento, não por sinal de acessibilidade. Para a rede de restaurantes, isso reposiciona a pergunta: o gatilho não é o preço cair, é a adoção subir, e a janela de preparação é a distância entre as duas coisas.</p>
+        </div>
+      </div>
+
+      <div class="runfoot" style="margin-top:36px"><span>Mimetica · acervo GLP-1 Brasil · cenarização</span><b>09</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10 ================= -->
+<section class="sec">
+  <div class="wrap"><div class="col">
+    <div class="shead">
+      <div class="slabel"><div class="badge">10</div><div class="eyebrow">A escada de rigor</div></div>
+      <h2>O que declaramos quando não sabemos</h2>
+      <p class="dek">Existe para que o cliente saiba, antes de comprar, que decisão aquele número pode sustentar.</p>
+    </div>
+
+    <p>Nem todo ensaio comportamental serve para a mesma coisa, e vender como se servisse é o erro que destrói a categoria. Cada relatório é classificado numa das três posições abaixo, pela banda de confiança e pelo tamanho da célula alcançados, não pela pergunta do cliente. É a régua que usamos hoje, e ela segue em ajuste conforme validamos mais ondas.</p>
+
+    <div class="blocks">
+      <div class="blk" style="border-left-color:var(--c4)">
+        <div class="lbl"><span class="a" style="color:var(--c4)">Nível 1 · Exploratório</span><span class="b">banda amarela · célula pequena</span></div>
+        <h4>Levanta hipótese, não sustenta decisão</h4>
+        <p>Serve para priorizar o que perguntar em campo e escolher onde gastar amostra humana. Não vai para dentro de um <em>business case</em>.</p>
+      </div>
+      <div class="blk">
+        <div class="lbl"><span class="a">Nível 2 · Direcional</span><span class="b">banda amarela · célula suficiente</span></div>
+        <h4>Ordena alternativas e dimensiona sensibilidade</h4>
+        <p>Sustenta decisão reversível de comunicação, portfólio ou pricing exploratório. É onde vive a maior parte da série GLP-1.</p>
+      </div>
+      <div class="blk" style="border-left-color:var(--c5)">
+        <div class="lbl"><span class="a" style="color:var(--c5)">Nível 3 · Decisório</span><span class="b">banda verde · validado contra onda humana</span></div>
+        <h4>Entra sozinho numa decisão de investimento</h4>
+        <p>Exige âncora de campo real da mesma janela e comparação célula a célula. É o único patamar em que o número não precisa de acompanhante.</p>
+      </div>
+    </div>
+
+    <div class="noite">
+      <span class="lbl">O que nunca é ensaiado</span>
+      <p>Decisão regulatória, farmacovigilância e qualquer leitura que a autoridade sanitária vá receber como evidência não passam por substrato expandido. Nesses casos a resposta é painel humano, e a Mimetica diz isso ao cliente antes de a proposta ser escrita.</p>
+      <p style="margin-bottom:0"><strong>"Ensaio comportamental" e "ensaio clínico" são coisas diferentes.</strong> A palavra nunca aparece sozinha no nosso material de saúde.</p>
+    </div>
+
+    <p>Três disciplinas mantêm isso funcionando na prática. Toda onda carrega um registro de validação contínua não bloqueante: a validação roda junto com a entrega, em vez de segurá-la, e o que ela encontra vai impresso no relatório. Todo recorte vem com o <span class="mono">n</span> da célula visível ao lado, não em nota de rodapé. E toda pergunta aberta é marcada como exigindo leitura qualitativa, em vez de ser espremida numa tabela de frequência onde ela não significa nada.</p>
+
+    <div class="runfoot" style="margin-top:36px"><span>Mimetica · acervo GLP-1 Brasil · escada de rigor</span><b>10</b></div>
+  </div></div>
+</section>
+
+<!-- ================= 11 ================= -->
+<section class="sec">
+  <div class="wrap"><div class="col">
+    <div class="shead">
+      <div class="slabel"><div class="badge">11</div><div class="eyebrow">O que vem agora</div></div>
+      <h2>MICELIUM, o substrato vivo</h2>
+      <p class="dek">O que a série GLP-1 tornou possível construir, e o que ainda falta provar.</p>
+    </div>
+
+    <h3 class="sub">O que cada setor leva daqui</h3>
+
+    <p>Os achados da série, lidos juntos, respondem de forma diferente para quem está do outro lado da mesa:</p>
+
+    <div class="blocks">
+      <div class="blk">
+        <div class="lbl"><span class="a">Rede de alimentação</span><span class="b">seções 07 e 09</span></div>
+        <h4>O gatilho é a adoção subir, não o preço cair</h4>
+        <p>O efeito sobre o consumo é persistente mesmo depois de o paciente abandonar o tratamento, o que alarga a janela de preparação estratégica.</p>
+      </div>
+      <div class="blk">
+        <div class="lbl"><span class="a">Laboratório entrante</span><span class="b">seção 08</span></div>
+        <h4>Reduzir o custo da troca vale mais que só baixar preço</h4>
+        <p>O grupo de discussão mostra estabilidade de tratamento lida como segurança. Competir apenas em preço não move quem já está estável numa marca.</p>
+      </div>
+      <div class="blk">
+        <div class="lbl"><span class="a">Saúde e política pública</span><span class="b">seção 07</span></div>
+        <h4>Parte do público não é endereçável por marca</h4>
+        <p>Na classe E, o corte mostra que a via de acesso é cobertura pública ou plano, não comunicação sob preço de mercado livre.</p>
+      </div>
+    </div>
+
+    <p>Cada estudo desta série foi uma onda isolada, com semente própria e prazo próprio. O MICELIUM é a tentativa de transformar isso num substrato contínuo: uma base de leitura que se mantém viva por escuta permanente, e sobre a qual as ferramentas do MOS (nivelamento, expansão, corte fino, campo dirigido e leitura contínua entre ondas) operam sob demanda.</p>
+
+    <p>A metáfora é precisa quanto ao método: a rede subterrânea que conecta a floresta, em que cada filamento é um respondente real e o ponto de contato com o dado é a calibração. A lógica é a mesma da camada orgânica descrita na seção 03, levada a regime: a fala não performada não acaba quando o campo fecha, porque ela nunca foi um campo. A diferença entre isso e um painel é que o painel precisa recrutar de novo a cada onda, e o substrato precisa apenas continuar ouvindo, respeitando em cada canal a base legal que aquele canal exige.</p>
+
+    <p>Quatro coisas estão declaradas como pendentes, e este artigo não seria honesto sem elas:</p>
+
+    <div class="numlist">
+      <div class="it"><div class="n">01</div><p><b>Conjunto de referência com resposta conhecida.</b> De vinte a trinta perguntas cuja distribuição verdadeira já é conhecida por fonte pública, rodadas em toda onda como controle. Especificado, ainda não em produção.</p></div>
+      <div class="it"><div class="n">02</div><p><b>Validação cruzada contra onda humana da mesma janela.</b> Comparar as marginais do ensaio com as de um levantamento humano contemporâneo do mesmo tema. Divergência acima de quinze pontos aciona revisão do instrumento.</p></div>
+      <div class="it"><div class="n">03</div><p><b>Banda de confiança exposta ao cliente.</b> Hoje a banda circula em relatório técnico. O objetivo é que ela apareça no painel do cliente, pergunta a pergunta, como um número que ele possa usar contra nós.</p></div>
+      <div class="it"><div class="n">04</div><p><b>Portabilidade de padrão de perfil entre temas.</b> Hoje inferimos a resposta de um perfil ausente a partir do padrão que ele já mostrou em outro tema, descrito na seção 08. Sentimos o ganho no dia a dia; ainda não medimos, célula a célula, contra resposta humana real. Enquanto não houver essa prova, tratamos como direcional, nunca decisório.</p></div>
+    </div>
+
+    <div class="noite">
+      <span class="lbl">A diferença</span>
+      <p class="claim">Qualquer fornecedor de dado entrega um número. A diferença de um instrumento de medida é que ele publica, junto, o próprio erro.</p>
+    </div>
+
+    <div class="runfoot" style="margin-top:36px"><span>Mimetica · acervo GLP-1 Brasil · micelium</span><b>11</b></div>
+  </div></div>
+</section>
+
+<!-- ================= FECHAMENTO ================= -->
+<section class="close">
+  <div class="wrap"><div class="col">
+    <div class="cta">
+      <div class="lbl">O fechamento</div>
+      <div class="claim">Rodem o teste mais desconfortável que existe.</div>
+      <p>Escolham uma pesquisa que a empresa já executou e cujo resultado não seja compartilhado conosco. Recebemos apenas a semente reduzida e o instrumento, rodamos a expansão e entregamos com a banda de confiança declarada. Comparamos com o resultado real, célula a célula.</p>
+      <p style="margin-bottom:20px">Se bater, vocês passam a confiar por evidência e não por apresentação. Se não bater, vocês perderam uma semana e nós perdemos a venda, o que é justo.</p>
+      <p style="margin-bottom:0"><a href="https://www.linkedin.com/company/mimetica-trails-inc">Mimetica no LinkedIn</a></p>
+    </div>
+
+    <div class="endcols">
+      <div>
+        <h4>Nota de método</h4>
+        <p>Os relatórios citados foram gerados entre maio e agosto de 2026 sobre o acervo GLP-1 Brasil da Mimetica, sob registro de validação contínua não bloqueante (ADR-042). A camada de nivelamento e expansão é puramente estatística. A camada de resposta usa modelos de linguagem de propósito geral, tratados como componente substituível: modelos diferentes foram usados em ondas diferentes desta série, e o viés modal observado é reportado por onda.</p>
+      </div>
+      <div>
+        <h4>Ética e dados</h4>
+        <p>Nenhum participante real foi contatado ou é identificável. Identificadores são pseudônimos irreversíveis; contas administrativas e comerciais foram excluídas antes de qualquer classificação. Toda persona ancorada carrega a citação da evidência real que a sustenta.</p>
+        <p style="margin-bottom:0">Ensaio comportamental e de mercado. Não é ensaio clínico regulatório e não substitui coleta humana para decisão regulatória ou de farmacovigilância.</p>
+      </div>
+      <div>
+        <h4>Séries citadas</h4>
+        <ul>
+          <li>Base conversacional GLP-1 Brasil · jul–ago 2026</li>
+          <li>Validação fundacional em comunidade · 12 perguntas</li>
+          <li>Pesquisa Nacional de Vacinação · setor público e privado</li>
+          <li>Omnibus GLP-1 Brasil · 49 perguntas · mai 2026</li>
+          <li>Relatórios complementares · cortes e personas</li>
+          <li>Cenários semaglutida A/B/C · mai 2026</li>
+          <li>Focus group ancorado: confiança farma · ago 2026</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="livedoc">Documento vivo, construído para revisão e ajuste conforme a série avança</p>
+    <div class="runfoot"><span>Mimetica · acervo GLP-1 Brasil · artigo de método</span><b>12</b></div>
+  </div></div>
+</section>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var prog = document.getElementById("prog");
+  function onScroll(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+  }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  var tip = document.getElementById("tip");
+  function bindTip(el, text){
+    el.addEventListener("mouseenter", function(){ tip.textContent = text; tip.classList.add("on"); });
+    el.addEventListener("mousemove", function(e){
+      var x = e.clientX + 14, y = e.clientY + 16;
+      if (x + 265 > window.innerWidth) x = e.clientX - 265;
+      if (y + 70 > window.innerHeight) y = e.clientY - 60;
+      tip.style.left = x + "px"; tip.style.top = y + "px";
+    });
+    el.addEventListener("mouseleave", function(){ tip.classList.remove("on"); });
+  }
+
+  function barRows(host, data, opts){
+    opts = opts || {};
+    var max = opts.max || 100, color = opts.color || "var(--c1)";
+    data.forEach(function(d, i){
+      var row = document.createElement("div"); row.className = "row";
+      var lab = document.createElement("div"); lab.className = "lab"; lab.textContent = d.label;
+      var track = document.createElement("div"); track.className = "track";
+      var bar = document.createElement("div"); bar.className = "bar";
+      bar.style.width = Math.max(0.4, (d.value / max) * 100) + "%";
+      bar.style.background = d.color || color;
+      bar.style.transitionDelay = (reduce ? 0 : i * 60) + "ms";
+      var val = document.createElement("span"); val.className = "val";
+      val.textContent = d.display || (String(d.value).replace(".", ",") + "%");
+      bindTip(bar, d.tip || (d.label + ": " + val.textContent));
+      track.appendChild(bar); track.appendChild(val);
+      row.appendChild(lab); row.appendChild(track); host.appendChild(row);
+    });
+  }
+
+  function stackRows(host, rows, series){
+    rows.forEach(function(r, i){
+      var row = document.createElement("div"); row.className = "row";
+      row.style.gridTemplateColumns = "minmax(56px,74px) 1fr auto";
+      var lab = document.createElement("div"); lab.className = "lab"; lab.textContent = r.label;
+      var st = document.createElement("div"); st.className = "stack-row";
+      r.values.forEach(function(v, j){
+        var seg = document.createElement("div"); seg.className = "seg";
+        seg.style.flex = v + " 0 0%"; seg.style.background = series[j].color;
+        seg.style.transitionDelay = (reduce ? 0 : (i * 70 + j * 50)) + "ms";
+        if (v === 0) seg.style.display = "none";
+        bindTip(seg, r.label + " · " + series[j].name + ": " + String(v).replace(".", ",") + "%");
+        st.appendChild(seg);
+      });
+      var val = document.createElement("span"); val.className = "val"; val.textContent = "n=" + r.n;
+      row.appendChild(lab); row.appendChild(st); row.appendChild(val);
+      host.appendChild(row);
+    });
+  }
+
+  function groupRows(host, rows, series, max){
+    rows.forEach(function(r, i){
+      var row = document.createElement("div"); row.className = "row";
+      row.style.alignItems = "start";
+      var lab = document.createElement("div"); lab.className = "lab"; lab.textContent = r.label;
+      lab.style.paddingTop = "4px";
+      var box = document.createElement("div");
+      box.style.display = "flex"; box.style.flexDirection = "column"; box.style.gap = "3px";
+      r.values.forEach(function(v, j){
+        var track = document.createElement("div"); track.className = "track"; track.style.height = "13px";
+        var bar = document.createElement("div"); bar.className = "bar";
+        bar.style.height = "13px"; bar.style.width = Math.max(0.4, (v / max) * 100) + "%";
+        bar.style.background = series[j].color;
+        bar.style.transitionDelay = (reduce ? 0 : (i * 70 + j * 45)) + "ms";
+        var val = document.createElement("span"); val.className = "val"; val.style.fontSize = "11px";
+        val.textContent = v + "%";
+        bindTip(bar, series[j].name + " · " + r.label + ": " + v + "%");
+        track.appendChild(bar); track.appendChild(val); box.appendChild(track);
+      });
+      row.appendChild(lab); row.appendChild(box); host.appendChild(row);
+    });
+  }
+
+  /* margem de erro vs n */
+  (function(){
+    var host = document.getElementById("icchart");
+    if (!host) return;
+    var W = 740, H = 310, ml = 48, mr = 100, mt = 22, mb = 36;
+    var pw = W - ml - mr, ph = H - mt - mb;
+    var nMin = 10, nMax = 2600;
+    function x(n){ return ml + (Math.log(n) - Math.log(nMin)) / (Math.log(nMax) - Math.log(nMin)) * pw; }
+    function moe(n){ return 1.96 * Math.sqrt(0.25 / n) * 100; }
+    var yMax = 33;
+    function y(v){ return mt + ph - (v / yMax) * ph; }
+
+    var d = "";
+    for (var n = nMin; n <= nMax; n *= 1.035){
+      d += (d ? "L" : "M") + x(n).toFixed(1) + " " + y(moe(n)).toFixed(1) + " ";
+    }
+    d += "L" + x(nMax).toFixed(1) + " " + y(moe(nMax)).toFixed(1);
+
+    var svg = ['<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Curva da margem de erro em função do tamanho da célula: ±28 pontos percentuais com n=12, ±12 com n=67, ±6,9 com n=200 e ±2 com n=2516.">'];
+    [0, 5, 10, 20, 30].forEach(function(v){
+      svg.push('<line class="grid" x1="' + ml + '" x2="' + (ml + pw) + '" y1="' + y(v) + '" y2="' + y(v) + '"/>');
+      svg.push('<text class="axl" x="' + (ml - 9) + '" y="' + (y(v) + 3.5) + '" text-anchor="end">±' + v + '</text>');
+    });
+    [10, 50, 200, 1000, 2500].forEach(function(v){
+      svg.push('<text class="axl" x="' + x(v) + '" y="' + (mt + ph + 21) + '" text-anchor="middle">n=' + v + '</text>');
+    });
+    svg.push('<path class="linePath" d="' + d + '"/>');
+
+    [{n:12, t:"corte SE descartado"}, {n:67, t:"célula de cenário"},
+     {n:200, t:"pergunta do omnibus"}, {n:2516, t:"onda completa"}].forEach(function(m){
+      var mx = x(m.n), my = y(moe(m.n));
+      var end = m.n >= 1000, dx = end ? -11 : 11, anchor = end ? "end" : "start";
+      svg.push('<circle class="mk" cx="' + mx.toFixed(1) + '" cy="' + my.toFixed(1) + '" r="5.5"/>');
+      svg.push('<text class="mklab" x="' + (mx + dx).toFixed(1) + '" y="' + (my - 26).toFixed(1) + '" text-anchor="' + anchor + '">±' + moe(m.n).toFixed(1).replace(".", ",") + ' p.p.</text>');
+      svg.push('<text class="mksub" x="' + (mx + dx).toFixed(1) + '" y="' + (my - 13).toFixed(1) + '" text-anchor="' + anchor + '">' + m.t + '</text>');
+    });
+    svg.push('</svg>');
+    host.innerHTML = svg.join("");
+  })();
+
+  barRows(document.getElementById("estrows"), [
+    {label:"Considerando",        value:22, tip:"22 de 100 · ainda não iniciou"},
+    {label:"Iniciante",           value:20, tip:"20 de 100 · início recente"},
+    {label:"Titulação",           value:37, tip:"37 de 100 · ajustando dose"},
+    {label:"Manutenção",          value:9,  tip:"9 de 100 · dose estável"},
+    {label:"Platô",               value:1,  tip:"1 de 100"},
+    {label:"Parou por custo",     value:2,  color:"var(--c2)", tip:"2 de 100 · 1 já retornou dentro da janela"},
+    {label:"Parou por colateral", value:1,  color:"var(--c2)", tip:"1 de 100"},
+    {label:"Não mencionou",       value:8,  color:"var(--ink-3)", tip:"8 de 100 · sem evidência, declarado, não imputado"}
+  ], {max:40});
+
+  barRows(document.getElementById("canalrows"), [
+    {label:"Médico ou nutricionista", value:43.5, tip:"87 de 200"},
+    {label:"Redes sociais",           value:28,   tip:"56 de 200"},
+    {label:"Amigos ou familiares",    value:14,   tip:"28 de 200"},
+    {label:"Notícias e jornais",      value:7,    tip:"14 de 200"},
+    {label:"Publicidade",             value:4.5,  tip:"9 de 200"},
+    {label:"Farmácia",                value:1.5,  tip:"3 de 200"},
+    {label:"Outros",                  value:1.5,  color:"var(--ink-3)", tip:"3 de 200"}
+  ], {max:50});
+
+  stackRows(document.getElementById("classerows"), [
+    {label:"Classe A",  values:[87, 0, 13],  n:15},
+    {label:"Classe B1", values:[91, 3, 6],   n:33},
+    {label:"Classe B2", values:[69, 19, 11], n:36},
+    {label:"Classe C",  values:[62, 32, 5],  n:74},
+    {label:"Classe D",  values:[56, 41, 3],  n:32},
+    {label:"Classe E",  values:[20, 80, 0],  n:10}
+  ], [
+    {name:"Perda de peso / obesidade", color:"var(--c1)"},
+    {name:"Não sei",                   color:"var(--c4)"},
+    {name:"Diabetes tipo 2",           color:"var(--c3)"}
+  ]);
+
+  barRows(document.getElementById("ffrows"), [
+    {label:"Em uso consolidado", value:100, tip:"17 pessoas · redução universal"},
+    {label:"Em uso recente",     value:86,  tip:"28 pessoas"},
+    {label:"Ex-usuário",         value:65,  color:"var(--c2)", tip:"33 pessoas · mantêm a redução após parar"},
+    {label:"Considerando",       value:8,   color:"var(--ink-3)", tip:"47 pessoas · controle interno"},
+    {label:"Nunca usou",         value:1,   color:"var(--ink-3)", tip:"67 pessoas · controle interno"}
+  ], {max:100});
+
+  groupRows(document.getElementById("cenrows"), [
+    {label:"Até R$ 150", values:[36, 42, 40]},
+    {label:"R$ 180",     values:[4, 2, 4]},
+    {label:"R$ 250",     values:[4, 7, 4]},
+    {label:"R$ 280",     values:[10, 11, 7]},
+    {label:"R$ 300",     values:[3, 2, 9]},
+    {label:"R$ 350",     values:[9, 7, 9]},
+    {label:"R$ 400",     values:[25, 18, 20]},
+    {label:"R$ 450",     values:[6, 7, 4]}
+  ], [
+    {name:"Cenário A · −35%", color:"var(--c1)"},
+    {name:"Cenário B · −60%", color:"var(--c2)"},
+    {name:"Cenário C · −80%", color:"var(--c3)"}
+  ], 45);
+
+  var figs = document.querySelectorAll(".anim");
+  if (!("IntersectionObserver" in window) || reduce){
+    figs.forEach(function(f){ f.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, {threshold:0.18});
+    figs.forEach(function(f){ io.observe(f); });
+  }
+
+  /* campo micelial da capa — filamentos que se conectam, discretos */
+  (function(){
+    var cv = document.getElementById("micelio");
+    if (!cv || reduce) return;
+    var ctx = cv.getContext("2d"), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var nodes = [], W = 0, H = 0;
+    function ink(){
+      var dark = getComputedStyle(document.body).backgroundColor;
+      var m = dark.match(/\d+/g);
+      var isDark = m && (parseInt(m[0],10) + parseInt(m[1],10) + parseInt(m[2],10)) < 300;
+      return isDark ? "194,219,74" : "45,168,5";
+    }
+    var rgb = ink();
+    function resize(){
+      var r = cv.getBoundingClientRect();
+      W = r.width; H = r.height;
+      cv.width = W * dpr; cv.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      nodes = [];
+      var count = Math.round(Math.min(110, Math.max(38, W / 13)));
+      for (var i = 0; i < count; i++){
+        nodes.push({x: Math.random() * W, y: Math.random() * H,
+                    vx: (Math.random() - 0.5) * 0.13, vy: (Math.random() - 0.5) * 0.13});
+      }
+    }
+    function frame(){
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < nodes.length; i++){
+        var a = nodes[i];
+        a.x += a.vx; a.y += a.vy;
+        if (a.x < 0 || a.x > W) a.vx *= -1;
+        if (a.y < 0 || a.y > H) a.vy *= -1;
+        for (var j = i + 1; j < nodes.length; j++){
+          var b = nodes[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+          if (d2 < 14000){
+            ctx.strokeStyle = "rgba(" + rgb + "," + (0.15 * (1 - d2 / 14000)).toFixed(3) + ")";
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+        ctx.fillStyle = "rgba(" + rgb + ",0.26)";
+        ctx.beginPath(); ctx.arc(a.x, a.y, 1.2, 0, Math.PI * 2); ctx.fill();
+      }
+      requestAnimationFrame(frame);
+    }
+    resize(); window.addEventListener("resize", resize); requestAnimationFrame(frame);
+  })();
+})();
+</script>
+
+</body>
+</html>
