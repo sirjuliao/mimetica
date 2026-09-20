@@ -380,3 +380,6 @@
   .pc-all:hover{ text-decoration:underline; text-underline-offset:4px; }
   @media (prefers-reduced-motion:reduce){ .pc-card, .pc-card:hover{ transition:none; transform:none; } }
   .post-carousel-section{ padding:clamp(3rem,6vw,4.5rem) 0 clamp(0.5rem,1vw,1rem); }
+
+  /* espaço entre o texto e os botões do topo das páginas internas (Pesquisas, Sistemas) */
+  .page-hero .cta-row{ margin-top:clamp(1.75rem,3vw,2.25rem); }
