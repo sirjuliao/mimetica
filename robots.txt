@@ -1,0 +1,13 @@
+# mimetica.net — regras para crawlers de busca
+
+User-agent: *
+Allow: /
+Disallow: /articles/
+Disallow: /sandbox/
+Disallow: /api/
+
+# /articles/ é área restrita servida atrás de Cloudflare Zero Trust Access.
+# Não deve ser indexada por bots — o próprio Cloudflare bloqueia acesso não-autenticado,
+# mas esta linha impede que motores de busca sequer tentem crawlear a URL.
+
+Sitemap: https://mimetica.net/sitemap.xml

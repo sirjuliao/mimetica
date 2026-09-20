@@ -4,58 +4,380 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog · Mimetica</title>
-<meta name="description" content="Estudos, metodologia e bastidores do motor de ensaios de comportamento humano da Mimetica.">
-<link rel="icon" href="assets/logo.png">
+<meta name="description" content="Notas de método &amp; caso. Nove vetores estruturais, sete lentes filosóficas, um sistema vivo que observa o Brasil em tempo integral.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/style.css">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mimetica">
 <meta property="og:title" content="Blog · Mimetica">
-<meta property="og:description" content="Estudos, metodologia e bastidores do motor de ensaios de comportamento humano da Mimetica.">
-<meta property="og:image" content="https://mimetica.institute/assets/logo.png">
-<meta property="og:url" content="https://mimetica.institute/blog.html">
+<meta property="og:description" content="Notas de método &amp; caso — nove vetores estruturais, sete lentes filosóficas, um sistema vivo que observa o Brasil em tempo integral.">
+<meta property="og:image" content="https://mimetica.net/assets/og-image.png">
+<meta property="og:url" content="https://mimetica.net/blog">
 
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Blog · Mimetica">
-<meta name="twitter:description" content="Estudos, metodologia e bastidores do motor de ensaios de comportamento humano da Mimetica.">
-<meta name="twitter:image" content="https://mimetica.institute/assets/logo.png">
+<meta name="twitter:description" content="Notas de método &amp; caso — nove vetores estruturais, sete lentes filosóficas, um sistema vivo que observa o Brasil em tempo integral.">
+<meta name="twitter:image" content="https://mimetica.net/assets/og-image.png">
+
+<style>
+  /* -------- Blog index — grade das notas -------- */
+  .notas-list{ padding:clamp(3rem,7vw,6rem) 0 clamp(4rem,8vw,7rem); }
+  .notas-section-heading{
+    display:flex; align-items:baseline; gap:1rem;
+    padding-top:3rem; margin:3rem 0 1.75rem;
+    border-top:1px solid var(--line);
+  }
+  .notas-section-heading:first-child{ margin-top:0; padding-top:0; border-top:none; }
+  .notas-section-heading .roman{
+    font-family:var(--font-mono); font-size:0.75rem; color:var(--teal);
+    letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .notas-section-heading h3{
+    font-family:var(--font-display); font-size:clamp(1.3rem,2vw,1.6rem);
+    letter-spacing:-0.015em; color:var(--text); margin:0; font-weight:700;
+  }
+  .notas-grid{ display:grid; grid-template-columns:1fr; gap:0; }
+  .nota{
+    display:grid; grid-template-columns:5rem 1fr auto; gap:1.75rem; align-items:baseline;
+    padding:2.25rem 1rem; margin:0 -1rem;
+    border-bottom:1px solid var(--line);
+    text-decoration:none; color:inherit;
+    transition:background .2s ease;
+  }
+  .nota:hover, .nota:focus-visible{ background:rgba(255,255,255,0.02); outline:none; }
+  .nota:first-child{ border-top:1px solid var(--line); }
+  .nota-num{
+    font-family:var(--font-mono); font-size:0.9rem; color:var(--teal);
+    letter-spacing:0.06em; padding-top:0.25rem;
+  }
+  .nota-body{ min-width:0; }
+  .nota-eyebrow{
+    font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--muted); margin:0 0 0.6rem;
+  }
+  .nota-eyebrow .dot{ color:var(--line-2); margin:0 0.4rem; }
+  .nota-title{
+    font-family:var(--font-display); font-size:clamp(1.25rem,2.2vw,1.75rem);
+    line-height:1.15; letter-spacing:-0.015em; font-weight:700;
+    margin:0 0 0.6rem; color:var(--text); text-wrap:balance;
+  }
+  .nota-title em{ font-style:italic; color:var(--teal); font-weight:600; }
+  .nota-desc{
+    font-size:1rem; line-height:1.5; color:var(--muted); margin:0;
+    max-width:62ch;
+  }
+  .nota-arrow{
+    font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--muted);
+    display:flex; align-items:center; gap:0.5rem; align-self:center; white-space:nowrap;
+    transition:color .2s ease;
+  }
+  .nota:hover .nota-arrow, .nota:focus-visible .nota-arrow{ color:var(--teal); }
+  .nota-arrow svg{ width:12px; height:12px; flex-shrink:0; }
+  @media (max-width:720px){
+    .nota{ grid-template-columns:1fr; gap:0.75rem; padding:1.75rem 1rem; }
+    .nota-arrow{ align-self:start; margin-top:0.35rem; }
+  }
+
+  /* Featured card override (usa o CSS blog-card do site + tweaks) */
+  .featured-primeiro{ padding:clamp(3rem,6vw,5rem) 0 clamp(1rem,2vw,1.5rem); }
+  .featured-primeiro .blog-card-copy .featured-badge{
+    display:inline-block; font-family:var(--font-mono); font-size:0.7rem;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--bg);
+    background:var(--teal); padding:0.35rem 0.65rem; line-height:1;
+    border-radius:4px; margin-bottom:0.5rem;
+  }
+</style>
 </head>
 <body>
 <nav>
-  <a class="logo" href="index.html"><img src="assets/logo.png" alt="Mimetica" width="28" height="28"><span class="logo-text">mimetica</span></a>
+  <a class="logo" href="index.html"><img src="assets/logo.png" alt="Mimetica" width="130" height="26"></a>
   <div class="navlinks"><a href="pesquisa.html">Pesquisas</a><a href="sistemas.html">Sistemas</a><a href="blog.html" class="active">Blog</a><a href="pesquisa-sintetica.html">População</a></div>
   <a class="navcta" href="#">Entrar</a>
 </nav>
+
 <section class="page-hero" id="page-hero">
   <canvas class="bg-canvas" id="c-page-hero"></canvas>
   <div class="wrap">
-    <div class="eyebrow reveal">Blog</div>
-    <h1 class="reveal">Direto do laboratório de pesquisa.</h1>
-    <p class="lede reveal">Estudos, metodologia e bastidores do motor de ensaios de comportamento humano da Mimetica.</p>
+    <div class="eyebrow">Notas · Setembro 2026</div>
+    <h1>Notas de método &amp; caso.</h1>
+    <p class="lede">Nove vetores estruturais. Sete lentes filosóficas. Um sistema vivo que observa o Brasil em tempo integral e traduz mais de sessenta mil leituras diárias em decisão empresarial. As notas abaixo são o que aprendemos aplicando essa arquitetura em produção — método aberto, casos anonimizados, evidência auditável.</p>
   </div>
 </section>
 
-<section class="post-feature">
+
+<!-- CARROSSEL · TODOS OS POSTS -->
+<section class="post-carousel-section">
   <div class="wrap">
-    <a class="post-card reveal" href="glp1.html">
-      <div class="post-visual">
-        <canvas id="c-post-card"></canvas>
-        <span class="post-tag">Pesquisa aplicada · Agosto 2026</span>
+  <div class="post-carousel" data-carousel>
+    <div class="pc-head">
+      <div>
+        <span class="blog-eyebrow">Todas as notas</span>
+        <h2>Onze notas, do primeiro post ao acervo GLP-1.</h2>
       </div>
-      <div class="post-copy">
-        <span class="kicker">Estudo em destaque</span>
-        <h2>GLP-1, o mestre do MOS<span class="sub">(mimetica operational system)</span></h2>
-        <p>O acervo GLP-1 Brasil, estudo a estudo. Cada um construiu uma capacidade do nosso sistema de ensaios de comportamento humano: da base humana real à camada de personas, passando pela expansão estatística e pela validação célula a célula.</p>
-        <span class="post-meta">16 min de leitura · registro ADR-042</span>
-        <span class="post-cta">Ler o artigo <span class="arrow">→</span></span>
+      <div class="pc-controls">
+        <span class="pc-count" aria-live="polite">1 / 11</span>
+        <button class="pc-btn" type="button" data-prev aria-label="Posts anteriores"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2L4 7l5 5"/></svg></button>
+        <button class="pc-btn" type="button" data-next aria-label="Próximos posts"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2l5 5-5 5"/></svg></button>
+      </div>
+    </div>
+    <ul class="pc-track" tabindex="0" role="list" aria-label="Posts do blog">
+      <li><a class="pc-card" href="blog/gemeos-digitais-do-brasil">
+        <span class="pc-num">01</span>
+        <p class="pc-eyebrow">Primeiro post<span class="dot">·</span>Filme + companion</p>
+        <h3 class="pc-title">Gêmeos digitais do Brasil que pensam continuamente</h3>
+        <p class="pc-desc">Companion editorial do filme de abertura. Nove vetores em cobertura ativa, sete lentes filosóficas em produção, três surfaces de decisão.</p>
+        <span class="pc-foot"><span>~7 min + filme de 90s</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/vetores-de-mudanca">
+        <span class="pc-num">02</span>
+        <p class="pc-eyebrow">Nota editorial<span class="dot">·</span>Vetores &amp; substrato</p>
+        <h3 class="pc-title">Vetores de Mudança</h3>
+        <p class="pc-desc">Nove vetores com infraestrutura dedicada rodando 24 horas por dia, sete lentes filosóficas em produção e três surfaces de decisão canônicas.</p>
+        <span class="pc-foot"><span>~9 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/sete-mentes">
+        <span class="pc-num">03</span>
+        <p class="pc-eyebrow">Nota comercial<span class="dot">·</span>Filosofia analítica</p>
+        <h3 class="pc-title">Mimetica — o Brasil pensado por sete mentes</h3>
+        <p class="pc-desc">Dalio, Taleb, Soros, Christensen, Kurzweil, Barabási e Kahneman: cada lente implementada como motor analítico separado, com literatura acadêmica citável.</p>
+        <span class="pc-foot"><span>~8 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/painel-vivo">
+        <span class="pc-num">04</span>
+        <p class="pc-eyebrow">Nota de método<span class="dot">·</span>Painel contínuo</p>
+        <h3 class="pc-title">Painel Vivo</h3>
+        <p class="pc-desc">Quinze respondentes artificiais com memória entre ondas, cada um com jornada e voz própria. O oposto do focus group descartável: o focus group que vive.</p>
+        <span class="pc-foot"><span>~10 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/validacao-cega">
+        <span class="pc-num">05</span>
+        <p class="pc-eyebrow">Nota de método &amp; caso<span class="dot">·</span>Vacinação BR</p>
+        <h3 class="pc-title">Validação Cega</h3>
+        <p class="pc-desc">Como um painel artificial de 3.000 respondentes reproduziu o resultado de um campo humano real, com previsões seladas por SHA-256. Desvio médio de ~4 p.p.</p>
+        <span class="pc-foot"><span>~12 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/a-cabine-que-nao-mente">
+        <span class="pc-num">06</span>
+        <p class="pc-eyebrow">Nota editorial &amp; método<span class="dot">·</span>Margaret Mead &amp; Efeito Bradley</p>
+        <h3 class="pc-title">A cabine que não mente</h3>
+        <p class="pc-desc">Mead separou três realidades: o que dizem, o que fazem e o que dizem que fazem. Sobre observar comportamento sem plateia.</p>
+        <span class="pc-foot"><span>~12 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/o-maquinario-atras-da-cabine">
+        <span class="pc-num">07</span>
+        <p class="pc-eyebrow">Nota de método<span class="dot">·</span>Cinco famílias de técnica</p>
+        <h3 class="pc-title">O maquinário atrás da cabine</h3>
+        <p class="pc-desc">Cinco famílias de método estatístico e computacional que sustentam o gêmeo digital brasileiro. Cânone acadêmico em produção, sem receita.</p>
+        <span class="pc-foot"><span>~7 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="glp1.html">
+        <span class="pc-num">08</span>
+        <p class="pc-eyebrow">Pesquisa aplicada<span class="dot">·</span>GLP-1 BR · Acervo</p>
+        <h3 class="pc-title">GLP-1 — o mestre do MOS</h3>
+        <p class="pc-desc">O acervo GLP-1 Brasil, estudo a estudo: da base humana real à camada de personas, passando pela expansão estatística e pela validação célula a célula.</p>
+        <span class="pc-foot"><span>~16 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/precificacao-sintetica">
+        <span class="pc-num">09</span>
+        <p class="pc-eyebrow">Nota de método &amp; caso<span class="dot">·</span>GLP-1 BR</p>
+        <h3 class="pc-title">Precificação Artificial</h3>
+        <p class="pc-desc">O que aprendemos precificando a sintética nacional α em produção e testando um entrante nacional: curva de demanda por faixa, substituição entre concorrentes e elasticidade.</p>
+        <span class="pc-foot"><span>~14 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/botao-de-desfazer">
+        <span class="pc-num">10</span>
+        <p class="pc-eyebrow">Nota editorial &amp; método<span class="dot">·</span>Say-do gap</p>
+        <h3 class="pc-title">O Botão de Desfazer</h3>
+        <p class="pc-desc">Do Walkman amarelo ao simulador de voo: por que pesquisa mede intenção, comportamento é outra coisa, e o que muda quando você testa a decisão antes de tomá-la.</p>
+        <span class="pc-foot"><span>~11 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/retomar-o-chao">
+        <span class="pc-num">11</span>
+        <p class="pc-eyebrow">Nota de método &amp; caso<span class="dot">·</span>Varejo alimentar orgânico BR</p>
+        <h3 class="pc-title">Retomar o Chão</h3>
+        <p class="pc-desc">29 meses de dados dispersos de um varejista premium consolidados: quatro erros de dados que reverteram interpretações prévias e um budget 24% acima do entregável.</p>
+        <span class="pc-foot"><span>~10 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+    </ul>
+  </div>
+  </div>
+</section>
+
+<!-- FEATURED · PRIMEIRO POST -->
+<section class="featured-primeiro post-feature">
+  <div class="wrap">
+    <a class="blog-card" href="blog/gemeos-digitais-do-brasil">
+      <div class="blog-card-visual">
+        <canvas id="c-post-card"></canvas>
+        <span class="blog-tag">Filme + companion · Setembro 2026</span>
+      </div>
+      <div class="blog-card-copy">
+        <span class="featured-badge">Primeiro post</span>
+        <span class="blog-eyebrow">Em destaque</span>
+        <h3>Gêmeos digitais do Brasil<span class="blog-sub">que pensam continuamente</span></h3>
+        <p>Companion editorial do filme de abertura. Nove vetores em cobertura ativa, sete lentes filosóficas em produção, três <em>surfaces</em> de decisão. A visão do sistema como um todo — com o filme narrado embutido.</p>
+        <span class="blog-meta">~7 min de leitura + filme de 90s</span>
+        <span class="blog-cta">Ler / Assistir <span class="arrow">→</span></span>
       </div>
     </a>
   </div>
 </section>
 
-<section class="more-soon reveal">
+<!-- LISTA DAS DEMAIS NOTAS -->
+<section class="notas-list">
   <div class="wrap">
-    <p>Mais estudos do acervo, em breve.</p>
+
+    <div class="notas-section-heading">
+      <span class="roman">i · Substrato</span>
+      <h3>Vetores &amp; mentes</h3>
+    </div>
+
+    <div class="notas-grid">
+      <a class="nota" href="blog/vetores-de-mudanca">
+        <span class="nota-num">02</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Nota editorial<span class="dot">·</span>Vetores &amp; substrato<span class="dot">·</span>~9 min</p>
+          <h4 class="nota-title"><em>Vetores</em> de Mudança.</h4>
+          <p class="nota-desc">Estamos num ponto do tempo em que várias mudanças estruturais convergem. Nove vetores com infraestrutura dedicada rodando 24 horas por dia, sete lentes filosóficas em produção, três <em>surfaces</em> de decisão canônicas.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+
+      <a class="nota" href="blog/sete-mentes">
+        <span class="nota-num">03</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Nota comercial<span class="dot">·</span>Filosofia analítica<span class="dot">·</span>~8 min</p>
+          <h4 class="nota-title"><em>Mimetica</em> — o Brasil pensado por sete mentes.</h4>
+          <p class="nota-desc">Dalio, Taleb, Soros, Christensen, Kurzweil, Barabási e Kahneman — cada lente implementada como motor analítico separado, com literatura acadêmica citável, rodando diariamente sobre todo o substrato observacional do país.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="notas-section-heading">
+      <span class="roman">ii · Métodos</span>
+      <h3>Pesquisa artificial em produção</h3>
+    </div>
+
+    <div class="notas-grid">
+      <a class="nota" href="blog/painel-vivo">
+        <span class="nota-num">04</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Nota de método<span class="dot">·</span>Painel contínuo<span class="dot">·</span>~10 min</p>
+          <h4 class="nota-title">Painel <em>Vivo</em>.</h4>
+          <p class="nota-desc">Quinze respondentes artificiais com memória entre ondas — cada um com jornada, arquétipo, história própria e voz preservada. O oposto do <em>focus group</em> descartável: é o <em>focus group</em> que vive.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+
+      <a class="nota" href="blog/validacao-cega">
+        <span class="nota-num">05</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Nota de método &amp; caso<span class="dot">·</span>Vacinação BR<span class="dot">·</span>~12 min</p>
+          <h4 class="nota-title">Validação <em>Cega</em>.</h4>
+          <p class="nota-desc">Como um painel artificial de 3.000 respondentes reproduziu o resultado de um campo humano real — com as previsões seladas por SHA-256 antes de qualquer acesso ao gabarito. Desvio médio: ~4 pontos percentuais em 27 indicadores-título.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+
+      <a class="nota" href="blog/a-cabine-que-nao-mente">
+        <span class="nota-num">06</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Nota editorial &amp; método<span class="dot">·</span>Margaret Mead &amp; Efeito Bradley<span class="dot">·</span>~12 min</p>
+          <h4 class="nota-title">A <em>cabine</em> que não mente.</h4>
+          <p class="nota-desc">Margaret Mead separou três realidades: <em>o que dizem</em>, <em>o que fazem</em>, e <em>o que dizem que fazem</em>. Décadas depois, a eleição de Tom Bradley (Califórnia, 1982), o Walkman amarelo da Sony e os 200 mil consumidores da New Coke confirmaram, um por um, o que ela viu em Samoa. Sobre observar comportamento sem plateia.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+
+      <a class="nota" href="blog/o-maquinario-atras-da-cabine">
+        <span class="nota-num">07</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Nota de método<span class="dot">·</span>Cinco famílias de técnica<span class="dot">·</span>~7 min</p>
+          <h4 class="nota-title">O <em>maquinário</em> atrás da cabine.</h4>
+          <p class="nota-desc">Par técnico de "A cabine que não mente". Cinco famílias de método estatístico e computacional que sustentam o gêmeo digital brasileiro — do raking Deming-Stephan à cópula gaussiana Sklar, do POT-GPD Pickands à detecção de comunidade Leiden, do <em>seal</em> criptográfico SHA-256 ao Brier score prospectivo. Cânone acadêmico em produção, sem receita.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="notas-section-heading">
+      <span class="roman">iii · Acervo</span>
+      <h3>Roadmap dos estudos GLP-1 Brasil</h3>
+    </div>
+
+    <div class="notas-grid">
+      <a class="nota" href="glp1">
+        <span class="nota-num">08</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Pesquisa aplicada<span class="dot">·</span>GLP-1 BR · Acervo<span class="dot">·</span>~16 min</p>
+          <h4 class="nota-title">GLP-1 — o <em>mestre</em> do MOS.</h4>
+          <p class="nota-desc">O acervo GLP-1 Brasil, estudo a estudo. Cada um construiu uma capacidade do sistema de ensaios de comportamento humano da Mimetica: da base humana real à camada de personas, passando pela expansão estatística e pela validação célula a célula.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="notas-section-heading">
+      <span class="roman">iv · Casos aplicados</span>
+      <h3>O que aprendemos rodando</h3>
+    </div>
+
+    <div class="notas-grid">
+      <a class="nota" href="blog/precificacao-sintetica">
+        <span class="nota-num">09</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Nota de método &amp; caso<span class="dot">·</span>GLP-1 BR<span class="dot">·</span>~14 min</p>
+          <h4 class="nota-title">Precificação <em>Artificial</em>.</h4>
+          <p class="nota-desc">O que aprendemos precificando a sintética nacional α em produção e testando um entrante nacional antes do lançamento. Curva de demanda por faixa, matriz de substituição entre concorrentes, elasticidade segmentada — e o que muda com Twin-2K-BR.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+
+      <a class="nota" href="blog/botao-de-desfazer">
+        <span class="nota-num">10</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Nota editorial &amp; método<span class="dot">·</span>Say-do gap<span class="dot">·</span>~11 min</p>
+          <h4 class="nota-title">O Botão de <em>Desfazer</em>.</h4>
+          <p class="nota-desc">Do Walkman amarelo ao simulador de voo — por que pesquisa mede intenção, comportamento é outra coisa, e o que muda quando você pode testar a decisão antes de tomá-la. Ancorada em Mead, New Coke e nas duas telas de uso do simulador Mimetica: lente do Cisne Negro e o botão de desfazer.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+
+      <a class="nota" href="blog/retomar-o-chao">
+        <span class="nota-num">11</span>
+        <div class="nota-body">
+          <p class="nota-eyebrow">Nota de método &amp; caso<span class="dot">·</span>Varejo alimentar orgânico BR<span class="dot">·</span>~10 min</p>
+          <h4 class="nota-title">Retomar o <em>Chão</em>.</h4>
+          <p class="nota-desc">Consolidando 29 meses de dados dispersos de um varejista brasileiro <em>premium</em>: quatro erros de dados que reverteram interpretações prévias, um <em>budget</em> 24% acima do entregável, e a diferença real entre queda de tráfego e queda de tíquete.</p>
+        </div>
+        <span class="nota-arrow">Ler
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 3l4 4-4 4"></path></svg>
+        </span>
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -69,5 +391,6 @@
 <script src="assets/engine.js"></script>
 <script src="assets/app.js"></script>
 <script src="assets/page-blog.js"></script>
+<script src="assets/blog-carousel.js" defer></script>
 </body>
 </html>

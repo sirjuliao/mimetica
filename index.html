@@ -5,24 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mimetica · Human Behavior Trials</title>
 <meta name="description" content="Um motor de simulação generativa de comportamento, calibrado por dados reais, que testa decisão de mercado, preço e comportamento de consumidor para o próximo passo do negócio.">
-<link rel="icon" href="assets/logo.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/style.css">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mimetica">
 <meta property="og:title" content="Mimetica · Human Behavior Trials">
 <meta property="og:description" content="Um motor de simulação generativa de comportamento, calibrado por dados reais, que testa decisão de mercado, preço e comportamento de consumidor para o próximo passo do negócio.">
-<meta property="og:image" content="https://mimetica.institute/assets/logo.png">
+<meta property="og:image" content="https://mimetica.institute/assets/og-image.png">
 <meta property="og:url" content="https://mimetica.institute/">
 
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mimetica · Human Behavior Trials">
 <meta name="twitter:description" content="Um motor de simulação generativa de comportamento, calibrado por dados reais, que testa decisão de mercado, preço e comportamento de consumidor para o próximo passo do negócio.">
-<meta name="twitter:image" content="https://mimetica.institute/assets/logo.png">
+<meta name="twitter:image" content="https://mimetica.institute/assets/og-image.png">
 </head>
 <body>
 <nav>
-  <a class="logo" href="index.html"><img src="assets/logo.png" alt="Mimetica" width="28" height="28"><span class="logo-text">mimetica</span></a>
+  <a class="logo" href="index.html"><img src="assets/logo.png" alt="Mimetica" width="130" height="26"></a>
   <div class="navlinks"><a href="pesquisa.html">Pesquisas</a><a href="sistemas.html">Sistemas</a><a href="blog.html">Blog</a><a href="pesquisa-sintetica.html">População</a></div>
   <a class="navcta" href="#">Entrar</a>
 </nav>
@@ -152,13 +153,6 @@
           <p>Acompanhe como o mercado real diverge do cenário simulado entre uma rodada de pesquisa e outra, com alerta antecipado quando algo muda.</p>
         </div>
       </div>
-      <div class="card reveal">
-        <canvas id="c-ecommerce"></canvas>
-        <div class="card-copy">
-          <h3>E-commerce</h3>
-          <p>Apps de precificação, vitrine e promoções construídos sobre o mesmo motor, direto na operação (Nuvemshop).</p>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -193,21 +187,99 @@
 
 <section class="blog-feature" id="blog">
   <div class="wrap">
-    <div class="blog-head reveal">
-      <span class="blog-eyebrow">Direto do blog</span>
+  <div class="post-carousel" data-carousel>
+    <div class="pc-head">
+      <div>
+        <span class="blog-eyebrow">Direto do blog</span>
+        <h2>Notas de método &amp; caso.</h2>
+      </div>
+      <div class="pc-controls">
+        <span class="pc-count" aria-live="polite">1 / 11</span>
+        <button class="pc-btn" type="button" data-prev aria-label="Posts anteriores"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2L4 7l5 5"/></svg></button>
+        <button class="pc-btn" type="button" data-next aria-label="Próximos posts"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2l5 5-5 5"/></svg></button>
+      </div>
     </div>
-    <a class="blog-card reveal" href="glp1.html">
-      <div class="blog-card-visual">
-        <canvas id="c-blog-card"></canvas>
-        <span class="blog-tag">Pesquisa aplicada · Agosto 2026</span>
-      </div>
-      <div class="blog-card-copy">
-        <h3>GLP-1, o mestre do MOS<span class="blog-sub">(mimetica operational system)</span></h3>
-        <p>O acervo GLP-1 Brasil, estudo a estudo. Cada um construiu uma capacidade do nosso sistema de ensaios de comportamento humano.</p>
-        <span class="blog-meta">16 min de leitura · registro ADR-042</span>
-        <span class="blog-cta">Ler o artigo <span class="arrow">→</span></span>
-      </div>
-    </a>
+    <ul class="pc-track" tabindex="0" role="list" aria-label="Posts do blog">
+      <li><a class="pc-card" href="blog/gemeos-digitais-do-brasil">
+        <span class="pc-num">01</span>
+        <p class="pc-eyebrow">Primeiro post<span class="dot">·</span>Filme + companion</p>
+        <h3 class="pc-title">Gêmeos digitais do Brasil que pensam continuamente</h3>
+        <p class="pc-desc">Companion editorial do filme de abertura. Nove vetores em cobertura ativa, sete lentes filosóficas em produção, três surfaces de decisão.</p>
+        <span class="pc-foot"><span>~7 min + filme de 90s</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/vetores-de-mudanca">
+        <span class="pc-num">02</span>
+        <p class="pc-eyebrow">Nota editorial<span class="dot">·</span>Vetores &amp; substrato</p>
+        <h3 class="pc-title">Vetores de Mudança</h3>
+        <p class="pc-desc">Nove vetores com infraestrutura dedicada rodando 24 horas por dia, sete lentes filosóficas em produção e três surfaces de decisão canônicas.</p>
+        <span class="pc-foot"><span>~9 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/sete-mentes">
+        <span class="pc-num">03</span>
+        <p class="pc-eyebrow">Nota comercial<span class="dot">·</span>Filosofia analítica</p>
+        <h3 class="pc-title">Mimetica — o Brasil pensado por sete mentes</h3>
+        <p class="pc-desc">Dalio, Taleb, Soros, Christensen, Kurzweil, Barabási e Kahneman: cada lente implementada como motor analítico separado, com literatura acadêmica citável.</p>
+        <span class="pc-foot"><span>~8 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/painel-vivo">
+        <span class="pc-num">04</span>
+        <p class="pc-eyebrow">Nota de método<span class="dot">·</span>Painel contínuo</p>
+        <h3 class="pc-title">Painel Vivo</h3>
+        <p class="pc-desc">Quinze respondentes artificiais com memória entre ondas, cada um com jornada e voz própria. O oposto do focus group descartável: o focus group que vive.</p>
+        <span class="pc-foot"><span>~10 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/validacao-cega">
+        <span class="pc-num">05</span>
+        <p class="pc-eyebrow">Nota de método &amp; caso<span class="dot">·</span>Vacinação BR</p>
+        <h3 class="pc-title">Validação Cega</h3>
+        <p class="pc-desc">Como um painel artificial de 3.000 respondentes reproduziu o resultado de um campo humano real, com previsões seladas por SHA-256. Desvio médio de ~4 p.p.</p>
+        <span class="pc-foot"><span>~12 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/a-cabine-que-nao-mente">
+        <span class="pc-num">06</span>
+        <p class="pc-eyebrow">Nota editorial &amp; método<span class="dot">·</span>Margaret Mead &amp; Efeito Bradley</p>
+        <h3 class="pc-title">A cabine que não mente</h3>
+        <p class="pc-desc">Mead separou três realidades: o que dizem, o que fazem e o que dizem que fazem. Sobre observar comportamento sem plateia.</p>
+        <span class="pc-foot"><span>~12 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/o-maquinario-atras-da-cabine">
+        <span class="pc-num">07</span>
+        <p class="pc-eyebrow">Nota de método<span class="dot">·</span>Cinco famílias de técnica</p>
+        <h3 class="pc-title">O maquinário atrás da cabine</h3>
+        <p class="pc-desc">Cinco famílias de método estatístico e computacional que sustentam o gêmeo digital brasileiro. Cânone acadêmico em produção, sem receita.</p>
+        <span class="pc-foot"><span>~7 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="glp1.html">
+        <span class="pc-num">08</span>
+        <p class="pc-eyebrow">Pesquisa aplicada<span class="dot">·</span>GLP-1 BR · Acervo</p>
+        <h3 class="pc-title">GLP-1 — o mestre do MOS</h3>
+        <p class="pc-desc">O acervo GLP-1 Brasil, estudo a estudo: da base humana real à camada de personas, passando pela expansão estatística e pela validação célula a célula.</p>
+        <span class="pc-foot"><span>~16 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/precificacao-sintetica">
+        <span class="pc-num">09</span>
+        <p class="pc-eyebrow">Nota de método &amp; caso<span class="dot">·</span>GLP-1 BR</p>
+        <h3 class="pc-title">Precificação Artificial</h3>
+        <p class="pc-desc">O que aprendemos precificando a sintética nacional α em produção e testando um entrante nacional: curva de demanda por faixa, substituição entre concorrentes e elasticidade.</p>
+        <span class="pc-foot"><span>~14 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/botao-de-desfazer">
+        <span class="pc-num">10</span>
+        <p class="pc-eyebrow">Nota editorial &amp; método<span class="dot">·</span>Say-do gap</p>
+        <h3 class="pc-title">O Botão de Desfazer</h3>
+        <p class="pc-desc">Do Walkman amarelo ao simulador de voo: por que pesquisa mede intenção, comportamento é outra coisa, e o que muda quando você testa a decisão antes de tomá-la.</p>
+        <span class="pc-foot"><span>~11 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li><a class="pc-card" href="blog/retomar-o-chao">
+        <span class="pc-num">11</span>
+        <p class="pc-eyebrow">Nota de método &amp; caso<span class="dot">·</span>Varejo alimentar orgânico BR</p>
+        <h3 class="pc-title">Retomar o Chão</h3>
+        <p class="pc-desc">29 meses de dados dispersos de um varejista premium consolidados: quatro erros de dados que reverteram interpretações prévias e um budget 24% acima do entregável.</p>
+        <span class="pc-foot"><span>~10 min</span><span class="pc-go">Ler <span class="arrow" aria-hidden="true">→</span></span></span>
+      </a></li>
+    </ul>
+    <a class="pc-all" href="blog.html">Ver todos os posts →</a>
+  </div>
   </div>
 </section>
 
@@ -229,5 +301,6 @@
 <script src="assets/engine.js"></script>
 <script src="assets/app.js"></script>
 <script src="assets/page-home.js"></script>
+<script src="assets/blog-carousel.js" defer></script>
 </body>
 </html>
