@@ -1,0 +1,531 @@
+/* ============================================================
+   MIMETICA — envelope editorial das notas de método & caso
+   Ivory ground + Fraunces + Source Serif 4 · dentro do site dark.
+   ============================================================ */
+
+.editorial-envelope {
+  --e-ground: #F7F3EA;
+  --e-ground-tint: #EFE8D4;
+  --e-ink: #1B1D1A;
+  --e-ink-soft: #2A2C28;
+  --e-muted: #5C5D57;
+  --e-rule: #D6CFBE;
+  --e-rule-soft: #E5DFCD;
+  --e-accent: #1E4032;
+  --e-accent-soft: #476452;
+  --e-accent-tint: #E4EAE4;
+  --e-accent-red: #6A1B1B;
+  --e-slab: #141614;
+  --e-slab-ink: #EEE9DC;
+  --e-slab-muted: #8A8B82;
+
+  background: var(--e-ground);
+  color: var(--e-ink);
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  font-variant-numeric: oldstyle-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-top: clamp(2rem, 5vw, 4rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* Accent-red variant for case pieces (Precificação, Retomar, Painel, Validação) */
+.editorial-envelope--red {
+  --e-accent: var(--e-accent-red);
+  --e-accent-soft: #9A3838;
+  --e-accent-tint: #F1E2E0;
+}
+
+/* Dark theme — mirrored so envelope respects site's dark preference too */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .editorial-envelope {
+    --e-ground: #141614;
+    --e-ground-tint: #1D201D;
+    --e-ink: #EEE9DC;
+    --e-ink-soft: #DCD7C8;
+    --e-muted: #93938A;
+    --e-rule: #33362F;
+    --e-rule-soft: #262924;
+    --e-accent: #86BFA0;
+    --e-accent-soft: #B4D7C1;
+    --e-accent-tint: #1E2A22;
+    --e-accent-red: #D48A8A;
+    --e-slab: #F7F3EA;
+    --e-slab-ink: #1B1D1A;
+    --e-slab-muted: #5C5D57;
+  }
+  :root:not([data-theme="light"]) .editorial-envelope--red {
+    --e-accent: var(--e-accent-red);
+    --e-accent-soft: #E2A9A9;
+    --e-accent-tint: #2A1E1E;
+  }
+}
+:root[data-theme="dark"] .editorial-envelope {
+  --e-ground: #141614;
+  --e-ground-tint: #1D201D;
+  --e-ink: #EEE9DC;
+  --e-ink-soft: #DCD7C8;
+  --e-muted: #93938A;
+  --e-rule: #33362F;
+  --e-rule-soft: #262924;
+  --e-accent: #86BFA0;
+  --e-accent-soft: #B4D7C1;
+  --e-accent-tint: #1E2A22;
+  --e-accent-red: #D48A8A;
+  --e-slab: #F7F3EA;
+  --e-slab-ink: #1B1D1A;
+  --e-slab-muted: #5C5D57;
+}
+:root[data-theme="dark"] .editorial-envelope--red {
+  --e-accent: var(--e-accent-red);
+  --e-accent-soft: #E2A9A9;
+  --e-accent-tint: #2A1E1E;
+}
+
+.editorial-envelope .page { max-width: 1080px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.editorial-envelope .col { max-width: 640px; margin: 0 auto; }
+
+/* Header (masthead) inside envelope */
+.editorial-envelope .masthead {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem;
+  padding-bottom: 1.25rem; border-bottom: 1px solid var(--e-rule); margin-bottom: 3.5rem;
+}
+.editorial-envelope .wordmark {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 1.15rem;
+  font-variation-settings: 'SOFT' 40; letter-spacing: -0.005em; color: var(--e-ink);
+}
+.editorial-envelope .wordmark em { color: var(--e-accent); font-style: italic; font-variation-settings: 'SOFT' 100; }
+.editorial-envelope .e-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-muted); line-height: 1.4;
+}
+
+/* Hero */
+.editorial-envelope .hero-eyebrow { display: block; margin-bottom: 1.5rem; }
+.editorial-envelope h1 {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+  font-variation-settings: 'SOFT' 30, 'opsz' 144;
+  font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.02; letter-spacing: -0.02em;
+  text-wrap: balance; margin: 0 0 1.5rem; color: var(--e-ink);
+}
+.editorial-envelope h1 em {
+  font-style: italic; font-variation-settings: 'SOFT' 80, 'opsz' 144; color: var(--e-accent);
+}
+.editorial-envelope .lede {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 300; font-style: italic;
+  font-size: 1.3rem; line-height: 1.45; color: var(--e-ink-soft); max-width: 640px;
+  margin-bottom: 2rem; text-wrap: balance;
+  font-variation-settings: 'SOFT' 60, 'opsz' 60;
+}
+.editorial-envelope .lede--plain {
+  font-family: 'Source Serif 4', Georgia, serif; font-style: normal; font-weight: 400;
+  font-size: 1.15rem; line-height: 1.55;
+  font-variation-settings: initial;
+}
+.editorial-envelope .byline {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-muted); margin: 0;
+}
+/* Defensive reset vs the site's global `.hero` rule in style.css (display:flex + min-height:92vh + align-items:center + overflow:hidden + position:relative).
+   The site's rule would stack our hero eyebrow/h1/lede/byline horizontally as flex items and force a 92vh min-height. */
+.editorial-envelope .hero {
+  display: block;
+  min-height: auto;
+  align-items: initial;
+  overflow: visible;
+  position: static;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--e-rule);
+  margin-bottom: 3rem;
+}
+
+/* Sections */
+.editorial-envelope section { margin-bottom: 5rem; }
+.editorial-envelope section:last-child { margin-bottom: 0; }
+.editorial-envelope .section-eyebrow { display: block; margin-bottom: 1rem; }
+
+.editorial-envelope h2 {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+  font-variation-settings: 'SOFT' 50, 'opsz' 96;
+  font-size: clamp(1.65rem, 3vw, 2.35rem); line-height: 1.1; letter-spacing: -0.015em;
+  text-wrap: balance; margin: 0 0 2rem; color: var(--e-ink); max-width: 640px;
+}
+.editorial-envelope h2 em { font-style: italic; font-variation-settings: 'SOFT' 100, 'opsz' 96; color: var(--e-accent); }
+.editorial-envelope h3 {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 500;
+  font-variation-settings: 'SOFT' 40, 'opsz' 32;
+  font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.005em;
+  margin: 2.5rem 0 0.75rem; color: var(--e-ink);
+}
+
+.editorial-envelope p { margin: 0 0 1.25rem; }
+.editorial-envelope p.body { color: var(--e-ink-soft); }
+.editorial-envelope strong { font-weight: 600; color: var(--e-ink); }
+.editorial-envelope em { font-style: italic; }
+
+.editorial-envelope blockquote {
+  margin: 1.5rem 0; padding: 0.5rem 0 0.5rem 1.5rem;
+  border-left: 2px solid var(--e-accent); font-family: 'Fraunces', Georgia, serif;
+  font-style: italic; font-size: 1.1rem; line-height: 1.4;
+  color: var(--e-ink); text-wrap: balance;
+  font-variation-settings: 'SOFT' 80, 'opsz' 24;
+}
+
+/* Drop cap */
+.editorial-envelope .dropcap::first-letter {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+  font-variation-settings: 'SOFT' 40, 'opsz' 144;
+  font-size: 4.5rem; line-height: 0.9; float: left;
+  margin: 0.35rem 0.5rem 0 -0.15rem; color: var(--e-accent);
+}
+
+/* Vectors grid */
+.editorial-envelope .vectors {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0; border-top: 1px solid var(--e-rule); margin-top: 2.5rem;
+}
+.editorial-envelope .vector {
+  padding: 1.5rem 1.5rem 1.5rem 0;
+  border-bottom: 1px solid var(--e-rule-soft); border-right: 1px solid var(--e-rule-soft);
+  display: grid; grid-template-columns: 3ch 1fr; gap: 0.9rem; align-items: baseline;
+}
+.editorial-envelope .vector:nth-child(3n) { border-right: none; }
+.editorial-envelope .vector .code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-accent); padding-top: 0.15rem;
+}
+.editorial-envelope .vector h4 {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 500;
+  font-variation-settings: 'SOFT' 30, 'opsz' 24;
+  font-size: 1.1rem; line-height: 1.25; letter-spacing: -0.005em;
+  margin: 0 0 0.35rem; color: var(--e-ink);
+}
+.editorial-envelope .vector p { font-size: 0.92rem; line-height: 1.5; color: var(--e-muted); margin: 0; }
+
+/* Honest / callout box */
+.editorial-envelope .honest, .editorial-envelope .findbox {
+  margin: 2rem auto; padding: 1.5rem 1.75rem;
+  background: var(--e-accent-tint); border-radius: 2px;
+  font-size: 0.98rem; color: var(--e-ink-soft); max-width: 640px;
+}
+.editorial-envelope .honest { background: var(--e-ground-tint); border-left: 2px solid var(--e-accent); }
+.editorial-envelope .honest strong.tag, .editorial-envelope .findbox strong.tag {
+  display: block; font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--e-accent); font-weight: 500; margin-bottom: 0.6rem;
+}
+.editorial-envelope .findbox h4 {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 500;
+  font-variation-settings: 'SOFT' 40, 'opsz' 32;
+  font-size: 1.2rem; line-height: 1.25; letter-spacing: -0.005em;
+  margin: 0 0 0.75rem; color: var(--e-ink); text-wrap: balance;
+}
+.editorial-envelope .honest p, .editorial-envelope .findbox p { margin: 0 0 0.75rem; }
+.editorial-envelope .honest p:last-child, .editorial-envelope .findbox p:last-child { margin: 0; }
+
+/* Key box (anonimização) */
+.editorial-envelope .keybox {
+  max-width: 640px; margin: 0 auto 4rem;
+  padding: 1.5rem 1.75rem; background: var(--e-ground-tint);
+  border-left: 2px solid var(--e-accent); font-size: 0.94rem; color: var(--e-ink-soft);
+}
+.editorial-envelope .keybox .label {
+  display: block; font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--e-accent); font-weight: 500; margin-bottom: 0.75rem;
+}
+.editorial-envelope .keybox dl { display: grid; grid-template-columns: 14rem 1fr; gap: 0.5rem 1.5rem; margin: 0; }
+.editorial-envelope .keybox dt {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.78rem;
+  color: var(--e-ink); font-weight: 500;
+}
+.editorial-envelope .keybox dd { margin: 0; color: var(--e-muted); font-size: 0.94rem; }
+@media (max-width: 640px) { .editorial-envelope .keybox dl { grid-template-columns: 1fr; gap: 0.1rem; } }
+
+/* Stats */
+.editorial-envelope .stats {
+  max-width: 640px; margin: 0 auto 4rem; display: grid;
+  grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  padding-top: 2rem; border-top: 1px solid var(--e-rule);
+}
+.editorial-envelope .stat .n {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+  font-variation-settings: 'SOFT' 30, 'opsz' 96;
+  font-size: 2rem; line-height: 1; color: var(--e-accent); margin-bottom: 0.4rem;
+  letter-spacing: -0.02em;
+}
+.editorial-envelope .stat .l {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.68rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-muted); line-height: 1.4;
+}
+@media (max-width: 640px) { .editorial-envelope .stats { grid-template-columns: 1fr 1fr; } }
+
+/* Sources list */
+.editorial-envelope .sources { margin-top: 2.5rem; border-top: 1px solid var(--e-rule); }
+.editorial-envelope .source {
+  padding: 1.75rem 0; border-bottom: 1px solid var(--e-rule-soft);
+  display: grid; grid-template-columns: 12rem 1fr; gap: 2.5rem; align-items: baseline;
+}
+.editorial-envelope .source-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-muted); line-height: 1.5;
+}
+.editorial-envelope .source-body { color: var(--e-ink); font-size: 0.98rem; }
+.editorial-envelope .source-body em { color: var(--e-muted); font-style: italic; }
+
+/* Minds (7 lenses) */
+.editorial-envelope .minds { border-top: 1px solid var(--e-rule); margin-top: 2.5rem; }
+.editorial-envelope .mind {
+  display: grid; grid-template-columns: 12rem 1fr; gap: 2.5rem;
+  padding: 2rem 0; border-bottom: 1px solid var(--e-rule-soft); align-items: baseline;
+}
+.editorial-envelope .mind-name {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+  font-variation-settings: 'SOFT' 40, 'opsz' 60;
+  font-size: 1.85rem; line-height: 1; letter-spacing: -0.01em;
+  color: var(--e-accent); margin: 0 0 0.3rem;
+}
+.editorial-envelope .mind-tag {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.68rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-muted); display: block;
+}
+.editorial-envelope .mind-body .q {
+  font-family: 'Fraunces', Georgia, serif; font-style: italic;
+  font-variation-settings: 'SOFT' 80, 'opsz' 24;
+  font-size: 1.1rem; line-height: 1.35; color: var(--e-ink);
+  margin: 0 0 0.5rem; text-wrap: balance;
+}
+.editorial-envelope .mind-body .how {
+  font-size: 0.98rem; line-height: 1.55; color: var(--e-muted); margin: 0;
+}
+@media (max-width: 640px) { .editorial-envelope .mind, .editorial-envelope .source { grid-template-columns: 1fr; gap: 0.75rem; } }
+
+/* Convergence pull */
+.editorial-envelope .convergence {
+  margin: 3rem auto 0; padding: 2.5rem;
+  max-width: 720px; background: var(--e-accent-tint); color: var(--e-ink); border-radius: 2px;
+}
+.editorial-envelope .convergence p {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+  font-variation-settings: 'SOFT' 60, 'opsz' 48;
+  font-size: 1.3rem; line-height: 1.35; letter-spacing: -0.005em;
+  color: var(--e-ink); margin: 0 0 1rem; text-wrap: balance;
+}
+.editorial-envelope .convergence p:last-child {
+  margin: 0; font-size: 1rem; font-family: 'Source Serif 4', serif;
+  color: var(--e-ink-soft); font-weight: 400;
+}
+.editorial-envelope .convergence .band {
+  display: inline-block; font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 0.25rem 0.55rem; margin-right: 0.3rem;
+  border: 1px solid currentColor; color: var(--e-accent);
+  line-height: 1; vertical-align: 0.15em;
+}
+
+/* Surfaces */
+.editorial-envelope .surfaces { border-top: 1px solid var(--e-rule); margin-top: 2.5rem; }
+.editorial-envelope .surface {
+  padding: 2.5rem 0; border-bottom: 1px solid var(--e-rule-soft);
+  display: grid; grid-template-columns: 4rem 1fr; gap: 2rem; align-items: baseline;
+}
+.editorial-envelope .surface-num {
+  font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300;
+  font-variation-settings: 'SOFT' 100, 'opsz' 96;
+  font-size: 2.5rem; line-height: 1; color: var(--e-accent);
+}
+.editorial-envelope .surface h3 {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 500;
+  font-variation-settings: 'SOFT' 40, 'opsz' 48;
+  font-size: 1.5rem; line-height: 1.15; letter-spacing: -0.01em;
+  margin: 0 0 0.35rem; text-wrap: balance;
+}
+.editorial-envelope .surface .kicker { display: block; margin-bottom: 1.25rem; }
+.editorial-envelope .surface p { color: var(--e-ink-soft); margin: 0 0 0.9rem; }
+.editorial-envelope .surface p:last-child { margin-bottom: 0; }
+.editorial-envelope .surface ul {
+  list-style: none; padding: 0; margin: 0.75rem 0 0;
+  display: flex; flex-direction: column; gap: 0.35rem;
+}
+.editorial-envelope .surface li {
+  color: var(--e-ink-soft); padding-left: 1.4rem; position: relative; line-height: 1.5;
+}
+.editorial-envelope .surface li::before {
+  content: "—"; position: absolute; left: 0; color: var(--e-accent-soft);
+}
+@media (max-width: 640px) { .editorial-envelope .surface { grid-template-columns: 1fr; gap: 1rem; } .editorial-envelope .surface-num { font-size: 2rem; } }
+
+/* Invariants */
+.editorial-envelope .invariants { border-top: 1px solid var(--e-rule); margin-top: 2.5rem; }
+.editorial-envelope .invariant {
+  padding: 2rem 0; border-bottom: 1px solid var(--e-rule-soft);
+}
+.editorial-envelope .invariant h3 {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 500;
+  font-variation-settings: 'SOFT' 40, 'opsz' 32;
+  font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.005em;
+  margin: 0 0 0.5rem; color: var(--e-ink);
+}
+.editorial-envelope .invariant p { color: var(--e-ink-soft); margin: 0; }
+
+/* Data table (case pieces) */
+.editorial-envelope .datawrap { overflow-x: auto; }
+.editorial-envelope .datatable {
+  max-width: 720px; margin: 2rem auto;
+  border-top: 1px solid var(--e-rule); font-variant-numeric: tabular-nums;
+}
+.editorial-envelope .datatable table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.editorial-envelope .datatable th {
+  text-align: left; padding: 0.9rem 0.75rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--e-muted); font-weight: 500; border-bottom: 1px solid var(--e-rule);
+}
+.editorial-envelope .datatable td {
+  padding: 0.85rem 0.75rem; border-bottom: 1px solid var(--e-rule-soft);
+  color: var(--e-ink-soft); vertical-align: baseline;
+}
+.editorial-envelope .datatable td.num, .editorial-envelope .datatable th.num { text-align: right; }
+.editorial-envelope .datatable td.hi { color: var(--e-accent); font-weight: 500; }
+.editorial-envelope .datatable caption {
+  caption-side: bottom; text-align: left; padding-top: 1rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.7rem; letter-spacing: 0.06em; color: var(--e-muted); line-height: 1.5;
+}
+
+/* Technique blocks */
+.editorial-envelope .technique {
+  max-width: 640px; margin: 0 auto;
+  padding: 1.5rem 0 1.5rem 1.5rem; border-left: 2px solid var(--e-rule);
+}
+.editorial-envelope .technique + .technique { margin-top: 0.5rem; }
+.editorial-envelope .technique .num {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.68rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-muted);
+  margin-bottom: 0.35rem; display: block;
+}
+.editorial-envelope .technique .name {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 500;
+  font-variation-settings: 'SOFT' 40, 'opsz' 32;
+  font-size: 1.2rem; margin: 0 0 0.65rem; letter-spacing: -0.005em;
+}
+.editorial-envelope .technique .name em { color: var(--e-accent); font-variation-settings: 'SOFT' 100, 'opsz' 32; }
+.editorial-envelope .technique p { margin: 0 0 0.6rem; color: var(--e-ink-soft); font-size: 0.98rem; }
+.editorial-envelope .technique .apply {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.75rem;
+  color: var(--e-muted); line-height: 1.55; margin-top: 0.75rem;
+  padding-top: 0.65rem; border-top: 1px dashed var(--e-rule);
+}
+
+/* Split side-by-side boxes */
+.editorial-envelope .split {
+  display: grid; grid-template-columns: 1fr; gap: 2rem; margin: 2.5rem 0;
+  max-width: 640px; margin-left: auto; margin-right: auto;
+}
+@media (min-width: 720px) { .editorial-envelope .split { grid-template-columns: 1fr 1fr; } }
+.editorial-envelope .side {
+  padding: 1.5rem 1.75rem; background: var(--e-ground-tint); border-radius: 2px;
+}
+.editorial-envelope .side .tag {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.68rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-accent);
+  margin-bottom: 0.5rem; display: block;
+}
+.editorial-envelope .side h4 {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 500;
+  font-variation-settings: 'SOFT' 40, 'opsz' 24;
+  font-size: 1.15rem; margin: 0 0 0.75rem; letter-spacing: -0.005em;
+}
+.editorial-envelope .side ul { list-style: none; padding: 0; margin: 0; }
+.editorial-envelope .side li {
+  color: var(--e-ink-soft); padding-left: 1.1rem; position: relative;
+  line-height: 1.5; margin-bottom: 0.4rem; font-size: 0.94rem;
+}
+.editorial-envelope .side li::before { content: "·"; position: absolute; left: 0; color: var(--e-accent-soft); font-weight: bold; }
+
+/* Film slab (Gêmeos Digitais) */
+.editorial-envelope .film {
+  margin: 5rem auto 0; max-width: 900px;
+  background: var(--e-slab); color: var(--e-slab-ink);
+  padding: clamp(2.5rem, 6vw, 4.5rem);
+  display: grid; grid-template-columns: 1fr; gap: 2rem;
+  position: relative; overflow: hidden;
+}
+@media (min-width: 720px) { .editorial-envelope .film { grid-template-columns: 1.35fr 1fr; align-items: end; gap: 3rem; } }
+.editorial-envelope .film-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-slab-muted); margin: 0 0 1.25rem;
+}
+.editorial-envelope .film h2 {
+  font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+  font-variation-settings: 'SOFT' 40, 'opsz' 96;
+  font-size: clamp(1.85rem, 4vw, 2.75rem); line-height: 1.05; letter-spacing: -0.015em;
+  color: var(--e-slab-ink); margin: 0 0 1.5rem; text-wrap: balance; max-width: none;
+}
+.editorial-envelope .film p { color: var(--e-slab-muted); font-size: 1rem; line-height: 1.55; margin: 0 0 1.25rem; }
+.editorial-envelope .film-cta {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  padding: 0.85rem 1.35rem; background: var(--e-slab-ink); color: var(--e-slab);
+  text-decoration: none; font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 500; transition: transform 0.15s ease; line-height: 1;
+  align-self: start; margin-top: 0.5rem;
+}
+.editorial-envelope .film-cta:hover, .editorial-envelope .film-cta:focus-visible { transform: translateY(-1px); }
+.editorial-envelope .film-cta:focus-visible { outline: 2px solid var(--e-slab-ink); outline-offset: 3px; }
+.editorial-envelope .film-cta svg { width: 14px; height: 14px; flex-shrink: 0; }
+.editorial-envelope .film-side { display: flex; flex-direction: column; justify-content: end; gap: 1.25rem; }
+.editorial-envelope .film-meta {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem;
+  letter-spacing: 0.06em; color: var(--e-slab-muted); line-height: 1.7;
+}
+.editorial-envelope .film-meta div { padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.editorial-envelope .film-meta div:last-child { border-bottom: none; }
+.editorial-envelope .film-meta span { display: inline-block; min-width: 8ch; color: var(--e-slab-ink); }
+
+/* Closing */
+.editorial-envelope .closing {
+  margin: 5rem auto 0; max-width: 640px;
+  padding-top: 3.5rem; border-top: 1px solid var(--e-rule);
+}
+.editorial-envelope .closing p {
+  font-family: 'Fraunces', Georgia, serif; font-style: italic;
+  font-weight: 400; font-variation-settings: 'SOFT' 80, 'opsz' 60;
+  font-size: 1.4rem; line-height: 1.4; color: var(--e-ink);
+  margin: 0; text-wrap: balance; letter-spacing: -0.005em;
+}
+.editorial-envelope .closing p em {
+  color: var(--e-accent); font-style: italic;
+  font-variation-settings: 'SOFT' 120, 'opsz' 60;
+}
+
+/* Colophon of the piece (below closing, above site footer) */
+.editorial-envelope .colophon {
+  margin-top: 5rem; padding-top: 1.5rem; border-top: 1px solid var(--e-rule);
+  display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-muted);
+}
+.editorial-envelope .colophon a {
+  color: var(--e-muted); text-decoration-color: var(--e-accent); text-underline-offset: 3px;
+}
+
+/* Back-to-blog link */
+.editorial-envelope .back-link {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-accent);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+.editorial-envelope .back-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.editorial-envelope .back-link svg { width: 12px; height: 12px; }
+
+@media (max-width: 640px) {
+  .editorial-envelope .masthead { flex-direction: column; gap: 0.25rem; align-items: flex-start; }
+  .editorial-envelope .vector:nth-child(3n) { border-right: 1px solid var(--e-rule-soft); }
+  .editorial-envelope .vector:nth-child(2n) { border-right: none; }
+}
+@media (prefers-reduced-motion: reduce) { .editorial-envelope * { transition: none !important; } }
