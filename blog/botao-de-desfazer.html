@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O Botão de Desfazer · Mimetica</title>
+<meta name="description" content="Do Walkman amarelo ao simulador de voo — por que pesquisa mede intenção, comportamento é outra coisa, e o que muda quando você pode testar antes de decidir.">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Mimetica">
+<meta property="og:title" content="O Botão de Desfazer · Mimetica">
+<meta property="og:description" content="Nota editorial &amp; método · say-do gap, gêmeos digitais e o simulador de mercado calibrado com dados reais do Brasil.">
+<meta property="og:image" content="https://mimetica.net/assets/og-image.png">
+<meta property="og:url" content="https://mimetica.net/blog/botao-de-desfazer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="O Botão de Desfazer · Mimetica">
+<meta name="twitter:description" content="Erre no digital. Acerte no mercado.">
+<meta name="twitter:image" content="https://mimetica.net/assets/og-image.png">
+
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/blog-post.css?v=2">
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><img src="/assets/logo.png" alt="Mimetica" width="130" height="26"></a>
+  <div class="navlinks"><a href="/pesquisa">Pesquisas</a><a href="/sistemas">Sistemas</a><a href="/blog" class="active">Blog</a><a href="/pesquisa-sintetica">População</a></div>
+  <a class="navcta" href="#">Entrar</a>
+</nav>
+
+<article class="editorial-envelope editorial-envelope--red">
+  <div class="page">
+    <a href="/blog" class="back-link">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7H3M6 3L2 7l4 4"></path></svg>
+      Voltar ao blog
+    </a>
+
+    <header class="masthead">
+      <span class="wordmark">Mim<em>etica</em></span>
+      <span class="e-eyebrow">Nota editorial &amp; método · Setembro 2026</span>
+    </header>
+
+    <section class="hero col">
+      <span class="e-eyebrow hero-eyebrow">Say-do gap · simulação de mercado</span>
+      <h1>O Botão de <em>Desfazer</em>.</h1>
+      <p class="lede">Do Walkman amarelo ao simulador de voo — por que pesquisa mede intenção, comportamento é outra coisa, e o que muda quando você pode testar a decisão antes de tomá-la.</p>
+      <p class="byline">Nota editorial &amp; método · leitura ~11 min</p>
+    </section>
+
+    <div class="col">
+      <p class="body dropcap">A Sony reuniu jovens num grupo focal e perguntou qual Walkman preferiam. Todos apontaram o amarelo — "moderno", "descolado". Na saída, cada um podia levar um de graça: amarelo ou preto. Quase todos pegaram o preto. A empresa mediu duas coisas naquela sala: o que as pessoas dizem que preferem, e o que as pessoas efetivamente levam quando é de graça. Foram duas respostas <em>diferentes</em>, dadas pelas <em>mesmas</em> pessoas, com <em>minutos</em> de intervalo.</p>
+
+      <p class="body">A antropóloga Margaret Mead resumiu isso décadas antes de o caso Sony existir: <em>o que as pessoas dizem, o que as pessoas fazem, e o que elas dizem que fazem são coisas completamente diferentes</em>. Esta nota é sobre como esse abismo — hoje chamado de <em>say-do gap</em> na literatura acadêmica — corrói decisão empresarial séria, e sobre a peça de infraestrutura que a Mimetica construiu para atravessá-lo: um simulador de mercado calibrado com o comportamento real do consumidor brasileiro, onde a decisão errada pode ser desfeita <em>antes</em> de ser tomada.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n">200.000</div><div class="l">Consumidores ouvidos · New Coke, 1985</div></div>
+      <div class="stat"><div class="n">77 → 72%</div><div class="l">Dizem que evitam <em>fast fashion</em> · compraram no ano</div></div>
+      <div class="stat"><div class="n">+60.000</div><div class="l">Novas leituras diárias ingeridas · Mimetica</div></div>
+    </div>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte I · O say-do gap</span>
+        <h2>O que as pessoas <em>dizem</em> ≠ o que elas <em>fazem</em>.</h2>
+        <p class="body">O caso Sony é anedota de manual porque encapsula em cinco minutos o mesmo mecanismo que quebra lançamentos multibilionários. Em 1985, a Coca-Cola testou uma fórmula nova com aproximadamente 200 mil consumidores em testes cegos de sabor. A maioria aprovou. Uma parcela relevante disse que compraria. A empresa lançou a New Coke, retirou a fórmula original do mercado — e enfrentou uma das maiores revoltas de consumidores da história americana. Setenta e nove dias depois, a original voltou como Coca-Cola Classic. O relatório publicado depois do episódio era honesto sobre a natureza do erro: os 200 mil consumidores tinham avaliado o <em>sabor</em>. Ninguém tinha medido o <em>vínculo emocional</em> com a marca, porque os entrevistados não sabiam colocar isso em palavras.</p>
+
+        <blockquote>O que as pessoas dizem, o que as pessoas fazem, e o que elas dizem que fazem são coisas completamente diferentes. — Margaret Mead</blockquote>
+
+        <p class="body">Não é história antiga. Em pesquisas recentes de consumo consciente no Brasil, cerca de <strong>77% dos entrevistados dizem evitar marcas com práticas ambientais ruins</strong>. Na prática, <strong>72% compraram <em>fast fashion</em> no último ano</strong>. As duas respostas convivem no mesmo respondente, sem contradição percebida — porque no questionário responde o <em>eu ideal</em>, e no carrinho de compras decidem preço, conveniência e impulso. A literatura acadêmica chama isso de <em>viés de desejabilidade social</em>: ninguém mente por maldade, a gente responde como a pessoa que gostaria de ser.</p>
+
+        <p class="body">O efeito é sistemático, não anedótico. Ele explica por que <em>focus group</em> aprova conceito que morre no ponto de venda, por que pesquisa de intenção de voto se desloca da urna, por que teste de campanha registra emoção que não converte, por que auto-relato de consumo de álcool é <em>estruturalmente</em> subestimado em relação ao consumo medido por venda. A pesquisa não está errada — ela está medindo a coisa errada. Ela mede <em>intenção declarada</em>. Decisão empresarial séria precisa de <em>comportamento observado</em>.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">O ponto que interessa a quem decide</strong>
+        <h4>Ouvir 200 mil pessoas pode levar à decisão errada.</h4>
+        <p>Amostra grande não corrige viés de método. Se o instrumento pergunta o que a pessoa <em>diria</em> que faria, o resultado é sempre uma estimativa da autoimagem, não do comportamento. A antropologia moderna trocou o questionário pela observação por essa razão — importa o que as pessoas fazem, não o que declaram. O problema comercial é que observar comportamento real exige lançar primeiro, e lançar errado sai caro.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte II · A metáfora do simulador</span>
+        <h2>Nenhum piloto aprende <em>errando no ar</em>.</h2>
+        <p class="body">Aviação comercial resolveu um problema parecido há sessenta anos. Piloto profissional não aprende a lidar com <em>stall</em>, falha dupla de motor, cisalhamento de vento e pouso sem trem levando um Boeing real para o ar e testando. Ele aprende num simulador de voo — cabine idêntica, atuadores hidráulicos, ambiente calibrado, alarme sonando de verdade, instrumentos degradando de verdade. A tela pode ficar preta no instante do impacto. O piloto tira o <em>headset</em>, respira, troca um aceno com o instrutor, sai do simulador vivo. O erro que o teria matado passa a ser uma anotação numa prancheta.</p>
+
+        <p class="body">A pergunta que fica de pé é operacional, não filosófica: <em>por que empresas correm risco com dinheiro de verdade quando existe a possibilidade de errar barato antes?</em> A resposta histórica é técnica — durante muito tempo, não existia o equivalente empresarial de um simulador de voo. Painel humano tradicional cobra caro e demora semanas. <em>Focus group</em> traz o say-do gap embutido no método. Teste de mercado real expõe a marca antes de a decisão estar madura. Modelo econométrico ignora a psicologia da compra. A alternativa disponível era decidir com pesquisa que mede intenção declarada — a mesma que aprovou a New Coke.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">A analogia levada até o fim</strong>
+        <h4>Simulador não prevê a queda. Ele treina o piloto <em>para</em> a queda.</h4>
+        <p>Nenhum simulador de voo promete adivinhar qual voo específico vai enfrentar cisalhamento. O que ele entrega é um piloto que já viveu cisalhamento cinquenta vezes, sem risco. A promessa do simulador empresarial é a mesma: não prever o preço certo, o comercial certo, a resposta certa à crise — mas permitir que a decisão seja testada, revertida, recalibrada e testada de novo <em>antes</em> de ir para o mercado real. É essa a economia que muda: erro barato em vez de erro caro.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte III · Como se calibra um gêmeo</span>
+        <h2>Um <em>respondente</em> que não tem imagem a defender.</h2>
+        <p class="body">Um gêmeo digital do consumidor é uma réplica comportamental construída não com o que a pessoa declara, mas com o rastro do que ela faz. Compras, buscas, reclamações, hábitos observáveis, deslocamentos, resposta a preço em contextos concretos. O ponto crítico é que esse respondente digital <em>não tem imagem a defender</em>. Ele não responde como o eu ideal — ele se comporta. Quando você coloca esse gêmeo diante de um preço novo, de uma embalagem nova, de uma campanha nova, o que sai da outra ponta é a decisão que ele tomaria, não o discurso que ele faria sobre a decisão.</p>
+
+        <p class="body">A calibração é o que separa gêmeo digital sério de mockup estatístico. A Mimetica calibra a partir de <strong>mais de sessenta mil novas leituras diárias</strong> ingeridas de fontes oficiais brasileiras — IBGE, Banco Central, DATASUS, Serasa, ANEEL, CCEE, Google Trends, imprensa financeira, comunidades observadas com base legal, comunicados de empresas listadas, entre outras. Sobre esse substrato observacional roda uma camada de gêmeos digitais — do Painel Vivo de quinze respondentes com memória entre ondas ao Twin-2K-BR, a mil respondentes calibrados às marginais oficiais do Censo 2022 + PNAD-C 2024 pelo protocolo Twin-2K de Argyle et al. (2023) adaptado ao Brasil.</p>
+
+        <p class="body">O detalhe que importa: cada <em>wave</em> é reproduzível determinística por semente, com <em>fingerprint</em> SHA-256 anexo. Não é uma "amostra" que sumiu depois do <em>readout</em>. É uma leitura auditável, refeita nas mesmas condições produz o mesmo resultado, refeita com condição alterada expõe exatamente o que a mudança fez.</p>
+      </div>
+
+      <div class="split">
+        <div class="side">
+          <span class="tag">Pesquisa tradicional</span>
+          <h4>Mede o que a pessoa <em>diz</em>.</h4>
+          <ul>
+            <li>Instrumento: questionário auto-relatado</li>
+            <li>Respondente ativa a autoimagem — filtra o que fala</li>
+            <li>Ciclo típico: semanas · custo típico: elevado</li>
+            <li>Cada nova pergunta reabre trabalho de campo</li>
+            <li>Não replicável — a amostra não volta</li>
+          </ul>
+        </div>
+        <div class="side">
+          <span class="tag">Gêmeo digital calibrado</span>
+          <h4>Observa o que o rastro <em>diz</em>.</h4>
+          <ul>
+            <li>Instrumento: réplica comportamental sobre substrato observacional</li>
+            <li>Respondente sem autoimagem a preservar — se comporta</li>
+            <li>Ciclo típico: horas a dias · custo típico: proporcional a piloto</li>
+            <li>Nova pergunta = nova <em>wave</em> sobre o mesmo substrato</li>
+            <li>Reprodução determinística por semente + <em>fingerprint</em> SHA-256</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte IV · Duas telas do simulador</span>
+        <h2>A lente do <em>Cisne Negro</em> e o botão de <em>desfazer</em>.</h2>
+        <p class="body">O simulador da Mimetica olha o mercado por sete lentes filosóficas — cada uma implementada como motor analítico separado, com literatura citável, rodando diariamente sobre o substrato observacional inteiro. Este texto pega duas para ilustrar o padrão de uso.</p>
+
+        <h3>Lente I · Cisne Negro — treinar para o imprevisível</h3>
+        <p class="body">Nassim Taleb chama de cisne negro o evento raro, de alto impacto, retrospectivamente racionalizado. Não dá para prever <em>quando</em> ele vem. Dá para chegar <em>treinado</em> nele. Na interface, isso é injetar cenários: <em>inflação de dois dígitos</em>, <em>quebra do principal fornecedor</em>, <em>ruptura de tarifa energética</em>, <em>choque de fluxo migratório na base de mão de obra</em>. O simulador roda o cenário sobre os gêmeos digitais e mostra como a demanda se movimenta, onde a curva quebra, quais clientes migram para qual concorrente, quais categorias colapsam antes das outras, em qual segmento a marca perde percepção. Você não está prevendo a crise. Está descobrindo por onde a sua empresa quebra <em>quando</em> ela vier — antes de precisar da resposta.</p>
+
+        <h3>Lente II · O botão de desfazer — decisão de preço sem gastar</h3>
+        <p class="body">Segunda tela: teste de estratégia de preço. Você aplica um aumento de 12% na sua principal SKU. O gráfico mostra queda de vendas em um segmento específico, migração de clientes para o concorrente adjacente, desgaste de percepção da marca no público de maior recorrência. No mundo real, essa decisão errada queimou meses de faturamento e não tem volta. No simulador, você aciona <em>desfazer</em>. A simulação rebobina. Você ajusta para 6% com uma condição de fidelidade acoplada. Roda de novo. Curva positiva, sem perda de percepção. A decisão que sai daqui para a reunião de conselho já passou por três iterações a custo marginal — o que teria sido queima de milhões vira anotação de aprendizado.</p>
+
+        <p class="body">É o momento do Walkman de graça na saída. Só que antes de você gastar um real.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">O que muda operacionalmente</strong>
+        <h4>Meses de mercado, em minutos.</h4>
+        <p>A compressão de tempo é o efeito de segunda ordem. Uma decisão de preço que exigiria dois trimestres de teste real, com custo de oportunidade em cada trimestre, passa a caber numa manhã de trabalho. Isso muda o cálculo de <em>quanto</em> se decide testar. A pergunta deixa de ser "vale a pena testar isso?" — que quase sempre resulta em não testar — e passa a ser "por que <em>não</em> testar isso primeiro?". A economia empresarial da iteração muda de patamar.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte V · Limites declarados</span>
+        <h2>Onde o simulador honestamente <em>não</em> vai.</h2>
+        <p class="body">Toda peça de infraestrutura séria vem com o mapa dos seus limites, e o simulador da Mimetica não é exceção. A separação abaixo é a régua interna aplicada em cada estudo entregue a cliente.</p>
+
+        <p class="body">Substituição de campo humano em <em>claim</em> regulatório — ANVISA, RDC, defesa em auditoria antitruste — <strong>não</strong> ocorre. Nesse regime, campo humano confirmatório permanece obrigatório. Magnitude exata de conversão em cenário real permanece direcional; estimativa percentual precisa exige <em>wave</em> humana confirmatória em cima do resultado artificial. Efeitos de rede, boca-a-boca, publicidade acumulada e tempo de resposta lento do mercado não são modelados em pesquisa <em>single-shot</em>. Categorias de nicho extremo — bens de luxo com N&lt;10.000 compradores no país, segmentos B2B ultra-específicos — exigem substrato customizado, não o substrato geral.</p>
+
+        <p class="body">O que o simulador <em>faz</em> bem, e onde ele desloca economicamente o método antigo: mapear estrutura de curva de demanda, mostrar matriz de substituição entre concorrentes reais, expor elasticidade segmentada, testar moldura de comunicação e ancoragem de preço, projetar reação a cenário de crise antes de a crise chegar, iterar barato sobre a mesma pergunta em contextos alterados. Nesse conjunto, ele entrega em horas o que o método tradicional entrega em semanas — e permite a iteração que o método tradicional simplesmente não comporta economicamente.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">A régua aplicada</strong>
+        <h4>Substrato artificial para explorar. Campo humano para <em>confirmar</em>, não para explorar.</h4>
+        <p>A ordem canônica de uso é essa. Explorar barato no simulador, iterar até fechar hipótese, confirmar em campo humano no ponto exato da decisão. Inverter essa ordem — usar campo humano para explorar — é o que torna decisão de preço, campanha e portfólio caras e lentas hoje. A economia de tempo e dinheiro que vem de acertar a ordem é a economia real do método.</p>
+      </div>
+    </section>
+
+    <div class="closing col">
+      <p>Pesquisa mede o que as pessoas <em>dizem</em>. O simulador mostra o que elas <em>fazem</em>. Erre no digital. Acerte no mercado.</p>
+    </div>
+
+    <footer class="colophon">
+      <span>Composto em Fraunces &amp; Source Serif 4</span>
+      <span>Mimetica · São Paulo · 2026 · <a href="mailto:geraldo@mimetica.net">geraldo@mimetica.net</a></span>
+    </footer>
+  </div>
+</article>
+
+<footer>
+  <div>© 2026 Mimetica</div>
+  <div><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Precificação Artificial · Mimetica</title>
+<meta name="description" content="O que aprendemos precificando a sintética nacional α em produção e testando um entrante nacional antes do lançamento — e o que muda agora que temos Twin-2K-BR.">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Mimetica">
+<meta property="og:title" content="Precificação Artificial · Mimetica">
+<meta property="og:description" content="Estudo de método &amp; caso GLP-1 · curva de demanda por faixa, matriz de substituição entre concorrentes, elasticidade segmentada.">
+<meta property="og:image" content="https://mimetica.net/assets/og-image.png">
+<meta property="og:url" content="https://mimetica.net/blog/precificacao-sintetica">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Precificação Artificial · Mimetica">
+<meta name="twitter:description" content="Preço não se descobre no lançamento — descobre-se antes.">
+<meta name="twitter:image" content="https://mimetica.net/assets/og-image.png">
+
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/blog-post.css?v=2">
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><img src="/assets/logo.png" alt="Mimetica" width="130" height="26"></a>
+  <div class="navlinks"><a href="/pesquisa">Pesquisas</a><a href="/sistemas">Sistemas</a><a href="/blog" class="active">Blog</a><a href="/pesquisa-sintetica">População</a></div>
+  <a class="navcta" href="#">Entrar</a>
+</nav>
+
+<article class="editorial-envelope editorial-envelope--red">
+  <div class="page">
+    <a href="/blog" class="back-link">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7H3M6 3L2 7l4 4"></path></svg>
+      Voltar ao blog
+    </a>
+
+    <header class="masthead">
+      <span class="wordmark">Mim<em>etica</em></span>
+      <span class="e-eyebrow">Nota de método &amp; caso · Setembro 2026</span>
+    </header>
+
+    <section class="hero col">
+      <span class="e-eyebrow hero-eyebrow">GLP-1 · precificação</span>
+      <h1>Precificação <em>Artificial</em>.</h1>
+      <p class="lede">O que aprendemos precificando a sintética nacional α em produção e testando um entrante nacional antes do lançamento — e o que muda agora que temos Twin-2K-BR.</p>
+      <p class="byline">Estudo de método &amp; caso GLP-1 BR · leitura ~14 min</p>
+    </section>
+
+    <div class="keybox">
+      <span class="label">Chave de anonimização</span>
+      <dl>
+        <dt>Sintética nacional α</dt>
+        <dd>Sintética brasileira efetivamente lançada em meados de 2026 no combo mensal ~R$287, caneta ~R$452.</dd>
+        <dt>Entrante nacional</dt>
+        <dd>Segunda caneta sintética nacional hipotética a R$499/mês, testada em cenário artificial antes de qualquer decisão de lançamento.</dd>
+        <dt>Biológica global A / B</dt>
+        <dd>As duas biológicas globais de referência de mercado (uma na faixa R$1.077 teto CMED, outra em faixas superiores). Fabricante único.</dd>
+        <dt>Biológica global C</dt>
+        <dd>Biológica global de nova geração, líder de eficácia percebida, faixa R$1.580+.</dd>
+        <dt>Biológica nacional</dt>
+        <dd>Biológica brasileira posicionada como segunda linha, faixa ~R$489.</dd>
+        <dt>Genéricos nacionais 2027+</dt>
+        <dd>Três fabricantes brasileiros em cronograma de entrada em 2027-2028.</dd>
+        <dt>Consenso <em>sell-side</em></dt>
+        <dd>Duas casas independentes de análise farma BR + imprensa financeira.</dd>
+        <dt>Comunidade WhatsApp <em>telehealth</em> formal</dt>
+        <dd>Comunidade brasileira observada de usuárias de tratamento farmacológico com prescrição regulada.</dd>
+      </dl>
+    </div>
+
+    <div class="col">
+      <p class="body dropcap">Preço errado quebra um lançamento. E o que faz o preço ser errado <em>não é</em> o cálculo — é a leitura da demanda: quanto o mercado paga, em que faixa a curva quebra, quem troca de marca e por quê, onde a psicologia do cliente distorce o número que a planilha diz. Painel humano tradicional responde bem essas perguntas — mas cobra caro e demora semanas. Ciclo longo, iteração cara, decisão adiada.</p>
+
+      <p class="body">Esta nota reúne o que fizemos precificando a <strong>sintética nacional α</strong> (lançamento real em meados de 2026) e testando o <strong>entrante nacional</strong> (um lançamento hipotético em agosto de 2026, deliberadamente construído para expor um erro de posicionamento antes que ele custasse dinheiro real). E o que a nova camada — <strong>Twin-2K-BR</strong>, respondentes artificiais calibrados às marginais oficiais brasileiras — permite fazer daqui pra frente em qualquer categoria com sensibilidade a preço.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n">2</div><div class="l">Casos GLP-1 rodados em produção</div></div>
+      <div class="stat"><div class="n">~285</div><div class="l">Respondentes efetivos · caso α</div></div>
+      <div class="stat"><div class="n">500</div><div class="l">Respondentes <em>bootstrap</em> · caso entrante</div></div>
+    </div>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte I · Caso sintética nacional α</span>
+        <h2>Precificar <em>durante</em> o lançamento — quanta gente pagaria quanto.</h2>
+        <p class="body">Em meados de 2026, um laboratório nacional lançou a <strong>sintética nacional α</strong>, primeira caneta brasileira de semaglutida sintética, a ~R$452 por caneta (~R$287 no combo mensal). Contra a <em>biológica global A</em> a R$1.077 (teto CMED) e a <em>biológica global C</em> a R$1.580, o desconto era de <strong>−58%</strong>. A pergunta que interessava não era "isso é barato?". Era operacional:</p>
+
+        <blockquote>Quantos brasileiros efetivamente pagam R$287 por mês? Em qual faixa de preço a curva de demanda quebra? Quem troca de biológica para sintética — e quem espera plano/SUS antes de entrar?</blockquote>
+
+        <h3>O método rodado em cinco horas</h3>
+        <p class="body">Amostra artificial de 300 personas Demo FF, estratificada por sexo e região conforme o perfil BR (~285 respondentes efetivos por pergunta). Cenário neutro-positivo com os preços reais das quatro canetas concorrentes; 18 perguntas em quatro blocos: consciência e uso atual, sensibilidade a preço, preferência de marca em livre escolha, impacto no comportamento de consumo. Wilson IC 95% (±5,8pp para N=285). Fingerprint SHA-256 anexo à <em>wave</em> para reprodutibilidade.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Achado central · curva de demanda latente</strong>
+        <h4>Onde a demanda por GLP-1 <em>quebra</em>.</h4>
+      </div>
+
+      <div class="datawrap">
+        <div class="datatable">
+          <table>
+            <caption>Base 44 milhões de obesos BR · N efetivo 285 · Wilson IC 95% ±5,8pp · pesquisa artificial PSE v1 Demo FF · 2026-06-05.</caption>
+            <thead>
+              <tr><th>Faixa de preço/mês</th><th class="num">% que pagaria</th><th class="num">Usuários adicionais</th><th>Observação</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Coberto por plano/SUS</td><td class="num">7,3%</td><td class="num">Mercado atual</td><td>Já ativo</td></tr>
+              <tr><td>≤ R$150/mês</td><td class="num hi">+20,3%</td><td class="num hi">+8,9 milhões</td><td><strong>Salto de mercado</strong></td></tr>
+              <tr><td>R$151 – R$300/mês</td><td class="num">+10,3%</td><td class="num">+4,5 milhões</td><td>Combo sintética α R$287 aqui</td></tr>
+              <tr><td>R$301 – R$500/mês</td><td class="num">+3,0%</td><td class="num">+1,3 milhão</td><td>Caneta sintética α R$452 aqui</td></tr>
+              <tr><td>R$501 – R$800/mês</td><td class="num">+1,3%</td><td class="num">+0,6 milhão</td><td>—</td></tr>
+              <tr><td>&gt; R$800/mês</td><td class="num">+4,3%</td><td class="num">+1,9 milhão</td><td>Biológicas globais A/B/C — premium</td></tr>
+              <tr><td>Não pagaria nada</td><td class="num">60,7%</td><td class="num">Aguardam SUS/plano</td><td><strong>Teto estrutural</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col">
+        <p class="body">O que a curva diz sem eufemismo: a sintética nacional α a R$287-452 endereça diretamente cerca de <strong>5,8 milhões</strong> de usuários potenciais adicionais. Mas o mercado real de destravar está no teto de R$150/mês — outros 8,9 milhões esperando ali. Rompê-lo exige um segundo genérico entrando a ~R$120-150, provável em 2027-2028. E acima de tudo isso: <strong>60,7% da amostra não paga preço nenhum</strong> — sensibilidade estrutural, não de preço, resolvida só por cobertura de plano ou SUS.</p>
+
+        <h3>Três cenários — 2026 a 2030</h3>
+      </div>
+
+      <div class="split">
+        <div class="side">
+          <span class="tag">Cenário A · Conservador</span>
+          <h4>Barreira de preço <em>persiste</em></h4>
+          <ul>
+            <li>Sintética α captura R$287-450</li>
+            <li>R$287 ainda caro para a maioria</li>
+            <li>Novos genéricos lentos · SUS não incorpora</li>
+            <li><strong>5,0 M usuários · 11,5% penetração 2030</strong></li>
+          </ul>
+        </div>
+        <div class="side">
+          <span class="tag">Cenário B · Consenso</span>
+          <h4>Democratização <em>gradual</em></h4>
+          <ul>
+            <li>2-3 genéricos adicionais em 2027</li>
+            <li>Preço puxa para R$180-250/mês</li>
+            <li>Planos com cobertura parcial · inflexão a R$150-200</li>
+            <li><strong>15,0 M usuários · 34,0% penetração 2030</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="split" style="grid-template-columns: 1fr;">
+        <div class="side">
+          <span class="tag">Cenário C · Otimista</span>
+          <h4>Ruptura de preço <em>+ SUS</em></h4>
+          <ul>
+            <li>5+ genéricos até 2027 · preço cai para R$100-150/mês</li>
+            <li>CONITEC reavalia incorporação SUS</li>
+            <li>Custo real de produção estimado ~R$17/mês (Univ. Liverpool)</li>
+            <li><strong>25,0 M+ usuários · 57,0%+ penetração 2030</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">O que o estudo α realmente entregou</strong>
+        <h4>Não foi "o preço certo" — foi a <em>estrutura da curva</em>.</h4>
+        <p>A sintética nacional α já estava lançada; o preço estava definido. O que a análise entregou foi a arquitetura da decisão: em que faixa a demanda quebra, onde está o próximo salto (R$150), qual porção do mercado não é sensível a preço mas a cobertura, e como o <em>share</em> vai se redistribuir entre biológica premium, biológica segunda linha, entrante nacional e genéricos futuros. Isso é o que informa <em>pricing</em> do combo mensal, orçamento de conversão médica, defesa de <em>share</em> da biológica global A, entrada dos genéricos em 2027, mensagem de campanha por segmento.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte II · Caso entrante nacional</span>
+        <h2>Precificar <em>antes</em> de lançar — o teste que expôs o erro em quatro horas.</h2>
+        <p class="body">Duas semanas após o α, uma segunda caneta hipotética — o <strong>entrante nacional</strong> — foi testada em cenário artificial para responder uma pergunta seca: se um segundo entrante nacional saísse a <strong>R$499 por mês</strong> (contra sintética α R$333 no combo, biológica nacional R$489, biológica global B R$999-1.475, biológica global C R$1.422+), quanto de <em>share</em> captura?</p>
+
+        <p class="body">O estudo usou uma técnica diferente: <em>bootstrap</em> empírico sobre uma <em>seed</em> real de 84 usuárias GLP-1 identificadas numa comunidade WhatsApp <em>telehealth</em> formal. Cada respondente artificial foi amostrado do padrão de co-ocorrência observado (jornada × droga atual × preferência de molécula × sensibilidade a preço × colaterais × kg perdido), com <em>jitter</em> ±20%, semente determinística 42. Complemento demográfico por marginais PNS 2019. <strong>500 de 500 respostas válidas, zero problemas.</strong></p>
+      </div>
+
+      <div class="datawrap">
+        <div class="datatable">
+          <table>
+            <caption>Piloto artificial WhatsApp GLP-1 · N=500 <em>bootstrap</em> seed=42 · disposição a pagar mediana R$520 (p25 R$450, p75 R$700) · 2026-08-01.</caption>
+            <thead>
+              <tr><th>Ação declarada</th><th class="num">Share</th><th>Racional dominante</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Manter caneta atual</strong></td><td class="num">48,8%</td><td>Inércia + satisfação com combo sintética α R$333</td></tr>
+              <tr><td>Trocar para biológica nacional (R$489)</td><td class="num hi">27,8%</td><td>"Biológica ao preço de sintética" — atributo domina</td></tr>
+              <tr><td>Trocar para sintética α (R$333 combo)</td><td class="num">14,8%</td><td><em>Downtrade</em> de usuária biológica global B/C</td></tr>
+              <tr><td><strong>Trocar para entrante nacional (R$499)</strong></td><td class="num hi">3,8%</td><td>Céticos da α que insistem em sintética</td></tr>
+              <tr><td>Subir para biológica global C</td><td class="num">2,2%</td><td>Eficácia percebida "incomparável"</td></tr>
+              <tr><td>Trocar para biológica global B</td><td class="num">1,8%</td><td>Marca conhecida</td></tr>
+              <tr><td>Pausar / abandonar</td><td class="num">0,8%</td><td>Efeito colateral relatado</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Diagnóstico pré-lançamento</strong>
+        <h4>Entrante nacional a R$499 captura apenas <em>3,8%</em> — posicionamento errado.</h4>
+        <p>A caneta chega mais cara que a incumbente sintética (sintética α R$333 no combo) e no mesmo patamar da biológica nacional barata (R$489). Sem histórico de eficácia próprio, o produto atrai apenas céticos da α que insistem em sintética por razão de fórmula.</p>
+        <p>Para capturar <em>share</em> relevante, o entrante teria que <em>entrar abaixo do combo da α</em> (~R$280 ou menos), <em>provar eficácia superior clinicamente antes do lançamento</em>, ou <em>reposicionar como especialidade</em>. Qualquer uma dessas hipóteses é testável em nova <em>wave</em> com preço/atributo alterado — a três horas de custo humano, não a três semanas de campo pago.</p>
+      </div>
+
+      <div class="col">
+        <p class="body">Os dois casos ensinam a mesma coisa por caminhos opostos. Sintética nacional α: <em>o lançamento já aconteceu, entenda a estrutura da curva</em>. Entrante nacional: <em>o lançamento ainda não aconteceu, quebre o preço antes que o mercado quebre</em>. As duas leituras foram entregues em horas — não em semanas.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte III · Ferramental</span>
+        <h2>Técnicas de precificação — <em>o repertório aplicado</em>.</h2>
+        <p class="body">Precificação séria não é uma única técnica; é um repertório. As oito abaixo formam o que a Mimetica aplica hoje sobre a camada de respondentes artificiais — todas com literatura acadêmica publicada.</p>
+      </div>
+
+      <div class="technique"><span class="num">Técnica I</span><div class="name">Van Westendorp — <em>Price Sensitivity Meter</em></div><p>Quatro perguntas ao respondente: em que preço fica <em>caro demais</em>, <em>caro mas considerável</em>, <em>bom negócio</em>, <em>tão barato que parece duvidoso</em>. A interseção das curvas produz o <em>range</em> aceitável e o ponto ótimo psicológico.</p><p class="apply">Ideal quando não há preço-âncora estabelecido — farma OTC, bens de consumo novos, serviços B2B recorrentes.</p></div>
+
+      <div class="technique"><span class="num">Técnica II</span><div class="name">Gabor-Granger — <em>disposição direta a pagar</em></div><p>Preço iterado (subindo ou descendo) até o ponto de indiferença; repetido sobre N respondentes produz a <em>curva de demanda agregada</em>.</p><p class="apply">O que rodamos para o caso α. Ideal quando existem preços de referência (biológicas globais) e o entrante quer mapear onde a demanda quebra.</p></div>
+
+      <div class="technique"><span class="num">Técnica III</span><div class="name">Brand-Price Trade-Off — <em>BPTO</em></div><p>Marcas concorrentes a preços variáveis; iterações sobem o preço da marca preferida forçando teste de fidelidade real: <em>a que preço eu deixo de escolher esta marca?</em></p><p class="apply">O que rodamos para o caso entrante — cenário de próxima compra entre sete opções concorrentes reais.</p></div>
+
+      <div class="technique"><span class="num">Técnica IV</span><div class="name">Conjoint Analysis — <em>atributos como pacote</em></div><p>Respondente escolhe entre produtos que variam <em>simultaneamente</em> em preço, eficácia, apresentação, canal, marca. Análise multivariada extrai o valor implícito por atributo.</p><p class="apply">Ideal para lançamento de nova apresentação/formulação, ou para decidir prioridade de investimento em atributos.</p></div>
+
+      <div class="technique"><span class="num">Técnica V</span><div class="name">Discrete Choice Modeling — <em>utilidade aleatória</em></div><p>Estatística mais rigorosa por trás de BPTO e <em>conjoint</em>. Modela probabilidade de escolha como função linear (ou logística) dos atributos, gerando elasticidade de preço, valor marginal de atributo, probabilidade de troca sob cenário X.</p><p class="apply">Requer N=800+. Ideal para modelagem de <em>share</em> pós-lançamento, defesa de preço em auditoria, <em>briefing</em> quantitativo para <em>board</em>.</p></div>
+
+      <div class="technique"><span class="num">Técnica VI</span><div class="name">Curva de demanda &amp; elasticidade — <em>o essencial</em></div><p>Sobre Gabor-Granger, Van Westendorp ou BPTO, extrai-se a elasticidade preço-demanda: quanto o volume cai quando o preço sobe 10%? Curvas segmentadas por perfil revelam onde o entrante encontra menos resistência.</p><p class="apply">Saída canônica de qualquer estudo — o número que o financeiro usa para projetar receita a diferentes preços.</p></div>
+
+      <div class="technique"><span class="num">Técnica VII</span><div class="name">Matriz de substituição — <em>quem troca de quem</em></div><p>Se o entrante captura <em>share</em>, de qual concorrente ele tira? Matriz N×N: linha = marca atual, coluna = marca destino, célula = probabilidade de troca dado preço/cenário.</p><p class="apply">O caso entrante é exemplo direto. Ideal para incumbentes defendendo <em>share</em> e para entrantes calibrando promoção de troca.</p></div>
+
+      <div class="technique"><span class="num">Técnica VIII</span><div class="name">Cenários &amp; ancoragem — <em>sensibilidade a moldura</em></div><p>Teste explícito de efeitos comportamentais Kahneman-Tversky: mesmo preço apresentado como "R$4.187/ano" converte menos que "R$349/mês"; combo trimestral com desconto de 33% converte mais que a mesma economia oferecida como "−R$666 no ano". <em>Backtest</em> da Mimetica contra literatura clássica: 6/6 tarefas KTT alinhadas.</p><p class="apply">Ideal para calibração de comunicação, teste de moldura de promoção, iteração de <em>wording</em>.</p></div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte IV · O upgrade</span>
+        <h2>O que <em>muda</em> quando trocamos Demo FF por Twin-2K-BR.</h2>
+        <p class="body">Os estudos α e entrante nacional usaram substratos legítimos — Demo FF artificial estratificado e <em>bootstrap</em> sobre 84 usuários reais. Direção robusta, magnitude direcional, custo baixo, entrega em horas. Mas <em>Twin-2K-BR</em> — a camada AARU-<em>like</em> que a Mimetica construiu no protocolo Twin-2K de Argyle et al. (2023) adaptado ao Brasil — sobe cada eixo do rigor um degrau.</p>
+      </div>
+
+      <div class="split">
+        <div class="side">
+          <span class="tag">Antes · Demo FF ou <em>seed</em> WhatsApp</span>
+          <h4>O que já era bom</h4>
+          <ul>
+            <li>Ciclo de <strong>horas</strong> a dias, não semanas</li>
+            <li>Preço <strong>proporcional a piloto</strong>, não a <em>wave</em> humana</li>
+            <li>Reprodutibilidade via <em>seed</em> determinística + SHA-256</li>
+            <li>Cobre direção de sensibilidade com Wilson IC honesto (±5,8pp)</li>
+            <li><em>Bootstrap</em> sobre <em>corpus</em> real preserva co-ocorrência comportamental</li>
+          </ul>
+        </div>
+        <div class="side">
+          <span class="tag">Agora · Twin-2K-BR</span>
+          <h4>O que sobe de patamar</h4>
+          <ul>
+            <li>N=1.000 calibradas às <strong>marginais oficiais IBGE Censo 2022 + PNAD-C 2024</strong></li>
+            <li>Estratificação por <strong>18 eixos</strong> + 4 dimensões contínuas via cópula gaussiana</li>
+            <li>Perfil <strong>Big Five</strong> — segmenta sensibilidade por psicologia</li>
+            <li>Ocupação <strong>CBO específica</strong> — para B2B, saúde ocupacional, seguros</li>
+            <li>Validação em <strong>seis camadas</strong>: <em>backtest</em> 6/6 Kahneman-Tversky-Thaler, <em>test-retest</em> ICC 0,984</li>
+            <li>Alinhamento com <strong>15 de 16 <em>surveys</em> empíricos brasileiros reais</strong> publicados 2003-2024</li>
+            <li><em>Preprint</em> em submissão SSRN + dossiê público de 28 páginas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col">
+        <p class="body">Traduzindo: Twin-2K-BR permite que as técnicas I a VIII sejam aplicadas com <strong>defensibilidade auditável</strong>. O cliente <em>enterprise</em> ou o cliente farma que precisa levar o número ao <em>board</em> ganha uma peça de evidência com método aberto, validação publicada e reprodução determinística.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte V · Como se contrata</span>
+        <h2>Um estudo de precificação, <em>cinco dias úteis</em>.</h2>
+      </div>
+
+      <div class="datawrap">
+        <div class="datatable">
+          <table>
+            <caption>Escopo piloto Twin-2K-BR precificação · <em>fingerprint</em> SHA-256 preserva reprodução · direito de citação Mimetica incluído.</caption>
+            <thead>
+              <tr><th>Dia</th><th>Marco</th><th>Responsável</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td><em>Brief</em> de precificação: produto, faixa de preço a testar, concorrentes reais, segmento-alvo, cenário decisório</td><td>Cliente</td></tr>
+              <tr><td>2</td><td>Desenho das perguntas: Gabor-Granger, BPTO ou Van Westendorp conforme pergunta; sobreamostragem estratificada</td><td>Mimetica</td></tr>
+              <tr><td>3</td><td>Materialização da <em>wave</em> Twin-2K-BR (N=1.000), rodada de <em>backtest</em> canônico, aplicação das perguntas</td><td>Mimetica</td></tr>
+              <tr><td>4</td><td>Análise: curva de demanda por faixa, matriz de substituição, elasticidade segmentada, cenários A/B/C</td><td>Mimetica</td></tr>
+              <tr><td>5</td><td><em>Readout</em> executivo: relatório PDF + dados brutos em CSV/parquet + reprodução determinística + <em>caveats</em> declarados</td><td>Mimetica → Cliente</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Onde precificação artificial honestamente <em>não</em> vai</strong>
+        <h4>Limites declarados.</h4>
+        <p>Não substitui campo humano em <em>claim</em> regulatório (farma, ANVISA, RDC) ou defesa em auditoria antitruste. Magnitude é direcional — estimar percentual exato de conversão em cenário real exige <em>wave</em> humana confirmatória. Efeitos de rede, boca-a-boca, publicidade acumulada e tempo de resposta do mercado não são modelados em pesquisa <em>single-shot</em>. Categorias de nicho extremo exigem substrato customizado.</p>
+      </div>
+    </section>
+
+    <div class="closing col">
+      <p>Preço não se descobre no lançamento. Descobre-se <em>antes</em>, iterando barato sobre substrato validado — e usando o campo humano para <em>confirmar, não para explorar</em>.</p>
+    </div>
+
+    <footer class="colophon">
+      <span>Composto em Fraunces &amp; Source Serif 4</span>
+      <span>Mimetica · São Paulo · 2026 · <a href="mailto:geraldo@mimetica.net">geraldo@mimetica.net</a></span>
+    </footer>
+  </div>
+</article>
+
+<footer>
+  <div>© 2026 Mimetica</div>
+  <div><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a></div>
+</footer>
+</body>
+</html>

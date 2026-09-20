@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validação Cega · Mimetica</title>
+<meta name="description" content="Como um painel artificial de 3.000 respondentes reproduziu o resultado de um campo humano real — com as previsões seladas antes de qualquer acesso ao gabarito.">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Mimetica">
+<meta property="og:title" content="Validação Cega · Mimetica">
+<meta property="og:description" content="3.000 respondentes artificiais vs. campo humano real. Previsões seladas por SHA-256 antes do gabarito. Desvio médio ~4 pontos percentuais em 27 indicadores-título.">
+<meta property="og:image" content="https://mimetica.net/assets/og-image.png">
+<meta property="og:url" content="https://mimetica.net/blog/validacao-cega">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Validação Cega · Mimetica">
+<meta name="twitter:description" content="O ceticismo se resolve por protocolo, não por retórica.">
+<meta name="twitter:image" content="https://mimetica.net/assets/og-image.png">
+
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/blog-post.css?v=2">
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><img src="/assets/logo.png" alt="Mimetica" width="130" height="26"></a>
+  <div class="navlinks"><a href="/pesquisa">Pesquisas</a><a href="/sistemas">Sistemas</a><a href="/blog" class="active">Blog</a><a href="/pesquisa-sintetica">População</a></div>
+  <a class="navcta" href="#">Entrar</a>
+</nav>
+
+<article class="editorial-envelope editorial-envelope--red">
+  <div class="page">
+    <a href="/blog" class="back-link">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7H3M6 3L2 7l4 4"></path></svg>
+      Voltar ao blog
+    </a>
+
+    <header class="masthead">
+      <span class="wordmark">Mim<em>etica</em></span>
+      <span class="e-eyebrow">Nota de método &amp; caso · Setembro 2026</span>
+    </header>
+
+    <section class="hero col">
+      <span class="e-eyebrow hero-eyebrow">Vacinação BR</span>
+      <h1>Validação <em>Cega</em>.</h1>
+      <p class="lede">Como um painel artificial de 3.000 respondentes reproduziu o resultado de um campo humano real — com as previsões seladas antes de qualquer acesso ao gabarito.</p>
+      <p class="byline">Estudo de método &amp; caso · leitura ~12 min</p>
+    </section>
+
+    <section class="col">
+      <p class="body dropcap">O ceticismo legítimo sobre pesquisa artificial tem uma pergunta central: <em>como sei que os respondentes que a máquina criou reproduzem os humanos reais, e não o que a Mimetica gostaria que reproduzissem?</em> A resposta canônica não é retórica — é protocolar. Se as previsões forem seladas com <em>hash</em> criptográfico <strong>antes</strong> de qualquer acesso ao gabarito, e se o gabarito for guardado pelo próprio cliente cético, a comparação é inatacável.</p>
+
+      <p class="body">Este documento reúne o caso de um <strong>instituto público brasileiro de pesquisa em vacinação</strong> — o cliente institucional guardava um campo humano de 350 respondentes (CAWI nacional, novembro de 2024) que a Mimetica expandiu para 3.000 respondentes artificiais, calibrados ao Censo IBGE e à PNAD Contínua. As previsões foram seladas em julho de 2026 e o cliente comparou-as contra a base humana completa, excluindo os 350 do <em>seed</em>. <strong>O desvio médio foi de ~4 pontos percentuais em 27 indicadores-título; <em>todos</em> os <em>rankings</em> substantivos se reproduziram.</strong> Este é o registro do método.</p>
+
+      <p class="body">Nomes de marcas e do próprio cliente foram omitidos por confidencialidade. Fabricantes de vacina aparecem como <em>farmacêutica global A/B/C/D/E</em> e <em>instituto público nacional 1/2</em>. A matemática, o protocolo e os desvios são os medidos.</p>
+    </section>
+
+    <div class="stats">
+      <div class="stat"><div class="n">350</div><div class="l">Respondentes humanos · campo CAWI</div></div>
+      <div class="stat"><div class="n">3.000</div><div class="l">Respondentes artificiais calibrados ao Censo</div></div>
+      <div class="stat"><div class="n">27</div><div class="l">Indicadores-título comparados</div></div>
+    </div>
+
+    <div class="col" style="text-align:center; margin-bottom:4rem;">
+      <p style="font-family:'Fraunces',serif; font-variation-settings:'SOFT' 30, 'opsz' 96; font-size:2.5rem; color:var(--e-accent); font-weight:400; letter-spacing:-0.02em; margin:0 0 0.5rem;">~4pp</p>
+      <p style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--e-muted); margin:0;">Desvio médio absoluto</p>
+    </div>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte I · O desafio</span>
+        <h2>Uma pergunta seca do cliente cético — e como respondê-la <em>sem retórica</em>.</h2>
+        <p class="body">O instituto tinha 350 respondentes reais colhidos em novembro de 2024 num campo CAWI nacional sobre percepção, comportamento e confiança em vacinação. Amostra sólida, bem trabalhada, custosa. E tinha também a base completa da onda — várias centenas de respondentes adicionais que a Mimetica <em>nunca</em> teve acesso, guardada internamente pelo próprio cliente.</p>
+
+        <p class="body">A pergunta operacional era simples:</p>
+
+        <blockquote>Se recebermos apenas 350 do total, e a partir deles gerarmos uma população artificial de 3.000, essa população reproduz o resultado que a base humana completa entregaria? E se sim, quanto de expansão em cobertura de recortes (região × renda, faixa etária × sexo) essa multiplicação por oito vezes destrava?</blockquote>
+
+        <p class="body">Duas apostas subjacentes. <strong>Primeira:</strong> se a expansão for confiável, o cliente ganha alavancagem — a mesma verba de campo passa a valer três a cinco vezes mais em análise. <strong>Segunda:</strong> se a expansão for calibrada ao Censo, o resultado corrige o viés estrutural do painel <em>online</em> (mulheres, Sudeste, renda alta sobrerrepresentados) e produz uma leitura mais fiel do Brasil real do que a amostra crua.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte II · O protocolo</span>
+        <h2>Selo criptográfico — o que impede que ninguém <em>trapaceie</em>.</h2>
+        <p class="body">Validação artificial sem selo é vulnerável a duas críticas fatais: <em>overfit</em> (ajustar o modelo até bater o gabarito), e <em>hindsight rationalization</em> (declarar como "prevista" a leitura que apareceu depois). A Mimetica eliminou as duas com um protocolo de cinco passos, executado em ordem estrita.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Cadeia de custódia da previsão selada</strong>
+        <p>Antes de qualquer acesso ao gabarito completo, o arquivo JSON com todas as previsões — <em>awareness</em> nacional, escalas de confiança, cortes por região × renda × idade × sexo — foi selado com SHA-256. O <em>hash</em> foi entregue ao cliente e registrado internamente. Qualquer alteração posterior de qualquer valor previsto quebra o <em>hash</em> — e o cliente detecta imediatamente.</p>
+        <p style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--e-muted); word-break:break-all; margin-top:1rem;">SHA-256 · conjunto A · 44f964b12f4bff7fd3f310fb0b3ddbcfe7a1a61508f56c07d03b0f9d0274196d — selado em 2026-07-10, antes do envio ao cliente.</p>
+      </div>
+
+      <div class="surfaces col">
+        <div class="surface"><span class="surface-num">01</span><div><h3><em>Seed</em> anonimizado e selado</h3><p>As 350 entrevistas recebidas tiveram vinte colunas de identificação pessoal removidas. O arquivo anonimizado foi ele próprio selado com SHA-256, para prova de que o <em>input</em> não foi tocado.</p></div></div>
+        <div class="surface"><span class="surface-num">02</span><div><h3>Geração determinística</h3><p>População artificial N=3.000 via <em>Iterative Proportional Fitting</em> (Deming-Stephan, 1940) para calibração censitária, mais síntese <em>hot-deck</em> de registro inteiro (Beckman, Baggerly &amp; McKay, 1996 — padrão em populações artificiais). Semente 42, <em>pipeline</em> reprodutível. <strong>Zero LLM</strong> no núcleo estatístico da expansão.</p></div></div>
+        <div class="surface"><span class="surface-num">03</span><div><h3>Pré-registro selado</h3><p>Todas as previsões — nacional e por corte — foram computadas e seladas via SHA-256 <em>antes</em> de qualquer acesso ao gabarito.</p></div></div>
+        <div class="surface"><span class="surface-num">04</span><div><h3>Validação pelo cliente</h3><p>O cliente comparou as previsões seladas contra a base completa, excluindo os 350 do <em>seed</em> (para não medir memória do próprio <em>seed</em>) e restringindo à mesma janela de campo (nov/2024), para não misturar ondas.</p></div></div>
+        <div class="surface"><span class="surface-num">05</span><div><h3>Leitura conjunta</h3><p>Sessão presencial ou remota Mimetica + cliente para leitura dos desvios, com o <em>hash</em> reconferido em tempo real.</p></div></div>
+      </div>
+
+      <blockquote>A Mimetica não tem como acertar por sorte de ajuste. Nunca vimos o gabarito; o <em>hash</em> prova que as previsões não mudaram depois.</blockquote>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte III · As três provas</span>
+        <h2>O que o método <em>tinha</em> que mostrar — e mostrou.</h2>
+        <p class="body">Antes de comparar contra o gabarito humano, o método passou por três famílias de validação interna. Cada uma responde a uma pergunta diferente do cético.</p>
+      </div>
+
+      <div class="split">
+        <div class="side">
+          <span class="tag">M1 · Fidelidade</span>
+          <h4>Respondentes artificiais são <em>indistinguíveis</em> de amostra humana da mesma origem</h4>
+          <ul>
+            <li>200 repetições de <em>split</em> estratificado 80/20</li>
+            <li>280 respondentes viram <em>seed</em>, 70 ficam escondidos</li>
+            <li>Geramos 3.000 respondentes artificiais só com os 280 e comparamos contra os 70 humanos que o gerador nunca viu</li>
+            <li><strong>95,5% dos desvios dentro do envelope amostral</strong> — a taxa esperada de uma amostra humana real</li>
+          </ul>
+        </div>
+        <div class="side">
+          <span class="tag">M2 · Representatividade</span>
+          <h4>Corrige o viés do painel <em>online</em> em direção ao Brasil real</h4>
+          <ul>
+            <li>Campo cru sobrerrepresentava mulheres (+20pp), Sudeste (+19pp), renda alta (+17pp)</li>
+            <li>Padrão de painel <em>online</em>, não defeito do cliente</li>
+            <li>Calibração IPF contra Censo 2022 + PNAD-C 2024 fecha as margens</li>
+            <li><strong>≤4,6pp de desvio residual pós-calibração</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="split" style="grid-template-columns: 1fr;">
+        <div class="side">
+          <span class="tag">M3 · Cobertura</span>
+          <h4><em>Quadruplica</em> as células de análise viáveis</h4>
+          <ul>
+            <li>Limiar analítico: n≥30 por célula</li>
+            <li>Com 350 humanos: apenas <strong>4 das 20 células</strong> de região × renda são analisáveis</li>
+            <li>Com 3.000 respondentes artificiais calibrados: <strong>16 das 20 abrem</strong> — incluindo Nordeste × renda baixa, Centro-Oeste inteiro por renda, cortes de idade × sexo que antes eram ilegíveis</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte IV · O resultado contra o gabarito</span>
+        <h2>Quando o cliente abriu a base completa — <em>o que apareceu</em>.</h2>
+        <p class="body">O cliente aplicou o passo 4 do protocolo, comparando as previsões seladas contra a base humana completa (excluindo os 350 do <em>seed</em>). As tabelas abaixo mostram, indicador a indicador, o que humanos disseram e o que os respondentes artificiais previram. A regra de leitura é simples: desvios dentro de ±5pp são ruído de amostragem esperado; desvios maiores merecem inspeção; os <em>rankings</em> — a ordem entre os itens — são o que decide se o método reproduz o padrão editorial.</p>
+      </div>
+
+      <div class="datawrap">
+        <div class="datatable">
+          <table>
+            <caption><em>Awareness</em> de fabricantes — nacional (Q11) · <em>ranking</em> integralmente preservado, única inversão dentro da faixa de ~4pp (ruído esperado).</caption>
+            <thead>
+              <tr><th>Fabricante</th><th class="num">Humanos %</th><th class="num">Artificiais %</th><th class="num">Δ (pp)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Farmacêutica global · A</td><td class="num">91</td><td class="num">90</td><td class="num">−1</td></tr>
+              <tr><td>Farmacêutica global · B</td><td class="num">80</td><td class="num">76</td><td class="num">−4</td></tr>
+              <tr><td>Instituto público nacional · 1</td><td class="num">76</td><td class="num">78</td><td class="num">+2</td></tr>
+              <tr><td>Instituto público nacional · 2</td><td class="num">73</td><td class="num">78</td><td class="num">+5</td></tr>
+              <tr><td>Farmacêutica global · C</td><td class="num">29</td><td class="num">26</td><td class="num">−3</td></tr>
+              <tr><td>Farmacêutica global · D</td><td class="num">27</td><td class="num">24</td><td class="num">−3</td></tr>
+              <tr><td>Farmacêutica global · E</td><td class="num">20</td><td class="num">19</td><td class="num">−1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="datawrap">
+        <div class="datatable">
+          <table>
+            <caption>Preocupação com doenças — "extremamente preocupado", nota 10 (Q13) · <em>ranking</em> idêntico: doenças vetoriais &gt; respiratórias. O achado editorial central se reproduziu integralmente.</caption>
+            <thead>
+              <tr><th>Doença</th><th class="num">Humanos %</th><th class="num">Artificiais %</th><th class="num">Δ (pp)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Dengue</td><td class="num">69</td><td class="num">77</td><td class="num">+8</td></tr>
+              <tr><td>Chikungunya</td><td class="num">68</td><td class="num">74</td><td class="num">+6</td></tr>
+              <tr><td>Vírus Sincicial Respiratório</td><td class="num">61</td><td class="num">61</td><td class="num">0</td></tr>
+              <tr><td>Gripe</td><td class="num">48</td><td class="num">53</td><td class="num">+5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Resultado consolidado sobre 27 indicadores</strong>
+        <p>Desvio médio absoluto de aproximadamente <strong>4 pontos percentuais</strong> em 27 indicadores-título, consistente com a validação <em>bootstrap</em> interna (4,85pp; 91% das medições dentro do envelope amostral). <strong>Todos os <em>rankings</em> substantivos se reproduziram</strong> — inclusive o achado editorial central (preocupação com doenças vetoriais superior à com respiratórias) e o <em>ranking</em> de confiança nos fabricantes.</p>
+        <p>Traduzindo para a prática do cliente: a expansão de 350 para 3.000 respondentes artificiais <strong>preserva integralmente a leitura estratégica</strong> que o campo humano original entregava, e adiciona capacidade de cortes que a amostra de 350 sozinha nunca teria sustentado.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte V · O corretor de viés</span>
+        <h2>Quando calibrar ao Censo <em>muda</em> uma leitura de negócio.</h2>
+        <p class="body">A calibração censitária não é ornamento — é o que separa "leitura de painel <em>online</em>" de "leitura do Brasil real". Uma dimensão específica torna isso concreto: o uso do sistema público de saúde.</p>
+      </div>
+
+      <div class="datawrap">
+        <div class="datatable">
+          <table>
+            <caption>Padrão típico de painel <em>online</em> — não é defeito específico deste cliente. É a natureza do canal de coleta.</caption>
+            <thead>
+              <tr><th>Dimensão</th><th class="num">Campo cru</th><th class="num">Brasil real</th><th class="num">Desvio</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Feminino</td><td class="num">71,7%</td><td class="num">51,7%</td><td class="num">+20,0pp</td></tr>
+              <tr><td>Sudeste</td><td class="num">61,4%</td><td class="num">42,4%</td><td class="num">+19,0pp</td></tr>
+              <tr><td>Renda até R$3.300</td><td class="num">13,4%</td><td class="num">51,0%</td><td class="num">−37,6pp</td></tr>
+              <tr><td>Renda acima de R$24.800</td><td class="num">20,0%</td><td class="num">3,0%</td><td class="num">+17,0pp</td></tr>
+              <tr><td>Mais de 65 anos</td><td class="num">2,9%</td><td class="num">14,0%</td><td class="num">−11,1pp</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col">
+        <p class="body">A leitura crua do painel diz: <strong>63% das pessoas se vacinam no sistema público</strong>. A leitura calibrada ao Censo diz: <strong>77% se vacinam no sistema público</strong>. Uma diferença de 14pp — que existe porque o painel <em>online</em> tem menos representação de renda baixa, e renda baixa usa mais o SUS. Não é erro de modelagem; é <em>correção</em> de um viés que a coleta original tinha por natureza.</p>
+
+        <p class="body">Um segundo exemplo: o <em>awareness</em> de uma das farmacêuticas globais menos conhecidas é fortemente graduado por renda — 15% na renda até R$3.300 vs. 67% na renda acima de R$24.800. Como o campo super-representa renda alta, a leitura crua <em>infla</em> o <em>awareness</em> nacional dessa marca em cerca de 3,4pp. Sem calibração, decisões de marketing seriam tomadas sobre um Brasil que não existe estatisticamente.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte VI · Para outras categorias</span>
+        <h2>O que esta técnica <em>destrava</em> — em qualquer estudo de percepção.</h2>
+        <p class="body">O caso vacinação é ilustrativo, mas o método é categórico. Qualquer cliente que colhe amostras humanas em canal <em>online</em> — pesquisas de <em>brand tracking</em>, satisfação, uso e atitude, intenção de compra, percepção regulatória, avaliação de comunicação — enfrenta o mesmo dilema estrutural: <strong>a amostra que pode pagar não é representativa do país que precisa entender</strong>. E a amostra que seria representativa custa cinco a dez vezes mais.</p>
+
+        <p class="body">A expansão artificial <em>seed</em>-based resolve os dois problemas simultaneamente. Reproduz o que a amostra pequena diz (M1), calibra ao Brasil real (M2), quadruplica os cortes analisáveis (M3), e — com o protocolo de selo criptográfico — entrega uma peça de evidência auditável.</p>
+      </div>
+
+      <div class="split">
+        <div class="side">
+          <span class="tag">Antes · amostra humana de 350 sozinha</span>
+          <h4>Direção correta, cortes limitados</h4>
+          <ul>
+            <li>Leituras nacionais confiáveis</li>
+            <li>Alguns cortes viáveis (4-6 das 20 células região × renda)</li>
+            <li>Viés estrutural do canal <em>online</em> herdado</li>
+            <li>Custo do campo é o custo do campo — cada <em>wave</em> é evento financeiro</li>
+          </ul>
+        </div>
+        <div class="side">
+          <span class="tag">Depois · expansão artificial +3.000</span>
+          <h4>Mesmo <em>seed</em>, oito vezes o poder de leitura</h4>
+          <ul>
+            <li>Todos os <em>rankings</em> substantivos preservados (~4pp de desvio médio)</li>
+            <li>Calibração Censo 2022 + PNAD-C 2024 → Brasil real, não Brasil do painel</li>
+            <li>16 das 20 células de região × renda viáveis</li>
+            <li>Selo SHA-256 de previsão cega — <em>due diligence</em>, <em>board</em>, auditoria</li>
+            <li><em>Pipeline</em> determinístico (semente 42), zero LLM no núcleo estatístico</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte VII · Como se contrata</span>
+        <h2>Um estudo de expansão &amp; validação cega em <em>duas semanas</em>.</h2>
+        <p class="body">O formato canônico da entrega — desde a entrega do <em>seed</em> anonimizado pelo cliente até a leitura conjunta dos desvios contra o gabarito — fecha em aproximadamente duas semanas. O selo criptográfico da previsão é entregue ao final da primeira semana; o cliente executa a validação cega na segunda; a leitura conjunta encerra o ciclo.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Limites honestos deste método</strong>
+        <p><strong>Não cria informação nova.</strong> Respondentes artificiais interpolam o padrão do <em>seed</em> e corrigem representatividade pelo Censo. Fenômenos ausentes no <em>seed</em> (um segmento que o campo não alcançou) não aparecem por mágica na expansão.</p>
+        <p><strong>Herda vícios de resposta.</strong> Se o <em>seed</em> tem efeito-teto nas escalas 0-10, <em>straight-liners</em>, ou viés de desejabilidade, os respondentes artificiais herdam. A calibração corrige QUEM responde, não COMO responde.</p>
+        <p><strong>Células com <em>seed</em> muito baixo permanecem baixa confiança.</strong> Regiões com &lt;15 doadores humanos são sinalizadas explicitamente como baixa confiança, não reportadas com falsa precisão.</p>
+        <p><strong>Não substitui campo humano em <em>claim</em> regulatório.</strong> Auditoria formal, submissão à ANVISA ou defesa em ação judicial permanecem exigindo painel humano tradicional.</p>
+      </div>
+    </section>
+
+    <div class="closing col">
+      <p>O ceticismo se resolve por <em>protocolo</em>, não por retórica. Um <em>hash</em> criptográfico entregue antes do gabarito é a única resposta que sobrevive à pergunta "como sei que não foi ajustado depois?".</p>
+    </div>
+
+    <footer class="colophon">
+      <span>Composto em Fraunces &amp; Source Serif 4</span>
+      <span>Mimetica · São Paulo · 2026 · <a href="mailto:geraldo@mimetica.net">geraldo@mimetica.net</a></span>
+    </footer>
+  </div>
+</article>
+
+<footer>
+  <div>© 2026 Mimetica</div>
+  <div><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a></div>
+</footer>
+</body>
+</html>

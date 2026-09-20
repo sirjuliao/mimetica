@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O maquinário atrás da cabine · Mimetica</title>
+<meta name="description" content="Se o post anterior explicou por que observamos comportamento sem plateia, este explica com que ferramentas. Cinco famílias de método estatístico que sustentam o gêmeo digital brasileiro, sem entrar em receita.">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Mimetica">
+<meta property="og:title" content="O maquinário atrás da cabine · Mimetica">
+<meta property="og:description" content="Cinco famílias de método — do raking populacional à validação por seal criptográfico — que fazem a cabine permanente funcionar.">
+<meta property="og:image" content="https://mimetica.net/assets/og-image.png">
+<meta property="og:url" content="https://mimetica.net/blog/o-maquinario-atras-da-cabine">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="O maquinário atrás da cabine · Mimetica">
+<meta name="twitter:description" content="Cinco famílias de método que sustentam o gêmeo digital brasileiro.">
+<meta name="twitter:image" content="https://mimetica.net/assets/og-image.png">
+
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/blog-post.css?v=2">
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><img src="/assets/logo.png" alt="Mimetica" width="130" height="26"></a>
+  <div class="navlinks"><a href="/pesquisa">Pesquisas</a><a href="/sistemas">Sistemas</a><a href="/blog" class="active">Blog</a><a href="/pesquisa-sintetica">População</a></div>
+  <a class="navcta" href="#">Entrar</a>
+</nav>
+
+<article class="editorial-envelope">
+  <div class="page">
+    <a href="/blog" class="back-link">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7H3M6 3L2 7l4 4"></path></svg>
+      Voltar ao blog
+    </a>
+
+    <header class="masthead">
+      <span class="wordmark">Mim<em>etica</em></span>
+      <span class="e-eyebrow">Nota de método · Setembro 2026</span>
+    </header>
+
+    <section class="hero col">
+      <span class="e-eyebrow hero-eyebrow">Cinco famílias · o par técnico da cabine</span>
+      <h1>O maquinário atrás da <em>cabine</em>.</h1>
+      <p class="lede">Se a nota anterior explicou <em>por que</em> observamos comportamento sem plateia, esta explica <em>com que ferramentas</em>. Cinco famílias de método estatístico e computacional sustentam o gêmeo digital brasileiro — vindas de literatura acadêmica canônica, não de invenção proprietária. Uma nota leve sobre <em>o que</em> se usa, sem entrar em receita.</p>
+      <p class="byline">Nota de método · leitura ~7 min · par técnico de "A cabine que não mente"</p>
+    </section>
+
+    <section class="col">
+      <p class="body dropcap">Método é o que decide se um gêmeo digital descreve o Brasil ou uma versão inventada dele. Se a calibração é frouxa, a persona vira estereótipo de <em>focus group</em> ruim. Se a simulação não propaga incerteza, o output vira ponto onde deveria ser distribuição. Se a validação não é cega, a Mimetica estaria assinando os próprios trabalhos como quem se auto-diploma. Esta nota lista as cinco famílias de método que impedem cada uma dessas três armadilhas — em linguagem editorial, com nomes canônicos, sem o passo a passo. Para o passo a passo, existe o par técnico deste post na sala de leitura restrita.</p>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Família I · Calibração populacional</span>
+        <h2>Como uma amostra artificial <em>bate</em> com o país oficial.</h2>
+        <p class="body">Todo gêmeo digital Mimetica começa como esqueleto calibrado contra marginais oficiais brasileiras — IBGE Sidra, PNAD Contínua, POF, PNS, Vigitel, TSE. A técnica canônica que faz isso se chama <strong>raking</strong>, ou <em>Iterative Proportional Fitting</em>, publicada por Deming e Stephan em 1940. O algoritmo ajusta iterativamente uma distribuição conjunta até que todas as marginais oficiais batam simultaneamente, preservando as razões de chance observadas no dado real. Não é chute — é protocolo estatístico clássico usado em demografia, epidemiologia e estudos de mobilidade urbana há oito décadas.</p>
+
+        <p class="body">Onde o esqueleto categórico é insuficiente — renda contínua, idade fina, escolaridade em anos —, a <strong>cópula gaussiana</strong> (Sklar, 1959) injeta correlações rank-preserving ancoradas em literatura brasileira. Uma pessoa de 55 anos não tem a mesma distribuição de renda que uma de 25; o algoritmo preserva essa correlação em vez de assumir independência.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Família II · Simulação</span>
+        <h2>Rodar o <em>filme</em>, não tirar a foto.</h2>
+        <p class="body">Pesquisa tradicional tira uma foto: uma amostra, um resultado, um intervalo de confiança. Simulação roda o filme: mil amostras, mil resultados, uma distribuição inteira de <em>outcomes</em> possíveis. A técnica canônica se chama <strong>Monte Carlo</strong> (Metropolis-Ulam, 1949) e é o método que a Mimetica usa para propagar incerteza através de qualquer engine que não seja linear. Padrão canônico: N=1000 execuções, <em>seeds</em> fixadas para reprodutibilidade bit-exact.</p>
+
+        <p class="body">Duas técnicas ortogonais entram no mesmo agrupamento. O <strong>teste de permutação</strong> (Fisher, 1935) mede significância estatística sem assumir distribuição — quando o alvo tem cauda estranha, a randomização direta substitui suposições paramétricas. E o contrato de saída canônico da Mimetica para toda simulação com LLM: <em>soft distribution</em>. O modelo devolve distribuição percentual com <em>rationale</em> citado ("60% trocam, 22% trocam de vez, 18% não trocam"), nunca escolha binária. Escolha dura fabrica variância artificial que se acumula em N grande.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Família III · Cauda e extremos</span>
+        <h2>Onde a estatística <em>normal</em> mente sistematicamente.</h2>
+        <p class="body">A distribuição normal assume que o improvável é irrelevante. A realidade macro-financeira, epidemiológica e política brasileira tem <em>cauda pesada</em> — o improvável, quando acontece, decide o resultado. A técnica canônica para modelar a cauda direita se chama <strong>POT + GPD</strong> (<em>Peak-Over-Threshold</em> com <em>Generalized Pareto Distribution</em>, Pickands 1975, Balkema-de Haan 1974) — teoria de valores extremos aplicada.</p>
+
+        <p class="body">É a técnica que sustenta a lente Taleb no sistema. E é também onde a Mimetica faz o corte epistemológico mais importante: quando a cauda observada tem massa estatística, o alerta é <em>statistical</em>. Quando é extrapolação além do observado, o alerta é <em>epistemic_unknown</em> — passivo, em <em>sidebar</em> de auditoria, nunca em <em>push notification</em>. Honestidade de UX, não conservadorismo silencioso.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Família IV · Redes complexas</span>
+        <h2>Barabási em produção — <em>não metáfora</em>.</h2>
+        <p class="body">A camada narrativa da Mimetica trata o corpus como grafo: nós são narrativas, arestas são compartilhamento de sinais e de vetores. A técnica canônica de detecção de comunidade se chama <strong>Leiden</strong> (Traag et al., 2019); as três centralidades canônicas (<strong>betweenness</strong>, <strong>eigenvector</strong>, <strong>PageRank</strong>) ranqueiam nós por tipo diferente de importância — <em>bridges</em>, hubs recursivos, nós virais em grafo direcionado.</p>
+
+        <p class="body">O que separa "análise de rede real" de "análise de rede com <em>vibe</em>" é o <strong><em>null model</em></strong>. Toda centralidade emitida pela Mimetica vem acompanhada de p-valor por permutação: o grafo é <em>rewired</em> mil vezes preservando grau de cada nó (Molloy-Reed configuration model), e a estatística observada é comparada contra a distribuição sob a hipótese nula de aleatoriedade estrutural. Sem isso, todo grafo tem "hubs importantes" — mesmo os aleatórios.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Família V · Validação, seal criptográfico, gates</span>
+        <h2>Como se prova que <em>funciona</em>.</h2>
+        <p class="body">Método é irrelevante sem <em>gate</em>. A Mimetica herda o cânone acadêmico: <strong>Wilson score interval</strong> (1927) para IC binomial canonical; <strong>Cohen κ / Fleiss κ</strong> (1960 / 1971) para concordância entre <em>raters</em>; <strong>Kolmogorov-Smirnov</strong> (1933, 1948) para aderência de distribuição; <strong>Brier score</strong> (1950) para <em>skill</em> prospectivo em <em>Forecast Ledger</em>.</p>
+
+        <p class="body">A técnica mais dura, e a mais Mimetica, é o <strong>pré-registro com <em>seal</em> SHA-256</strong>. Toda previsão que a Mimetica faz num contexto de validação é hash-selada <em>antes</em> de qualquer acesso ao gabarito. O <em>hash</em> é público, a previsão é imutável, o gabarito é guardado pelo cliente cético. É a única resposta que sobrevive à pergunta "como sei que não foi ajustado depois?". Foi assim que 3.000 respondentes artificiais calibrados a partir de 350 respondentes humanos reproduziram o resultado de um campo humano completo com desvio médio de ~4pp em 27 indicadores — protocolo relatado em "Validação Cega" nesta mesma sala.</p>
+
+        <div class="honest">
+          <strong class="tag">Sobre emergência de heurística</strong>
+          A validação mais forte que a Mimetica tem hoje é indireta: seis heurísticas comportamentais canônicas de Kahneman-Tversky-Thaler <em>emergem</em> em personas Twin-2K-BR sem serem injetadas no <em>prompt</em>. Se o gêmeo, sem receber instrução, reproduz o padrão que humanos brasileiros reais mostram em 15 de 16 <em>surveys</em> publicados, o sinal é estrutural — não é teatro do modelo de linguagem.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">O que fica fora desta nota</span>
+        <h2>Quatro famílias adicionais no par técnico.</h2>
+        <p class="body">Esta nota lista cinco famílias. O sistema em produção usa nove. As quatro que ficaram de fora daqui — séries temporais e detecção de regime; convergência e reflexividade em quatro classes; rendering de persona e emergência de Big Five; dispersão de informação e <em>retrieval</em> semântico — vivem no par técnico restrito desta nota, na sala de leitura sob autenticação Cloudflare Zero Trust. É o mesmo padrão dos outros posts do blog Mimetica: material comercial cita os métodos com nome; material técnico completo, com referências acadêmicas explícitas e <em>gates</em> quantitativos declarados, fica em <em>/articles</em>.</p>
+      </div>
+    </section>
+
+    <div class="closing col">
+      <p>Nenhuma das cinco famílias é invenção Mimetica. Todas são cânone acadêmico — a mais recente publicada em 2019, a mais antiga em 1927. O que a Mimetica construiu foi a <em>infraestrutura brasileira</em> que faz esse cânone rodar em produção, com substrato daqui, calibrado para decisões daqui, todos os dias. O ouro não está em ter inventado a técnica. Está em ter <em>escolhido a técnica certa</em> para cada camada e ter feito o Brasil ser o objeto de estudo, não a periferia editorial.</p>
+    </div>
+
+    <footer class="colophon">
+      <span>Composto em Fraunces &amp; Source Serif 4</span>
+      <span>Mimetica · São Paulo · 2026 · <a href="mailto:geraldo@mimetica.net">geraldo@mimetica.net</a></span>
+    </footer>
+  </div>
+</article>
+
+<footer>
+  <div>© 2026 Mimetica</div>
+  <div><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a></div>
+</footer>
+</body>
+</html>

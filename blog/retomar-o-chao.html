@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retomar o Chão · Mimetica</title>
+<meta name="description" content="Consolidando 29 meses de dados dispersos de um varejista brasileiro premium: quatro erros de dados, um budget 24% acima do entregável, e a diferença real entre queda de tráfego e queda de tíquete.">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Mimetica">
+<meta property="og:title" content="Retomar o Chão · Mimetica">
+<meta property="og:description" content="Estudo de método &amp; caso · varejo alimento orgânico BR · consolidação de 29 meses dispersos.">
+<meta property="og:image" content="https://mimetica.net/assets/og-image.png">
+<meta property="og:url" content="https://mimetica.net/blog/retomar-o-chao">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Retomar o Chão · Mimetica">
+<meta name="twitter:description" content="Boa parte do trabalho de inteligência estratégica não começa com o insight — começa com a consolidação.">
+<meta name="twitter:image" content="https://mimetica.net/assets/og-image.png">
+
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/blog-post.css?v=2">
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><img src="/assets/logo.png" alt="Mimetica" width="130" height="26"></a>
+  <div class="navlinks"><a href="/pesquisa">Pesquisas</a><a href="/sistemas">Sistemas</a><a href="/blog" class="active">Blog</a><a href="/pesquisa-sintetica">População</a></div>
+  <a class="navcta" href="#">Entrar</a>
+</nav>
+
+<article class="editorial-envelope editorial-envelope--red">
+  <div class="page">
+    <a href="/blog" class="back-link">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7H3M6 3L2 7l4 4"></path></svg>
+      Voltar ao blog
+    </a>
+
+    <header class="masthead">
+      <span class="wordmark">Mim<em>etica</em></span>
+      <span class="e-eyebrow">Nota de método &amp; caso · Setembro 2026</span>
+    </header>
+
+    <section class="hero col">
+      <span class="e-eyebrow hero-eyebrow">Varejo alimento orgânico BR</span>
+      <h1>Retomar o <em>Chão</em>.</h1>
+      <p class="lede">Consolidando 29 meses de dados dispersos de um varejista brasileiro <em>premium</em>, encontramos quatro erros de dados, um <em>budget</em> 24% acima do entregável, e a diferença real entre queda de tráfego e queda de tíquete.</p>
+      <p class="byline">Estudo de método &amp; caso · leitura ~10 min</p>
+    </section>
+
+    <section class="col">
+      <p class="body dropcap">Boa parte do trabalho de inteligência estratégica no varejo brasileiro <em>premium</em> não começa com o <em>insight</em> — começa com a <em>consolidação</em>. Os dados existem: <em>budgets</em> em planilhas por ano, projeções em outra pasta, venda diária em terceiro arquivo, SKU-<em>level</em> no ERP, custo por produto num balancete separado. Tudo verdadeiro. Nada conversando entre si. E — quase invariavelmente — com um ou dois erros herdados de <em>exports</em> antigos, que se propagam pelas leituras subsequentes sem que ninguém perceba.</p>
+
+      <p class="body">Este documento reúne o caso de um <strong>cliente varejista brasileiro <em>premium</em> de alimento orgânico</strong> que operava oito lojas — hoje mantém duas ativas. A Mimetica consolidou 29 meses de dados dispersos, encontrou quatro erros de qualidade de dados que revertiam interpretações prévias, diagnosticou o problema real de uma loja em queda (tráfego, não tíquete), e propôs recalibração de metas para o segundo semestre de 2026 com sanidade metodológica. Nomes do cliente e das lojas foram omitidos por confidencialidade.</p>
+    </section>
+
+    <div class="stats">
+      <div class="stat"><div class="n">29</div><div class="l">Meses de dados consolidados</div></div>
+      <div class="stat"><div class="n">2.499</div><div class="l">SKUs classificados na Loja A</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">Erros de dados descobertos</div></div>
+    </div>
+    <div class="col" style="text-align:center; margin-bottom:4rem;">
+      <p style="font-family:'Fraunces',serif; font-variation-settings:'SOFT' 100, 'opsz' 96; font-style:italic; font-size:2.5rem; color:var(--e-accent); font-weight:400; margin:0 0 0.5rem;">−24%</p>
+      <p style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--e-muted); margin:0;"><em>Overshoot</em> do budget · Loja A vs. entregável</p>
+    </div>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte I · O contexto</span>
+        <h2>Oito lojas viraram duas — e a meta continuava <em>a mesma</em>.</h2>
+        <p class="body">O cliente operava, no auge, oito lojas físicas em São Paulo — todas sob o mesmo posicionamento <em>premium</em> orgânico. Ao longo de um ciclo comercial de aproximadamente três anos, seis foram fechadas por razões que combinavam ponto, contrato de aluguel e retorno operacional. Restaram duas: <strong>Loja A</strong>, que perdeu tráfego progressivamente; e <strong>Loja B</strong>, que se mostrou estruturalmente saudável.</p>
+
+        <p class="body">Cada loja tinha o próprio <em>budget</em> anual, projeção, meta operacional, e histórico de realizado. Cada fonte residia em arquivo diferente — <em>spreadsheet</em> de <em>budget</em>, <em>spreadsheet</em> de projeção, extração diária do ERP, SKU-<em>level</em> do sistema de retaguarda, balancete de venda do sistema fiscal. O time comercial acompanhava o realizado contra a meta mensalmente e via a Loja A furar. Furava havia doze meses consecutivos.</p>
+
+        <blockquote>A pergunta operacional era: a loja está de fato piorando, ou a meta é que está errada? E se está piorando, o que está piorando — o tíquete ou o tráfego? A resposta exige consolidar 29 meses de fontes diferentes com uma única régua. Ninguém tinha feito ainda.</blockquote>
+      </div>
+
+      <div class="honest">
+        <strong class="tag">Chave de anonimização</strong>
+        Marca do cliente omitida por confidencialidade. Loja A e Loja B são as duas unidades ainda ativas em São Paulo, ambas capital. As seis lojas fechadas ao longo do ciclo aparecem como "unidades fora do escopo <em>forward-looking</em>" e foram preservadas no histórico para análise de transferência. Concorrentes de <em>benchmark</em> mencionados apenas como categoria (industrial premium, orgânico premium, artesanal regional).
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte II · A auditoria</span>
+        <h2>Quatro erros de dados que <em>reverteram</em> interpretações prévias.</h2>
+        <p class="body">A consolidação começou como exercício mecânico. Não era. Cada uma das quatro descobertas abaixo modifica alguma interpretação que o time comercial vinha tomando como verdadeira — três delas silenciosamente havia meses. A regra de qualidade que consolidamos após esse caso: <strong>validação cruzada entre no mínimo três fontes independentes antes de aceitar qualquer número como base para meta ou <em>pitch</em>.</strong></p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Erro 01</strong>
+        <h4>Abas mal rotuladas — dois meses de 2026 registrados como 2025.</h4>
+        <p>No arquivo mestre de venda "2025-2026", as abas "Abril 2025" e "Maio 2025" continham, na verdade, os dados de <strong>Abril e Maio de 2026</strong>. Verificação cruzada: os totais batem exatamente com o realizado da Loja A em Abr/26 (R$ 593.321) e Mai/26 (R$ 558.554), e <em>não</em> batem com Abr-Mai/25 (R$ 722.058 / R$ 731.198). Um relatório executivo interno prévio havia assumido a janela Abr/25→Mar/26 para análise SKU-<em>level</em>. Dois meses inteiros foram tratados como o ano errado. Leituras sazonais foram reconstruídas.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Erro 02</strong>
+        <h4>Projeção 2026 com realizado "futuro" copiado de 2025.</h4>
+        <p>O arquivo de projeção 2026 tinha campos de realizado preenchidos para meses ainda não vividos. Investigação: <strong>Nov/26 dia-a-dia era idêntico a Nov/25 dia-a-dia</strong>. O <em>template</em> foi provavelmente clonado a partir de 2025 sem limpeza do "realizado herdado". Qualquer projeção que somasse "realizado até hoje" para meses futuros estava contando venda inexistente. Corrigido no consolidado — datas &gt; ponto de coleta anuladas em realizado; metas mantidas.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Erro 03</strong>
+        <h4><em>Outlier</em> multiloja em uma janela SKU-<em>level</em>.</h4>
+        <p>Em uma janela mensal do SKU-<em>level</em> da Loja A, o total aparecia como <strong>R$ 1,31 milhão — vs. R$ 654 mil no realizado oficial</strong>. Comparação com faturamento consolidado das outras lojas naquele mês sugere que o <em>export</em> incluiu, por acidente, o mix multiloja em vez do <em>filter</em> por unidade. Qualquer análise por produto que incluísse aquela janela estava dobrando o volume dos SKUs de circulação mais alta. Registrado com <em>flag</em> <code>outlier_multiloja=True</code>, excluído de análises subsequentes.</p>
+      </div>
+
+      <div class="findbox">
+        <strong class="tag">Erro 04</strong>
+        <h4>Um mês de balancete de venda entregue duplicado — como se fosse outro.</h4>
+        <p>Do lote de quatro balancetes de venda entregues pelo cliente, o arquivo "maio Balancete de venda" era <em>byte-idêntico</em> ao de junho (verificado por MD5). Continha os dias 01-30/06. Cálculo de margem líquida de maio/2026 foi impossível a partir do balancete original. Registrado como <em>gap</em> de dados; solicitado <em>re-export</em> do fornecedor original.</p>
+      </div>
+
+      <div class="col">
+        <p class="body">Nenhuma dessas descobertas exigiu inteligência artificial ou modelo estatístico. Exigiram <strong>validação cruzada disciplinada</strong> — bater o realizado da fonte A contra a soma diária da fonte B contra a soma SKU-<em>level</em> da fonte C, no mesmo mês, para a mesma loja, e investigar quando a diferença ficasse acima de 0,5%. Nos 29 meses consolidados, essa disciplina identificou os quatro erros acima.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte III · O diagnóstico</span>
+        <h2>Tráfego, não tíquete — e o que isso <em>muda</em>.</h2>
+        <p class="body">Com os dados limpos e a janela real (29 meses corretos), a comparação entre as duas lojas ativas produziu um diagnóstico não-óbvio. A Loja A estava, sim, perdendo faturamento — mas <em>por que</em> perdeu se tornou pergunta com resposta empírica clara. Não era problema de tíquete médio, não era problema de mix, não era problema de canal. Era queda de <em>tráfego</em>.</p>
+      </div>
+
+      <div class="split">
+        <div class="side">
+          <span class="tag">Loja A · em queda estrutural de tráfego</span>
+          <h4>O tíquete <em>está bom</em>. As pessoas é que <em>pararam de entrar</em>.</h4>
+          <ul>
+            <li>Visitas/dia (média 2024): <strong>244</strong></li>
+            <li>Visitas/dia (média 2025): <strong>218</strong></li>
+            <li>Visitas/dia (Jul/26 parcial): <strong>155</strong></li>
+            <li>Tíquete médio: <strong>~R$ 106 (estável)</strong></li>
+            <li>Faturamento Jan-Mai/26 vs YoY: <strong>−17%</strong></li>
+            <li>Realizado Jul/26 vs YoY: <strong>−24%</strong></li>
+          </ul>
+        </div>
+        <div class="side">
+          <span class="tag">Loja B · estruturalmente saudável</span>
+          <h4>O tíquete <em>cresce</em>. Tráfego <em>estável</em>.</h4>
+          <ul>
+            <li>Tíquete médio (2024): <strong>R$ 130</strong></li>
+            <li>Tíquete médio (Jul/26): <strong>R$ 148 (+12% em 2 anos)</strong></li>
+            <li>Realizado Jul/26 vs YoY: <strong>+2% (dentro da faixa)</strong></li>
+            <li>Meta anual vs entregável do modelo: <strong>Dentro da faixa (bem calibrada)</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col">
+        <blockquote>A queda de faturamento é função quase inteira da queda de tráfego. Isso muda o remédio — não é reprecificação, não é reformulação de mix. É problema de <em>aquisição</em>, que exige diagnóstico próprio (ponto, entorno, competição adjacente, comunicação digital, programa de fidelidade).</blockquote>
+
+        <p class="body">A Loja B é a evidência de que o posicionamento <em>premium</em> orgânico não está morto. Quando o ponto e o ciclo de aquisição funcionam, a categoria vende. <strong>O problema da Loja A não é da marca — é local.</strong> Isso simplifica a decisão comercial.</p>
+
+        <p class="body"><strong>Padrão comportamental diferenciado — sábado vs. segunda.</strong> As duas lojas têm perfil semanal oposto. A Loja A é loja de sábado (pico no fim de semana, movimento típico de destino, provavelmente <em>trip</em> de compra); a Loja B é loja de segunda (pico útil, movimento típico de repovoamento semanal). Isso implica que a ação de recuperação de tráfego da Loja A não é a mesma que a defesa de posição da Loja B — cada uma exige comunicação, incentivos e horário de campanha diferentes. Antes da consolidação, o time tratava as duas com o mesmo <em>playbook</em>.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte IV · A recalibração</span>
+        <h2>Meta batível — e uma "meta de recuperação" <em>atrelada a plano</em>.</h2>
+        <p class="body">Meta que não se bate por doze meses consecutivos não é meta — é fantasia estatística que corrói o engajamento do time. A recalibração para o segundo semestre de 2026 foi feita com método explícito: índice sazonal calculado sobre os dois anos completos, duas projeções independentes (piso por regressão linear dessazonalizada, central por razão YoY), e a proposta = projeção central (cenário "o que acontece se nada mudar").</p>
+      </div>
+
+      <div class="datawrap">
+        <div class="datatable">
+          <table>
+            <caption>Loja A · segundo semestre 2026 · MAPE do modelo <em>in-sample</em>: 3,1% (Loja A) / 4,7% (Loja B). Loja B: manter o <em>budget</em> atual, que cai dentro da faixa do modelo.</caption>
+            <thead>
+              <tr><th>Mês</th><th class="num">Realizado 2025 (R$)</th><th class="num">Piso (tendência)</th><th class="num">Meta recalibrada</th><th class="num">Budget atual</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Jul</td><td class="num">664.562</td><td class="num">521.000</td><td class="num hi">552.000</td><td class="num">670.000</td></tr>
+              <tr><td>Ago</td><td class="num">666.415</td><td class="num">536.000</td><td class="num hi">553.000</td><td class="num">690.000</td></tr>
+              <tr><td>Set</td><td class="num">653.246</td><td class="num">498.000</td><td class="num hi">542.000</td><td class="num">678.000</td></tr>
+              <tr><td>Out</td><td class="num">654.316</td><td class="num">513.000</td><td class="num hi">543.000</td><td class="num">677.000</td></tr>
+              <tr><td>Nov</td><td class="num">583.782</td><td class="num">455.000</td><td class="num hi">485.000</td><td class="num">615.000</td></tr>
+              <tr><td>Dez</td><td class="num">519.466</td><td class="num">388.000</td><td class="num hi">431.000</td><td class="num">535.000</td></tr>
+              <tr><td><strong>Total Jul-Dez</strong></td><td class="num"><strong>3.741.787</strong></td><td class="num"><strong>2.911.000</strong></td><td class="num hi"><strong>3.106.000</strong></td><td class="num"><strong>3.865.000</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col">
+        <h3>O que a recalibração <em>proposta</em> faz — e o que ela <em>não</em> faz</h3>
+        <p class="body">A meta proposta (R$ 3,11 milhões no semestre) é a projeção central do modelo — <em>o que acontece se nada mudar</em>. Ela devolve à equipe da Loja A uma meta batível, sem a qual não há como restaurar disciplina de execução. Foi essa a primeira recomendação ao C-<em>level</em> do cliente.</p>
+
+        <p class="body">A diferença entre a meta proposta e o <em>budget</em> original — <strong>R$ 759 mil no semestre</strong> — não desaparece. Ela é reclassificada como <em>"meta de recuperação"</em>, condicionada a plano de recuperação de tráfego com dono, prazo e métricas próprias. O que a proposta faz é <em>separar</em> a meta operacional (o que a loja entrega no ritmo atual) da meta comercial ambiciosa (o que ela entrega se a ação de recuperação funcionar). São duas metas diferentes, e é intelectualmente desonesto pagar bônus pela primeira e cobrar a segunda.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte V · Análises paralelas</span>
+        <h2>O que a consolidação <em>também</em> destrava.</h2>
+        <p class="body">Uma vez consolidados os 29 meses, o mesmo <em>dataset</em> destrava análises que rodam em segundos e antes não rodavam nunca. Quatro exemplos concretos entregues junto com a recalibração de meta.</p>
+      </div>
+
+      <div class="technique"><span class="num">Análise A</span><div class="name">Curva ABC de SKUs — <em>o que vende e o que ocupa espaço</em></div><p>Classificação de 2.499 SKUs em classes A, B e C conforme contribuição para faturamento. Descoberta: margem líquida de classe A é ~44-46%; classe C fica em ~35-37%. A cauda longa da Loja A é menos rentável em média — candidata a poda editorial para simplificar operação sem perder receita significativa.</p><p class="apply">Recomendação: revisar rotatividade de classe C semestralmente; poda editorial de ~200 SKUs de menor giro.</p></div>
+
+      <div class="technique"><span class="num">Análise B</span><div class="name">Ruptura de classe A no inverno — <em>o buraco de junho-julho</em></div><p>A classe A da Loja A (essencialmente proteínas orgânicas — frango, ovos, cortes de carne) apresenta ruptura sistemática nos meses de Jun-Jul. É o próprio momento em que a meta é mais furada. Correlação: forte. Causa provável: sazonalidade de oferta do produtor combinada com falta de pré-pedido ao fornecedor-âncora.</p><p class="apply">Recomendação: pré-pedido de classe A com o fornecedor-âncora 60 dias antes do pico de inverno.</p></div>
+
+      <div class="technique"><span class="num">Análise C</span><div class="name">Divergência preço-catálogo × preço-praticado — <em>617 SKUs desalinhados</em></div><p>Auditoria cruzada entre o catálogo cadastrado no ERP e o preço efetivamente praticado no PDV: <strong>617 SKUs com divergência</strong> — a maioria pequena (arredondamento, oferta pontual), mas alguns significativos. Casos anômalos: um item registrado com margem negativa de −437% no acumulado (provável custo cadastrado errado), outro com estoque negativo persistente (falha de baixa).</p><p class="apply">Recomendação: rotina mensal de auditoria de identidade catálogo × PDV; alerta automático para margem &lt; 0 ou estoque &lt; 0.</p></div>
+
+      <div class="technique"><span class="num">Análise D</span><div class="name"><em>Benchmark</em> de preço vs. concorrentes <em>premium</em></div><p>Cruzamento do preço praticado do cliente com preços observados em outros varejistas <em>premium</em> (Google Shopping, coleta de terceiros) para as categorias-âncora (frango orgânico, ovos <em>premium</em>). O cliente pratica preço <strong>consistentemente acima da média <em>premium</em></strong> em ambas — coerente com posicionamento, mas exige justificativa de valor para o consumidor que compara.</p><p class="apply">Recomendação: reforço editorial da procedência (fazenda, ciclo, certificação) no material de PDV; teste A/B de comunicação de valor por SKU-âncora.</p></div>
+
+      <div class="col">
+        <p class="body">Cada análise acima é subproduto da <em>mesma consolidação</em>. Nenhuma exigiu <em>wave</em> humana adicional, contratação de <em>desk research</em>, ou modelo estatístico complexo. Exigiu ter os 29 meses limpos, cruzados, e ancorados em régua única.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <span class="e-eyebrow section-eyebrow">Parte VI · O método replicável</span>
+        <h2>Para qualquer varejista com <em>dados espalhados</em>.</h2>
+        <p class="body">A metodologia aplicada neste caso é replicável a qualquer varejista físico brasileiro com múltiplos formatos de arquivo, ERP legado, e histórico de decisões tomadas sobre planilhas que ninguém consolidou por completo. O tempo de execução escala aproximadamente com o número de fontes, não com o número de meses. Um cliente com dez lojas ativas, cinco fontes distintas e cinco anos de histórico é entregável em <strong>quatro a seis semanas</strong>.</p>
+      </div>
+
+      <div class="surfaces col">
+        <div class="surface"><span class="surface-num">01</span><div><h3>Inventário de fontes</h3><p>Levantamento junto ao time comercial e ao TI de todos os arquivos, sistemas e <em>spreadsheets</em> que carregam dados de venda, meta, projeção, SKU, margem, custo, tráfego, visita, ou fluxo. Diagrama de responsabilidade (quem gera, quem mantém, quem consome).</p></div></div>
+        <div class="surface"><span class="surface-num">02</span><div><h3>Consolidação com régua única</h3><p>Cada fonte é normalizada para o mesmo dicionário (mesma unidade de tempo, mesma nomenclatura de loja, mesma definição de "realizado", "meta", "projeção"). Validação cruzada entre no mínimo três fontes independentes antes de aceitar qualquer número.</p></div></div>
+        <div class="surface"><span class="surface-num">03</span><div><h3>Diagnóstico técnico</h3><p>Decomposição faturamento = tráfego × conversão × tíquete. Sazonalidade explícita. Comparação entre unidades vivas do cliente para identificar padrão local vs. padrão de marca.</p></div></div>
+        <div class="surface"><span class="surface-num">04</span><div><h3>Recalibração de metas</h3><p>Modelo de projeção com MAPE declarado; separação entre meta operacional e meta de recuperação; plano condicional atrelado à segunda com dono, prazo, métricas próprias.</p></div></div>
+        <div class="surface"><span class="surface-num">05</span><div><h3>Análises paralelas</h3><p>ABC de SKUs, auditoria catálogo × PDV, ruptura por classe, <em>benchmark</em> de preço vs. categoria — todas subprodutos do mesmo <em>dataset</em> consolidado.</p></div></div>
+        <div class="surface"><span class="surface-num">06</span><div><h3><em>Handover</em> com regra de qualidade</h3><p>Cliente recebe o <em>dataset</em> consolidado + a rotina de validação cruzada + o modelo de projeção. A regra de qualidade "três fontes independentes antes de aceitar qualquer número" passa a rodar dentro da casa.</p></div></div>
+      </div>
+    </section>
+
+    <div class="closing col">
+      <p>Boa parte do trabalho de inteligência estratégica no varejo brasileiro <em>premium</em> não começa com o <em>insight</em>. Começa com a <em>consolidação</em> — e com a disciplina de não aceitar como verdadeiro nenhum número que três fontes independentes não confirmem.</p>
+    </div>
+
+    <footer class="colophon">
+      <span>Composto em Fraunces &amp; Source Serif 4</span>
+      <span>Mimetica · São Paulo · 2026 · <a href="mailto:geraldo@mimetica.net">geraldo@mimetica.net</a></span>
+    </footer>
+  </div>
+</article>
+
+<footer>
+  <div>© 2026 Mimetica</div>
+  <div><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a></div>
+</footer>
+</body>
+</html>
