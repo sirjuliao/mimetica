@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assinatura de e-mail · Mimetica</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#050506; --panel:#0e0f11; --panel-2:#151619; --line:rgba(255,255,255,0.09);
+    --ink:#f4f4f5; --muted:#9a9ea6; --teal:#2bb3a3; --teal-ink:#052a26;
+    --font-display:"Outfit",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+    --font-body:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  }
+  /* Ferramenta interna, tema único escuro — igual convenção do site institucional da Mimetica. */
+  *{box-sizing:border-box;}
+  body{margin:0; padding-block:clamp(28px,5vw,56px); background:var(--bg); color:var(--ink); font-family:var(--font-body); -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1080px; margin:0 auto; padding-inline:20px;}
+  header{margin-bottom:clamp(28px,5vw,40px);}
+  .eyebrow{font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--teal); margin-bottom:10px;}
+  h1{font-family:var(--font-display); font-size:clamp(1.7rem,3.6vw,2.3rem); font-weight:700; letter-spacing:-0.02em; margin:0 0 10px; text-wrap:balance;}
+  header p{font-size:0.98rem; line-height:1.6; color:var(--muted); max-width:62ch; margin:0;}
+
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start;}
+  @media (max-width:860px){ .grid{grid-template-columns:1fr;} }
+
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:clamp(20px,3vw,28px);}
+  .card h2{font-family:var(--font-display); font-size:1.05rem; font-weight:600; margin:0 0 18px; letter-spacing:-0.01em;}
+
+  .field{margin-bottom:16px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{display:block; font-size:0.78rem; font-weight:500; color:var(--muted); margin-bottom:6px;}
+  .field .hint{font-size:0.74rem; color:#6c7078; margin-top:5px; line-height:1.5;}
+  .field input{
+    width:100%; background:var(--panel-2); border:1px solid var(--line); border-radius:9px; color:var(--ink);
+    font-family:var(--font-body); font-size:0.92rem; padding:10px 12px; outline:none; transition:border-color .15s;
+  }
+  .field input:focus{border-color:var(--teal);}
+  .field input::placeholder{color:#565a62;}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:520px){ .two-col{grid-template-columns:1fr;} }
+
+  .checkline{display:flex; align-items:center; gap:9px; margin-top:16px; padding-top:16px; border-top:1px solid var(--line);}
+  .checkline input{width:16px; height:16px; accent-color:var(--teal);}
+  .checkline label{font-size:0.85rem; color:var(--ink);}
+
+  /* --- pré-visualização --- */
+  .preview-shell{background:#e9eaec; border-radius:16px; padding:clamp(18px,3vw,28px); display:flex; justify-content:center;}
+  #sig-output{ background:#ffffff; border-radius:6px; padding:20px 22px; box-shadow:0 1px 2px rgba(0,0,0,0.08); max-width:420px; width:100%; }
+
+  .copy-row{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; align-items:center;}
+  .btn{
+    font-family:var(--font-display); font-weight:600; font-size:0.88rem; border:none; border-radius:999px;
+    padding:11px 20px; cursor:pointer; transition:opacity .15s, transform .1s;
+  }
+  .btn:active{transform:scale(0.98);}
+  .btn-primary{background:var(--teal); color:var(--teal-ink);}
+  .btn-primary:hover{opacity:0.88;}
+  .btn-ghost{background:transparent; border:1px solid var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--muted);}
+  .copy-status{font-size:0.82rem; color:var(--muted); font-family:var(--font-mono);}
+  .copy-status.ok{color:var(--teal);}
+
+  .link-row{margin-top:14px; padding-top:14px; border-top:1px solid var(--line);}
+  .link-row label{display:block; font-size:0.78rem; font-weight:500; color:var(--muted); margin-bottom:6px;}
+  .link-row .link-box{display:flex; gap:8px;}
+  .link-row input{
+    flex:1; min-width:0; background:var(--panel-2); border:1px solid var(--line); border-radius:9px; color:var(--muted);
+    font-family:var(--font-mono); font-size:0.78rem; padding:9px 10px;
+  }
+
+  .steps{margin-top:22px;}
+  .steps summary{cursor:pointer; font-family:var(--font-display); font-weight:600; font-size:0.95rem; padding:14px 0; border-top:1px solid var(--line); list-style:none;}
+  .steps summary::-webkit-details-marker{display:none;}
+  .steps summary::before{content:"+ "; color:var(--teal); font-family:var(--font-mono);}
+  .steps[open] summary::before{content:"– ";}
+  .steps ol, .steps ul{margin:0 0 14px; padding-left:1.2em; color:var(--muted); font-size:0.9rem; line-height:1.7;}
+  .steps li b{color:var(--ink); font-weight:600;}
+  .steps code{background:var(--panel-2); border:1px solid var(--line); border-radius:5px; padding:1px 6px; font-family:var(--font-mono); font-size:0.85em; color:var(--ink);}
+  .steps a{color:var(--teal);}
+
+  footer{margin-top:28px; font-size:0.78rem; color:#6c7078; font-family:var(--font-mono);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Ferramenta interna</div>
+    <h1>Gerador de assinatura de e-mail</h1>
+    <p>Preencha seus dados, confira a pré-visualização exatamente como ela vai aparecer no Gmail e copie pronta para colar em Configurações → Assinatura. Os campos abaixo já vêm com um exemplo — troque pelos seus dados.</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Seus dados</h2>
+      <div class="field">
+        <label for="f-nome">Nome completo</label>
+        <input id="f-nome" value="Ana Souza">
+      </div>
+      <div class="field">
+        <label for="f-linha1">Cargo / função</label>
+        <input id="f-linha1" value="Pesquisa &amp; Insights">
+      </div>
+      <div class="field">
+        <label for="f-linha2">Segunda linha (frente ou produto)</label>
+        <input id="f-linha2" value="Mimetica — motor de simulação de comportamento">
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label for="f-telefone">Telefone</label>
+          <input id="f-telefone" value="+55 11 98888-7777">
+        </div>
+        <div class="field">
+          <label for="f-email">E-mail</label>
+          <input id="f-email" value="ana@mimetica.net">
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-agenda">Link de agendamento (Google Agenda)</label>
+        <input id="f-agenda" value="https://calendar.app.google/SEU-LINK-AQUI" placeholder="https://calendar.app.google/...">
+        <div class="hint">Veja como gerar o seu no passo a passo abaixo, em "Como criar o link de agendamento".</div>
+      </div>
+      <div class="checkline">
+        <input type="checkbox" id="f-tem-agenda" checked>
+        <label for="f-tem-agenda">Incluir a linha "Clique aqui para agendar uma reunião comigo!"</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Pré-visualização</h2>
+      <div class="preview-shell">
+        <div id="sig-output"></div>
+      </div>
+      <div class="copy-row">
+        <button class="btn btn-primary" id="btn-copy" type="button">Copiar assinatura</button>
+        <span class="copy-status" id="copy-status">ou selecione o quadro acima e copie com Cmd/Ctrl+C</span>
+      </div>
+      <div class="link-row">
+        <label for="f-share">Seu link pessoal (já vem preenchido — salve nos favoritos)</label>
+        <div class="link-box">
+          <input id="f-share" readonly>
+          <button class="btn btn-ghost" id="btn-share" type="button">Copiar link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <details class="steps" open>
+    <summary>Como instalar no Gmail</summary>
+    <ol>
+      <li>Confira a pré-visualização acima com seus dados corretos e clique em <b>Copiar assinatura</b>.</li>
+      <li>No Gmail, abra <b>Configurações</b> (ícone de engrenagem) → <b>Ver todas as configurações</b>.</li>
+      <li>Na aba <b>Geral</b>, role até <b>Assinatura</b> e clique em <b>Criar nova</b>. Dê um nome, por exemplo "Mimetica".</li>
+      <li>Clique dentro da caixa de assinatura e cole com <code>Cmd+V</code> (Mac) ou <code>Ctrl+V</code> (Windows). A formatação, os links e a logo vêm junto — não é preciso ajustar nada.</li>
+      <li>Em <b>Padrões da assinatura</b>, marque essa assinatura para "Novos e-mails" e para "Respostas/encaminhamentos".</li>
+      <li>Role até o fim da página e clique em <b>Salvar alterações</b>.</li>
+    </ol>
+  </details>
+
+  <details class="steps">
+    <summary>Como criar o link de agendamento</summary>
+    <ol>
+      <li>Abra o <b>Google Agenda</b> com a sua conta <code>@mimetica.net</code>.</li>
+      <li>Clique no <b>+</b> ao lado de "Outras agendas" ou no botão <b>Criar</b> → <b>Página de agendamento</b>.</li>
+      <li>Defina a duração da reunião, os dias e horários em que você está disponível, e onde ela acontece (Google Meet é preenchido automaticamente).</li>
+      <li>Salve e clique em <b>Compartilhar com outras pessoas</b> — a Agenda gera um link no formato <code>calendar.app.google/...</code>.</li>
+      <li>Copie esse link e cole no campo "Link de agendamento" acima.</li>
+    </ol>
+  </details>
+
+  <footer>mimetica.net · assinatura padronizada para todo o time</footer>
+</div>
+
+<script>
+(function(){
+  var ids = ['f-nome','f-linha1','f-linha2','f-telefone','f-email','f-agenda','f-tem-agenda'];
+  var qsKeys = { 'f-nome':'nome', 'f-linha1':'cargo', 'f-linha2':'linha2', 'f-telefone':'tel', 'f-email':'email', 'f-agenda':'agenda' };
+  var el = {}; ids.forEach(function(id){ el[id] = document.getElementById(id); });
+  var out = document.getElementById('sig-output');
+  var shareInput = document.getElementById('f-share');
+  var LOGO_URL = 'https://mimetica.institute/assets/logo-assinatura.png';
+
+  // pré-preenche a partir da URL (?nome=...&cargo=...&linha2=...&tel=...&email=...&agenda=...)
+  var params = new URLSearchParams(location.search);
+  var hasParams = false;
+  Object.keys(qsKeys).forEach(function(id){
+    var v = params.get(qsKeys[id]);
+    if (v !== null) { el[id].value = v; hasParams = true; }
+  });
+  if (params.get('agenda') === '') el['f-tem-agenda'].checked = false;
+
+  function esc(s){
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function telHref(t){ return 'tel:' + String(t || '').replace(/[^\d+]/g,''); }
+
+  function buildHTML(){
+    var nome = esc(el['f-nome'].value.trim());
+    var linha1 = esc(el['f-linha1'].value.trim());
+    var linha2 = esc(el['f-linha2'].value.trim());
+    var telefone = esc(el['f-telefone'].value.trim());
+    var email = esc(el['f-email'].value.trim());
+    var agenda = esc(el['f-agenda'].value.trim());
+    var temAgenda = el['f-tem-agenda'].checked && agenda;
+
+    var F = 'font-family:Arial,Helvetica,sans-serif;';
+    var rows = '';
+    if (linha1) rows += '<div style="' + F + 'font-size:13px;line-height:1.5;color:#3c4046;margin-top:3px;">' + linha1 + '</div>';
+    if (linha2) rows += '<div style="' + F + 'font-size:13px;line-height:1.5;color:#3c4046;">' + linha2 + '</div>';
+
+    var agendaRow = temAgenda
+      ? '<div style="margin-top:11px;"><a href="' + agenda + '" style="' + F + 'font-size:13px;font-weight:700;color:#1a8f81;text-decoration:underline;">Clique aqui para agendar uma reunião comigo!</a></div>'
+      : '';
+
+    var contatoRow = telefone
+      ? '<div style="margin-top:11px;' + F + 'font-size:13px;color:#14181c;"><b>Contato</b> - <a href="' + telHref(telefone) + '" style="color:#14181c;text-decoration:underline;">' + telefone + '</a></div>'
+      : '';
+    var emailRow = email
+      ? '<div style="' + F + 'font-size:13px;color:#14181c;"><b>E-mail</b> - <a href="mailto:' + email + '" style="color:#14181c;text-decoration:underline;">' + email + '</a></div>'
+      : '';
+
+    return (
+      '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="' + F + 'border-collapse:collapse;">' +
+        '<tr>' +
+          '<td style="vertical-align:top;padding-right:26px;border-right:1px solid #e3e3e3;">' +
+            '<img src="' + LOGO_URL + '" width="120" height="74" alt="mimetica" style="display:block;">' +
+          '</td>' +
+          '<td style="vertical-align:top;padding-left:26px;">' +
+            '<div style="' + F + 'font-size:15px;font-weight:700;color:#14181c;">' + nome + '</div>' +
+            rows + agendaRow + contatoRow + emailRow +
+          '</td>' +
+        '</tr>' +
+      '</table>'
+    );
+  }
+
+  function updateShareLink(){
+    var p = new URLSearchParams();
+    Object.keys(qsKeys).forEach(function(id){
+      var v = el[id].value.trim();
+      if (v) p.set(qsKeys[id], v);
+    });
+    if (!el['f-tem-agenda'].checked) p.set('agenda', '');
+    shareInput.value = location.origin + location.pathname + '?' + p.toString();
+  }
+
+  function render(){ out.innerHTML = buildHTML(); updateShareLink(); }
+  ids.forEach(function(id){ el[id].addEventListener('input', render); el[id].addEventListener('change', render); });
+  render();
+
+  var statusEl = document.getElementById('copy-status');
+  var DEFAULT_STATUS = statusEl.textContent;
+  var statusTimer;
+  function setStatus(msg, ok){
+    statusEl.textContent = msg;
+    statusEl.classList.toggle('ok', !!ok);
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(function(){ statusEl.textContent = DEFAULT_STATUS; statusEl.classList.remove('ok'); }, 3200);
+  }
+
+  document.getElementById('btn-copy').addEventListener('click', function(){
+    var range = document.createRange();
+    range.selectNodeContents(out);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    var copied = false;
+    try { copied = document.execCommand('copy'); } catch (e) { copied = false; }
+    sel.removeAllRanges();
+
+    if (copied) {
+      setStatus('copiada! cole com Cmd/Ctrl+V no Gmail', true);
+    } else if (navigator.clipboard && window.ClipboardItem) {
+      var blob = new Blob([out.innerHTML], { type: 'text/html' });
+      navigator.clipboard.write([new ClipboardItem({ 'text/html': blob })])
+        .then(function(){ setStatus('copiada! cole com Cmd/Ctrl+V no Gmail', true); })
+        .catch(function(){ setStatus('não deu para copiar automaticamente — selecione o quadro e Cmd/Ctrl+C', false); });
+    } else {
+      setStatus('não deu para copiar automaticamente — selecione o quadro e Cmd/Ctrl+C', false);
+    }
+  });
+
+  document.getElementById('btn-share').addEventListener('click', function(){
+    shareInput.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    window.getSelection().removeAllRanges();
+    if (!ok && navigator.clipboard) { navigator.clipboard.writeText(shareInput.value).catch(function(){}); }
+  });
+})();
+</script>
+</body>
+</html>
