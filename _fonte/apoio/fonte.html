@@ -1,0 +1,1592 @@
+<title>Mimetica Institucional</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+<script>
+/* =====================================================================
+   TEXTOS E OPÇÕES EDITÁVEIS
+   Para mudar um texto, troque a frase entre aspas e salve o arquivo.
+   Os textos dos outros slides estão mais abaixo, no HTML, marcados
+   com comentários do tipo  SLIDE 02 .
+   ===================================================================== */
+const CONFIG = {
+  // Capa
+  capaTitulo: "O mundo muda mais rápido. Decidir ficou mais difícil.",
+  capaTese: "A Mimetica apoia decisões com gêmeos digitais do Brasil real: respostas mais rápidas e leitura de cenários futuros.",
+  oQueE: "Apresentação institucional",
+  fimTitulo: "Apoio à decisão para um mundo que muda rápido.",
+  fimSub: "Respostas mais rápidas, leitura de cenários futuros e uma base de inteligência que a gente constrói junto com você.",
+  data: "Outubro de 2026",
+
+  // Liga e desliga partes do deck (true = aparece, false = some)
+  mostrarSmallville: false,
+  mostrarRadar: true,
+
+  // Slide animado: nome do projeto que entra como seed
+  seedNome: "Cliente",
+
+  // Slide animado: pergunta final (exemplo ilustrativo)
+  pergunta: "Qual destas opções você escolheria na próxima compra?",
+  respostas: [
+    { rotulo: "Versão premium", valor: 45 },
+    { rotulo: "Versão tradicional", valor: 30 },
+    { rotulo: "Não compraria", valor: 14 },
+    { rotulo: "Nenhum", valor: 11 }
+  ],
+  margem: "± 2,1 pp",
+
+  // Slide animado: perfil de exemplo da camada quantitativa
+  perfil: ["38 anos", "Recife · PE", "Classe C", "Ensino médio"],
+  // Slide animado: fala de exemplo da camada antropológica
+  fala: "Olha, sei lá… depende do preço, né? Se tiver promoção, eu levo.",
+  // Slide animado: decisão de exemplo da camada probabilística
+  decisao: [ ["Leva", 62], ["Talvez", 27], ["Não leva", 11] ],
+
+  // Slide animado: textos de cada clique
+  // Fontes que podem formar a camada do cliente (entram por API)
+  fontesCliente: ["Cadastro", "Vendas", "Atendimento", "Estudos", "Imprensa", "Pontos de venda"],
+
+  // Slide MOS: exemplo hipotético (troque os números à vontade)
+  mosExemplo: {
+    recebidos: 400, descartados: 28,
+    genero: [64, 51], classeAB: [41, 23], residual: "±1 pp",
+    gemeos: 3000, celulasAntes: 5, celulasDepois: 17, total: 20,
+    indicador: "Intenção de compra da categoria",
+    serie: [42, 44, 43, 47], ondas: ["Mês 1", "Mês 2", "Mês 3", "Mês 4"]
+  },
+
+  // Slide MOS em todas as áreas: cenário, áreas, perguntas e insights
+  areas: {
+    cenario: "Cenário: aumento de 8% no preço da linha premium.",
+    lista: [
+      { area: "Imprensa e crise", pergunta: "Se o aumento virar notícia, como o público reage?", numero: "38%", insight: "reagiriam mal. Uma nota explicando custos reduz para 22%." },
+      { area: "Marketing", pergunta: "Qual mensagem segura a intenção de compra?", numero: "−3 pp", insight: "de intenção com a mensagem de qualidade, contra −9 pp sem mensagem." },
+      { area: "Varejo", pergunta: "Em quais canais e regiões o volume cai mais?", numero: "−12%", insight: "no atacarejo do Nordeste. No supermercado do Sudeste, −4%." },
+      { area: "Vendas", pergunta: "Qual meta é realista para o trimestre?", numero: "−5%", insight: "de volume, variando de −2% a −8% entre regiões." },
+      { area: "Atendimento", pergunta: "Que reclamações vão crescer?", numero: "+30%", insight: "em contatos sobre preço. O roteiro de atendimento muda antes do anúncio." },
+      { area: "Produto", pergunta: "Uma embalagem menor preserva valor?", numero: "65%", insight: "preferem a embalagem menor ao preço antigo." },
+      { area: "RH", pergunta: "Como as equipes de loja recebem a mudança?", numero: "1 em 4", insight: "espera perguntas difíceis de clientes. Treinamento antes do anúncio." },
+      { area: "Jurídico", pergunta: "Qual o risco de reclamação formal?", numero: "Baixo", insight: "com aviso prévio claro ao consumidor." },
+      { area: "Finanças", pergunta: "O aumento compensa a queda de volume?", numero: "+4%", insight: "de receita líquida estimada no trimestre." }
+    ],
+    // quais áreas aparecem em cada clique (posições na lista acima)
+    grupos: [[0], [1], [2], [3], [4, 5], [6, 7, 8]],
+    fecho: "Uma população artificial, consultada por todas as áreas da empresa.",
+    fechoSub: "Cada área faz a sua pergunta e recebe a sua resposta. E cada área também alimenta a população artificial com os próprios dados."
+  },
+
+  // Slide como contratar
+  contratar: {
+    servico: {
+      titulo: "Como serviço",
+      texto1: "Criamos populações artificiais ancoradas no histórico da sua categoria e simulamos cenários.",
+      texto2: "Teste portfólio, preço, comunicação ou um novo atributo antes de gastar com produção ou mídia.",
+      exemplo: "Exemplo: uma linha premium e uma tradicional, com a base histórica da categoria já coletada."
+    },
+    onpremise: {
+      titulo: "Dentro da sua empresa",
+      texto1: "A mesma infraestrutura roda no seu ambiente, sob a sua política de compliance e segurança de dados.",
+      texto2: "Perguntas sensíveis e dados internos não saem do seu perímetro."
+    },
+    fecho: "Nos dois modelos, o mesmo método, a mesma base e o mesmo time."
+  },
+
+  // Rodapé do slide API first (deixe "" para esconder)
+  referencias: "Base científica: Argyle et al., \"Out of One, Many\", Political Analysis, 2023 · Park et al., \"Generative Agent Simulations of 1,000 People\", Stanford, 2024",
+
+  // Slide animado: textos de cada clique
+  etapas: {
+    vazio:    { rotulo: "Quem somos", curto: "Início",
+                titulo: "Construímos infraestrutura para replicar o comportamento humano.",
+                texto: "Para responder perguntas como essas, criamos gêmeos digitais: pessoas artificiais que respondem como brasileiros reais. Nascemos da ciência de dados, antes da IA generativa. Veja como nasce um gêmeo digital, camada por camada." },
+    quant:    { rotulo: "Camada 01 · Quantitativa", curto: "Quantitativa",
+                titulo: "Quem é o gêmeo digital.",
+                texto: "Cada gêmeo digital tem um perfil que existe de fato no Brasil: idade, região, classe social, escolaridade, renda e composição da família. Esses dados vêm de fontes oficiais, como o Censo do IBGE." },
+    antrop:   { rotulo: "Camada 02 · Antropológica", curto: "Antropológica",
+                titulo: "Como o gêmeo digital pensa e fala.",
+                texto: "Ele aprende com entrevistas de pessoas reais que têm o mesmo perfil. Por isso usa o vocabulário delas, tem as mesmas dúvidas e hesita onde elas hesitam." },
+    prob:     { rotulo: "Camada 03 · Probabilística", curto: "Probabilística",
+                titulo: "Como o gêmeo digital decide.",
+                texto: "Diante de uma pergunta, ele mostra a chance de escolher cada opção e a margem de erro dessa estimativa. Com essas três camadas, o gêmeo digital já serve para testar ideias e descartar as mais fracas." },
+    radar:    { rotulo: "Radar", curto: "Radar",
+                titulo: "O gêmeo digital acompanha o Brasil de hoje.",
+                texto: "Todos os dias, coletamos informações em mais de 60 fontes. Assim o gêmeo digital sabe o que está acontecendo no país, como uma pessoa que lê o jornal e conversa com os vizinhos." },
+    seed:     { rotulo: "Camada 04 · Dados da sua empresa", curto: "Cliente",
+                titulo: "O gêmeo digital aprende com os dados da sua empresa.",
+                texto: "Sua empresa já sabe muito sobre os próprios clientes: cadastro, vendas, atendimento e estudos anteriores. Com esses dados, o gêmeo digital passa a representar o cliente da sua marca, com mais precisão." },
+    expansao: { rotulo: "Expansão", curto: "Expansão",
+                titulo: "Muitos gêmeos digitais formam uma população artificial.",
+                texto: "Construímos milhares de gêmeos digitais, cada um com um perfil diferente. Juntos, formam uma população artificial com a mesma composição do Brasil, segundo o Censo." },
+    pergunta: { rotulo: "Pronta para perguntar", curto: "Pergunta",
+                titulo: "A população artificial responde.",
+                texto: "Fazemos uma pergunta e cada gêmeo digital responde. O resultado chega em porcentagens, com a margem de erro declarada." }
+  }
+};
+</script>
+
+<style>
+/* Layout: palco 16:9 de 1600×900 escalado para a tela; um slide por vez, avanço por clique ou seta.
+   Sistema visual atual da Mimetica (decks comerciais): monocromático, osso e preto. */
+:root{
+  --osso:#F5F4F0; --preto:#0C0C0E; --texto:#1D1D1B; --texto2:#403F45; --claro2:#C9C7C0;
+  --fio:rgba(29,29,27,.18); --fio-esc:rgba(245,244,240,.22); --moldura:#050506;
+  --f-tit:"Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-txt:"Inter", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  color-scheme: light;
+}
+html,body{height:100%}
+body{background:var(--moldura); color:var(--texto); font-family:var(--f-txt); overflow:hidden;
+  padding-left:max(0px, env(safe-area-inset-left,0px)); padding-right:max(0px, env(safe-area-inset-right,0px));
+  -webkit-font-smoothing:antialiased; user-select:none}
+#stage{position:fixed; left:50%; top:50%; width:1600px; height:900px; transform:translate(-50%,-50%); overflow:hidden; background:var(--osso); cursor:pointer}
+.slide{position:absolute; inset:0; display:none; padding:93px 100px 84px; background:var(--osso); flex-direction:column; gap:26px}
+.slide.active{display:flex; animation:entra .45s ease both}
+@keyframes entra{from{opacity:0}to{opacity:1}}
+h1,h2,h3,h4{margin:0; font-family:var(--f-tit); text-wrap:balance}
+p{margin:0}
+.lbl{font:600 20px/1 var(--f-mono); letter-spacing:2.5px; text-transform:uppercase; color:var(--texto2)}
+h2{font-weight:600; font-size:40px; line-height:1.15; color:var(--texto); max-width:1300px}
+.sub{font-size:22px; line-height:1.4; color:var(--texto2); max-width:1250px}
+.cab{display:flex; flex-direction:column; gap:14px}
+.simbolo{position:absolute; top:93px; right:100px; width:43px; height:43px}
+.simbolo path{fill:var(--preto)}
+.pag{position:absolute; right:100px; bottom:24px; font:500 20px/1 var(--f-mono); letter-spacing:2px; color:var(--texto2)}
+.card{border:1px solid var(--fio); border-radius:4px; padding:24px 24px 26px; display:flex; flex-direction:column; gap:12px}
+.card .n{font:500 20px/1 var(--f-mono); color:var(--texto2)}
+.card h3{font-weight:600; font-size:24px; line-height:1.25}
+.card p{font-size:19px; line-height:1.42; color:var(--texto2)}
+.banda{background:var(--preto); border-radius:4px; padding:22px 34px}
+.banda p{font:500 21.5px/1.4 var(--f-tit); color:var(--osso)}
+
+/* escuros: capa, gêmeo, encerramento */
+.esc{background:var(--preto); color:var(--osso)}
+.esc .lbl{color:var(--claro2)}
+.esc .pag{color:var(--claro2)}
+.esc .simbolo path{fill:var(--osso)}
+
+/* SLIDE 01 capa */
+.capa{justify-content:space-between; padding:107px}
+.capa .logo{width:350px; height:auto}
+.capa .miolo{display:flex; flex-direction:column; gap:30px; position:relative; z-index:2}
+.capa h1{font-weight:700; font-size:76px; line-height:1.05; letter-spacing:-1.4px; max-width:860px}
+.capa .tese{font:500 28px/1.3 var(--f-tit); color:var(--claro2); max-width:780px}
+.capa .base{display:flex; justify-content:space-between; align-items:flex-end; position:relative; z-index:2}
+.capa .base p{font:500 20px/1.5 var(--f-mono); letter-spacing:2px; color:var(--claro2); text-transform:uppercase}
+.capa .base p:last-child{text-align:right; color:var(--osso)}
+#capaCanvas{position:absolute; right:0; top:0; width:720px; height:900px; z-index:1}
+
+/* SLIDE 02 */
+.grid2{display:grid; grid-template-columns:1.25fr .85fr; gap:56px; align-items:start; flex:1}
+.corpo{display:flex; flex-direction:column; gap:20px; font-size:21px; line-height:1.5; color:var(--texto2)}
+.bloco{background:var(--preto); color:var(--osso); border-radius:4px; padding:36px 34px; display:flex; flex-direction:column; gap:24px}
+.bloco .lbl{color:var(--claro2); font-size:17px}
+.bloco .frase{font:600 29px/1.22 var(--f-tit)}
+.stat{display:flex; align-items:baseline; gap:16px; border-top:1px solid var(--fio-esc); padding-top:20px}
+.stat .n{font:700 60px/1 var(--f-tit); letter-spacing:-1px}
+.stat .t{font-size:17px; line-height:1.35; color:var(--claro2)}
+
+/* SLIDE 03 */
+.cards2{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:12px}
+.cards2 .card{padding:32px 32px 34px; gap:16px}
+.cards2 h3{font-size:32px}
+.cards2 p{font-size:21px}
+
+/* SLIDE 04 */
+.grid-sv{display:grid; grid-template-columns:1.15fr .85fr; gap:60px}
+.grid-sv .corpo{font-size:19px}
+.linha{list-style:none; margin:0; padding:0; display:flex; flex-direction:column}
+.linha li{position:relative; padding:0 0 22px 34px}
+.linha li::before{content:""; position:absolute; left:6px; top:20px; bottom:0; width:1px; background:var(--fio)}
+.linha li:last-child::before{display:none}
+.linha .pt{position:absolute; left:0; top:4px; width:13px; height:13px; border-radius:50%; background:var(--texto)}
+.linha li:not(:first-child) .pt{background:var(--osso); border:1.5px solid var(--texto)}
+.linha h4{font-weight:600; font-size:21px; margin-bottom:5px}
+.linha p{font-size:17px; line-height:1.45; color:var(--texto2)}
+.linha .tag{display:inline-block; margin-top:8px; font:500 13px/1 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; background:var(--preto); color:var(--osso); padding:6px 9px; border-radius:3px}
+.fonte{font:500 15px/1 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:var(--texto2)}
+
+/* SLIDE 05 gêmeo animado */
+.twin{padding:0}
+#twinCanvas{position:absolute; left:0; top:0; width:960px; height:900px}
+.painel{position:absolute; left:1010px; top:0; width:490px; height:900px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:flex-start; padding-top:142px}
+.painel > .lbl{position:absolute; bottom:150px; top:auto; left:0; font-size:15px}
+.passo{display:flex; flex-direction:column; gap:18px}
+.passo.troca{animation:entra .4s ease both}
+.passo .rot{font:600 16px/1 var(--f-mono); letter-spacing:2.5px; text-transform:uppercase; color:var(--claro2)}
+.passo h2{font-weight:700; font-size:54px; line-height:1.05; letter-spacing:-1px; color:var(--osso)}
+.passo p{font-size:21px; line-height:1.48; color:var(--claro2)}
+.extra{margin-top:20px; display:none}
+.extra.on{display:block; animation:entra .5s ease .15s both}
+.extra .cabx{font:500 13px/1.4 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:var(--claro2); margin-bottom:14px}
+.barras{display:flex; flex-direction:column; gap:11px}
+.br{display:grid; grid-template-columns:118px 1fr 58px; align-items:center; gap:12px; font-size:16px}
+.br .nm{color:var(--osso)}
+.br .tr{display:flex; flex-direction:column; gap:4px}
+.br .b{display:block; height:9px; border-radius:1px; width:0; background:var(--osso); transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.br .b.ref{height:4px; background:#6B6A70}
+.br .vl{font:500 15px/1.2 var(--f-mono); text-align:right; color:var(--osso)}
+.br .vl small{display:block; color:#8E8C86; font-size:12px}
+.leg{display:flex; gap:20px; margin-top:14px; font:500 12px/1 var(--f-mono); letter-spacing:1px; text-transform:uppercase; color:var(--claro2)}
+.leg i{display:inline-block; width:14px; height:5px; margin-right:7px; vertical-align:middle}
+.perg{font:600 21px/1.35 var(--f-tit); color:var(--osso); margin-bottom:18px}
+.br.resp{grid-template-columns:150px 1fr 50px}
+.br.resp .b{height:12px}
+.nota{margin-top:14px; font:500 12px/1.4 var(--f-mono); letter-spacing:1px; text-transform:uppercase; color:#8E8C86}
+.pips{position:absolute; left:0; right:0; bottom:74px; display:flex; gap:6px}
+.pip{flex:1; display:flex; flex-direction:column; gap:8px; font:500 10.5px/1 var(--f-mono); letter-spacing:.4px; text-transform:uppercase; color:#5A5960}
+.pip i{height:3px; background:#2A2A2E; transition:background .4s}
+.pip.feito{color:var(--claro2)}
+.pip.feito i{background:var(--osso)}
+.ov{position:absolute; opacity:0; transform:translateY(6px); transition:opacity .45s, transform .45s; pointer-events:none}
+.ov.on{opacity:1; transform:none}
+#chips{left:120px; top:30px; display:flex; gap:10px}
+.chip{font:500 15px/1 var(--f-mono); padding:9px 12px; border-radius:3px; color:var(--osso); border:1px solid rgba(245,244,240,.4)}
+#chips .chip{opacity:0; transform:translateY(6px); transition:opacity .35s, transform .35s}
+#chips.on .chip{opacity:1; transform:none}
+#balao{left:722px; top:452px; width:200px; background:var(--osso); color:var(--texto); border-radius:12px 12px 12px 2px; padding:16px 18px; font-size:17px; line-height:1.38}
+#balao::before{content:""; position:absolute; left:-9px; bottom:12px; border:9px solid transparent; border-right-color:var(--osso); border-left:0}
+#balao .mini{display:none; flex-direction:column; gap:8px}
+#balao.dec .fala{display:none}
+#balao.dec .mini{display:flex}
+.mini .ln{display:grid; grid-template-columns:66px 1fr 36px; gap:8px; align-items:center; font-size:14px}
+.mini .ln span:last-child{font:600 13px/1 var(--f-mono); text-align:right}
+.mini .ln i{display:block; height:7px; background:var(--texto)}
+.balao-rot{font:600 11px/1 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:var(--texto2); margin-bottom:8px}
+#seedTag{left:660px; top:170px; font:600 15px/1 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; background:var(--osso); color:var(--preto); padding:10px 14px; border-radius:3px}
+#radarTag{left:770px; top:292px; font:500 13px/1.4 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:var(--claro2)}
+
+/* SLIDE 06 */
+.grid6{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; flex:1}
+.grid6 .card{padding:16px 18px 18px; gap:6px}
+.grid6 .card h3{font-size:21px}
+.grid6 .card .it{font:500 italic 17px/1.3 var(--f-tit); color:var(--texto)}
+.grid6 .card p{font-size:16.5px; line-height:1.4}
+.mos{gap:16px}
+.mos .sub{font-size:19px; line-height:1.38}
+.mos .banda{padding:14px 34px}
+.mos .banda p{font-size:20px}
+
+/* SLIDE 07 */
+.fim{justify-content:space-between; padding:107px}
+.fim .logo{width:350px; height:auto}
+.fim h1{font-weight:700; font-size:68px; line-height:1.08; letter-spacing:-1.2px; max-width:1100px}
+.fim-sub{margin-top:26px; font:500 28px/1.35 var(--f-tit); color:var(--claro2); max-width:1000px}
+.fim .base{display:flex; justify-content:space-between; font:500 20px/1 var(--f-mono); letter-spacing:2px; color:var(--claro2); text-transform:uppercase}
+
+/* navegação */
+#barra{position:absolute; left:0; right:0; bottom:0; height:3px; background:rgba(128,128,128,.18); z-index:20}
+#barra i{display:block; height:100%; width:0; background:#8E8C86; transition:width .35s}
+#dica{position:absolute; left:50%; bottom:58px; transform:translateX(-50%); z-index:22; background:rgba(12,12,14,.9); color:var(--osso);
+  font:500 13px/1 var(--f-mono); letter-spacing:.5px; padding:11px 16px; border-radius:4px; border:1px solid rgba(245,244,240,.15); transition:opacity .6s}
+#dica.sai{opacity:0}
+/* ===== cenas animadas (slides 02, 03, 04, 06) ===== */
+.cena .topo{position:absolute; top:93px; left:100px}
+.hero{position:absolute; left:100px; width:1400px; top:50%; margin:0; transform:translateY(-50%);
+  font:600 78px/1.08 var(--f-tit); letter-spacing:-1.6px; color:var(--texto); transform-origin:left top;
+  transition:top .8s cubic-bezier(.65,0,.25,1), transform .8s cubic-bezier(.65,0,.25,1), opacity .5s}
+.hero.up{top:140px; transform:translateY(0) scale(.52)}
+.esc .hero{color:var(--osso)}
+[data-in]{opacity:0; pointer-events:none; transition:opacity .5s}
+[data-in].on{opacity:1}
+.rv .w{display:inline-block; opacity:0; transform:translateY(.35em); filter:blur(4px);
+  transition:opacity .55s, transform .55s, filter .55s; transition-delay:calc(var(--i) * 55ms)}
+.rv.on .w, .on .rv .w{opacity:1; transform:none; filter:none}
+.ent{transform:translateY(20px); transition:opacity .6s, transform .6s; transition-delay:calc(var(--d, 0) * 130ms)}
+.ent.on{transform:none}
+.instant *, .instant *::before, .instant *::after{transition:none!important; animation:none!important}
+.corpo-cena{position:absolute; left:100px; right:100px; top:268px}
+.banda.fecho{position:absolute; left:100px; right:100px; bottom:72px; padding:22px 34px}
+.banda.fecho p{font:600 28px/1.3 var(--f-tit)}
+
+/* slide 02: linha do tempo */
+.linha-tempo{position:absolute; left:100px; right:100px; top:300px}
+.lt-trilho{position:absolute; left:0; right:0; top:9px; height:1px; background:var(--fio)}
+.lt-trilho i{display:block; height:1px; background:var(--texto); transform:scaleX(0); transform-origin:left; transition:transform 1.6s cubic-bezier(.65,0,.25,1) .2s}
+.linha-tempo.on .lt-trilho i{transform:scaleX(1)}
+.lt-itens{display:grid; grid-template-columns:repeat(4,1fr); gap:40px}
+.lt{position:relative; padding-top:40px; opacity:0; transform:translateY(14px); transition:opacity .6s, transform .6s; transition-delay:calc(.35s + var(--d) * .45s)}
+.linha-tempo.on .lt{opacity:1; transform:none}
+.lt .pt{position:absolute; top:3px; left:0; width:13px; height:13px; border-radius:50%; background:var(--osso); border:1.5px solid var(--texto)}
+.lt:last-child .pt{background:var(--texto)}
+.lt .ano{display:block; font:700 40px/1 var(--f-tit); letter-spacing:-.8px; margin-bottom:14px}
+.lt p{font-size:22px; line-height:1.42; color:var(--texto2)}
+.lt .lt-g{font:600 31px/1.18 var(--f-tit); letter-spacing:-.4px; color:var(--texto); margin-bottom:14px}
+.frase-ia{margin-top:64px; font:500 34px/1.3 var(--f-tit); color:var(--texto); max-width:1250px}
+
+/* slide 02: dois gêmeos */
+.dois-gemeos{position:absolute; inset:0}
+#gemeosCanvas{position:absolute; left:100px; top:150px; width:1400px; height:480px}
+.g-num{position:absolute; left:400px; top:380px; transform:translate(-50%,-50%); font:700 44px/1 var(--f-tit); letter-spacing:-1px}
+.g-rot{position:absolute; top:590px; width:420px; transform:translateX(-10%); }
+.g-rot h3{font:600 28px/1.2 var(--f-tit)}
+.g-rot p{margin-top:8px; font-size:18px; line-height:1.4; color:var(--texto2); max-width:360px}
+.g-meio{position:absolute; left:800px; top:250px; transform:translateX(-50%); font:500 15px/1 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--texto2)}
+.frase-g{position:absolute; left:100px; right:200px; bottom:72px; font:500 32px/1.3 var(--f-tit); color:var(--texto)}
+
+/* slide 03 */
+.cards2.grande{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:0}
+.cards2.grande .card{padding:34px 36px 38px; gap:16px}
+.cards2.grande h3{font-size:38px}
+.cards2.grande p{font-size:22px; line-height:1.45}
+
+/* slide 04 */
+.cena .grid-sv{display:grid; grid-template-columns:1.1fr .9fr; gap:60px}
+.cena .grid-sv .corpo{font-size:20px; gap:22px}
+.cena .linha li{padding-bottom:24px}
+.cena .linha h4{font-size:23px}
+.cena .linha p{font-size:18px}
+
+/* slide 06 */
+.mos .hero{font-size:64px; width:1400px}
+.mos .hero.up{transform:translateY(0) scale(.55)}
+.mos .corpo-cena{top:276px}
+.mos .sub{font-size:19px; margin-bottom:14px}
+.mos .grid6{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+.mos .grid6 .card{padding:13px 18px 14px; gap:5px}
+.mos .grid6 .card h3{font-size:22px}
+.mos .grid6 .card p{font-size:15.5px; line-height:1.38}
+.mos .prova{margin-top:6px; padding-top:8px; border-top:1px solid var(--fio); font:600 22px/1.2 var(--f-tit); color:var(--texto)!important}
+.mos .prova span{font:400 14px/1.3 var(--f-txt); color:var(--texto2); margin-left:8px}
+.mos .banda.fecho{bottom:46px; padding:14px 30px}
+.mos .banda.fecho p{font-size:22px}
+@media print{ [data-in]{opacity:1!important} .rv .w{opacity:1!important; transform:none!important; filter:none!important} .lt{opacity:1!important; transform:none!important} }
+
+
+/* slides 06 e 07: MOS Suite em duas partes, letra maior */
+.mos .corpo-cena{top:270px}
+.mos .sub{font-size:22px; line-height:1.4; margin-bottom:22px; max-width:1300px}
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:stretch}
+.grid3 .card{padding:30px 30px 32px; gap:12px}
+.grid3 .card h3{font-size:32px}
+.grid3 .card .it{font:500 italic 21px/1.3 var(--f-tit); color:var(--texto)}
+.grid3 .card p{font-size:20.5px; line-height:1.45}
+.grid3 .prova{margin-top:auto; padding-top:18px; border-top:1px solid var(--fio); display:flex; flex-direction:column; gap:6px}
+.grid3 .prova .pn{font:700 48px/1 var(--f-tit); letter-spacing:-1px; color:var(--texto)}
+.grid3 .prova .pt{font-size:16px; line-height:1.35; color:var(--texto2)}
+.mos .banda.fecho{bottom:60px; padding:20px 34px}
+.mos1 .corpo-cena{top:296px}
+.mos1 .sub{margin-bottom:18px}
+.mos .banda.fecho p{font-size:26px}
+
+/* camada do cliente: caixa de API */
+#apiBox{left:756px; top:236px; width:200px; border:1px solid rgba(245,244,240,.35); border-radius:4px; background:rgba(12,12,14,.92); padding:12px 0 6px}
+.api-cab{font:600 12px/1 var(--f-mono); letter-spacing:1.6px; text-transform:uppercase; color:var(--osso); padding:0 14px 10px; border-bottom:1px solid rgba(245,244,240,.18)}
+.api-ln{display:flex; align-items:center; gap:10px; padding:9px 14px; font:500 17px/1 var(--f-mono); color:var(--osso); opacity:0; transform:translateX(10px); transition:opacity .35s, transform .35s}
+#apiBox.on .api-ln{opacity:1; transform:none}
+.api-ln i{width:7px; height:7px; background:var(--osso); flex:none}
+.passo.longo h2{font-size:40px; line-height:1.1; letter-spacing:-.6px}
+.passo p{font-size:20px}
+.grupos{position:absolute; left:0; right:0; bottom:104px; height:16px}
+.grupo{position:absolute; top:0; height:10px; border:1px solid #5A5960; border-bottom:0; font:500 10.5px/1 var(--f-mono); letter-spacing:1px; text-transform:uppercase; color:#8E8C86}
+.grupo span{position:absolute; top:-15px; left:0}
+.grupo.on{border-color:var(--claro2); color:var(--osso)}
+/* slide API first */
+#apiCanvas{position:absolute; left:0; top:0; width:1600px; height:900px}
+.api-col{position:absolute; left:100px; top:520px; transform:translateY(-50%); width:540px; display:flex; flex-direction:column; gap:26px}
+.api-bloco p{font-size:20px; line-height:1.48; color:var(--claro2)}
+.api-bloco b{color:var(--osso); font-weight:600}
+.api-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:18px}
+.api-stats .conta{display:block; font:700 46px/1 var(--f-tit); letter-spacing:-1px; color:var(--osso); white-space:nowrap}
+.api-stats small{display:block; margin-top:8px; font:500 13px/1.35 var(--f-mono); letter-spacing:.6px; text-transform:uppercase; color:var(--claro2)}
+.api-final{position:absolute; top:50%; left:0; width:560px; transform:translateY(-50%)}
+.api-final .rv{font:600 40px/1.18 var(--f-tit); letter-spacing:-.6px; color:var(--osso)}
+.api-temas{margin-top:26px; font:500 16px/1.4 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--claro2)}
+.api-ref{position:absolute; left:100px; bottom:26px; width:1100px; font:500 13px/1.4 var(--f-mono); letter-spacing:.6px; color:#8E8C86}
+/* ===== ajustes de layout gerais ===== */
+.logo-sm{position:absolute; top:80px; right:100px; width:150px; height:auto; z-index:5}
+.cena .topo{top:86px}
+.pag{bottom:30px; font-size:16px}
+.pip span{display:none}
+.pip{gap:0}
+.grupos{bottom:92px}
+.grupo{font-size:12px}
+.grupo span{top:-18px}
+
+/* ===== MOS em 4 etapas ===== */
+#mosCanvas{position:absolute; left:100px; top:276px; width:1400px; height:210px}
+#s-mos .hero.up{transform:translateY(0) scale(.45)}
+.mos4{position:absolute; left:100px; right:100px; top:512px; display:grid; grid-template-columns:repeat(4,1fr); gap:40px}
+.et{display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--fio); padding-top:18px}
+.et-n{font:500 15px/1 var(--f-mono); color:var(--texto2)}
+.et h3{font:600 32px/1.1 var(--f-tit); letter-spacing:-.5px}
+.et-f{font:500 15px/1.3 var(--f-mono); color:var(--texto2); margin-bottom:6px}
+.et-t{font-size:17.5px; line-height:1.42; color:var(--texto2)}
+.et-p{margin-top:8px; font-size:15px; line-height:1.4; color:var(--texto2)}
+.et-p b{display:block; font:700 30px/1.05 var(--f-tit); letter-spacing:-.8px; color:var(--texto); margin-bottom:4px}
+#s-mos .banda.fecho{top:290px; bottom:auto; padding:40px 44px}
+#s-mos .banda.fecho p{font-size:38px; line-height:1.2; max-width:1100px}
+/* MOS: exemplo hipotético, uma etapa por clique */
+.trilho{position:absolute; left:100px; right:100px; top:150px; display:grid; grid-template-columns:repeat(4,1fr); gap:20px}
+.tr-i{display:flex; flex-direction:column; gap:7px; color:#B4B2AB; transition:color .4s}
+.tr-i i{display:block; height:3px; background:#DAD8D1; transition:background .4s}
+.tr-i span{font:600 22px/1.1 var(--f-tit)}
+.tr-i small{font:500 13px/1.2 var(--f-mono); letter-spacing:.3px}
+.tr-i.feito{color:#8E8C86} .tr-i.feito i{background:#8E8C86}
+.tr-i.atual{color:var(--texto)} .tr-i.atual i{background:var(--texto)}
+.ex-txt{position:absolute; left:100px; top:300px; width:430px; display:flex; flex-direction:column; gap:14px}
+.ex-num{font:700 64px/1 var(--f-tit); letter-spacing:-1.5px; color:var(--texto); white-space:nowrap}
+.ex-sub{font:500 15px/1.35 var(--f-mono); color:var(--texto2)}
+.ex-frase{margin-top:10px; font-size:22px; line-height:1.45; color:var(--texto)}
+.ex-txt.troca{animation:sobe .45s ease both}
+@keyframes sobe{from{transform:translateY(10px)}to{transform:none}}
+#mosCanvas{position:absolute; left:580px; top:250px; width:920px; height:540px}
+.ex-fim{position:absolute; left:100px; top:280px; width:1200px}
+.ex-fim .rv{font:600 50px/1.15 var(--f-tit); letter-spacing:-1px; color:var(--texto)}
+.ex-nota{margin-top:30px; font:500 15px/1 var(--f-mono); color:var(--texto2)}
+/* slide MOS em todas as áreas */
+#areasCanvas{position:absolute; left:560px; top:200px; width:940px; height:640px}
+.ar-cen{position:absolute; left:100px; top:152px; font:500 16px/1.3 var(--f-mono); color:var(--texto2)}
+.ar-col{position:absolute; left:100px; top:220px; width:430px; display:flex; flex-direction:column; gap:26px}
+.ar-card{display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--fio); padding-top:16px; animation:sobe .45s ease both}
+.ar-card .ar-a{font:600 15px/1 var(--f-mono); color:var(--texto2)}
+.ar-card .ar-q{font-size:20px; line-height:1.38; color:var(--texto)}
+.ar-card .ar-r{opacity:0; transform:translateY(6px); transition:opacity .5s 1.7s, transform .5s 1.7s}
+.ar-card.vivo .ar-r{opacity:1; transform:none}
+.ar-card .ar-n{font:700 40px/1 var(--f-tit); letter-spacing:-1px; color:var(--texto); margin-right:10px}
+.ar-card .ar-t{font-size:17px; line-height:1.4; color:var(--texto2)}
+.ar-col.denso .ar-card{gap:6px; padding-top:12px}
+.ar-col.denso .ar-q{font-size:18px}
+.ar-col.denso .ar-n{font-size:32px}
+.ar-col.denso{gap:18px}
+.ar-fim{font:600 40px/1.18 var(--f-tit); letter-spacing:-.6px; color:var(--texto)}
+.ar-fim-sub{margin-top:18px; font-size:20px; line-height:1.45; color:var(--texto2)}
+/* slide como contratar */
+.ct-grid{position:absolute; left:100px; right:100px; top:150px; display:grid; grid-template-columns:1fr 1fr; gap:60px}
+.ct{display:flex; flex-direction:column; gap:10px}
+.ct canvas{width:670px; height:280px; margin-bottom:14px; border-bottom:1px solid var(--fio)}
+.ct-n{font:500 15px/1 var(--f-mono); color:var(--texto2)}
+.ct h3{font:600 36px/1.1 var(--f-tit); letter-spacing:-.6px; margin-bottom:6px}
+.ct-t{font-size:20px; line-height:1.45; color:var(--texto2); max-width:640px}
+.ct-ex{margin-top:6px; font:500 15px/1.4 var(--f-mono); color:var(--texto2)}
+#s-contrata .banda.fecho{bottom:60px; padding:18px 32px}
+#s-contrata .banda.fecho p{font-size:24px}
+
+#exComp .barras{gap:4px}
+#exComp{margin-top:14px}
+#exComp .cabx{margin-bottom:10px}
+/* slide para que serve */
+.sv-grid{position:absolute; left:100px; right:100px; top:258px; display:grid; grid-template-columns:1fr 1fr; gap:22px 28px}
+.sv-card{border-top:1px solid var(--fio); padding-top:18px; display:flex; flex-direction:column; gap:12px}
+.sv-tag{font:500 15px/1 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:var(--texto2)}
+.sv-q{font:600 27px/1.25 var(--f-tit); letter-spacing:-.3px; color:var(--texto); min-height:68px}
+.sv-dots{display:flex; flex-wrap:wrap; gap:5px; max-width:640px; margin-top:4px}
+.sv-dots i{width:9px; height:9px; border-radius:50%; background:#DAD8D1; transition:background .5s; transition-delay:calc(.5s + var(--k) * 22ms)}
+.sv-card.on .sv-dots i[data-t="0"]{background:#1D1D1B}
+.sv-card.on .sv-dots i[data-t="1"]{background:#8E8C86}
+.sv-card.on .sv-dots i[data-t="2"]{background:#C9C7C0}
+.sv-leg{font:500 13px/1.3 var(--f-mono); color:var(--texto2); opacity:0; transition:opacity .5s 1.6s}
+.sv-card.on .sv-leg{opacity:1}
+.sv-leg b{display:inline-block; width:9px; height:9px; border-radius:50%; margin:0 6px 0 14px; vertical-align:-1px}
+.sv-leg b:first-child{margin-left:0}
+#s-serve .banda.fecho{bottom:56px; padding:18px 32px}
+#s-serve .banda.fecho p{font-size:24px}
+
+
+/* ================= VERSÃO CELULAR EM PÉ (html.retrato) =================
+   Palco lógico de 900×1800. Mesmos slides, mesmos textos, mesmas animações;
+   só a disposição e o tamanho das letras mudam. O desktop não é afetado. */
+.vis{position:absolute; left:0; top:0; width:1600px; height:900px}
+html.retrato #stage{width:900px; height:1800px}
+html.retrato #girar{display:none!important}
+html.retrato .slide{padding:60px}
+html.retrato .lbl{font-size:26px; letter-spacing:3px}
+html.retrato .cena .topo{top:62px; left:60px}
+html.retrato .logo-sm{top:52px; right:60px; width:170px}
+html.retrato .pag{right:60px; bottom:34px; font-size:24px}
+html.retrato .hero{left:60px; width:780px; font-size:86px; line-height:1.07; letter-spacing:-1.6px}
+html.retrato .hero.up{top:140px; transform:translateY(0) scale(.6)}
+html.retrato .banda.fecho{left:60px; right:60px; bottom:84px; padding:30px 36px}
+html.retrato .banda.fecho p{font-size:36px; line-height:1.3}
+html.retrato #dica{bottom:90px; font-size:24px; padding:18px 24px; white-space:nowrap}
+/* capa e encerramento */
+html.retrato .capa, html.retrato .fim{padding:80px 60px 90px; justify-content:flex-start}
+html.retrato .capa .logo, html.retrato .fim .logo{width:330px}
+html.retrato #capaCanvas{left:60px; right:auto; top:190px; width:780px; height:975px}
+html.retrato .capa .miolo{margin-top:auto; gap:34px}
+html.retrato .capa h1{font-size:88px; line-height:1.04; max-width:none}
+html.retrato .capa .tese{font-size:38px; line-height:1.3; max-width:none}
+html.retrato .capa .base{margin-top:70px}
+html.retrato .capa .base p{font-size:24px}
+html.retrato .fim-miolo{margin-top:auto; margin-bottom:auto}
+html.retrato .fim h1{font-size:88px; line-height:1.06; max-width:none}
+html.retrato .fim-sub{font-size:38px; line-height:1.35; max-width:none; margin-top:34px}
+html.retrato .fim .base{font-size:24px}
+/* para que serve */
+html.retrato .sv-grid{left:60px; right:60px; top:330px; grid-template-columns:1fr; gap:34px}
+html.retrato .sv-card{padding-top:24px; gap:16px}
+html.retrato .sv-tag{font-size:23px}
+html.retrato .sv-q{font-size:38px; line-height:1.24; min-height:0}
+html.retrato .sv-dots{gap:8px; max-width:none}
+html.retrato .sv-dots i{width:15px; height:15px}
+html.retrato .sv-leg{font-size:20px}
+html.retrato .sv-leg b{width:14px; height:14px; margin:0 8px 0 18px}
+html.retrato .sv-leg b:first-child{margin-left:0}
+html.retrato #s-serve .banda.fecho{bottom:84px; padding:28px 34px}
+html.retrato #s-serve .banda.fecho p{font-size:32px}
+/* gêmeo digital: imagem em cima, texto embaixo */
+html.retrato .twin .vis{width:960px; height:900px; transform:scale(.9); transform-origin:0 0; top:10px; left:18px}
+html.retrato .twin .logo-sm{z-index:6}
+html.retrato .painel{left:60px; top:830px; width:780px; height:970px; padding-top:0}
+html.retrato .painel > .lbl{bottom:186px; font-size:22px}
+html.retrato .passo{gap:22px}
+html.retrato .passo .rot{font-size:24px; letter-spacing:3px}
+html.retrato .passo h2, html.retrato .passo.longo h2{font-size:64px; line-height:1.06; letter-spacing:-1px}
+html.retrato .passo p{font-size:37px; line-height:1.42}
+html.retrato .extra{margin-top:26px}
+html.retrato .extra .cabx{font-size:20px; margin-bottom:14px}
+html.retrato #exComp .barras{gap:6px}
+html.retrato .br{grid-template-columns:210px 1fr 100px; font-size:28px; gap:16px}
+html.retrato .br .b{height:13px}
+html.retrato .br .b.ref{height:6px}
+html.retrato .br .vl{font-size:24px}
+html.retrato .br .vl small{font-size:19px}
+html.retrato .leg{font-size:19px; margin-top:14px}
+html.retrato .leg i{width:20px; height:7px}
+html.retrato .perg{font-size:34px; margin-bottom:20px}
+html.retrato .br.resp{grid-template-columns:290px 1fr 90px}
+html.retrato .br.resp .b{height:18px}
+html.retrato .nota{font-size:20px}
+html.retrato .pips{bottom:84px}
+html.retrato .pip i{height:5px}
+html.retrato .grupos{bottom:112px}
+html.retrato .grupo{font-size:17px; height:14px}
+html.retrato .grupo span{top:-26px}
+html.retrato .chip{font-size:21px; padding:10px 12px}
+html.retrato #chips{left:40px; top:18px; gap:10px}
+html.retrato #balao{left:690px; top:440px; width:235px; font-size:25px; padding:18px 20px}
+html.retrato .mini .ln{grid-template-columns:96px 1fr 54px; font-size:21px}
+html.retrato .mini .ln span:last-child{font-size:19px}
+html.retrato .balao-rot{font-size:16px}
+html.retrato #seedTag{font-size:22px}
+html.retrato #radarTag{left:690px; top:300px; font-size:19px}
+html.retrato #apiBox{left:660px; top:220px; width:270px}
+html.retrato .api-cab{font-size:17px}
+html.retrato .api-ln{font-size:23px; padding:11px 16px}
+html.retrato .painel:has(.extra.on) .passo h2{font-size:56px}
+html.retrato .painel:has(.extra.on) .passo p{font-size:32px; line-height:1.4}
+html.retrato .painel:has(.extra.on) .passo{gap:16px}
+html.retrato #exComp .br{font-size:26px}
+html.retrato #s-serve .hero{transition:top .8s cubic-bezier(.65,0,.25,1), transform .8s cubic-bezier(.65,0,.25,1), font-size .8s cubic-bezier(.65,0,.25,1), opacity .5s}
+html.retrato #s-serve .hero.up{top:128px; transform:none; font-size:50px; line-height:1.12; letter-spacing:-.8px; text-wrap:wrap}
+html.retrato #s-serve .sv-grid{top:290px; gap:26px}
+html.retrato #s-serve .sv-card{gap:12px; padding-top:20px}
+html.retrato #s-serve .sv-q{font-size:34px}
+html.retrato .painel:has(.extra.on) > .lbl{display:none}
+/* qualidade dos dados */
+html.retrato .trilho{left:60px; right:60px; top:150px; gap:14px}
+html.retrato .tr-i span{font-size:27px; line-height:1.15}
+html.retrato .tr-i i{height:5px}
+html.retrato .ex-txt{left:60px; top:300px; width:780px; gap:16px}
+html.retrato .ex-num{font-size:104px}
+html.retrato .ex-sub{font-size:24px}
+html.retrato .ex-frase{font-size:37px; line-height:1.42}
+html.retrato #mosCanvas{left:0; top:930px; width:900px; height:528px}
+html.retrato .ex-fim{left:60px; top:360px; width:780px}
+html.retrato .ex-fim .rv{font-size:72px; line-height:1.12}
+/* em toda a empresa */
+html.retrato .ar-cen{left:60px; top:140px; font-size:24px}
+html.retrato #areasCanvas{left:0; top:190px; width:900px; height:613px}
+html.retrato .ar-col{left:60px; top:840px; width:780px; gap:30px}
+html.retrato .ar-card{padding-top:22px; gap:12px}
+html.retrato .ar-card .ar-a{font-size:23px}
+html.retrato .ar-card .ar-q{font-size:36px}
+html.retrato .ar-card .ar-n{font-size:66px}
+html.retrato .ar-card .ar-t{font-size:32px}
+html.retrato .ar-col.denso{gap:22px}
+html.retrato .ar-col.denso .ar-card{gap:8px; padding-top:16px}
+html.retrato .ar-col.denso .ar-q{font-size:32px}
+html.retrato .ar-col.denso .ar-n{font-size:52px}
+html.retrato .ar-col.denso .ar-t{font-size:29px}
+html.retrato .ar-fim{font-size:62px; line-height:1.12}
+html.retrato .ar-fim-sub{font-size:36px; margin-top:24px}
+/* como trabalhar */
+html.retrato .ct-grid{left:60px; right:60px; top:140px; grid-template-columns:1fr; gap:34px}
+html.retrato .ct{gap:10px}
+html.retrato .ct canvas{width:700px; height:293px; margin-bottom:12px}
+html.retrato .ct-n{font-size:22px}
+html.retrato .ct h3{font-size:50px}
+html.retrato .ct-t{font-size:32px; line-height:1.38; max-width:none}
+html.retrato .ct-ex{font-size:22px}
+html.retrato #s-contrata .banda.fecho{bottom:84px; padding:26px 34px}
+html.retrato #s-contrata .banda.fecho p{font-size:32px}
+
+/* celular em pé: convite para girar */
+#girar{display:none; position:fixed; inset:0; z-index:100; background:#0C0C0E; color:#F5F4F0; flex-direction:column; align-items:center; justify-content:center; gap:22px; padding:32px; text-align:center; font-family:var(--f-txt)}
+#girar img{width:180px; height:auto}
+#girar .ic{width:54px; height:86px; border:2px solid #F5F4F0; border-radius:10px; animation:gira 2.4s ease-in-out infinite}
+@keyframes gira{0%,25%{transform:rotate(0)}55%,100%{transform:rotate(-90deg)}}
+#girar p{font:500 18px/1.45 var(--f-txt); color:#C9C7C0; max-width:280px}
+#girar button{margin-top:6px; background:none; border:1px solid rgba(245,244,240,.4); color:#F5F4F0; font:500 14px/1 var(--f-mono); padding:12px 16px; border-radius:4px}
+@media (orientation: portrait) and (max-width: 820px){ body:not(.ver-assim) #girar{display:flex} }
+@media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
+@media print{
+  @page{size:1600px 900px; margin:0}
+  html,body{height:auto; overflow:visible; background:var(--osso)}
+  #stage{position:relative; left:0; top:0; transform:none!important; overflow:visible; height:auto}
+  .slide{display:flex!important; position:relative; height:900px; break-after:page; animation:none}
+  #barra,#dica{display:none}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="sim" viewBox="0 0 700 700"><path d="M.54-.16v700h700V-.16H.54ZM490.39,543.57h-41.48c-3.35,0-6.2-2.54-6.72-6l-30.25-198.09c-1.05-6.86-9.89-8.26-12.83-2.03l-77.67,149.12c-7.44,15.76-29.9,15.63-37.16-.21l-75.43-149.23c-2.86-6.24-11.68-4.98-12.84,1.83l-33.77,198.74c-.58,3.4-3.4,5.88-6.7,5.88h-41.89c-4.29,0-7.51-4.09-6.68-8.5l69.76-373.03c1.26-6.75,10.03-7.9,12.84-1.68l98.97,219.32c5.9,13.07,24.42,13.2,30.5.2l102.59-219.48c2.9-6.2,11.68-4.9,12.82,1.9l62.65,372.89c.73,4.36-2.47,8.36-6.71,8.36ZM587.13,543.41h-31.61c-3.47,0-6.43-2.5-7.01-5.92l-63.34-373.07c-.74-4.34,2.61-8.3,7.01-8.3h31.99c3.47,0,6.43,2.51,7.01,5.93l62.97,373.07c.73,4.34-2.61,8.29-7.01,8.29Z"/></symbol></defs></svg>
+
+<div id="girar" role="dialog" aria-label="Gire o celular">
+  <img src="__LOGO_CLARO__" alt="Mimetica">
+  <div class="ic" aria-hidden="true"></div>
+  <p>Gire o celular para ver a apresentação na horizontal. Toque ou deslize para avançar.</p>
+  <button type="button" id="verAssim">Ver assim mesmo</button>
+</div>
+<div id="stage">
+
+  <!-- ============ SLIDE 01 · CAPA ============ -->
+  <section class="slide capa esc" id="s-capa">
+    <canvas id="capaCanvas" width="1440" height="1800" aria-hidden="true"></canvas>
+    <img class="logo" src="__LOGO_CLARO__" alt="Mimetica" style="position:relative; z-index:2">
+    <div class="miolo">
+      <h1 data-cfg="capaTitulo"></h1>
+      <p class="tese" data-cfg="capaTese"></p>
+    </div>
+    <div class="base"><p data-cfg="oQueE"></p><p data-cfg="data"></p></div>
+  </section>
+
+
+  <!-- ============ SLIDE · PARA QUE SERVE (6 cliques) ============ -->
+  <section class="slide cena" data-steps="5" id="s-serve">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Para que serve</p>
+    <h2 class="hero rv" data-in="0" data-up="1">Antes de decidir, pergunte para a população artificial.</h2>
+    <div class="sv-grid">
+      <div class="sv-card ent" data-in="1"><p class="sv-tag">01 · Preço</p><p class="sv-q">Se o preço subir 8%, quantos clientes aceitam, quantos trocam de marca e quantos param de comprar?</p><div class="sv-dots" data-mix="0"></div><p class="sv-leg"><b style="background:#1D1D1B"></b>aceitam<b style="background:#8E8C86"></b>trocam de marca<b style="background:#C9C7C0"></b>param</p></div>
+      <div class="sv-card ent" data-in="2"><p class="sv-tag">02 · Lançamento</p><p class="sv-q">Se lançarmos uma linha nova, quem compra pela primeira vez? Quem experimenta e volta para a antiga?</p><div class="sv-dots" data-mix="1"></div><p class="sv-leg"><b style="background:#1D1D1B"></b>compram pela 1ª vez<b style="background:#8E8C86"></b>voltam para a antiga<b style="background:#C9C7C0"></b>não experimentam</p></div>
+      <div class="sv-card ent" data-in="3"><p class="sv-tag">03 · Imagem da marca</p><p class="sv-q">Se uma notícia negativa sobre a marca viralizar, quantos clientes mudam de opinião?</p><div class="sv-dots" data-mix="2"></div><p class="sv-leg"><b style="background:#1D1D1B"></b>mantêm a opinião<b style="background:#8E8C86"></b>ficam em dúvida<b style="background:#C9C7C0"></b>mudam de opinião</p></div>
+      <div class="sv-card ent" data-in="4"><p class="sv-tag">04 · Concorrência</p><p class="sv-q">Se um concorrente abrir 200 lojas em seis meses, quem troca de marca primeiro?</p><div class="sv-dots" data-mix="3"></div><p class="sv-leg"><b style="background:#1D1D1B"></b>ficam<b style="background:#8E8C86"></b>talvez troquem<b style="background:#C9C7C0"></b>trocam primeiro</p></div>
+    </div>
+    <div class="banda fecho ent" data-in="5"><p class="rv">Cada resposta vem separada por renda, região e idade, antes de gastar com produção ou mídia.</p></div>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ SLIDE 04 · SMALLVILLE (liga/desliga em CONFIG.mostrarSmallville; 6 cliques) ============ -->
+  <section class="slide cena" data-opcional="smallville" data-steps="5">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">A terceira onda</p>
+    <h2 class="hero rv" data-in="0" data-up="1">Simular comportamento humano é a terceira onda da IA.</h2>
+    <div class="corpo-cena grid-sv">
+      <div class="corpo">
+        <p class="ent" data-in="1">Em abril de 2023, uma equipe de Stanford publicou o paper "Generative Agents", com o experimento Smallville: agentes de IA com memória, planejamento e reflexão, vivendo numa cidade virtual. Os pesquisadores deram a uma das personagens, dona de um café, uma única instrução inicial: ela queria dar uma festa de Dia dos Namorados. O resto surgiu sozinho.</p>
+        <p class="ent" data-in="5">Ficou claro ali que simular comportamento humano era a terceira onda da IA. Antes, cruzar bases diferentes e prever comportamento exigia dias de trabalho manual e estatístico dedicado. A IA generativa deu a chance de transformar esse conhecimento acumulado em software vivo, consultável a qualquer hora.</p>
+      </div>
+      <div>
+        <ol class="linha">
+          <li class="ent" data-in="1"><span class="pt"></span><h4>Instrução inicial</h4><p>A dona do café quer dar uma festa de Dia dos Namorados.</p><span class="tag">A única coisa programada</span></li>
+          <li class="ent" data-in="2"><span class="pt"></span><h4>Convites</h4><p>Ela convida os clientes do café.</p></li>
+          <li class="ent" data-in="3"><span class="pt"></span><h4>A notícia corre</h4><p>Os moradores contam uns aos outros. Alguns combinam de ir juntos.</p></li>
+          <li class="ent" data-in="4"><span class="pt"></span><h4>A festa</h4><p>No dia certo, os convidados aparecem.</p></li>
+        </ol>
+        <p class="fonte ent" data-in="1">Generative Agents · Stanford · 2023</p>
+      </div>
+    </div>
+    <div class="banda fecho ent" data-in="5"><p class="rv">A Mimetica embarcou no mesmo desafio, com o mesmo método: gêmeos digitais que respondem e também se comportam.</p></div>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ SLIDE 05 · COMO NASCE UM GÊMEO (animado; textos no CONFIG lá em cima) ============ -->
+  <section class="slide twin esc" id="s-twin">
+    <img class="logo-sm" src="__LOGO_CLARO__" alt="Mimetica">
+    <div class="vis">
+    <canvas id="twinCanvas" width="1920" height="1800" aria-hidden="true"></canvas>
+    <div class="ov" id="chips"></div>
+    <div class="ov" id="balao"><div class="fala"></div><div class="mini"><div class="balao-rot">Decisão</div></div></div>
+    <div class="ov" id="seedTag"></div>
+    <div class="ov" id="radarTag">Radar<br>leitura diária do país</div>
+    <div class="ov" id="apiBox"><div class="api-cab">Dados da sua empresa</div><div id="apiLista"></div></div>
+    </div>
+    <div class="painel">
+      <p class="lbl">Como nasce um gêmeo digital</p>
+      <div class="passo" id="passo"><div class="rot" id="pRot"></div><h2 id="pTit"></h2><p id="pTxt"></p></div>
+      <div class="extra" id="exComp">
+        <div class="cabx">Composição por região · % da população</div>
+        <div class="barras" id="compBarras"></div>
+        <div class="leg"><span><i style="background:#F5F4F0"></i>População artificial</span><span><i style="background:#6B6A70"></i>Censo 2022 (IBGE)</span></div>
+      </div>
+      <div class="extra" id="exPerg">
+        <div class="perg" id="pergTxt"></div>
+        <div class="barras" id="pergBarras"></div>
+        <div class="nota"></div>
+      </div>
+      <div class="pips" id="pips"></div>
+    </div>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ SLIDE · MOS SUITE, EXEMPLO HIPOTÉTICO (6 cliques; números no CONFIG.mosExemplo) ============ -->
+  <section class="slide cena" data-steps="5" id="s-mos">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Qualidade dos dados</p>
+    <h2 class="hero rv" data-in="0" data-out="1">Como melhoramos as entrevistas que a empresa já fez.</h2>
+    <div class="trilho" data-in="1">
+      <div class="tr-i"><i></i><span>01 · Limpar</span></div>
+      <div class="tr-i"><i></i><span>02 · Equilibrar</span></div>
+      <div class="tr-i"><i></i><span>03 · Ampliar</span></div>
+      <div class="tr-i"><i></i><span>04 · Atualizar</span></div>
+    </div>
+    <div class="ex-txt" data-in="1" data-out="5">
+      <p class="ex-num" id="exNum"></p>
+      <p class="ex-sub" id="exSub"></p>
+      <p class="ex-frase" id="exFrase"></p>
+    </div>
+    <canvas id="mosCanvas" width="1840" height="1080" aria-hidden="true" data-in="1" data-out="5"></canvas>
+    <div class="ex-fim" data-in="5">
+      <p class="rv">Das entrevistas originais a uma população artificial equilibrada, que dá para analisar em grupos menores e está sempre atualizada.</p>
+    </div>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ SLIDE · MOS CONECTADO A TODAS AS ÁREAS (8 cliques; textos no CONFIG.areas) ============ -->
+  <section class="slide cena" data-steps="7" id="s-areas">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Em toda a empresa</p>
+    <h2 class="hero rv" data-in="0" data-out="1">Uma pergunta, respostas para todas as áreas da empresa.</h2>
+    <p class="ar-cen" data-in="1" id="arCenario"></p>
+    <div class="ar-col" data-in="1" id="arCol"></div>
+    <canvas id="areasCanvas" width="1880" height="1280" aria-hidden="true" data-in="1"></canvas>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ SLIDE · COMO CONTRATAR (4 cliques; textos no CONFIG.contratar) ============ -->
+  <section class="slide cena" data-steps="3" id="s-contrata">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Como trabalhar com a Mimetica</p>
+    <h2 class="hero rv" data-in="0" data-out="1">Duas formas de trabalhar com a Mimetica.</h2>
+    <div class="ct-grid">
+      <div class="ct ent" data-in="1">
+        <canvas id="ctCanvas1" width="1340" height="560" aria-hidden="true"></canvas>
+        <p class="ct-n">01</p><h3 id="ct1t"></h3>
+        <p class="ct-t" id="ct1a"></p><p class="ct-t" id="ct1b"></p><p class="ct-ex" id="ct1c"></p>
+      </div>
+      <div class="ct ent" data-in="2">
+        <canvas id="ctCanvas2" width="1340" height="560" aria-hidden="true"></canvas>
+        <p class="ct-n">02</p><h3 id="ct2t"></h3>
+        <p class="ct-t" id="ct2a"></p><p class="ct-t" id="ct2b"></p>
+      </div>
+    </div>
+    <div class="banda fecho ent" data-in="3"><p class="rv" id="ctFecho"></p></div>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ SLIDE 08 · ENCERRAMENTO ============ -->
+  <section class="slide fim esc">
+    <img class="logo" src="__LOGO_CLARO__" alt="Mimetica">
+    <div class="fim-miolo">
+      <h1 data-cfg="fimTitulo"></h1>
+      <p class="fim-sub" data-cfg="fimSub"></p>
+    </div>
+    <div class="base"><span>Obrigado</span><span>mimetica.net</span></div>
+  </section>
+
+  <div id="barra"><i></i></div>
+  <div id="dica">← → ou clique para avançar · F para tela cheia</div>
+</div>
+
+<script>
+(() => {
+  /* ---------- utilidades ---------- */
+  const clamp = v => v < 0 ? 0 : v > 1 ? 1 : v;
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+  const mix = (a, b, t) => `rgb(${Math.round(lerp(a[0],b[0],t))},${Math.round(lerp(a[1],b[1],t))},${Math.round(lerp(a[2],b[2],t))})`;
+
+  const TONS = ["#F5F4F0","#F5F4F0","#E4E2DC","#C9C7C0","#C9C7C0","#A9A7A0","#8E8C86","#6B6A70"];
+  /* ---------- celular em pé: letras maiores dentro dos gráficos ---------- */
+  { const P = CanvasRenderingContext2D.prototype, d = Object.getOwnPropertyDescriptor(P, 'font');
+    if (d && d.set){ Object.defineProperty(P, 'font', { configurable:true, get(){ return d.get.call(this); },
+      set(v){ const k = this.canvas && this.canvas.dataset && +this.canvas.dataset.fz;
+        if (k && document.documentElement.classList.contains('retrato')) v = String(v).replace(/(\d+(?:\.\d+)?)px/, (m, n) => (n * k).toFixed(1) + 'px');
+        d.set.call(this, v); } }); } }
+  [['mosCanvas', 1.4], ['areasCanvas', 1.5], ['ctCanvas1', 1.25], ['ctCanvas2', 1.25]].forEach(([id, k]) => { const el = document.getElementById(id); if (el) el.dataset.fz = k; });
+  /* ---------- slide para que serve: pontos ---------- */
+  { const MIX = [[62,26,12],[18,30,52],[71,17,12],[64,22,14]];
+    document.querySelectorAll('.sv-dots').forEach(el => { const m = MIX[+el.dataset.mix], N = 60, r = rng(7 + +el.dataset.mix);
+      const tipos = []; m.forEach((v, t) => { for (let k = 0; k < Math.round(v*N/100); k++) tipos.push(t); });
+      while (tipos.length < N) tipos.push(0); tipos.length = N;
+      for (let k = N-1; k > 0; k--){ const j = Math.floor(r()*(k+1)); [tipos[k], tipos[j]] = [tipos[j], tipos[k]]; }
+      tipos.forEach((t, k) => { const d = document.createElement('i'); d.dataset.t = t; d.style.setProperty('--k', k); el.appendChild(d); }); }); }
+  /* ---------- textos do CONFIG ---------- */
+  document.querySelectorAll('[data-cfg]').forEach(el => el.textContent = CONFIG[el.dataset.cfg] || "");
+
+  /* ---------- figura de pessoa (usada na capa e na população) ---------- */
+  function figura(ctx, x, y, s, cor, a){
+    ctx.globalAlpha = a; ctx.fillStyle = cor;
+    ctx.beginPath(); ctx.arc(x, y - 15*s, 8.5*s, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(x - 14*s, y + 16*s);
+    ctx.bezierCurveTo(x - 14*s, y - 2*s, x + 14*s, y - 2*s, x + 14*s, y + 16*s); ctx.closePath(); ctx.fill();
+  }
+  const PALETA = TONS;
+
+  /* ---------- capa: multidão estática ---------- */
+  function desenhaCapa(){
+    const cv = document.getElementById('capaCanvas'), c = cv.getContext('2d');
+    c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,720,900);
+    const r = rng(7);
+    for (let row = 0; row < 9; row++) for (let col = 0; col < 11; col++){
+      const x = 50 + col*58 + (row%2)*29 + (r()-.5)*10, y = 190 + row*66 + (r()-.5)*8;
+      const fade = clamp((x - 50) / 460) * .85;           // some à esquerda, para não brigar com o título
+      if (r() < .1) continue;
+      figura(c, x, y, .9 + r()*.45, PALETA[Math.floor(r()*PALETA.length)], .12 + .78*fade*(.6+.4*r()));
+    }
+    c.globalAlpha = 1;
+  }
+
+  /* ================================================================
+     SLIDE ANIMADO
+     ================================================================ */
+  const twin = (() => {
+    const cv = document.getElementById('twinCanvas'), ctx = cv.getContext('2d');
+    const W = 960, H = 900;
+    const KEYS = ['vazio','quant','antrop','prob', ...(CONFIG.mostrarRadar ? ['radar'] : []), 'seed','expansao','pergunta'];
+    const LAYERS = ['quant','antrop','prob','radar','seed','expansao','pergunta'];
+    const flags = {}; LAYERS.forEach(k => flags[k] = { on:false, t:-1e9 });
+    let step = 0, ativo = false;
+    const idx = k => KEYS.indexOf(k);
+    const has = k => idx(k) >= 0 && step >= idx(k);
+    function val(f, delay = 0, dur = 400){
+      const e = performance.now() - f.t;
+      return f.on ? ease(clamp((e - delay) / dur)) : 1 - ease(clamp(e / 320));
+    }
+
+    /* silhueta do arquivo licenciado (viewBox 1184×1559, perfil para a direita) */
+    const D_FULL = "M730.604,1818.587c-190.833,-114.167 -402.5,55 -593.333,-59.163c36.842,-113.592 56.017,-609.704 62.5,-726.671c-120.904,-93.425 -206.667,-204.871 -197.5,-365c13.517,-324.433 210.646,-473.067 537.5,-497.5c222.119,-4.834 391.724,49.752 480.092,196.266c29.159,48.346 49.472,106.701 59.908,176.234c15.833,44.167 31.667,88.333 47.5,132.504c3.021,16.104 -17.417,27.512 -32.5,39.996c21.458,80.625 63.542,138.125 85,225c-11.462,33.388 -45.029,35.2 -80,35c-7.754,32.392 -8.917,64.279 5,95c-1.35,12.796 -19.296,18.95 -37.5,25.004c15.275,17.471 26.45,37.488 17.5,69.996c-7.842,4.55 -16.321,2.125 -25,-2.5c-4.167,14.167 -8.333,28.337 -12.5,42.5c69.483,41.667 34.938,150.208 -52.5,125c-55.883,-15.871 -122.387,-15.058 -190,-12.5c-12.612,112.388 -71.183,178.817 -117.5,257.5c-3.95,52.517 23.692,195.875 43.333,243.333Zm80.079,-1539.729c32.079,-0 58.933,22.379 65.8,52.375c2.183,-0.329 4.421,-0.5 6.7,-0.5c24.508,0 44.375,19.867 44.375,44.375c0,4.429 -0.65,8.704 -1.858,12.742c20.308,4.071 35.608,22 35.608,43.508c0,12.042 -4.8,22.962 -12.587,30.958c18.788,5.163 32.588,22.367 32.588,42.792c0,9.312 -2.871,17.95 -7.771,25.087c16.279,6.575 27.771,22.525 27.771,41.162c0,14.438 -6.896,27.263 -17.575,35.367c12.088,7.929 20.075,21.596 20.075,37.133c0,24.508 -19.867,44.375 -44.375,44.375c-8.129,0 -15.746,-2.188 -22.3,-6.004c-5.275,18.617 -22.396,32.254 -42.7,32.254c-5.671,0 -11.092,-1.067 -16.079,-3.004c-7.092,15.071 -22.412,25.504 -40.171,25.504c-16.912,0 -31.613,-9.462 -39.1,-23.379c-6.729,15.942 -22.508,27.129 -40.9,27.129c-9.979,0 -19.192,-3.296 -26.604,-8.858c-4.263,20.058 -22.075,35.108 -43.404,35.108c-12.996,0 -24.683,-5.588 -32.796,-14.487c-145.979,150.696 -184.867,350.817 -198.467,562.613c-5,-16.667 -10,-33.333 -15,-50c-4.167,19.167 -8.333,38.333 -12.5,57.5c7.467,-132.783 8.521,-265.567 -7.246,-398.35c-2.117,-0.675 -4.163,-1.504 -6.125,-2.475c-6.267,16.904 -22.533,28.95 -41.617,28.95c-9.983,0 -19.192,-3.296 -26.604,-8.854c-7.858,7.058 -18.25,11.354 -29.646,11.354c-17.921,0 -33.354,-10.621 -40.362,-25.908c-6.517,3.758 -14.075,5.908 -22.138,5.908c-24.508,0 -44.375,-19.867 -44.375,-44.375c0,-1.5 0.075,-2.987 0.221,-4.45c-11.558,-2.079 -21.563,-8.633 -28.154,-17.808c-2.367,0.492 -4.821,0.75 -7.338,0.75c-19.846,0 -35.938,-16.088 -35.938,-35.938c0,-6.158 1.55,-11.958 4.283,-17.025c-18.654,-1.308 -33.383,-16.858 -33.383,-35.846c0,-8.225 2.767,-15.804 7.417,-21.858c-11.125,-8.067 -18.358,-21.158 -18.358,-35.95c0,-7.454 1.842,-14.483 5.092,-20.654c-14.846,-7.175 -25.083,-22.375 -25.083,-39.971c0,-17.888 10.583,-33.304 25.833,-40.325c-1.758,-5.833 -2.708,-12.021 -2.708,-18.425c0,-15.162 5.292,-29.083 14.129,-40.025c-10.85,-8.091 -17.879,-21.025 -17.879,-35.6c0,-22.921 17.375,-41.779 39.675,-44.129c-2.204,-5.267 -3.425,-11.05 -3.425,-17.121c0,-24.508 19.867,-44.375 44.375,-44.375c0.883,0 1.758,0.029 2.629,0.079c-1.7,-4.708 -2.629,-9.783 -2.629,-15.079c0,-24.508 19.867,-44.375 44.375,-44.375c4.654,0 9.142,0.717 13.363,2.046c-0.971,-3.646 -1.487,-7.475 -1.487,-11.421c0,-24.508 19.867,-44.375 44.375,-44.375c8.55,0 16.533,2.421 23.308,6.608c2.029,-22.625 21.038,-40.358 44.192,-40.358c10.425,0 20.013,3.596 27.588,9.617c3.767,-20.687 21.879,-36.371 43.65,-36.371c12.867,0 24.45,5.475 32.55,14.221c8.042,-11.325 21.262,-18.717 36.212,-18.717c13.279,0 25.192,5.829 33.325,15.071c7.788,-12.783 21.858,-21.321 37.925,-21.321c16.746,0 31.321,9.275 38.875,22.967c8.104,-10.704 20.946,-17.621 35.404,-17.621c13.308,0 25.246,5.858 33.379,15.137c8.092,-8.55 19.542,-13.888 32.246,-13.888c14.433,0 27.25,6.892 35.354,17.558c5.992,-3.012 12.758,-4.712 19.921,-4.712c17.779,0 33.117,10.458 40.196,25.563c5.092,-1.229 10.404,-1.879 15.875,-1.879Z";
+    const HEAD = new Path2D("M730.604,1818.587c-190.833,-114.167 -402.5,55 -593.333,-59.163c36.842,-113.592 56.017,-609.704 62.5,-726.671c-120.904,-93.425 -206.667,-204.871 -197.5,-365c13.517,-324.433 210.646,-473.067 537.5,-497.5c222.119,-4.834 391.724,49.752 480.092,196.266c29.159,48.346 49.472,106.701 59.908,176.234c15.833,44.167 31.667,88.333 47.5,132.504c3.021,16.104 -17.417,27.512 -32.5,39.996c21.458,80.625 63.542,138.125 85,225c-11.462,33.388 -45.029,35.2 -80,35c-7.754,32.392 -8.917,64.279 5,95c-1.35,12.796 -19.296,18.95 -37.5,25.004c15.275,17.471 26.45,37.488 17.5,69.996c-7.842,4.55 -16.321,2.125 -25,-2.5c-4.167,14.167 -8.333,28.337 -12.5,42.5c69.483,41.667 34.938,150.208 -52.5,125c-55.883,-15.871 -122.387,-15.058 -190,-12.5c-12.612,112.388 -71.183,178.817 -117.5,257.5c-3.95,52.517 23.692,195.875 43.333,243.333Z");
+    const FULL = new Path2D(D_FULL);
+    const K = 0.5, OX = 120, OY = -10, LCX = 545, LCY = 560, S = 2.4;
+    const BCX = OX + LCX*K, BCY = OY + LCY*K;
+
+    /* células do cérebro: dentro da cabeça e dentro do recorte do cérebro */
+    const cells = [];
+    (() => {
+      const off = document.createElement('canvas'); off.width = 1184; off.height = 1900;
+      const oc = off.getContext('2d'); const r = rng(11); const sp = 23;
+      for (let y = 220; y < 1340; y += sp*0.87){
+        const row = Math.round(y / (sp*0.87));
+        for (let x = 60; x < 1040; x += sp){
+          const px = x + (row % 2) * sp/2, py = y;
+          if (!oc.isPointInPath(HEAD, px, py) || oc.isPointInPath(FULL, px, py, 'evenodd')) continue;
+          // afasta as células da borda do recorte
+          let borda = false;
+          for (const [dx,dy] of [[9,0],[-9,0],[0,9],[0,-9]]) if (oc.isPointInPath(FULL, px+dx, py+dy, 'evenodd')) borda = true;
+          if (borda) continue;
+          let layer;
+          if (py > 930) layer = 'seed';                       // haste: o seed sustenta tudo
+          else if (r() < .12) layer = 'seed';
+          else if (px > 700) layer = 'quant';                 // frente
+          else if (py < 540) layer = 'antrop';                // alto
+          else layer = 'prob';                                // trás e base
+          cells.push({ x:px, y:py, layer, j:r() });
+        }
+      }
+      const anchors = { quant:[980,560], antrop:[420,240], prob:[120,700], seed:[450,1300] };
+      cells.forEach(c => { const [ax, ay] = anchors[c.layer];
+        c.delay = Math.hypot(c.x - ax, c.y - ay) * 1.35 + c.j * 160; });
+    })();
+
+    /* população */
+    const crowd = [];
+    (() => {
+      const r = rng(23), cols = 22, rows = 11;
+      for (let i = 0; i < rows; i++) for (let j = 0; j < cols; j++){
+        const gx = 72 + j * (836/(cols-1)) + (i%2 ? 9 : -9) + (r()-.5)*8;
+        const gy = 128 + i * (700/(rows-1)) + (r()-.5)*8;
+        crowd.push({ gx, gy, s:.8 + r()*.42, cor:hex(PALETA[Math.floor(r()*PALETA.length)]), d:Math.hypot(gx-BCX, gy-BCY) });
+      }
+      crowd.sort((a,b) => a.d - b.d).forEach((p,i) => p.delay = 250 + i*3.6);
+      const order = crowd.map((_,i)=>i).sort(() => r() - .5);
+      const resp = CONFIG.respostas, total = resp.reduce((s,x)=>s+x.valor,0);
+      const RC = ["#F5F4F0", "#8E8C86", "#55545A", "#34343A"].map(hex);
+      let k = 0;
+      resp.forEach((x, ri) => { const n = Math.round(x.valor/total*crowd.length);
+        for (let q = 0; q < n && k < order.length; q++, k++) crowd[order[k]].resp = RC[Math.min(ri,3)]; });
+      for (; k < order.length; k++) crowd[order[k]].resp = RC[RC.length - 1];
+      crowd.forEach(p => p.d2 = p.gx * 0.9 + p.gy * 0.4);
+    })();
+    const SLOT = crowd.reduce((m, p) => Math.hypot(p.gx - 470, p.gy - 470) < Math.hypot(m.gx - 470, m.gy - 470) ? p : m, crowd[0]);
+    crowd.forEach(p => p.ds = Math.hypot(p.gx - SLOT.gx, p.gy - SLOT.gy));
+
+    /* partículas do Radar */
+    const parts = []; const pr = rng(31); const apiParts = [];
+    const seedCells = cells.filter(c => c.layer === 'seed');
+
+    function draw(){
+      const now = performance.now();
+      ctx.setTransform(2,0,0,2,0,0); ctx.clearRect(0,0,W,H);
+      const e = val(flags.expansao, 0, 1700), mainA = e < .82 ? 1 : 1 - (e - .82)/.18;
+
+      /* população que já existe: aparece em volta do lugar onde o gêmeo vai entrar */
+      if (e > 0 || flags.expansao.on){
+        crowd.forEach(p => {
+          if (p === SLOT && e < .98) return;
+          const v = val(flags.expansao, 200 + p.ds*1.6, 700); if (v <= 0) return;
+          const q = val(flags.pergunta, p.d2 * .9, 450);
+          figura(ctx, p.gx, p.gy, p.s, p === SLOT ? mix(hex("#FFFFFF"), p.resp, q) : mix(p.cor, p.resp, q), v);
+        });
+        if (e >= .98 && !flags.pergunta.on){ const pul = .5 + .5*Math.sin(now/300);
+          ctx.globalAlpha = .5 + .4*pul; ctx.strokeStyle = "#F5F4F0"; ctx.lineWidth = 1.4;
+          ctx.beginPath(); ctx.arc(SLOT.gx, SLOT.gy, 26, 0, Math.PI*2); ctx.stroke(); }
+        ctx.globalAlpha = 1;
+      }
+
+      if (mainA > 0.01){
+        const ee = ease(e), k = K * Math.pow(.05, ee);
+        ctx.save(); ctx.globalAlpha = mainA;
+        ctx.translate(lerp(BCX, SLOT.gx, ee), lerp(BCY, SLOT.gy - 6, ee)); ctx.scale(k, k); ctx.translate(-LCX, -LCY);
+        ctx.fillStyle = "#1F1F23"; ctx.fill(HEAD);                  // fundo do cérebro
+        ctx.fillStyle = "#141417"; ctx.fill(FULL, 'evenodd');        // cabeça
+        const tt = now / 1000;
+        ctx.fillStyle = "rgba(245,244,240,.08)"; ctx.beginPath();
+        cells.forEach(c => { ctx.moveTo(c.x + 2.3*S, c.y); ctx.arc(c.x, c.y, 2.3*S, 0, Math.PI*2); }); ctx.fill();
+        cells.forEach(c => {
+          const v = val(flags[c.layer], c.delay, 260); if (v <= 0) return;
+          ctx.globalAlpha = mainA * v;
+          if (c.layer === 'quant'){            // quantitativa: ponto cheio
+            ctx.fillStyle = "#F5F4F0"; ctx.beginPath(); ctx.arc(c.x, c.y, (2.2 + 1.1*v)*S, 0, Math.PI*2); ctx.fill();
+          } else if (c.layer === 'antrop'){    // antropológica: anel
+            ctx.strokeStyle = "#E4E2DC"; ctx.lineWidth = 1.2*S; ctx.beginPath(); ctx.arc(c.x, c.y, 3.1*S, 0, Math.PI*2); ctx.stroke();
+          } else if (c.layer === 'prob'){      // probabilística: ponto que oscila
+            const f = .35 + .65 * (.5 + .5*Math.sin(tt*2.2 + c.j*12));
+            ctx.globalAlpha = mainA * v * f; ctx.fillStyle = "#C9C7C0"; ctx.beginPath(); ctx.arc(c.x, c.y, 3*S, 0, Math.PI*2); ctx.fill();
+          } else {                              // seed: quadrado
+            ctx.fillStyle = "#FFFFFF"; ctx.fillRect(c.x - 3*S, c.y - 3*S, 6*S, 6*S);
+          }
+        });
+        ctx.globalAlpha = mainA;
+        ctx.lineJoin = "round"; ctx.lineWidth = 1.6/k; ctx.strokeStyle = "rgba(245,244,240,.8)"; ctx.stroke(FULL);
+        ctx.restore();
+      }
+
+      /* Radar */
+      if (KEYS[step] === 'radar' && mainA > .5 && ativo && Math.random() < .55){
+        const sy = 20 + pr()*280;
+        parts.push({ t0:now, dur:1300 + pr()*900, sx:975, sy, cx:780 + pr()*140, cy:sy*.4 + pr()*60,
+          ex:BCX + (pr()-.5)*120, ey:BCY + (pr()-.5)*70 });
+      }
+      for (let i = parts.length - 1; i >= 0; i--){
+        const p = parts[i], u = (now - p.t0) / p.dur;
+        if (u >= 1){ parts.splice(i,1); continue; }
+        for (let j = 0; j < 6; j++){
+          const t = u - j*.025; if (t < 0) break;
+          const x = (1-t)*(1-t)*p.sx + 2*(1-t)*t*p.cx + t*t*p.ex, y = (1-t)*(1-t)*p.sy + 2*(1-t)*t*p.cy + t*t*p.ey;
+          ctx.globalAlpha = (1 - j/6) * Math.min(1, (1-u)*3) * mainA * .9;
+          ctx.fillStyle = j === 0 ? "#F5F4F0" : "#8E8C86";
+          ctx.beginPath(); ctx.arc(x, y, j === 0 ? 2.2 : 2.6 - j*.3, 0, Math.PI*2); ctx.fill();
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      /* camada do cliente: dados saindo da API até o cérebro */
+      if (KEYS[step] === 'seed' && ativo && Math.random() < .5){
+        const row = Math.floor(pr()*CONFIG.fontesCliente.length), c = seedCells[Math.floor(pr()*seedCells.length)];
+        const k = K;
+        apiParts.push({ t0:now, dur:1100 + pr()*600, sx:756, sy:282 + row*35, ex:BCX + (c.x - LCX)*k, ey:BCY + (c.y - LCY)*k });
+      }
+      for (let i = apiParts.length - 1; i >= 0; i--){
+        const p = apiParts[i], u = (now - p.t0) / p.dur;
+        if (u >= 1){ apiParts.splice(i,1); continue; }
+        const t = ease(u), cx = (p.sx + p.ex)/2, cy = Math.min(p.sy, p.ey) - 60;
+        const x = (1-t)*(1-t)*p.sx + 2*(1-t)*t*cx + t*t*p.ex, y = (1-t)*(1-t)*p.sy + 2*(1-t)*t*cy + t*t*p.ey;
+        ctx.globalAlpha = Math.min(1, (1-u)*4) * mainA; ctx.fillStyle = "#FFFFFF"; ctx.fillRect(x - 3, y - 3, 6, 6);
+      }
+      ctx.globalAlpha = 1;
+
+    }
+
+    function loop(){ if (ativo) draw(); requestAnimationFrame(loop); }
+    requestAnimationFrame(loop);
+
+    /* overlays e painel */
+    const chips = document.getElementById('chips');
+    CONFIG.perfil.forEach((t,i) => { const s = document.createElement('span'); s.className = 'chip'; s.textContent = t;
+      s.style.transitionDelay = (i*90) + 'ms'; chips.appendChild(s); });
+    const balao = document.getElementById('balao');
+    balao.querySelector('.fala').textContent = CONFIG.fala;
+    const mini = balao.querySelector('.mini');
+    CONFIG.decisao.forEach(([n,v]) => { const d = document.createElement('div'); d.className = 'ln';
+      d.innerHTML = `<span></span><i style="width:${v}%"></i><span>${v}%</span>`; d.firstChild.textContent = n; mini.appendChild(d); });
+    document.getElementById('seedTag').textContent = 'Seed · ' + CONFIG.seedNome;
+
+    const REGIOES = [["Sudeste",41.8,41.5],["Nordeste",26.9,27.2],["Sul",14.7,14.6],["Norte",8.5,8.6],["Centro-Oeste",8.0,8.1]];
+    const comp = document.getElementById('compBarras');
+    REGIOES.forEach(([n, ref, pop]) => { const d = document.createElement('div'); d.className = 'br';
+      d.innerHTML = `<span class="nm"></span><span class="tr"><i class="b" data-w="${pop/45*100}"></i><i class="b ref" data-w="${ref/45*100}"></i></span><span class="vl">${String(pop).replace('.',',')}%<small>${String(ref).replace('.',',')}%</small></span>`;
+      d.firstChild.textContent = n; comp.appendChild(d); });
+    document.getElementById('pergTxt').textContent = CONFIG.pergunta;
+    const pb = document.getElementById('pergBarras'); const RCSS = ["#F5F4F0","#8E8C86","#55545A","#3E3E44"];
+    CONFIG.respostas.forEach((x,i) => { const d = document.createElement('div'); d.className = 'br resp';
+      d.innerHTML = `<span class="nm"></span><span class="tr"><i class="b" data-w="${x.valor}" style="background:${RCSS[Math.min(i,3)]}"></i></span><span class="vl">${x.valor}%</span>`;
+      d.firstChild.textContent = x.rotulo; pb.appendChild(d); });
+    const nota = document.querySelector('#exPerg .nota'); nota.textContent = 'Margem ' + CONFIG.margem;
+
+    const pips = document.getElementById('pips');
+    KEYS.forEach(k => { const d = document.createElement('div'); d.className = 'pip';
+      d.innerHTML = '<i></i><span></span>'; d.lastChild.textContent = CONFIG.etapas[k].curto; pips.appendChild(d); });
+    /* colchetes: as duas formas de usar IA em pesquisa */
+    const grupos = document.createElement('div'); grupos.className = 'grupos'; pips.parentNode.appendChild(grupos);
+    const N = KEYS.length, G = [["Simulação", 'quant', CONFIG.mostrarRadar ? 'radar' : 'prob'], ["Expansão", 'seed', 'expansao']];
+    const grupoEls = G.map(([nome, a, b]) => { const g = document.createElement('div'); g.className = 'grupo';
+      g.style.left = (idx(a)/N*100) + '%'; g.style.width = ((idx(b) - idx(a) + 1)/N*100 - 1) + '%';
+      g.innerHTML = '<span></span>'; g.firstChild.textContent = nome; grupos.appendChild(g); return [g, a, b]; });
+    const apiLista = document.getElementById('apiLista');
+    CONFIG.fontesCliente.forEach((f, i) => { const d = document.createElement('div'); d.className = 'api-ln'; d.style.transitionDelay = (i*80) + 'ms';
+      d.innerHTML = '<i></i><span></span>'; d.lastChild.textContent = f; apiLista.appendChild(d); });
+
+    function barras(box, on){
+      box.querySelectorAll('.b').forEach(b => b.style.width = on ? b.dataset.w + '%' : '0');
+    }
+    let ultimo = -1;
+    function painel(instant){
+      const key = KEYS[step], et = CONFIG.etapas[key];
+      const passo = document.getElementById('passo');
+      document.getElementById('pRot').textContent = et.rotulo;
+      document.getElementById('pTit').textContent = et.titulo;
+      document.getElementById('pTxt').textContent = et.texto;
+      document.getElementById('passo').classList.add('longo');
+      if (ultimo !== step && !instant){ passo.classList.remove('troca'); void passo.offsetWidth; passo.classList.add('troca'); }
+      ultimo = step;
+      const exC = document.getElementById('exComp'), exP = document.getElementById('exPerg');
+      exC.classList.toggle('on', key === 'expansao'); exP.classList.toggle('on', key === 'pergunta');
+      barras(exC, false); barras(exP, false);
+      const ligar = () => { barras(exC, key === 'expansao'); barras(exP, key === 'pergunta'); };
+      instant ? ligar() : setTimeout(ligar, 120);
+      [...pips.children].forEach((p,i) => p.classList.toggle('feito', i <= step));
+      const exp = has('expansao');
+      chips.classList.toggle('on', has('quant') && !exp);
+      balao.classList.toggle('on', has('antrop') && !exp);
+      balao.classList.toggle('dec', has('prob'));
+      document.getElementById('seedTag').classList.toggle('on', false);
+      document.getElementById('radarTag').classList.toggle('on', key === 'radar');
+      document.getElementById('apiBox').classList.toggle('on', key === 'seed');
+      balao.classList.toggle('on', has('antrop') && !exp && key !== 'seed');
+      grupoEls.forEach(([g, a, b]) => g.classList.toggle('on', step >= idx(a) && step <= idx(b)));
+    }
+
+    return {
+      passos: KEYS.length - 1,
+      setStep(s, instant){
+        step = s; const now = instant ? -1e9 : performance.now();
+        LAYERS.forEach(k => { const on = has(k); if (on !== flags[k].on) flags[k] = { on, t: now }; });
+        painel(instant); if (instant) draw();
+      },
+      ativar(v){ ativo = v; if (v) draw(); },
+      draw
+    };
+  })();
+
+  /* ================================================================
+     DOIS GÊMEOS (slide 02, terceiro clique)
+     ================================================================ */
+  const gemeos = (() => {
+    const cv = document.getElementById('gemeosCanvas'); if (!cv) return { ativar(){} };
+    const c = cv.getContext('2d'), W = 1400, H = 480;
+    const L = { x:300, y:230 }, Rn = { x:1100, y:230 };
+    let on = false, last = 0;
+    const fontes = Array.from({ length:60 }, (_, i) => ({ a: i/60*Math.PI*2, r: 158 + (i%3)*8 }));
+    const rr = rng(41), pop = [];
+    for (let i = 0; i < 120; i++){ const ang = i*2.39996, rad = Math.sqrt((i+.5)/120)*122;
+      pop.push({ x:Rn.x + Math.cos(ang)*rad, y:Rn.y + Math.sin(ang)*rad, s:.4 + rr()*.16, tone:rr(), hit:-1e9 }); }
+    const parts = [];
+    function draw(t){
+      c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,W,H);
+      const rot = t/1000*0.05;
+      c.lineWidth = 1; c.strokeStyle = "rgba(29,29,27,.16)";
+      c.beginPath(); c.arc(L.x, L.y, 122, 0, Math.PI*2); c.stroke();
+      for (let k = 0; k < 4; k++){ const rx = 122*Math.abs(Math.cos(rot*2 + k*Math.PI/4)); c.beginPath(); c.ellipse(L.x, L.y, Math.max(rx,1), 122, 0, 0, Math.PI*2); c.stroke(); }
+      for (let k = -2; k <= 2; k++){ const yy = L.y + k*44, w = Math.sqrt(122*122 - (k*44)**2); c.beginPath(); c.moveTo(L.x-w, yy); c.lineTo(L.x+w, yy); c.stroke(); }
+      fontes.forEach(f => { const a = f.a + rot; f.x = L.x + Math.cos(a)*f.r; f.y = L.y + Math.sin(a)*f.r;
+        c.globalAlpha = .55; c.fillStyle = "#1D1D1B"; c.beginPath(); c.arc(f.x, f.y, 2.6, 0, Math.PI*2); c.fill(); });
+      c.globalAlpha = 1;
+      if (on && t - last > 65){ last = t; const f = fontes[Math.floor(Math.random()*60)];
+        parts.push({ t0:t, sx:f.x, sy:f.y, tgt:pop[Math.floor(Math.random()*pop.length)], k:.85 + Math.random()*.3 }); }
+      for (let i = parts.length - 1; i >= 0; i--){
+        const p = parts[i], e = t - p.t0; let x, y;
+        if (e < 650){ const u = ease(e/650); x = lerp(p.sx, L.x, u); y = lerp(p.sy, L.y, u); }
+        else if (e < 2150){ const u = (e - 650)/1500, cx = (L.x + p.tgt.x)/2, cy = L.y - 190*p.k;
+          x = (1-u)*(1-u)*L.x + 2*(1-u)*u*cx + u*u*p.tgt.x; y = (1-u)*(1-u)*L.y + 2*(1-u)*u*cy + u*u*p.tgt.y; }
+        else { p.tgt.hit = t; parts.splice(i,1); continue; }
+        c.globalAlpha = .8; c.fillStyle = "#1D1D1B"; c.beginPath(); c.arc(x, y, 2.3, 0, Math.PI*2); c.fill();
+      }
+      c.globalAlpha = 1; c.fillStyle = "#F5F4F0"; c.beginPath(); c.arc(L.x, L.y, 64, 0, Math.PI*2); c.fill();
+      c.strokeStyle = "rgba(29,29,27,.4)"; c.stroke();
+      c.strokeStyle = "rgba(29,29,27,.16)"; c.beginPath(); c.arc(Rn.x, Rn.y, 150, 0, Math.PI*2); c.stroke();
+      pop.forEach(q => { const h = Math.max(0, 1 - (t - q.hit)/700);
+        figura(c, q.x, q.y + 6, q.s*(1 + h*.3), h > .05 ? "#0C0C0E" : (q.tone > .5 ? "#6B6A70" : "#9A988F"), .55 + .45*Math.max(h, q.tone*.6)); });
+      c.globalAlpha = 1;
+    }
+    function loop(t){ if (on) draw(t); requestAnimationFrame(loop); }
+    requestAnimationFrame(loop);
+    return { ativar(v){ on = v; if (v) draw(performance.now()); } };
+  })();
+
+  /* palavras que aparecem uma a uma */
+  document.querySelectorAll('.rv').forEach(el => {
+    const ws = el.textContent.trim().split(/\s+/);
+    el.textContent = '';
+    ws.forEach((w, i) => { const s = document.createElement('span'); s.className = 'w'; s.style.setProperty('--i', i); s.textContent = w;
+      el.appendChild(s); if (i < ws.length - 1) el.appendChild(document.createTextNode(' ')); });
+  });
+  function aplicaPasso(slide, p){
+    slide.dataset.step = p;
+    slide.querySelectorAll('[data-in]').forEach(el => { const a = +el.dataset.in, b = el.dataset.out !== undefined ? +el.dataset.out : 1e9;
+      el.classList.toggle('on', p >= a && p < b); });
+    slide.querySelectorAll('[data-up]').forEach(el => el.classList.toggle('up', p >= +el.dataset.up));
+  }
+
+  /* ================================================================
+     API FIRST (slide 02): fontes → hub → gêmeos-base
+     ================================================================ */
+  const apiNet = (() => {
+    const cv = document.getElementById('apiCanvas'); if (!cv) return { ativar(){}, passo(){} };
+    const c = cv.getContext('2d');
+    const PUB = ["IBGE","TSE","Banco Central","DATASUS","Vigitel","PNS","FMI","Imprensa","Redes sociais"];
+    const CLI = CONFIG.fontesCliente;
+    const HUB = { x:1060, y:500 };
+    const nodes = [];
+    PUB.forEach((n, i) => nodes.push({ n, x:860, y:240 + i*38, g:1 }));
+    CLI.forEach((n, i) => nodes.push({ n, x:860, y:620 + i*34, g:2 }));
+    const rr = rng(77), twins = [];
+    for (let row = 0; row < 52; row++) for (let col = 0; col < 40; col++)
+      twins.push({ x:1176 + col*9.2 + (row%2)*4.6, y:262 + row*9.4, t:rr(), hit:-1e9, d:Math.hypot(col, row - 26) });
+    let on = false, passo = 0, t1 = -1e9, t2 = -1e9, t3 = -1e9, last = 0;
+    const parts = [];
+    function vis(ts, delay = 0, dur = 600){ return ease(clamp((performance.now() - ts - delay) / dur)); }
+    function draw(t){
+      c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,1600,900);
+      const a1 = passo >= 1 ? vis(t1) : 0, a2 = passo >= 2 ? vis(t2) : 0, a3 = passo >= 3 ? vis(t3) : 0;
+      c.font = "500 15px 'JetBrains Mono', monospace"; c.textAlign = "right"; c.textBaseline = "middle";
+      /* ligações fonte → hub */
+      nodes.forEach((nd, i) => {
+        const a = nd.g === 1 ? a1 * clamp((performance.now() - t1 - i*60) / 300) : a2 * clamp((performance.now() - t2 - (i-9)*80) / 300);
+        if (a <= 0) return;
+        c.globalAlpha = a * .22; c.strokeStyle = "#F5F4F0"; c.lineWidth = 1;
+        c.beginPath(); c.moveTo(nd.x, nd.y); c.bezierCurveTo(nd.x + 110, nd.y, HUB.x - 110, HUB.y, HUB.x, HUB.y); c.stroke();
+        c.globalAlpha = a; c.fillStyle = nd.g === 1 ? "#F5F4F0" : "#FFFFFF";
+        if (nd.g === 1){ c.beginPath(); c.arc(nd.x, nd.y, 3.5, 0, Math.PI*2); c.fill(); }
+        else c.fillRect(nd.x - 3.5, nd.y - 3.5, 7, 7);
+        c.fillStyle = nd.g === 1 ? "#C9C7C0" : "#F5F4F0"; c.fillText(nd.n, nd.x - 14, nd.y);
+      });
+      if (a2 > 0){ c.globalAlpha = a2; c.textAlign = "left"; c.fillStyle = "#8E8C86"; c.font = "500 13px 'JetBrains Mono', monospace";
+        c.fillText("DADOS DO CLIENTE", 760, 598); c.fillText("FONTES PÚBLICAS", 760, 218); c.textAlign = "right"; }
+      else if (a1 > 0){ c.globalAlpha = a1; c.textAlign = "left"; c.fillStyle = "#8E8C86"; c.font = "500 13px 'JetBrains Mono', monospace"; c.fillText("FONTES PÚBLICAS", 760, 218); }
+      /* hub */
+      if (a1 > 0){
+        const pulse = .5 + .5*Math.sin(t/400);
+        c.globalAlpha = a1 * (.12 + .1*pulse); c.fillStyle = "#F5F4F0"; c.beginPath(); c.arc(HUB.x, HUB.y, 54 + 6*pulse, 0, Math.PI*2); c.fill();
+        c.globalAlpha = a1; c.fillStyle = "#0C0C0E"; c.beginPath(); c.arc(HUB.x, HUB.y, 42, 0, Math.PI*2); c.fill();
+        c.strokeStyle = "#F5F4F0"; c.lineWidth = 1.4; c.stroke();
+        c.fillStyle = "#F5F4F0"; c.textAlign = "center"; c.font = "600 15px 'JetBrains Mono', monospace"; c.fillText("API", HUB.x, HUB.y);
+      }
+      /* gêmeos-base */
+      if (a3 > 0){
+        c.strokeStyle = "rgba(245,244,240,.22)"; c.globalAlpha = a3 * .6; c.lineWidth = 1;
+        c.beginPath(); c.moveTo(HUB.x + 42, HUB.y); c.lineTo(1166, HUB.y); c.stroke();
+        twins.forEach(w => { const v = clamp((performance.now() - t3 - w.d*14) / 400); if (v <= 0) return;
+          const h = Math.max(0, 1 - (t - w.hit)/500);
+          c.globalAlpha = v * (.28 + .4*w.t + .5*h); c.fillStyle = h > .1 ? "#FFFFFF" : "#C9C7C0";
+          c.beginPath(); c.arc(w.x, w.y, 1.9 + h*1.4, 0, Math.PI*2); c.fill(); });
+        c.globalAlpha = a3; c.textAlign = "left"; c.fillStyle = "#8E8C86"; c.font = "500 13px 'JetBrains Mono', monospace";
+        c.fillText("GÊMEOS-BASE · ~2.000", 1176, 240);
+      }
+      /* pulsos */
+      if (on && passo >= 1 && t - last > 55){ last = t;
+        const pool = nodes.filter(n => n.g === 1 || passo >= 2), nd = pool[Math.floor(Math.random()*pool.length)];
+        parts.push({ t0:t, nd, tw: passo >= 3 ? twins[Math.floor(Math.random()*twins.length)] : null }); }
+      for (let i = parts.length - 1; i >= 0; i--){
+        const p = parts[i], e = t - p.t0; let x, y;
+        if (e < 1100){ const u = ease(e/1100), nd = p.nd;
+          const bx = (k0,k1,k2,k3,u) => (1-u)**3*k0 + 3*(1-u)**2*u*k1 + 3*(1-u)*u*u*k2 + u**3*k3;
+          x = bx(nd.x, nd.x + 110, HUB.x - 110, HUB.x, u); y = bx(nd.y, nd.y, HUB.y, HUB.y, u); }
+        else if (p.tw && e < 1900){ const u = ease((e - 1100)/800); x = lerp(HUB.x, p.tw.x, u); y = lerp(HUB.y, p.tw.y, u); }
+        else { if (p.tw) p.tw.hit = t; parts.splice(i,1); continue; }
+        if (Math.hypot(x - HUB.x, y - HUB.y) < 44) continue;
+        c.globalAlpha = .9; c.fillStyle = p.nd.g === 2 ? "#FFFFFF" : "#F5F4F0";
+        if (p.nd.g === 2) c.fillRect(x - 2.5, y - 2.5, 5, 5); else { c.beginPath(); c.arc(x, y, 2.2, 0, Math.PI*2); c.fill(); }
+      }
+      c.globalAlpha = 1;
+    }
+    function loop(t){ if (on) draw(t); requestAnimationFrame(loop); }
+    requestAnimationFrame(loop);
+    function conta(){
+      document.querySelectorAll('#s-api .conta').forEach(el => {
+        const v = +el.dataset.v, t0 = performance.now();
+        const tick = () => { const u = ease(clamp((performance.now() - t0) / 1400));
+          el.textContent = el.dataset.pre + Math.round(v*u) + el.dataset.suf; if (u < 1) requestAnimationFrame(tick); };
+        tick(); });
+    }
+    return {
+      ativar(v){ on = v; },
+      passo(p, instant){
+        const now = instant ? -1e9 : performance.now();
+        if (p >= 1 && passo < 1){ t1 = now; if (!instant) conta(); }
+        if (p >= 2 && passo < 2) t2 = now;
+        if (p >= 3 && passo < 3) t3 = now;
+        if (p < 1) t1 = -1e9; passo = p;
+      }
+    };
+  })();
+  if (document.getElementById('apiRef')) document.getElementById('apiRef').textContent = CONFIG.referencias || '';
+
+  /* ================================================================
+     MOS: exemplo hipotético contado em 4 etapas
+     ================================================================ */
+  const mosFlow = (() => {
+    const cv = document.getElementById('mosCanvas'); if (!cv) return { ativar(){}, passo(){} };
+    const c = cv.getContext('2d'), W = 920, H = 540, X = CONFIG.mosExemplo;
+    const fmt = n => Math.round(n).toLocaleString('pt-BR');
+    const TXT = [
+      null,
+      { num: () => fmt(X.recebidos) + " → " + fmt(X.recebidos - X.descartados), sub: "respostas recebidas → respostas válidas",
+        frase: "Retiramos as respostas inconsistentes, de quem respondeu sem prestar atenção." },
+      { num: () => X.genero[0] + "% → " + X.genero[1] + "%", sub: "mulheres na amostra → mulheres no Brasil",
+        frase: "A amostra tinha mulheres demais e também classe A e B demais: " + X.classeAB[0] + "%, quando no Brasil são " + X.classeAB[1] + "%. Ajustamos o peso de cada resposta para ficar igual ao país." },
+      { num: () => fmt(X.recebidos - X.descartados) + " → " + fmt(X.gemeos), sub: "respostas válidas → gêmeos digitais",
+        frase: "Com " + fmt(X.recebidos - X.descartados) + " pessoas, só dá para analisar " + X.celulasAntes + " grupos com segurança, como “Nordeste, classe C”. Com " + fmt(X.gemeos) + " gêmeos digitais, são " + X.celulasDepois + ". Nos grupos que faltam, indicamos onde fazer mais entrevistas." },
+      { num: () => X.serie.length + " leituras", sub: "1 rodada de entrevistas + " + (X.serie.length - 1) + " atualizações",
+        frase: "Os dados envelhecem rápido. Com a população artificial, atualizamos a leitura todo mês, sem novas entrevistas." }
+    ];
+    const r = rng(91), N0 = X.recebidos;
+    /* 400 pontos em grade */
+    const cols = 25, gap = 26, ox = 40, oy = 40;
+    const P = Array.from({ length:N0 }, (_, i) => ({ gx: ox + (i % cols)*gap*1.38, gy: oy + Math.floor(i/cols)*gap*1.15, j:r() }));
+    const ruins = new Set(); while (ruins.size < X.descartados) ruins.add(Math.floor(r()*N0));
+    const validos = P.filter((_, i) => !ruins.has(i));
+    validos.forEach((p, k) => { p.mulher = k < Math.round(validos.length * X.genero[0]/100); });
+    /* matriz região × renda: quais células já eram viáveis e quais ficam viáveis */
+    const REG = ["Norte","Nordeste","Centro-Oeste","Sudeste","Sul"], REN = ["A/B","C1","C2","D/E"];
+    const ordem = [15,11,7,14,10,6,3,18,2,13,9,19,5,17,1,12,8,16,4,0];
+    let passo = 0, ts = -1e9, on = false;
+    const since = () => performance.now() - ts;
+    function grade(alphaFn, raio){ P.forEach((p, i) => { const a = alphaFn(p, i); if (a <= 0) return;
+      c.globalAlpha = a; c.fillStyle = "#1D1D1B"; c.beginPath(); c.arc(p.gx, p.gy, raio, 0, Math.PI*2); c.fill(); }); }
+    function draw(){
+      c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,W,H); const e = since();
+      c.font = "500 14px 'JetBrains Mono', monospace"; c.textBaseline = "middle";
+      if (passo === 1){
+        const scan = clamp(e / 2200) * (W + 40) - 20;
+        P.forEach((p, i) => {
+          const passou = p.gx < scan, ruim = ruins.has(i);
+          if (ruim && passou){ const q = clamp((e - 2200*p.gx/(W+40) - 300) / 900);
+            c.globalAlpha = 1 - q; c.strokeStyle = "#1D1D1B"; c.lineWidth = 1.6;
+            c.beginPath(); c.arc(p.gx, p.gy + q*60, 6, 0, Math.PI*2); c.stroke(); }
+          else { c.globalAlpha = 1; c.fillStyle = "#1D1D1B"; c.beginPath(); c.arc(p.gx, p.gy, 4.2, 0, Math.PI*2); c.fill(); }
+        });
+        if (scan < W){ c.globalAlpha = .35; c.fillStyle = "#1D1D1B"; c.fillRect(scan, 10, 2, H - 60); }
+        c.globalAlpha = 1; c.fillStyle = "#403F45"; c.textAlign = "left";
+        c.fillText("cada ponto, uma pessoa entrevistada", ox - 6, H - 22);
+      }
+      if (passo === 2){
+        /* duas barras feitas de pontos: gênero e classe AB, amostra vs Brasil */
+        const q = ease(clamp((e - 900) / 1800));
+        const barras = [["Mulheres", X.genero[0], X.genero[1]], ["Classe A/B", X.classeAB[0], X.classeAB[1]]];
+        barras.forEach(([nome, a, b], k) => {
+          const y0 = 70 + k*220, x0 = 30, L = 860, v = lerp(a, b, q);
+          c.globalAlpha = 1; c.fillStyle = "#1D1D1B"; c.textAlign = "left"; c.font = "600 22px 'Space Grotesk', sans-serif";
+          c.fillText(nome, x0, y0); c.font = "500 14px 'JetBrains Mono', monospace"; c.fillStyle = "#403F45";
+          c.fillText("amostra " + Math.round(v) + "%   ·   Brasil " + b + "%", x0 + 230, y0);
+          const rows = 5, cols2 = 50, dx = L/cols2;
+          for (let cc = 0; cc < cols2; cc++) for (let rr = 0; rr < rows; rr++){
+            const dentro = (cc + .5)/cols2*100 < v;
+            c.globalAlpha = dentro ? 1 : .18; c.fillStyle = "#1D1D1B";
+            c.beginPath(); c.arc(x0 + cc*dx + dx/2, y0 + 40 + rr*17, dentro ? 4.4 : 3.6, 0, Math.PI*2); c.fill(); }
+          const mx = x0 + b/100*L; c.globalAlpha = 1; c.strokeStyle = "#1D1D1B"; c.lineWidth = 2; c.setLineDash([5,4]);
+          c.beginPath(); c.moveTo(mx, y0 + 22); c.lineTo(mx, y0 + 40 + rows*17); c.stroke(); c.setLineDash([]);
+          c.fillStyle = "#1D1D1B"; c.textAlign = "center"; c.fillText("Brasil", mx, y0 + 40 + rows*17 + 18);
+        });
+      }
+      if (passo === 3){
+        const m = ease(clamp(e / 1600)), mat = ease(clamp((e - 1900) / 900));
+        if (mat < 1){
+          /* os pontos válidos se multiplicam até a contagem final */
+          const alvo = Math.round(lerp(validos.length, X.gemeos, m)), k = Math.ceil(alvo / validos.length);
+          c.globalAlpha = 1 - mat; c.fillStyle = "#1D1D1B"; let n = 0;
+          validos.forEach((p, i) => { for (let s = 0; s < k && n < alvo; s++, n++){
+            const a = (s*2.39996 + i), rad = s === 0 ? 0 : 6 + s*1.6;
+            c.beginPath(); c.arc(p.gx + Math.cos(a)*rad*m, p.gy + Math.sin(a)*rad*m*.8, s === 0 ? 3 : 1.7, 0, Math.PI*2); c.fill(); } });
+        }
+        if (mat > 0){
+          const x0 = 150, y0 = 40, cw = 175, ch = 84;
+          c.globalAlpha = mat; c.textAlign = "center"; c.fillStyle = "#403F45"; c.font = "500 14px 'JetBrains Mono', monospace";
+          REN.forEach((n, j) => c.fillText(n, x0 + j*cw + cw/2, y0 - 16));
+          c.textAlign = "right"; const RET = document.documentElement.classList.contains('retrato'), SIG = {"Norte":"N","Nordeste":"NE","Centro-Oeste":"CO","Sudeste":"SE","Sul":"S"};
+          REG.forEach((n, i) => c.fillText(RET ? (SIG[n] || n) : n, x0 - 14, y0 + i*ch + ch/2));
+          const fill = clamp((e - 2600) / 1600);
+          ordem.forEach((idx, o) => {
+            const i = Math.floor(idx / 4), j = idx % 4, x = x0 + j*cw, y = y0 + i*ch;
+            const viavelAntes = o < X.celulasAntes, viavelDepois = o < X.celulasDepois;
+            const acende = viavelAntes ? 1 : (viavelDepois ? clamp(fill*X.celulasDepois - o + 1) : 0);
+            c.globalAlpha = mat; c.strokeStyle = "rgba(29,29,27,.25)"; c.lineWidth = 1; c.strokeRect(x + 4, y + 4, cw - 8, ch - 8);
+            if (acende > 0){ c.globalAlpha = mat*acende*(viavelAntes ? 1 : .78); c.fillStyle = viavelAntes ? "#1D1D1B" : "#403F45"; c.fillRect(x + 4, y + 4, cw - 8, ch - 8); }
+            if (!viavelDepois && fill >= 1){ const pul = .5 + .5*Math.sin(performance.now()/280);
+              c.globalAlpha = mat*(.5 + .5*pul); c.strokeStyle = "#1D1D1B"; c.lineWidth = 2.2; c.strokeRect(x + 6, y + 6, cw - 12, ch - 12);
+              c.globalAlpha = mat; c.fillStyle = "#1D1D1B"; c.textAlign = "center";
+              if (RET){ c.fillText("mais", x + cw/2, y + ch/2 - 12); c.fillText("entrevistas", x + cw/2, y + ch/2 + 12); } else c.fillText("mais entrevistas", x + cw/2, y + ch/2); }
+          });
+          c.globalAlpha = mat; c.textAlign = "left"; c.fillStyle = "#403F45";
+          if (RET){ c.fillText("preto: dá para analisar com as entrevistas", 20, H - 46); c.fillText("cinza: dá para analisar com os gêmeos digitais", 20, H - 16); }
+          else c.fillText("preto: dá para analisar com as entrevistas   ·   cinza: dá para analisar com os gêmeos digitais", x0 - 120, H - 18);
+        }
+      }
+      if (passo === 4){
+        const S = X.serie, x0 = 90, x1 = 860, yb = 430, yt = 70, mn = Math.min(...S) - 6, mx = Math.max(...S) + 4;
+        const px = i => x0 + i*(x1 - x0)/(S.length - 1), py = v => yb - (v - mn)/(mx - mn)*(yb - yt);
+        const q = clamp(e / 2600)*(S.length - 1);
+        c.globalAlpha = 1; c.strokeStyle = "rgba(29,29,27,.15)"; c.lineWidth = 1;
+        c.beginPath(); c.moveTo(x0, yb); c.lineTo(x1, yb); c.stroke();
+        c.strokeStyle = "#1D1D1B"; c.lineWidth = 2.4; c.beginPath();
+        for (let i = 0; i <= Math.floor(q) && i < S.length; i++){ i === 0 ? c.moveTo(px(0), py(S[0])) : c.lineTo(px(i), py(S[i])); }
+        const fi = Math.floor(q), fr = q - fi; if (fi < S.length - 1) c.lineTo(lerp(px(fi), px(fi+1), fr), lerp(py(S[fi]), py(S[fi+1]), fr));
+        c.stroke();
+        S.forEach((v, i) => { if (i > q + .01) return;
+          c.globalAlpha = 1; c.fillStyle = i === 0 ? "#1D1D1B" : "#F5F4F0"; c.strokeStyle = "#1D1D1B"; c.lineWidth = 2;
+          c.beginPath(); c.arc(px(i), py(v), 8, 0, Math.PI*2); c.fill(); c.stroke();
+          c.fillStyle = "#1D1D1B"; c.textAlign = "center"; c.font = "700 24px 'Space Grotesk', sans-serif"; c.fillText(v + "%", px(i), py(v) - 30);
+          c.font = "500 14px 'JetBrains Mono', monospace"; c.fillStyle = "#403F45";
+          c.fillText(X.ondas[i], px(i), yb + 26); c.fillText(i === 0 ? "entrevistas" : "atualização", px(i), yb + 46); });
+        c.textAlign = "left"; c.fillStyle = "#403F45"; c.fillText(X.indicador, x0, 30);
+      }
+      c.globalAlpha = 1;
+    }
+    function loop(){ if (on) draw(); requestAnimationFrame(loop); }
+    requestAnimationFrame(loop);
+    const trilho = document.querySelectorAll('#s-mos .tr-i'), box = document.querySelector('#s-mos .ex-txt');
+    return {
+      ativar(v){ on = v; },
+      passo(p, instant){
+        if (p !== passo || instant) ts = instant ? -1e9 : performance.now();
+        passo = p;
+        trilho.forEach((el, i) => { el.classList.toggle('feito', i + 1 < p); el.classList.toggle('atual', i + 1 === p); });
+        const t = TXT[Math.min(p, 4)];
+        if (p < 1 || p > 4) box.classList.remove('troca');
+        if (t && p >= 1 && p <= 4){ document.getElementById('exNum').textContent = t.num(); document.getElementById('exSub').textContent = t.sub;
+          document.getElementById('exFrase').textContent = t.frase; box.classList.remove('troca'); void box.offsetWidth; box.classList.add('troca'); }
+      }
+    };
+  })();
+
+  /* ================================================================
+     MOS EM TODAS AS ÁREAS: perguntas entram, insights voltam
+     ================================================================ */
+  const areasMap = (() => {
+    const cv = document.getElementById('areasCanvas'); if (!cv) return { ativar(){}, passo(){} };
+    const c = cv.getContext('2d'), W = 940, H = 640, A = CONFIG.areas.lista, G = CONFIG.areas.grupos;
+    const CX = 470, CY = 330, RX = 330, RY = 262;
+    const nodes = A.map((a, i) => { const ang = -Math.PI/2 + i/A.length*Math.PI*2;
+      return { ...a, x: CX + Math.cos(ang)*RX, y: CY + Math.sin(ang)*RY, ang, lit:-1e9 }; });
+    const rr = rng(57), pop = Array.from({ length:260 }, (_, i) => { const a = i*2.39996, r = Math.sqrt((i+.5)/260)*104;
+      return { x: CX + Math.cos(a)*r, y: CY + Math.sin(a)*r*.92, t: rr(), hit:-1e9 }; });
+    let on = false, passo = 0, ts = -1e9, last = 0; const parts = [];
+    const ativos = () => passo >= 1 && passo <= G.length ? G[passo - 1] : (passo > G.length ? nodes.map((_, i) => i) : []);
+    function packet(from, to, t0, dur, quad){ parts.push({ from, to, t0, dur, quad }); }
+    function draw(t){
+      c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,W,H);
+      const atv = ativos(), fim = passo > G.length;
+      /* linhas área ↔ centro */
+      nodes.forEach((n, i) => { const feito = i < 99 && n.lit > 0, atual = atv.includes(i);
+        c.globalAlpha = atual ? .45 : (feito ? .22 : .1); c.strokeStyle = "#1D1D1B"; c.lineWidth = 1;
+        c.beginPath(); c.moveTo(n.x, n.y); c.lineTo(CX + (n.x-CX)*.36, CY + (n.y-CY)*.36); c.stroke(); });
+      /* população */
+      pop.forEach(p => { const h = Math.max(0, 1 - (t - p.hit)/600);
+        c.globalAlpha = .35 + .35*p.t + .3*h; c.fillStyle = "#1D1D1B"; c.beginPath(); c.arc(p.x, p.y, 2.4 + h*1.2, 0, Math.PI*2); c.fill(); });
+      c.globalAlpha = 1; c.fillStyle = "#F5F4F0"; c.fillRect(CX - 112, CY - 13, 224, 26);
+      c.fillStyle = "#1D1D1B"; c.font = "600 15px 'JetBrains Mono', monospace"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText("POPULAÇÃO ARTIFICIAL", CX, CY);
+      /* pacotes */
+      for (let i = parts.length - 1; i >= 0; i--){ const p = parts[i], u = (t - p.t0)/p.dur;
+        if (u < 0) continue; if (u >= 1){ if (p.to === 'C') pop.forEach(q => { if (Math.random() < .25) q.hit = t + Math.random()*300; });
+          else nodes[p.to].lit = t; parts.splice(i,1); continue; }
+        const a = p.from === 'C' ? { x:CX, y:CY } : nodes[p.from], b = p.to === 'C' ? { x:CX, y:CY } : nodes[p.to], e = ease(u);
+        const x = lerp(a.x, b.x, e), y = lerp(a.y, b.y, e);
+        c.globalAlpha = 1; c.fillStyle = "#1D1D1B";
+        if (p.quad) c.fillRect(x - 3.5, y - 3.5, 7, 7); else { c.beginPath(); c.arc(x, y, 3.6, 0, Math.PI*2); c.fill(); }
+      }
+      /* nós das áreas */
+      nodes.forEach((n, i) => { const atual = atv.includes(i), feito = n.lit > 0;
+        if (atual){ const pul = .5 + .5*Math.sin(t/260); c.globalAlpha = .12 + .1*pul; c.fillStyle = "#1D1D1B"; c.beginPath(); c.arc(n.x, n.y, 20 + 4*pul, 0, Math.PI*2); c.fill(); }
+        c.globalAlpha = 1; c.lineWidth = 1.6; c.strokeStyle = "#1D1D1B"; c.fillStyle = feito || atual ? "#1D1D1B" : "#F5F4F0";
+        c.beginPath(); c.arc(n.x, n.y, 9, 0, Math.PI*2); c.fill(); c.stroke();
+        const cos = Math.cos(n.ang), dx = cos > .25 ? 18 : cos < -.25 ? -18 : 0, dy = Math.abs(cos) <= .25 ? (Math.sin(n.ang) < 0 ? -24 : 26) : 0;
+        c.textAlign = dx > 0 ? "left" : dx < 0 ? "right" : "center";
+        c.globalAlpha = atual || feito || fim ? 1 : .45; c.fillStyle = "#1D1D1B"; c.font = (atual ? "700 " : "600 ") + "19px 'Space Grotesk', sans-serif";
+        c.fillText(n.area, n.x + dx, n.y + dy); });
+      /* no fim, ida e volta contínua em todas as áreas */
+      if (on && fim && t - last > 120){ last = t; const i = Math.floor(Math.random()*nodes.length);
+        Math.random() < .5 ? packet(i, 'C', t, 900, true) : packet('C', i, t, 900, false); }
+      c.globalAlpha = 1;
+    }
+    function loop(t){ if (on) draw(t); requestAnimationFrame(loop); }
+    requestAnimationFrame(loop);
+    const col = document.getElementById('arCol');
+    document.getElementById('arCenario').textContent = CONFIG.areas.cenario;
+    function cards(p){
+      col.innerHTML = ''; col.classList.remove('denso');
+      if (p >= 1 && p <= G.length){ const g = G[p - 1]; col.classList.toggle('denso', g.length > 1);
+        g.forEach(i => { const a = A[i], d = document.createElement('div'); d.className = 'ar-card';
+          d.innerHTML = '<p class="ar-a"></p><p class="ar-q"></p><p class="ar-r"><span class="ar-n"></span><span class="ar-t"></span></p>';
+          d.querySelector('.ar-a').textContent = a.area; d.querySelector('.ar-q').textContent = a.pergunta;
+          d.querySelector('.ar-n').textContent = a.numero; d.querySelector('.ar-t').textContent = a.insight;
+          col.appendChild(d); requestAnimationFrame(() => requestAnimationFrame(() => d.classList.add('vivo'))); }); }
+      else if (p > G.length){ const d = document.createElement('div');
+        d.innerHTML = '<p class="ar-fim"></p><p class="ar-fim-sub"></p>';
+        d.firstChild.textContent = CONFIG.areas.fecho; d.lastChild.textContent = CONFIG.areas.fechoSub; col.appendChild(d); }
+    }
+    return {
+      ativar(v){ on = v; },
+      passo(p, instant){
+        const t = performance.now();
+        if (p !== passo){
+          parts.length = 0;
+          nodes.forEach((n, i) => { const feitoAte = G.slice(0, Math.max(0, p - 1)).flat(); n.lit = (p > G.length || feitoAte.includes(i)) ? 1 : -1e9; });
+          if (p >= 1 && p <= G.length && !instant) G[p - 1].forEach((i, k) => { packet(i, 'C', t + k*150, 900, true); packet('C', i, t + 1500 + k*150, 900, false); });
+          if (p >= 1 && p <= G.length && instant) G[p - 1].forEach(i => nodes[i].lit = 1);
+        }
+        passo = p; cards(p);
+        if (instant) col.querySelectorAll('.ar-card').forEach(d => d.classList.add('vivo'));
+      }
+    };
+  })();
+
+  /* ================================================================
+     COMO CONTRATAR: serviço e on premise
+     ================================================================ */
+  const contrata = (() => {
+    const K = CONFIG.contratar;
+    [['ct1t', K.servico.titulo], ['ct1a', K.servico.texto1], ['ct1b', K.servico.texto2], ['ct1c', K.servico.exemplo],
+     ['ct2t', K.onpremise.titulo], ['ct2a', K.onpremise.texto1], ['ct2b', K.onpremise.texto2], ['ctFecho', K.fecho]]
+      .forEach(([id, t]) => { const el = document.getElementById(id); if (el) el.textContent = t; });
+    document.querySelectorAll('#s-contrata .rv').forEach(el => { const ws = el.textContent.trim().split(/\s+/); el.textContent = '';
+      ws.forEach((w, i) => { const s = document.createElement('span'); s.className = 'w'; s.style.setProperty('--i', i); s.textContent = w;
+        el.appendChild(s); if (i < ws.length - 1) el.appendChild(document.createTextNode(' ')); }); });
+    const c1 = document.getElementById('ctCanvas1'), c2 = document.getElementById('ctCanvas2');
+    if (!c1) return { ativar(){}, passo(){} };
+    const g1 = c1.getContext('2d'), g2 = c2.getContext('2d'), W = 670, H = 280;
+    const rr = rng(63);
+    const nuvem = (cx, cy, n, r) => Array.from({ length:n }, (_, i) => { const a = i*2.39996, d = Math.sqrt((i+.5)/n)*r; return { x:cx + Math.cos(a)*d, y:cy + Math.sin(a)*d*.85, t:rr(), hit:-1e9 }; });
+    const pop1 = nuvem(500, 140, 120, 78), pop2 = nuvem(335, 140, 110, 66);
+    let on = false, passo = 0;
+    function txt(g, s, x, y, al = "center", f = "500 14px 'JetBrains Mono', monospace", cor = "#403F45"){ g.font = f; g.textAlign = al; g.textBaseline = "middle"; g.fillStyle = cor; g.fillText(s, x, y); }
+    function pontos(g, pop, t){ pop.forEach(p => { const h = Math.max(0, 1 - (t - p.hit)/600); g.globalAlpha = .35 + .35*p.t + .3*h; g.fillStyle = "#1D1D1B";
+      g.beginPath(); g.arc(p.x, p.y, 2.4 + h, 0, Math.PI*2); g.fill(); }); g.globalAlpha = 1; }
+    /* 01 · serviço: a pergunta sai da empresa, os cenários voltam */
+    function draw1(t){
+      const g = g1; g.setTransform(2,0,0,2,0,0); g.clearRect(0,0,W,H);
+      g.strokeStyle = "#1D1D1B"; g.lineWidth = 1.4; g.strokeRect(30, 70, 170, 140); txt(g, "Sua empresa", 115, 50);
+      g.setLineDash([4,4]); g.strokeRect(400, 40, 200, 200); g.setLineDash([]); txt(g, "Mimetica", 500, 22);
+      pontos(g, pop1, t);
+      const ciclo = 3600, e = t % ciclo, k = Math.floor(t / ciclo);
+      if (e < 1100){ const u = ease(e/1100); g.fillStyle = "#1D1D1B"; g.fillRect(lerp(200, 430, u) - 4, 140 - 4, 8, 8); txt(g, "pergunta", 315, 122); }
+      else if (e < 1700){ if (!pop1._k || pop1._k !== k){ pop1._k = k; pop1.forEach(p => p.hit = t + Math.random()*400); } }
+      else if (e < 2700){ const u = ease((e-1700)/1000); [0,1,2].forEach(j => { g.fillStyle = "#1D1D1B"; g.beginPath(); g.arc(lerp(430, 200, u), 140 + (j-1)*26*u, 3.6, 0, Math.PI*2); g.fill(); }); txt(g, "cenários", 315, 196); }
+      const bar = e >= 2700 ? ease(clamp((e - 2700)/500)) : (e < 300 ? 1 - e/300 : 0);
+      [62, 41, 27].forEach((v, j) => { g.globalAlpha = bar; g.fillStyle = "#1D1D1B"; g.fillRect(50, 100 + j*32, v*1.9*bar, 16); txt(g, "ABC"[j], 44, 108 + j*32, "right"); });
+      g.globalAlpha = 1;
+    }
+    /* 02 · on premise: tudo circula dentro do perímetro do cliente */
+    const fontes = [["Cadastro", 140, 70], ["Vendas", 140, 140], ["Atendimento", 140, 210]], areas = [["Marketing", 540, 70], ["Varejo", 540, 140], ["Imprensa", 540, 210]];
+    const parts = []; let last = 0;
+    function draw2(t){
+      const g = g2; g.setTransform(2,0,0,2,0,0); g.clearRect(0,0,W,H);
+      g.strokeStyle = "#1D1D1B"; g.lineWidth = 1.8; g.strokeRect(14, 26, W - 28, H - 40);
+      txt(g, "Perímetro da sua empresa", 30, 12, "left");
+      /* cadeado */
+      g.lineWidth = 1.6; g.strokeRect(W - 46, 6, 18, 14); g.beginPath(); g.arc(W - 37, 6, 6, Math.PI, 0); g.stroke();
+      pontos(g, pop2, t); g.fillStyle = "#F5F4F0"; g.fillRect(335 - 44, 128, 88, 24); txt(g, "Mimetica", 335, 140, "center", "600 15px 'JetBrains Mono', monospace", "#1D1D1B");
+      fontes.forEach(([n, x, y]) => { g.fillStyle = "#1D1D1B"; g.fillRect(x - 4, y - 4, 8, 8); txt(g, n, x - 14, y, "right"); });
+      areas.forEach(([n, x, y]) => { g.fillStyle = "#1D1D1B"; g.beginPath(); g.arc(x, y, 4.5, 0, Math.PI*2); g.fill(); txt(g, n, x + 14, y, "left"); });
+      if (on && t - last > 260){ last = t; const f = fontes[Math.floor(Math.random()*3)], a = areas[Math.floor(Math.random()*3)];
+        parts.push({ t0:t, f, a }); }
+      for (let i = parts.length - 1; i >= 0; i--){ const p = parts[i], e = t - p.t0;
+        if (e < 900){ const u = ease(e/900); g.fillStyle = "#1D1D1B"; g.fillRect(lerp(p.f[1], 300, u) - 3, lerp(p.f[2], 140, u) - 3, 6, 6); }
+        else if (e < 1800){ if (!p.hit){ p.hit = 1; pop2.forEach(q => { if (Math.random() < .2) q.hit = t; }); }
+          const u = ease((e-900)/900); g.fillStyle = "#1D1D1B"; g.beginPath(); g.arc(lerp(370, p.a[1], u), lerp(140, p.a[2], u), 3, 0, Math.PI*2); g.fill(); }
+        else parts.splice(i,1); }
+    }
+    function loop(t){ if (on){ if (passo >= 1) draw1(t); if (passo >= 2) draw2(t); } requestAnimationFrame(loop); }
+    requestAnimationFrame(loop);
+    return { ativar(v){ on = v; }, passo(p){ passo = p; } };
+  })();
+
+  /* ================================================================
+     NAVEGAÇÃO
+     ================================================================ */
+  const stage = document.getElementById('stage');
+  document.querySelectorAll('[data-opcional="smallville"]').forEach(el => { if (!CONFIG.mostrarSmallville) el.remove(); });
+  const slides = [...document.querySelectorAll('.slide')];
+  const twinIdx = slides.findIndex(s => s.id === 's-twin');
+  const passosDe = i => i === twinIdx ? twin.passos : (+slides[i].dataset.steps || 0);
+  const quemIdx = slides.findIndex(s => s.id === 's-quem');
+  const apiIdx = slides.findIndex(s => s.id === 's-api');
+  const mosIdx = slides.findIndex(s => s.id === 's-mos');
+  const areasIdx = slides.findIndex(s => s.id === 's-areas');
+  const ctIdx = slides.findIndex(s => s.id === 's-contrata');
+  slides.forEach((s,i) => { s.querySelectorAll('[data-num]').forEach(b => b.textContent = String(i+1).padStart(2,'0'));
+    s.querySelectorAll('.pag').forEach(p => p.textContent = String(i+1).padStart(2,'0')); });
+
+  let cur = 0, passo = 0;
+  try { const m = location.hash.match(/^#s(\d+)$/); if (m) cur = Math.min(slides.length-1, Math.max(0, +m[1]-1)); } catch(e){}
+
+  /* celular em pé: tela estreita do aparelho (não da janela) e orientação vertical */
+  const retrato = () => innerHeight > innerWidth && Math.min(screen.width, screen.height) <= 820;
+  let modoAtual = null;
+  function fit(){ const r = retrato(); document.documentElement.classList.toggle('retrato', r);
+    if (modoAtual !== null && modoAtual !== r){ modoAtual = r; setTimeout(() => render(true), 0); } modoAtual = r;
+    const W = r ? 900 : 1600, H = r ? 1800 : 900;
+    const s = Math.min(innerWidth/W, innerHeight/H); stage.style.transform = `translate(-50%,-50%) scale(${s})`; }
+  addEventListener('resize', fit); fit();
+  const dicaEl = document.getElementById('dica'); if (retrato()) dicaEl.textContent = 'Toque para avançar · toque à esquerda para voltar';
+
+
+  function render(instant){
+    slides.forEach((el,k) => el.classList.toggle('active', k === cur));
+    stage.classList.toggle('escuro', slides[cur].classList.contains('escuro'));
+    if (instant){ stage.classList.add('instant'); requestAnimationFrame(() => requestAnimationFrame(() => stage.classList.remove('instant'))); }
+    aplicaPasso(slides[cur], passo);
+    gemeos.ativar(cur === quemIdx && passo >= 2);
+    apiNet.ativar(cur === apiIdx); if (cur === apiIdx) apiNet.passo(passo, instant);
+    mosFlow.ativar(cur === mosIdx); if (cur === mosIdx) mosFlow.passo(passo, instant);
+    areasMap.ativar(cur === areasIdx); if (cur === areasIdx) areasMap.passo(passo, instant);
+    contrata.ativar(cur === ctIdx); if (cur === ctIdx) contrata.passo(passo);
+    twin.ativar(cur === twinIdx);
+    if (cur === twinIdx) twin.setStep(passo, instant);
+    const total = slides.length;
+    const frac = (cur + (passosDe(cur) ? passo/passosDe(cur) : 0)) / (total - 1);
+    document.querySelector('#barra i').style.width = (frac*100) + '%';
+    try { history.replaceState(null, '', '#s' + (cur+1)); } catch(e){}
+  }
+  function prox(){ if (passo < passosDe(cur)) passo++; else if (cur < slides.length-1){ cur++; passo = 0; } else return; render(); dica(); }
+  function ant(){ if (passo > 0) passo--; else if (cur > 0){ cur--; passo = passosDe(cur); render(true); dica(); return; } else return; render(); dica(); }
+  let dicaFeita = false;
+  function dica(){ if (!dicaFeita){ dicaFeita = true; document.getElementById('dica').classList.add('sai'); } }
+  setTimeout(dica, 6000);
+
+  addEventListener('keydown', e => {
+    if (["ArrowRight","PageDown"," ","Enter","ArrowDown"].includes(e.key)){ e.preventDefault(); prox(); }
+    else if (["ArrowLeft","PageUp","Backspace","ArrowUp"].includes(e.key)){ e.preventDefault(); ant(); }
+    else if (e.key === "Home"){ cur = 0; passo = 0; render(); }
+    else if (e.key === "End"){ cur = slides.length-1; passo = 0; render(); }
+    else if (e.key === "f" || e.key === "F"){
+      try { if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{}); else document.exitFullscreen(); } catch(err){}
+    }
+  });
+  stage.addEventListener('click', e => { (e.clientX < innerWidth * .3) ? ant() : prox(); });
+  let tx = null;
+  stage.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive:true });
+  stage.addEventListener('touchend', e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (Math.abs(dx) > 40){ dx < 0 ? prox() : ant(); } }, { passive:true });
+
+  addEventListener('beforeprint', () => { slides.forEach((s,i) => aplicaPasso(s, passosDe(i))); gemeos.ativar(true); twin.ativar(true); twin.setStep(twin.passos, true); });
+
+  const va = document.getElementById('verAssim'); if (va) va.addEventListener('click', e => { e.stopPropagation(); document.body.classList.add('ver-assim'); });
+  const pronto = () => { desenhaCapa(); render(true); };
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(pronto, pronto);
+})();
+</script>
