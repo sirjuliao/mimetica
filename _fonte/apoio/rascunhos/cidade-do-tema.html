@@ -70,10 +70,10 @@ p,h2,h3{margin:0}
 .it.on{opacity:1; transform:none}
 .it b{font:600 15px/1.3 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:var(--texto)}
 .it span{font-size:19px; line-height:1.4; color:var(--texto2)}
-.fecho{position:absolute; left:100px; right:100px; bottom:66px; background:var(--preto); border-radius:4px; padding:24px 34px; opacity:0; transform:translateY(12px); transition:opacity .5s, transform .5s}
+.fecho{position:absolute; left:100px; top:200px; width:430px; box-sizing:border-box; background:var(--preto); border-radius:4px; padding:30px 32px; opacity:0; transform:translateY(12px); transition:opacity .5s, transform .5s}
 .fecho.on{opacity:1; transform:none}
-.fecho p{font:600 28px/1.3 var(--f-tit); color:var(--osso)}
-.fecho small{display:block; margin-top:6px; font:500 18px/1.4 var(--f-txt); color:var(--claro2)}
+.fecho p{font:600 34px/1.2 var(--f-tit); letter-spacing:-.4px; color:var(--osso)}
+.fecho small{display:block; margin-top:16px; font:500 20px/1.45 var(--f-txt); color:var(--claro2)}
 .pips{position:absolute; left:100px; right:100px; bottom:22px; display:none}
 #barra{position:absolute; left:0; right:0; bottom:0; height:3px; background:rgba(128,128,128,.18)}
 #barra i{display:block; height:100%; width:0; background:#8E8C86; transition:width .35s}
@@ -97,9 +97,9 @@ html.retrato .txt{font-size:37px; line-height:1.42}
 html.retrato .it{grid-template-columns:150px 1fr; gap:16px; padding-top:16px}
 html.retrato .it b{font-size:24px}
 html.retrato .it span{font-size:33px}
-html.retrato .fecho{left:60px; right:60px; bottom:90px; padding:30px 36px}
-html.retrato .fecho p{font-size:40px}
-html.retrato .fecho small{font-size:30px; margin-top:10px}
+html.retrato .fecho{left:60px; top:840px; width:780px; padding:36px 40px}
+html.retrato .fecho p{font-size:52px}
+html.retrato .fecho small{font-size:34px; margin-top:18px}
 html.retrato #dica{bottom:90px; font-size:24px; padding:18px 24px}
 @media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
 </style>
@@ -302,6 +302,7 @@ html.retrato #dica{bottom:90px; font-size:24px; padding:18px 24px}
     $('fecho').classList.toggle('on', passo >= 6);
     const P = C.passos[passo], pn = $('painel');
     pn.classList.toggle('on', passo >= 1 && passo <= 5);
+    if (passo > 5 || passo < 1) pn.classList.remove('troca');
     if (P && passo <= 5){ $('rot').textContent = P.rot; $('tit').textContent = P.tit; $('txt').textContent = P.txt || ''; $('txt').style.display = P.txt ? '' : 'none';
       $('lista').style.display = P.lista ? '' : 'none'; pn.classList.remove('troca'); void pn.offsetWidth; pn.classList.add('troca'); }
     document.querySelectorAll('.it').forEach(el => { el.classList.remove('on'); if (passo === 3) requestAnimationFrame(() => el.classList.add('on')); });
