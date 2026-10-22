@@ -48,6 +48,33 @@ const CONFIG = {
   // Fontes que podem formar a camada do cliente (entram por API)
   fontesCliente: ["Cadastro", "Vendas", "Atendimento", "Estudos", "Imprensa", "Pontos de venda"],
 
+  // Slide cidade do tema
+  cidHero: "Para cada tema, os gêmeos digitais se mudam para uma cidade.",
+  cidade: {
+    tema: "GLP-1",
+    passos: [
+      null,
+      { rot: "A cidade do tema", tit: "Cada tema ganha uma cidade.",
+        txt: "Aqui, a cidade do GLP-1. É nela que os gêmeos digitais vão viver o assunto, todos os dias." },
+      { rot: "Os moradores", tit: "A população artificial se muda para lá.",
+        txt: "Milhares de gêmeos digitais, com a mesma composição do Brasil, passam a morar na cidade do tema." },
+      { rot: "O que circula na cidade", tit: "Tudo o que importa sobre o tema chega à cidade.",
+        lista: [
+          ["Banca", "notícias, estudos e literatura do tema"],
+          ["Praça", "conversas das redes e das comunidades"],
+          ["Loja", "dados da sua empresa: vendas, cadastro, atendimento"],
+          ["Casas", "questionários respondidos por pessoas reais"]
+        ] },
+      { rot: "Os moradores conversam", tit: "Um influencia o outro, como numa cidade de verdade.",
+        txt: "Quem ouve na praça que um produto funciona passa a considerar experimentar. A opinião se espalha de pessoa para pessoa." },
+      { rot: "Chega uma novidade", tit: "Um assunto novo chega, e a população reage.",
+        txt: "Uma notícia aparece na banca e se espalha pela cidade. Os gêmeos digitais atualizam o que pensam, e a leitura do tema continua atual." },
+      null
+    ],
+    fecho: "Tudo vira contexto para os gêmeos digitais.",
+    fechoSub: "Quanto mais dados a empresa traz, mais rápido a cidade aprende."
+  },
+
   // Slide MOS: exemplo hipotético (troque os números à vontade)
   mosExemplo: {
     recebidos: 400, descartados: 28,
@@ -613,6 +640,41 @@ html.retrato .ct-ex{font-size:22px}
 html.retrato #s-contrata .banda.fecho{bottom:84px; padding:26px 34px}
 html.retrato #s-contrata .banda.fecho p{font-size:32px}
 
+/* slide cidade do tema */
+#cdCanvas{position:absolute; left:580px; top:170px; width:920px; height:640px}
+.cd-etiq{position:absolute; left:580px; top:142px; font:500 14px/1.3 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:var(--texto2)}
+.cd-leg{position:absolute; right:100px; top:818px; font:500 13px/1.3 var(--f-mono); color:var(--texto2); text-align:right; opacity:0; transition:opacity .5s}
+.cd-leg.on{opacity:1}
+.cd-painel{position:absolute; left:100px; top:200px; width:430px; display:flex; flex-direction:column; gap:16px; opacity:0; transition:opacity .4s}
+.cd-painel.on{opacity:1}
+.cd-painel.troca{animation:cdSobe .45s ease both}
+@keyframes cdSobe{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+.cd-rot{font:600 15px/1 var(--f-mono); letter-spacing:2.5px; text-transform:uppercase; color:var(--texto2)}
+.cd-tit{font:600 40px/1.12 var(--f-tit); letter-spacing:-.6px; color:var(--texto)}
+.cd-txt{font-size:21px; line-height:1.48; color:var(--texto2)}
+.cd-lista{display:flex; flex-direction:column; gap:14px; margin-top:4px}
+.cd-it{display:grid; grid-template-columns:80px 1fr; gap:12px; align-items:baseline; border-top:1px solid var(--fio); padding-top:12px; opacity:0; transform:translateY(8px); transition:opacity .45s, transform .45s}
+.cd-it.on{opacity:1; transform:none}
+.cd-it b{font:600 15px/1.3 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:var(--texto)}
+.cd-it span{font-size:19px; line-height:1.4; color:var(--texto2)}
+.cd-fecho{position:absolute; left:100px; top:200px; width:430px; box-sizing:border-box; background:var(--preto); border-radius:4px; padding:30px 32px; transform:translateY(12px); transition:opacity .5s, transform .5s}
+.cd-fecho.on{transform:none}
+.cd-fecho p{font:600 34px/1.2 var(--f-tit); letter-spacing:-.4px; color:var(--osso)}
+.cd-fecho small{display:block; margin-top:16px; font:500 20px/1.45 var(--f-txt); color:var(--claro2)}
+html.retrato #cdCanvas{left:0; top:150px; width:900px; height:626px}
+html.retrato .cd-etiq{left:60px; top:126px; font-size:22px}
+html.retrato .cd-leg{right:60px; left:60px; top:782px; font-size:20px}
+html.retrato .cd-painel{left:60px; top:840px; width:780px; gap:20px}
+html.retrato .cd-rot{font-size:24px; letter-spacing:3px}
+html.retrato .cd-tit{font-size:60px; line-height:1.08}
+html.retrato .cd-txt{font-size:37px; line-height:1.42}
+html.retrato .cd-it{grid-template-columns:150px 1fr; gap:16px; padding-top:16px}
+html.retrato .cd-it b{font-size:24px}
+html.retrato .cd-it span{font-size:33px}
+html.retrato .cd-fecho{left:60px; top:840px; width:780px; padding:36px 40px}
+html.retrato .cd-fecho p{font-size:52px}
+html.retrato .cd-fecho small{font-size:34px; margin-top:18px}
+
 /* celular em pé: convite para girar */
 #girar{display:none; position:fixed; inset:0; z-index:100; background:#0C0C0E; color:#F5F4F0; flex-direction:column; align-items:center; justify-content:center; gap:22px; padding:32px; text-align:center; font-family:var(--f-txt)}
 #girar img{width:180px; height:auto}
@@ -721,6 +783,19 @@ html.retrato #s-contrata .banda.fecho p{font-size:32px}
     <p class="pag"></p>
   </section>
 
+  <!-- ============ SLIDE · CIDADE DO TEMA (7 cliques; textos no CONFIG.cidade) ============ -->
+  <section class="slide cena" data-steps="6" id="s-cidade">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Cidade do tema</p>
+    <h2 class="hero rv" data-in="0" data-out="1" data-cfg="cidHero"></h2>
+    <p class="cd-etiq" id="cdEtiq" data-in="1"></p>
+    <canvas id="cdCanvas" width="1840" height="1280" data-in="1" aria-label="Mapa de uma cidade fictícia com gêmeos digitais"></canvas>
+    <p class="cd-leg" id="cdLeg"></p>
+    <div class="cd-painel" id="cdPainel"><p class="cd-rot" id="cdRot"></p><p class="cd-tit" id="cdTit"></p><p class="cd-txt" id="cdTxt"></p><div class="cd-lista" id="cdLista"></div></div>
+    <div class="cd-fecho" data-in="6"><p id="cdFechoP"></p><small id="cdFechoS"></small></div>
+    <p class="pag"></p>
+  </section>
+
   <!-- ============ SLIDE · MOS SUITE, EXEMPLO HIPOTÉTICO (6 cliques; números no CONFIG.mosExemplo) ============ -->
   <section class="slide cena" data-steps="5" id="s-mos">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
@@ -808,7 +883,7 @@ html.retrato #s-contrata .banda.fecho p{font-size:32px}
       set(v){ const k = this.canvas && this.canvas.dataset && +this.canvas.dataset.fz;
         if (k && document.documentElement.classList.contains('retrato')) v = String(v).replace(/(\d+(?:\.\d+)?)px/, (m, n) => (n * k).toFixed(1) + 'px');
         d.set.call(this, v); } }); } }
-  [['mosCanvas', 1.4], ['areasCanvas', 1.5], ['ctCanvas1', 1.25], ['ctCanvas2', 1.25]].forEach(([id, k]) => { const el = document.getElementById(id); if (el) el.dataset.fz = k; });
+  [['mosCanvas', 1.4], ['areasCanvas', 1.5], ['ctCanvas1', 1.25], ['ctCanvas2', 1.25], ['cdCanvas', 1.15]].forEach(([id, k]) => { const el = document.getElementById(id); if (el) el.dataset.fz = k; });
   /* ---------- slide para que serve: pontos ---------- */
   { const MIX = [[62,26,12],[18,30,52],[71,17,12],[64,22,14]];
     document.querySelectorAll('.sv-dots').forEach(el => { const m = MIX[+el.dataset.mix], N = 60, r = rng(7 + +el.dataset.mix);
@@ -1516,6 +1591,198 @@ html.retrato #s-contrata .banda.fecho p{font-size:32px}
   })();
 
   /* ================================================================
+     SLIDE · CIDADE DO TEMA (textos em CONFIG.cidade)
+     ================================================================ */
+  const cidade = (() => {
+    const C = CONFIG.cidade, $ = id => document.getElementById(id);
+    if (!$('cdCanvas')) return { ativar(){}, passo(){} };
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    $('cdEtiq').textContent = 'Tema · ' + C.tema;
+    $('cdFechoP').textContent = C.fecho; $('cdFechoS').textContent = C.fechoSub;
+    C.passos[3].lista.forEach(([a, b], i) => { const d = document.createElement('div'); d.className = 'cd-it'; d.style.transitionDelay = (i * 700) + 'ms';
+      d.innerHTML = '<b></b><span></span>'; d.firstChild.textContent = a; d.lastChild.textContent = b; $('cdLista').appendChild(d); });
+    /* ---------- mapa ---------- */
+    const cv = document.getElementById('cdCanvas'), c = cv.getContext('2d'), W = 920, H = 640;
+    const XS = [], YS = []; for (let i = 0; i < 11; i++) XS.push(40 + i * 84); for (let j = 0; j < 8; j++) YS.push(36 + j * 80);
+    const NX = XS.length, NY = YS.length;
+      let seed = 11; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    const blk = (i, j) => ({ x: XS[i] + 9, y: YS[j] + 9, w: XS[i+1] - XS[i] - 18, h: YS[j+1] - YS[j] - 18 });
+    const centro = (i, j) => ({ x: (XS[i] + XS[i+1]) / 2, y: (YS[j] + YS[j+1]) / 2 });
+    /* cores do mapa: cinzas neutros */
+    const COR = { rua:"#D9DADC", estrada:"#C9CACD", quadra:"#E9EAEC", borda:"rgba(20,20,24,.08)", icone:"#8C8D92", rot:"#77787D", forte:"#1D1D1B" };
+
+    /* ---- ícones (traço fino, monocromáticos) ---- */
+    function ic(tipo, x, y, s, cor, cheio){
+      c.save(); c.translate(x, y); c.strokeStyle = cor; c.fillStyle = cor; c.lineWidth = 1.6; c.lineJoin = "round"; c.lineCap = "round";
+      const r = s / 2, P = () => c.beginPath();
+      if (tipo === "casa"){ P(); c.moveTo(-r*.8, -r*.05); c.lineTo(0, -r*.8); c.lineTo(r*.8, -r*.05); c.moveTo(-r*.6, -r*.2); c.lineTo(-r*.6, r*.75); c.lineTo(r*.6, r*.75); c.lineTo(r*.6, -r*.2); c.stroke();
+        P(); c.rect(-r*.16, r*.3, r*.32, r*.45); cheio ? c.fill() : c.stroke(); }
+      else if (tipo === "predio"){ P(); c.rect(-r*.5, -r*.85, r, r*1.7); c.stroke(); for (let a = 0; a < 3; a++) for (let b = 0; b < 2; b++) c.fillRect(-r*.3 + b*r*.38, -r*.6 + a*r*.48, r*.2, r*.22); }
+      else if (tipo === "escola"){ P(); c.moveTo(-r*.85, -r*.1); c.lineTo(0, -r*.6); c.lineTo(r*.85, -r*.1); c.moveTo(-r*.7, -r*.15); c.lineTo(-r*.7, r*.75); c.lineTo(r*.7, r*.75); c.lineTo(r*.7, -r*.15); c.stroke();
+        P(); c.moveTo(0, -r*.6); c.lineTo(0, -r*1.05); c.stroke(); c.fillRect(0, -r*1.05, r*.4, r*.22); P(); c.rect(-r*.18, r*.25, r*.36, r*.5); c.stroke(); }
+      else if (tipo === "hospital"){ P(); c.rect(-r*.8, -r*.8, r*1.6, r*1.6); c.stroke(); c.fillRect(-r*.14, -r*.5, r*.28, r); c.fillRect(-r*.5, -r*.14, r, r*.28); }
+      else if (tipo === "posto"){ P(); c.arc(0, 0, r*.82, 0, Math.PI*2); c.stroke(); c.fillRect(-r*.11, -r*.42, r*.22, r*.84); c.fillRect(-r*.42, -r*.11, r*.84, r*.22); }
+      else if (tipo === "farmacia"){ c.rotate(-Math.PI/4); P(); c.roundRect ? c.roundRect(-r*.85, -r*.32, r*1.7, r*.64, r*.32) : c.rect(-r*.85, -r*.32, r*1.7, r*.64); c.stroke();
+        P(); c.roundRect ? c.roundRect(-r*.85, -r*.32, r*.85, r*.64, [r*.32, 0, 0, r*.32]) : c.rect(-r*.85, -r*.32, r*.85, r*.64); c.fill(); }
+      else if (tipo === "mercado"){ P(); c.moveTo(-r*.9, -r*.6); c.lineTo(-r*.6, -r*.6); c.lineTo(-r*.35, r*.3); c.lineTo(r*.65, r*.3); c.lineTo(r*.85, -r*.35); c.lineTo(-r*.5, -r*.35); c.stroke();
+        P(); c.arc(-r*.2, r*.62, r*.13, 0, Math.PI*2); c.arc(r*.5, r*.62, r*.13, 0, Math.PI*2); c.fill(); }
+      else if (tipo === "academia"){ c.fillRect(-r*.95, -r*.3, r*.22, r*.6); c.fillRect(-r*.7, -r*.5, r*.22, r); c.fillRect(r*.48, -r*.5, r*.22, r); c.fillRect(r*.73, -r*.3, r*.22, r*.6); c.fillRect(-r*.48, -r*.07, r*.96, r*.14); }
+      else if (tipo === "banca"){ P(); c.rect(-r*.75, -r*.65, r*1.5, r*1.3); cheio ? c.fill() : c.stroke(); c.strokeStyle = cheio ? "#F5F4F0" : cor;
+        P(); c.moveTo(-r*.5, -r*.35); c.lineTo(r*.5, -r*.35); c.moveTo(-r*.5, -r*.05); c.lineTo(r*.5, -r*.05); c.moveTo(-r*.5, r*.25); c.lineTo(r*.15, r*.25); c.stroke(); }
+      else if (tipo === "praca"){ P(); c.arc(0, -r*.2, r*.55, 0, Math.PI*2); cheio ? c.fill() : c.stroke(); P(); c.moveTo(0, r*.3); c.lineTo(0, r*.85); c.stroke(); }
+      else if (tipo === "loja"){ P(); c.rect(-r*.75, -r*.2, r*1.5, r*.95); c.stroke(); P(); c.moveTo(-r*.85, -r*.2);
+        for (let k = 0; k < 4; k++){ const x0 = -r*.85 + k*r*.425; c.arc(x0 + r*.2125, -r*.2, r*.2125, Math.PI, 0, true); } c.lineTo(r*.85, -r*.65); c.lineTo(-r*.85, -r*.65); c.closePath(); cheio ? c.fill() : c.stroke();
+        P(); c.rect(-r*.18, r*.3, r*.36, r*.45); c.stroke(); }
+      else if (tipo === "padaria"){ P(); c.moveTo(-r*.85, r*.45); c.quadraticCurveTo(-r*.95, -r*.55, 0, -r*.6); c.quadraticCurveTo(r*.95, -r*.55, r*.85, r*.45); c.closePath(); c.stroke();
+        P(); for (let k = -1; k <= 1; k++){ c.moveTo(k*r*.4 - r*.12, -r*.25); c.lineTo(k*r*.4 + r*.12, r*.15); } c.stroke(); }
+      else if (tipo === "onibus"){ P(); c.roundRect ? c.roundRect(-r*.6, -r*.75, r*1.2, r*1.3, r*.2) : c.rect(-r*.6, -r*.75, r*1.2, r*1.3); c.stroke(); c.fillRect(-r*.45, -r*.55, r*.9, r*.45); P(); c.arc(-r*.32, r*.35, r*.1, 0, Math.PI*2); c.arc(r*.32, r*.35, r*.1, 0, Math.PI*2); c.fill(); }
+      c.restore();
+    }
+
+    /* ---- o que tem em cada quadra ---- */
+    const LUG = [
+      { nome: "BANCA", tipo: "banca",  b: [3, 1] },
+      { nome: "PRAÇA", tipo: "praca",  b: [5, 3] },
+      { nome: "LOJA",  tipo: "loja",   b: [7, 5] },
+      { nome: "CASAS", tipo: "casa",   b: [1, 4] }
+    ];
+    const CIVICO = [
+      ["ESCOLA", "escola", 1, 1], ["HOSPITAL", "hospital", 8, 1], ["POSTO SAÚDE", "posto", 2, 6], ["FARMÁCIA", "farmacia", 6, 2],
+      ["MERCADO", "mercado", 4, 5], ["ACADEMIA", "academia", 8, 4], ["ESCOLA", "escola", 6, 6], ["FARMÁCIA", "farmacia", 3, 4], ["PONTO", "onibus", 9, 6],
+      ["PADARIA", "padaria", 0, 2], ["MERCADO", "mercado", 9, 3], ["PADARIA", "padaria", 5, 0], ["ACADEMIA", "academia", 2, 3],
+      ["PRÉDIOS", "predio", 4, 2], ["PRÉDIOS", "predio", 7, 0], ["PRÉDIOS", "predio", 0, 6]
+    ];
+    const QUADRA = {};
+    for (let i = 0; i < NX - 1; i++) for (let j = 0; j < NY - 1; j++) QUADRA[i + "," + j] = rnd() < .45 ? "predio" : "casa";
+    CIVICO.forEach(([n, t, i, j]) => QUADRA[i + "," + j] = { n, t });
+    LUG.forEach((L, k) => QUADRA[L.b[0] + "," + L.b[1]] = { lug: k });
+
+    /* estradas que chegam à cidade e rotas da informação até cada lugar */
+    const ESTR = [ { a: [-14, YS[4]], n: [0, 4] }, { a: [W + 14, YS[2]], n: [NX - 1, 2] }, { a: [XS[5], -14], n: [5, 0] }, { a: [XS[7], H + 14], n: [7, NY - 1] } ];
+    function rota(L, e){
+      const E = ESTR[e], ct = centro(L.b[0], L.b[1]), [ni, nj] = E.n, ci = L.b[0], cj = L.b[1];
+      const r = [E.a, [XS[ni], YS[nj]]];
+      if (e < 2){ r.push([XS[ni], YS[cj]]); r.push([XS[ci], YS[cj]]); } else { r.push([XS[ci], YS[nj]]); r.push([XS[ci], YS[cj]]); }
+      r.push([ct.x, YS[cj]]); r.push([ct.x, ct.y]); return r;
+    }
+    LUG.forEach((L, k) => L.rota = rota(L, [2, 1, 3, 0][k]));
+    const PRACA = centro(5, 3), BANCA = centro(3, 1);
+
+    /* moradores: andam pelas ruas, de esquina em esquina */
+    const N = 190, gente = [];
+    for (let k = 0; k < N; k++) gente.push({ i: 0, j: 0, ni: 0, nj: 0, p: 0, v: .007 + rnd() * .009, x: 0, y: 0, tom: rnd() * .2, novo: 0, ent: null, atraso: rnd() * 2200, aqui: false });
+    function vizinho(g, puxa){
+      const op = [[1,0],[-1,0],[0,1],[0,-1]].map(([a, b]) => [g.i + a, g.j + b]).filter(([a, b]) => a >= 0 && a < NX && b >= 0 && b < NY);
+      if (puxa && rnd() < .3){ op.sort((A, B) => Math.hypot(XS[A[0]] - PRACA.x, YS[A[1]] - PRACA.y) - Math.hypot(XS[B[0]] - PRACA.x, YS[B[1]] - PRACA.y)); return op[0]; }
+      return op[Math.floor(rnd() * op.length)];
+    }
+    function chegaJa(g){ g.i = Math.floor(rnd() * NX); g.j = Math.floor(rnd() * NY); [g.ni, g.nj] = vizinho(g); g.p = rnd(); g.aqui = true; g.ent = null; }
+    function entrar(g){ const E = ESTR[Math.floor(rnd() * ESTR.length)]; g.ent = { x0: E.a[0], y0: E.a[1], i: E.n[0], j: E.n[1], p: 0 }; g.aqui = false; }
+
+    let passo = 0, t0 = performance.now(), on = false;
+    const pacotes = []; const ultimo = [0, 0, 0, 0];
+    const semente = new Set(); while (semente.size < 11) semente.add(Math.floor(rnd() * N));
+
+    function pontoRota(r, u){
+      const seg = []; let tot = 0;
+      for (let k = 1; k < r.length; k++){ const d = Math.hypot(r[k][0] - r[k-1][0], r[k][1] - r[k-1][1]); seg.push(d); tot += d; }
+      let alvo = u * tot;
+      for (let k = 0; k < seg.length; k++){ if (alvo <= seg[k] && seg[k] > 0){ const t = alvo / seg[k]; return [lerp(r[k][0], r[k+1][0], t), lerp(r[k][1], r[k+1][1], t)]; } alvo -= seg[k]; }
+      return r[r.length - 1];
+    }
+
+    function desenha(now){
+      const e = now - t0;
+      c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, W, H);
+      /* estradas e ruas */
+      c.lineCap = "butt"; c.strokeStyle = COR.estrada; c.lineWidth = 9;
+      ESTR.forEach(E => { c.beginPath(); c.moveTo(E.a[0], E.a[1]); c.lineTo(XS[E.n[0]], YS[E.n[1]]); c.stroke(); });
+      c.strokeStyle = COR.rua; c.lineWidth = 7;
+      XS.forEach(x => { c.beginPath(); c.moveTo(x, YS[0]); c.lineTo(x, YS[NY-1]); c.stroke(); });
+      YS.forEach(y => { c.beginPath(); c.moveTo(XS[0], y); c.lineTo(XS[NX-1], y); c.stroke(); });
+      /* quadras */
+      const aLug = LUG.map((L, k) => passo >= 3 ? clamp(((passo === 3 ? e : 9999) - k * 700) / 500) : 0);
+      for (let i = 0; i < NX - 1; i++) for (let j = 0; j < NY - 1; j++){
+        const b = blk(i, j), ct = centro(i, j), q = QUADRA[i + "," + j];
+        const ehLug = q && q.lug !== undefined, ehPraca = ehLug && q.lug === 1;
+        if (!ehPraca){ c.fillStyle = COR.quadra; c.fillRect(b.x, b.y, b.w, b.h); c.strokeStyle = COR.borda; c.lineWidth = 1; c.strokeRect(b.x + .5, b.y + .5, b.w - 1, b.h - 1); }
+        if (ehLug){
+          const k = q.lug, L = LUG[k], a = aLug[k];
+          if (ehPraca){ c.fillStyle = a > 0 ? "rgba(29,29,27,.06)" : "rgba(20,20,24,.03)"; c.fillRect(b.x, b.y, b.w, b.h);
+            c.strokeStyle = a > 0 ? COR.forte : COR.icone; c.setLineDash([3, 3]); c.lineWidth = 1; c.strokeRect(b.x + .5, b.y + .5, b.w - 1, b.h - 1); c.setLineDash([]); }
+          const cor = a > 0 ? COR.forte : COR.icone;
+          if (k === 3){ [[-14, -10], [12, -10], [-14, 13], [12, 13]].forEach(([dx, dy]) => ic("casa", ct.x + dx, ct.y + dy - 4, 18, cor, a > 0)); }
+          else ic(L.tipo, ct.x, ct.y - 6, 30, cor, a > 0 && k !== 2);
+          c.globalAlpha = .45 + .55 * a; c.font = "700 10.5px 'JetBrains Mono', monospace"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillStyle = cor;
+          c.fillText(L.nome, ct.x, b.y + b.h - 7); c.globalAlpha = 1;
+          if (passo >= 3 && a >= 1 && now - ultimo[k] > 520){ ultimo[k] = now; pacotes.push({ k, t: now }); }
+        } else if (q && q.t){
+          ic(q.t, ct.x, ct.y - 6, 26, COR.icone, false);
+          c.font = "500 8.5px 'JetBrains Mono', monospace"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillStyle = COR.rot; c.fillText(q.n, ct.x, b.y + b.h - 7);
+        } else if (q === "predio"){ ic("predio", ct.x, ct.y, 22, "#B3B4B8", false); }
+        else { ic("casa", ct.x - 11, ct.y - 2, 15, "#B3B4B8", false); ic("casa", ct.x + 11, ct.y + 6, 15, "#B3B4B8", false); }
+      }
+      /* informação chegando */
+      for (let q = pacotes.length - 1; q >= 0; q--){ const P = pacotes[q], u = (now - P.t) / 2100; if (u >= 1){ pacotes.splice(q, 1); continue; }
+        const [x, y] = pontoRota(LUG[P.k].rota, ease(u)); c.globalAlpha = Math.min(1, (1 - u) * 3); c.fillStyle = COR.forte; c.fillRect(x - 3.5, y - 3.5, 7, 7); c.globalAlpha = 1; }
+      /* novidade: onda saindo da banca */
+      let r = -1;
+      if (passo >= 5){ const u = passo === 5 ? e : 1e9; r = u / 1.7;
+        if (r < 1100){ c.strokeStyle = "rgba(29,29,27," + Math.max(0, .5 - r / 2200) + ")"; c.lineWidth = 2; c.beginPath(); c.arc(BANCA.x, BANCA.y, r, 0, Math.PI * 2); c.stroke(); }
+        const pul = .5 + .5 * Math.sin(now / 260), bb = blk(3, 1);
+        c.globalAlpha = .75 + .25 * pul; c.fillStyle = COR.forte; c.font = "600 12px 'JetBrains Mono', monospace"; c.textAlign = "center"; c.textBaseline = "middle";
+        c.fillRect(BANCA.x - 62, bb.y - 27, 124, 20); c.fillStyle = "#F5F4F0"; c.fillText("NOVA NOTÍCIA", BANCA.x, bb.y - 17); c.globalAlpha = 1;
+      }
+      /* moradores */
+      const conversa = passo >= 4;
+      gente.forEach((g, k) => {
+        if (passo < 2) return;
+        if (g.ent){ if (e < g.atraso && passo === 2) return;
+          g.ent.p += .012; const tx = XS[g.ent.i], ty = YS[g.ent.j];
+          g.x = lerp(g.ent.x0, tx, ease(clamp(g.ent.p))); g.y = lerp(g.ent.y0, ty, ease(clamp(g.ent.p)));
+          if (g.ent.p >= 1){ g.i = g.ent.i; g.j = g.ent.j; [g.ni, g.nj] = vizinho(g); g.p = 0; g.ent = null; g.aqui = true; }
+        } else if (g.aqui){
+          g.p += g.v; if (g.p >= 1){ g.i = g.ni; g.j = g.nj; [g.ni, g.nj] = vizinho(g, conversa); g.p = 0; }
+          const lado = ((k % 5) - 2) * 1.4;
+          g.x = lerp(XS[g.i], XS[g.ni], g.p) + (g.j === g.nj ? 0 : lado); g.y = lerp(YS[g.j], YS[g.nj], g.p) + (g.i === g.ni ? 0 : lado);
+        } else return;
+        if (r >= 0 && g.aqui && !g.novo && Math.hypot(g.x - BANCA.x, g.y - BANCA.y) < r) g.novo = now;
+        const cor = Math.round(lerp(150, 29, g.tom));
+        c.fillStyle = `rgb(${cor},${cor},${cor + 3})`; c.beginPath(); c.arc(g.x, g.y, 4, 0, Math.PI * 2); c.fill();
+        if (g.novo){ const u = clamp((now - g.novo) / 500); c.strokeStyle = COR.forte; c.lineWidth = 1.2; c.globalAlpha = u; c.beginPath(); c.arc(g.x, g.y, 4 + 3.4 * u, 0, Math.PI * 2); c.stroke(); c.globalAlpha = 1; }
+      });
+      /* conversa: perto da praça, a opinião passa de um para o outro */
+      if (conversa){
+        gente.forEach((g, k) => { if (semente.has(k)) g.tom = Math.max(g.tom, passo === 4 ? clamp(e / 800) : 1); });
+        for (let a = 0; a < N; a++){ const A = gente[a]; if (!A.aqui || A.tom < .6) continue;
+          for (let b = 0; b < N; b++){ const B = gente[b]; if (a === b || !B.aqui || B.tom >= A.tom) continue;
+            const d = Math.hypot(A.x - B.x, A.y - B.y), naPraca = Math.hypot(B.x - PRACA.x, B.y - PRACA.y) < 160;
+            if (d < 15 && naPraca){ B.tom = Math.min(A.tom, B.tom + .012);
+              if (B.tom < .9){ c.strokeStyle = "rgba(29,29,27,.35)"; c.lineWidth = 1; c.beginPath(); c.moveTo(A.x, A.y); c.lineTo(B.x, B.y); c.stroke(); } } } }
+      }
+    }
+
+    (function loop(now){ if (on) desenha(now); requestAnimationFrame(loop); })(performance.now());
+    function setPasso(p, instant){
+      passo = p; t0 = instant ? performance.now() - 1e6 : performance.now();
+      const P = C.passos[p], pn = $('cdPainel');
+      pn.classList.toggle('on', p >= 1 && p <= 5);
+      if (p > 5 || p < 1) pn.classList.remove('troca');
+      if (P && p >= 1 && p <= 5){ $('cdRot').textContent = P.rot; $('cdTit').textContent = P.tit; $('cdTxt').textContent = P.txt || ''; $('cdTxt').style.display = P.txt ? '' : 'none';
+        $('cdLista').style.display = P.lista ? '' : 'none'; pn.classList.remove('troca'); void pn.offsetWidth; pn.classList.add('troca'); }
+      document.querySelectorAll('.cd-it').forEach(el => { el.classList.remove('on'); if (p === 3) requestAnimationFrame(() => el.classList.add('on')); });
+      $('cdLeg').classList.toggle('on', p >= 2);
+      $('cdLeg').textContent = p >= 4 ? 'cada ponto, um gêmeo digital · mais escuro, mais propenso a experimentar' : 'cada ponto, um gêmeo digital';
+      if (p >= 2) gente.forEach(g => { if (!g.aqui && !g.ent){ if (p === 2 && !instant) entrar(g); else chegaJa(g); } });
+      if (p < 2) gente.forEach(g => { g.aqui = false; g.ent = null; });
+      if (p < 4) gente.forEach(g => g.tom = Math.min(g.tom, .2));
+      if (p < 5) gente.forEach(g => g.novo = 0);
+    }
+    let ultimoPasso = -1;
+    return { ativar(v){ on = v; }, passo(p, instant){ if (p !== ultimoPasso || instant){ ultimoPasso = p; setPasso(p, instant); } } };
+  })();
+
+  /* ================================================================
      NAVEGAÇÃO
      ================================================================ */
   const stage = document.getElementById('stage');
@@ -1528,6 +1795,7 @@ html.retrato #s-contrata .banda.fecho p{font-size:32px}
   const mosIdx = slides.findIndex(s => s.id === 's-mos');
   const areasIdx = slides.findIndex(s => s.id === 's-areas');
   const ctIdx = slides.findIndex(s => s.id === 's-contrata');
+  const cidIdx = slides.findIndex(s => s.id === 's-cidade');
   slides.forEach((s,i) => { s.querySelectorAll('[data-num]').forEach(b => b.textContent = String(i+1).padStart(2,'0'));
     s.querySelectorAll('.pag').forEach(p => p.textContent = String(i+1).padStart(2,'0')); });
 
@@ -1555,6 +1823,7 @@ html.retrato #s-contrata .banda.fecho p{font-size:32px}
     mosFlow.ativar(cur === mosIdx); if (cur === mosIdx) mosFlow.passo(passo, instant);
     areasMap.ativar(cur === areasIdx); if (cur === areasIdx) areasMap.passo(passo, instant);
     contrata.ativar(cur === ctIdx); if (cur === ctIdx) contrata.passo(passo);
+    cidade.ativar(cur === cidIdx); if (cur === cidIdx) cidade.passo(passo, instant);
     twin.ativar(cur === twinIdx);
     if (cur === twinIdx) twin.setStep(passo, instant);
     const total = slides.length;

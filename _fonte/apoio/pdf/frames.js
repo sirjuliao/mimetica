@@ -14,7 +14,7 @@ const fs = require('fs');
     d.innerHTML='<div style="background:#F5F4F0;padding:10px;width:92px;height:92px">'+svg.replace('<svg','<svg width="92" height="92"')+'</div><div>Veja a versão animada<br><b style="font-weight:600">mimetica.institute/apoio</b></div>';
     document.querySelector('.slide.active').appendChild(d); }, [qr, lado]); }
   async function qrOff(){ await p.evaluate(() => { const d=document.getElementById('qrbox'); if(d) d.remove(); }); }
-  const quadros = [[0,0,1500,true],[1,5,2800],[2,0,1800],[2,3,3200],[2,5,3400],[2,7,4200],[3,1,3400],[3,2,3600],[3,3,6200],[3,4,3600],[4,7,3000],'tabela',[5,3,3400],[6,0,1500,true]];
+  const quadros = [[0,0,1500,true],[1,5,2800],[2,0,1800],[2,3,3200],[2,5,3400],[2,7,4200],[3,5,6000],[4,1,3400],[4,2,3600],[4,3,6200],[4,4,3600],[5,7,3000],'tabela',[6,3,3400],[7,0,1500,true]];
   let k=0;
   for (const q of quadros){
     k++; const nome = 'f' + String(k).padStart(2,'0') + '.pdf';
@@ -24,7 +24,7 @@ const fs = require('fs');
     if (si === 0 && st === 0) { await p.keyboard.press('Home'); }
     await ir(si, st); await p.waitForTimeout(w);
     if (comQR) await qrOn(si === 0 ? 'dir' : 'esq');
-    if (si === 6) await p.evaluate(() => { const d=document.createElement('div'); d.id='contato';
+    if (si === 7) await p.evaluate(() => { const d=document.createElement('div'); d.id='contato';
       d.style.cssText='position:absolute;right:107px;bottom:160px;text-align:right;color:#F5F4F0;z-index:9';
       d.innerHTML='<div style="font:600 30px/1.2 Space Grotesk,sans-serif;letter-spacing:-.4px">Fernando Julião</div>'
         +'<div style="margin-top:12px;font:500 19px/1.6 JetBrains Mono,monospace;color:#C9C7C0">fernando@mimetica.net<br>+55 11 97633-1881</div>';
