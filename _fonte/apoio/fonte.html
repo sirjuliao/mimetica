@@ -84,7 +84,7 @@ const CONFIG = {
       { rot: "Depois: o que é inferido", tit: "O que não é medido é estimado com método.",
         txt: "Cruzando dados oficiais, estimamos o que nenhuma pesquisa mede diretamente, como a sensibilidade a preço. Cada estimativa registra de onde veio." },
       { rot: "Por último: a IA", tit: "A IA dá voz, sem mudar o que foi medido.",
-        txt: "Ela escreve a personalidade, o jeito de decidir e o jeito de falar. Os dados medidos ficam travados." },
+        txt: "Ela escreve a personalidade, o jeito de decidir e o jeito de falar. Ela não pode alterar nenhum dado medido. Se uma resposta contradiz esses dados, ela é descartada." },
       { rot: "A prova", tit: "Tiramos a IA, e as respostas não mudaram.",
         txt: "Repetimos seis experimentos clássicos de comportamento sem a IA. A direção das respostas foi a mesma nos seis.", teste: true },
       null
@@ -94,7 +94,7 @@ const CONFIG = {
       ["15 de 16", "pesquisas brasileiras reproduzidas dentro da margem de erro"],
       ["< 3 pontos", "de erro médio em eleições para o Senado, como as pesquisas de véspera"],
       ["0,98", "de consistência: a mesma pessoa dá a mesma resposta"],
-      ["2 modelos", "de IA diferentes, o mesmo resultado"]
+      ["2 modelos", "de IA diferentes, a mesma direção nas respostas"]
     ]
   },
 
@@ -107,7 +107,7 @@ const CONFIG = {
       { rot: "A cidade da sua empresa", tit: "Cada empresa ganha uma cidade.",
         txt: "Ela é montada em torno do assunto que importa para o seu negócio. Aqui, GLP-1. É nela que os gêmeos digitais vão viver esse assunto, todos os dias." },
       { rot: "Os moradores", tit: "A população artificial se muda para lá.",
-        txt: "Milhares de gêmeos digitais, com a mesma composição do Brasil, passam a morar na cidade da sua empresa." },
+        txt: "Milhares de gêmeos digitais, com a mesma composição do Brasil ou do perfil do seu consumidor, passam a morar na cidade da sua empresa." },
       { rot: "O que circula na cidade", tit: "Tudo o que importa sobre o tema chega à cidade.",
         lista: [
           ["Banca", "notícias, estudos e literatura do tema"],
@@ -1493,9 +1493,9 @@ html.retrato .cd-fecho small{font-size:34px; margin-top:18px}
     const TXT = [
       null,
       { num: () => fmt(X.recebidos) + " → " + fmt(X.recebidos - X.descartados), sub: "respostas recebidas → respostas válidas",
-        frase: "Retiramos as respostas inconsistentes, de quem respondeu sem prestar atenção." },
+        frase: "Retiramos as respostas inconsistentes, seguindo os nossos critérios de qualidade e os critérios que definimos junto com você." },
       { num: () => X.genero[0] + "% → " + X.genero[1] + "%", sub: "mulheres na amostra → mulheres no Brasil",
-        frase: "A amostra tinha mulheres demais e também classe A e B demais: " + X.classeAB[0] + "%, quando no Brasil são " + X.classeAB[1] + "%. Ajustamos o peso de cada resposta para ficar igual ao país." },
+        frase: "A amostra tinha mulheres demais e também classe A e B demais: " + X.classeAB[0] + "%, quando no Brasil são " + X.classeAB[1] + "%. Ajustamos o peso de cada resposta para ficar igual ao país ou à sua base de clientes." },
       { num: () => fmt(X.recebidos - X.descartados) + " → " + fmt(X.gemeos), sub: "respostas válidas → gêmeos digitais",
         frase: "Com " + fmt(X.recebidos - X.descartados) + " pessoas, só dá para analisar " + X.celulasAntes + " grupos com segurança, como “Nordeste, classe C”. Com " + fmt(X.gemeos) + " gêmeos digitais, são " + X.celulasDepois + ". Nos grupos que faltam, indicamos onde fazer mais entrevistas." },
       { num: () => X.serie.length + " leituras", sub: "1 rodada de entrevistas + " + (X.serie.length - 1) + " atualizações",
