@@ -63,6 +63,11 @@ p,h2,h3{margin:0}
 .ver{align-self:flex-start; margin-top:4px; background:none; border:1px solid var(--texto); color:var(--texto); font:600 15px/1 var(--f-mono); letter-spacing:1px; text-transform:uppercase; padding:13px 16px; border-radius:3px; cursor:pointer; transition:background .2s, color .2s}
 .ver:hover, .ver:focus-visible{background:var(--texto); color:var(--osso); outline:none}
 .ver span{margin-left:6px}
+.acao{display:flex; align-items:center; gap:12px; margin-top:4px}
+.acao .ver{margin-top:0}
+.lin{display:block; width:41px; height:41px; color:var(--texto); transition:opacity .2s}
+.lin svg{display:block; width:100%; height:100%}
+.lin:hover{opacity:.75}
 .contato{font:500 15px/1.5 var(--f-mono); color:#8E8C86}
 .fecho{position:absolute; left:100px; right:100px; bottom:70px; background:var(--preto); border-radius:4px; padding:24px 34px; opacity:0; transform:translateY(12px); transition:opacity .5s, transform .5s}
 .fecho.on{opacity:1; transform:none}
@@ -83,6 +88,8 @@ p,h2,h3{margin:0}
 .cv .papel{font:600 22px/1.35 var(--f-tit); color:var(--texto); margin-bottom:16px; padding-bottom:18px; border-bottom:1px solid var(--fio)}
 .cv .texto{font-size:19px; line-height:1.55; color:var(--texto2)}
 .cv .acoes{display:flex; gap:14px; align-items:center; margin-top:26px; flex-wrap:wrap}
+.cv .li svg{width:18px; height:18px}
+html.retrato .cv .li svg{width:24px; height:24px}
 .cv .li{display:inline-flex; align-items:center; gap:8px; background:var(--texto); color:var(--osso); text-decoration:none; font:600 14px/1 var(--f-mono); letter-spacing:1px; text-transform:uppercase; padding:13px 16px; border-radius:3px}
 .cv .mail{font:500 15px/1 var(--f-mono); color:var(--texto2); text-decoration:none; border-bottom:1px solid var(--fio); padding-bottom:3px}
 .cv .fechar{position:absolute; top:18px; right:18px; width:40px; height:40px; border:none; background:none; cursor:pointer; font:400 30px/1 var(--f-txt); color:var(--texto2)}
@@ -104,6 +111,7 @@ html.retrato .titulo{font-size:19px; min-height:54px}
 html.retrato .dest{font-size:28px; min-height:200px}
 html.retrato .ver{font-size:19px; padding:16px 18px}
 html.retrato .contato{font-size:18px}
+html.retrato .lin{width:53px; height:53px}
 html.retrato .fecho{left:60px; right:60px; bottom:110px; padding:30px 36px}
 html.retrato .fecho p{font-size:38px}
 html.retrato #dica{bottom:90px; font-size:24px; padding:18px 24px}
@@ -136,7 +144,7 @@ html.retrato .cv .nav button{width:64px; height:64px; font-size:24px}
       <div class="topo"><div class="ini" id="cvIni"></div><div><p class="nome" id="cvNome"></p><p class="titulo" id="cvTit"></p></div></div>
       <p class="papel" id="cvPapel"></p>
       <p class="texto" id="cvTexto"></p>
-      <div class="acoes"><a class="li" id="cvLi" target="_blank" rel="noopener">Ver no LinkedIn ↗</a><a class="mail" id="cvMail"></a></div>
+      <div class="acoes"><a class="li" id="cvLi" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="b" width="24" height="24" rx="3" fill="#F5F4F0"/><g fill="#1D1D1B"><circle cx="6.6" cy="6.7" r="1.75"/><rect x="5.1" y="9.3" width="3" height="9.6"/><path d="M10.6 9.3h2.9v1.3c.5-.9 1.6-1.6 3.2-1.6 2.9 0 3.5 1.9 3.5 4.4v5.5h-3v-4.9c0-1.2 0-2.6-1.6-2.6s-1.9 1.2-1.9 2.5v5h-3.1z"/></g></svg>Ver no LinkedIn ↗</a><a class="mail" id="cvMail"></a></div>
       <div class="nav"><button id="cvAnt" aria-label="Sócio anterior">←</button><button id="cvProx" aria-label="Próximo sócio">→</button></div>
     </div>
   </div>
@@ -148,9 +156,9 @@ html.retrato .cv .nav button{width:64px; height:64px; font-size:24px}
   $('hero').textContent = E.hero; $('fechoP').textContent = E.fecho;
   E.socios.forEach((s, k) => {
     const d = document.createElement('div'); d.className = 'socio'; d.style.setProperty('--k', k);
-    d.innerHTML = '<div class="ini"></div><p class="nome"></p><p class="titulo"></p><p class="dest"></p><button class="ver" type="button">Ver currículo<span>→</span></button><p class="contato"></p>';
+    d.innerHTML = '<div class="ini"></div><p class="nome"></p><p class="titulo"></p><p class="dest"></p><div class="acao"><button class="ver" type="button">Ver currículo<span>→</span></button><a class="lin" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="3" fill="currentColor"/><g fill="#F5F4F0"><circle cx="6.6" cy="6.7" r="1.75"/><rect x="5.1" y="9.3" width="3" height="9.6"/><path d="M10.6 9.3h2.9v1.3c.5-.9 1.6-1.6 3.2-1.6 2.9 0 3.5 1.9 3.5 4.4v5.5h-3v-4.9c0-1.2 0-2.6-1.6-2.6s-1.9 1.2-1.9 2.5v5h-3.1z"/></g></svg></a></div><p class="contato"></p>';
     d.querySelector('.ini').textContent = s.ini; d.querySelector('.nome').textContent = s.nome; d.querySelector('.titulo').textContent = s.titulo;
-    d.querySelector('.dest').textContent = s.destaque; d.querySelector('.contato').textContent = s.email;
+    d.querySelector('.dest').textContent = s.destaque; d.querySelector('.contato').textContent = s.email; d.querySelector('.lin').href = s.linkedin; d.querySelector('.lin').title = 'LinkedIn de ' + s.nome;
     d.addEventListener('click', e => e.stopPropagation());
     d.querySelector('.ver').addEventListener('click', e => { e.stopPropagation(); abre(k); });
     d.querySelector('.nome').style.cursor = 'pointer'; d.querySelector('.nome').addEventListener('click', e => { e.stopPropagation(); abre(k); });
