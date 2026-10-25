@@ -29,5 +29,5 @@ Cuida de regulação, certificações, contratos e qualidade dos processos da Mi
 
 Engenheiro naval e mestre em pesquisa operacional e otimização aplicada a transportes pela Escola Politécnica da USP, com MBA em Comércio Internacional pela FIA/USP e pela Université Grenoble, na França. Tem experiência ampla em logística, em negociação, terceirização, planejamento, implantação e melhoria de operações. Empreende desde 2004 e é sócio de uma consultoria de logística de meios de pagamento, com foco em reparo e recuperação de equipamentos.
 
-[e-mail a confirmar] · linkedin.com/in/sérgio-brejon-6aa7bb
+brejon@mimetica.net · linkedin.com/in/sérgio-brejon-6aa7bb
 (LinkedIn quase vazio: sem Mimetica, sem formação; consultoria aparece como BS Global, desde dez/2003. Atualizar antes do slide. Confirmar nome da escola na França.)
