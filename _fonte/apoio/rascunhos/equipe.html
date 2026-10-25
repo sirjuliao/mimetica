@@ -1,0 +1,191 @@
+<title>Equipe Mimetica</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+<script>
+/* Rascunho do slide "Equipe". Textos editáveis abaixo. Ordem da esquerda para a direita. */
+const EQUIPE = {
+  hero: "Quem constrói a Mimetica.",
+  fecho: "Tecnologia, mercado, pesquisa e compliance: cada parte do trabalho tem um responsável.",
+  socios: [
+    { ini: "GY", nome: "Geraldo Yoshizawa", titulo: "Sócio-fundador",
+      destaque: "Mais de 40 anos construindo empresas de tecnologia. Coinventor de patentes nos Estados Unidos.",
+      papel: "Lidera a tecnologia e o método dos gêmeos digitais da Mimetica.",
+      cv: "Empreendedor de tecnologia há mais de 40 anos, formado em Engenharia pela Escola Politécnica da USP. Fundou e dirigiu por 26 anos uma empresa de automação comercial, vendida a uma multinacional americana, onde foi diretor de desenvolvimento. É coinventor de patentes nos Estados Unidos em rastreamento de consumo e reposição automática de estoque. Fundou a primeira empresa a operar armários eletrônicos em escala no Brasil. Em 2025, fundou a Mimetica, que cria gêmeos digitais da população brasileira para simular comportamento e testar decisões de negócio. É autor de \"Simular o Brasil\".",
+      email: "geraldo@mimetica.net", linkedin: "https://www.linkedin.com/in/geraldoyoshizawa/" },
+    { ini: "FJ", nome: "Fernando Julião", titulo: "Sócio-fundador",
+      destaque: "25 anos abrindo mercados com tecnologias novas, dos dados variáveis aos smart lockers.",
+      papel: "Constrói a infraestrutura que replica o comportamento humano, a começar pelo Brasil.",
+      cv: "Há 25 anos atua em criação, inovação e marketing. Desde o início da carreira, é movido pelo pioneirismo. Participou de projetos pioneiros em comunicação com dados variáveis, cross-media, comunicação transacional e logística urbana, onde ajudou a criar as primeiras redes de smart lockers do país. Esteve à frente de equipes multidisciplinares, sempre com tecnologias novas, abrindo mercados para startups e multinacionais.",
+      email: "fernando@mimetica.net", linkedin: "https://www.linkedin.com/in/fjuliao/" },
+    { ini: "DI", nome: "Douglas Inoue", titulo: "Cofundador · Líder de Rigor de Pesquisa",
+      destaque: "18 anos em pesquisa de mercado, auditando o dado antes que ele vire conclusão.",
+      papel: "Garante que cada estudo da Mimetica siga o padrão de qualidade da indústria de pesquisa.",
+      cv: "Há 18 anos trabalha com pesquisa de mercado por dentro da indústria. Começou num instituto global, passou pelo primeiro instituto de pesquisa online do Brasil e, por quase doze anos, conduziu projetos de pesquisa farmacêutica e de saúde de marca para grandes institutos. Em centenas de projetos, seu papel foi auditar o dado antes que ele virasse conclusão: amostra, questionário, campo e base, uma etapa de cada vez.",
+      email: "douglas@mimetica.net", linkedin: "https://www.linkedin.com/in/douglasinoue/" },
+    { ini: "SB", nome: "Sérgio Brejon", titulo: "Cofundador · Líder de Compliance e Regulação",
+      destaque: "Engenheiro e mestre pela Poli/USP, com longa trajetória em operações logísticas.",
+      papel: "Cuida de regulação, certificações, contratos e qualidade dos processos da Mimetica.",
+      cv: "Engenheiro naval e mestre em pesquisa operacional e otimização aplicada a transportes pela Escola Politécnica da USP, com MBA em Comércio Internacional pela FIA/USP e pela Université Grenoble, na França. Tem experiência ampla em logística, em negociação, terceirização, planejamento, implantação e melhoria de operações. Empreende desde 2004 e é sócio de uma consultoria de logística de meios de pagamento, com foco em reparo e recuperação de equipamentos.",
+      email: "brejon@mimetica.net", linkedin: "https://www.linkedin.com/in/s%C3%A9rgio-brejon-6aa7bb/" }
+  ]
+};
+</script>
+
+<style>
+:root{
+  --osso:#F5F4F0; --preto:#0C0C0E; --texto:#1D1D1B; --texto2:#403F45; --claro2:#C9C7C0;
+  --fio:rgba(29,29,27,.18); --moldura:#050506;
+  --f-tit:"Space Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-txt:"Inter","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme: light;
+}
+html,body{height:100%; margin:0}
+body{background:var(--moldura); color:var(--texto); font-family:var(--f-txt); overflow:hidden; -webkit-font-smoothing:antialiased; user-select:none}
+#stage{position:fixed; left:50%; top:50%; width:1600px; height:900px; transform:translate(-50%,-50%); overflow:hidden; background:var(--osso); cursor:pointer}
+p,h2,h3{margin:0}
+.lbl{position:absolute; top:86px; left:100px; font:600 20px/1 var(--f-mono); letter-spacing:2.5px; text-transform:uppercase; color:var(--texto2)}
+.logo-sm{position:absolute; top:80px; right:100px; width:150px; height:auto}
+.pag{position:absolute; right:100px; bottom:30px; font:500 16px/1 var(--f-mono); letter-spacing:2px; color:var(--texto2)}
+.rascunho{position:absolute; left:100px; bottom:30px; font:500 14px/1 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:#8E8C86}
+.hero{position:absolute; left:100px; width:1300px; top:50%; transform:translateY(-50%); font:600 78px/1.08 var(--f-tit); letter-spacing:-1.6px; color:var(--texto); transition:top .8s cubic-bezier(.65,0,.25,1), transform .8s cubic-bezier(.65,0,.25,1), font-size .8s cubic-bezier(.65,0,.25,1)}
+.hero.up{top:140px; transform:none; font-size:44px; letter-spacing:-.6px}
+.grade{position:absolute; left:100px; right:100px; top:228px; display:grid; grid-template-columns:repeat(4,1fr); gap:36px}
+.socio{position:relative; display:flex; flex-direction:column; gap:12px; border-top:2px solid var(--texto); padding-top:22px; opacity:0; transform:translateY(16px); transition:opacity .55s, transform .55s; transition-delay:calc(var(--k) * 160ms); cursor:default}
+.grade.on .socio{opacity:1; transform:none}
+.ini{width:76px; height:76px; border-radius:4px; background:var(--texto); color:var(--osso); display:flex; align-items:center; justify-content:center; font:700 24px/1 var(--f-tit); letter-spacing:-.5px}
+.nome{font:600 32px/1.15 var(--f-tit); letter-spacing:-.4px; color:var(--texto)}
+.titulo{font:500 15px/1.45 var(--f-mono); letter-spacing:1px; text-transform:uppercase; color:var(--texto2); min-height:44px}
+.dest{font-size:22px; line-height:1.45; color:var(--texto2); min-height:140px}
+.ver{align-self:flex-start; margin-top:4px; background:none; border:1px solid var(--texto); color:var(--texto); font:600 15px/1 var(--f-mono); letter-spacing:1px; text-transform:uppercase; padding:13px 16px; border-radius:3px; cursor:pointer; transition:background .2s, color .2s}
+.ver:hover, .ver:focus-visible{background:var(--texto); color:var(--osso); outline:none}
+.ver span{margin-left:6px}
+.contato{font:500 15px/1.5 var(--f-mono); color:#8E8C86}
+.fecho{position:absolute; left:100px; right:100px; bottom:70px; background:var(--preto); border-radius:4px; padding:24px 34px; opacity:0; transform:translateY(12px); transition:opacity .5s, transform .5s}
+.fecho.on{opacity:1; transform:none}
+.fecho p{font:600 28px/1.3 var(--f-tit); color:var(--osso)}
+#barra{position:absolute; left:0; right:0; bottom:0; height:3px; background:rgba(128,128,128,.18)}
+#barra i{display:block; height:100%; width:0; background:#8E8C86; transition:width .35s}
+#dica{position:absolute; left:50%; bottom:58px; transform:translateX(-50%); background:rgba(12,12,14,.9); color:var(--osso); font:500 13px/1 var(--f-mono); padding:11px 16px; border-radius:4px; transition:opacity .6s; white-space:nowrap}
+#dica.sai{opacity:0}
+/* painel do currículo completo */
+#painel{position:absolute; inset:0; z-index:30; display:flex; align-items:center; justify-content:center; background:rgba(12,12,14,.55); opacity:0; pointer-events:none; transition:opacity .3s; cursor:default}
+#painel.on{opacity:1; pointer-events:auto}
+.cv{position:relative; width:860px; box-sizing:border-box; background:var(--osso); border-radius:6px; padding:44px 48px 40px; transform:translateY(14px); transition:transform .35s}
+#painel.on .cv{transform:none}
+.cv .topo{display:flex; gap:20px; align-items:center; margin-bottom:22px}
+.cv .ini{width:72px; height:72px; font-size:27px}
+.cv .nome{font-size:36px}
+.cv .titulo{min-height:0; margin-top:6px}
+.cv .papel{font:600 22px/1.35 var(--f-tit); color:var(--texto); margin-bottom:16px; padding-bottom:18px; border-bottom:1px solid var(--fio)}
+.cv .texto{font-size:19px; line-height:1.55; color:var(--texto2)}
+.cv .acoes{display:flex; gap:14px; align-items:center; margin-top:26px; flex-wrap:wrap}
+.cv .li{display:inline-flex; align-items:center; gap:8px; background:var(--texto); color:var(--osso); text-decoration:none; font:600 14px/1 var(--f-mono); letter-spacing:1px; text-transform:uppercase; padding:13px 16px; border-radius:3px}
+.cv .mail{font:500 15px/1 var(--f-mono); color:var(--texto2); text-decoration:none; border-bottom:1px solid var(--fio); padding-bottom:3px}
+.cv .fechar{position:absolute; top:18px; right:18px; width:40px; height:40px; border:none; background:none; cursor:pointer; font:400 30px/1 var(--f-txt); color:var(--texto2)}
+.cv .nav{position:absolute; bottom:40px; right:48px; display:flex; gap:8px}
+.cv .nav button{width:40px; height:40px; border:1px solid var(--fio); background:none; border-radius:3px; cursor:pointer; font:600 16px/1 var(--f-mono); color:var(--texto)}
+
+/* celular em pé */
+html.retrato #stage{width:900px; height:1800px}
+html.retrato .lbl{top:62px; left:60px; font-size:26px; letter-spacing:3px}
+html.retrato .logo-sm{top:52px; right:60px; width:170px}
+html.retrato .pag{right:60px; bottom:34px; font-size:24px}
+html.retrato .rascunho{left:60px; bottom:34px; font-size:20px}
+html.retrato .hero{left:60px; width:780px; font-size:86px}
+html.retrato .hero.up{top:130px; font-size:56px}
+html.retrato .grade{left:60px; right:60px; top:260px; grid-template-columns:1fr 1fr; gap:44px 30px}
+html.retrato .ini{width:76px; height:76px; font-size:28px}
+html.retrato .nome{font-size:38px}
+html.retrato .titulo{font-size:19px; min-height:54px}
+html.retrato .dest{font-size:28px; min-height:200px}
+html.retrato .ver{font-size:19px; padding:16px 18px}
+html.retrato .contato{font-size:18px}
+html.retrato .fecho{left:60px; right:60px; bottom:110px; padding:30px 36px}
+html.retrato .fecho p{font-size:38px}
+html.retrato #dica{bottom:90px; font-size:24px; padding:18px 24px}
+html.retrato .cv{width:840px; padding:56px 48px 120px}
+html.retrato .cv .ini{width:90px; height:90px; font-size:34px}
+html.retrato .cv .nome{font-size:46px}
+html.retrato .cv .titulo{font-size:19px}
+html.retrato .cv .papel{font-size:32px}
+html.retrato .cv .texto{font-size:30px}
+html.retrato .cv .li{font-size:20px; padding:18px 20px}
+html.retrato .cv .mail{font-size:22px}
+html.retrato .cv .fechar{width:64px; height:64px; font-size:46px}
+html.retrato .cv .nav button{width:64px; height:64px; font-size:24px}
+@media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
+</style>
+
+<div id="stage">
+  <p class="lbl">Equipe</p>
+  <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+  <h2 class="hero" id="hero"></h2>
+  <div class="grade" id="grade"></div>
+  <div class="fecho" id="fecho"><p id="fechoP"></p></div>
+  <p class="rascunho">Rascunho</p>
+  <p class="pag">08</p>
+  <div id="barra"><i></i></div>
+  <div id="dica">← → ou clique para avançar · clique no nome para ver o currículo</div>
+  <div id="painel" role="dialog" aria-modal="true" aria-label="Currículo">
+    <div class="cv" id="cv">
+      <button class="fechar" id="cvFechar" aria-label="Fechar">×</button>
+      <div class="topo"><div class="ini" id="cvIni"></div><div><p class="nome" id="cvNome"></p><p class="titulo" id="cvTit"></p></div></div>
+      <p class="papel" id="cvPapel"></p>
+      <p class="texto" id="cvTexto"></p>
+      <div class="acoes"><a class="li" id="cvLi" target="_blank" rel="noopener">Ver no LinkedIn ↗</a><a class="mail" id="cvMail"></a></div>
+      <div class="nav"><button id="cvAnt" aria-label="Sócio anterior">←</button><button id="cvProx" aria-label="Próximo sócio">→</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const E = EQUIPE, $ = id => document.getElementById(id), PASSOS = 2;
+  $('hero').textContent = E.hero; $('fechoP').textContent = E.fecho;
+  E.socios.forEach((s, k) => {
+    const d = document.createElement('div'); d.className = 'socio'; d.style.setProperty('--k', k);
+    d.innerHTML = '<div class="ini"></div><p class="nome"></p><p class="titulo"></p><p class="dest"></p><button class="ver" type="button">Ver currículo<span>→</span></button><p class="contato"></p>';
+    d.querySelector('.ini').textContent = s.ini; d.querySelector('.nome').textContent = s.nome; d.querySelector('.titulo').textContent = s.titulo;
+    d.querySelector('.dest').textContent = s.destaque; d.querySelector('.contato').textContent = s.email;
+    d.addEventListener('click', e => e.stopPropagation());
+    d.querySelector('.ver').addEventListener('click', e => { e.stopPropagation(); abre(k); });
+    d.querySelector('.nome').style.cursor = 'pointer'; d.querySelector('.nome').addEventListener('click', e => { e.stopPropagation(); abre(k); });
+    $('grade').appendChild(d);
+  });
+  /* painel */
+  let atual = -1;
+  function abre(k){ atual = (k + E.socios.length) % E.socios.length; const s = E.socios[atual];
+    $('cvIni').textContent = s.ini; $('cvNome').textContent = s.nome; $('cvTit').textContent = s.titulo; $('cvPapel').textContent = s.papel; $('cvTexto').textContent = s.cv;
+    $('cvLi').href = s.linkedin; $('cvMail').textContent = s.email; $('cvMail').href = 'mailto:' + s.email;
+    $('painel').classList.add('on'); $('cvFechar').focus({ preventScroll:true }); }
+  function fecha(){ $('painel').classList.remove('on'); atual = -1; }
+  $('painel').addEventListener('click', e => { e.stopPropagation(); if (e.target === $('painel')) fecha(); });
+  $('cvFechar').addEventListener('click', fecha);
+  $('cvAnt').addEventListener('click', () => abre(atual - 1)); $('cvProx').addEventListener('click', () => abre(atual + 1));
+  /* passos */
+  let passo = 0;
+  function render(){ $('hero').classList.toggle('up', passo >= 1); $('grade').classList.toggle('on', passo >= 1); $('fecho').classList.toggle('on', passo >= 2);
+    $('barra').firstChild.style.width = (passo / PASSOS * 100) + '%'; }
+  function prox(){ if (passo < PASSOS){ passo++; render(); dica(); } }
+  function ant(){ if (passo > 0){ passo--; render(); dica(); } }
+  let dicaFeita = false; function dica(){ if (!dicaFeita){ dicaFeita = true; $('dica').classList.add('sai'); } } setTimeout(dica, 7000);
+  addEventListener('keydown', e => {
+    if (atual >= 0){ if (e.key === 'Escape'){ e.preventDefault(); fecha(); } else if (e.key === 'ArrowRight'){ e.preventDefault(); abre(atual + 1); } else if (e.key === 'ArrowLeft'){ e.preventDefault(); abre(atual - 1); } return; }
+    if (["ArrowRight","PageDown"," ","Enter"].includes(e.key)){ e.preventDefault(); prox(); } else if (["ArrowLeft","PageUp","Backspace"].includes(e.key)){ e.preventDefault(); ant(); } });
+  $('stage').addEventListener('click', e => { if (atual >= 0) return; (e.clientX < innerWidth * .3) ? ant() : prox(); });
+  let tx = null; $('stage').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive:true });
+  $('stage').addEventListener('touchend', e => { if (tx === null || atual >= 0) return; const dx = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(dx) > 40){ dx < 0 ? prox() : ant(); } }, { passive:true });
+  const retrato = () => innerHeight > innerWidth && Math.min(screen.width, screen.height) <= 820;
+  function fit(){ const r = retrato(); document.documentElement.classList.toggle('retrato', r);
+    const Wd = r ? 900 : 1600, Hd = r ? 1800 : 900; $('stage').style.transform = `translate(-50%,-50%) scale(${Math.min(innerWidth/Wd, innerHeight/Hd)})`;
+    if (r) $('dica').textContent = 'Toque para avançar · toque no nome para ver o currículo'; }
+  addEventListener('resize', fit); fit();
+  try { const m = location.hash.match(/^#p(\d+)$/); if (m) passo = Math.min(PASSOS, +m[1]); } catch(e){}
+  if (passo > 0) dica();
+  render();
+})();
+</script>
