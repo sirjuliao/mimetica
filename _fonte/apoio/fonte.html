@@ -22,6 +22,34 @@ const CONFIG = {
 
   // Liga e desliga partes do deck (true = aparece, false = some)
   mostrarSmallville: false,
+
+  // Slide Equipe: ordem da esquerda para a direita. "destaque" aparece no slide; "papel" e "cv" no painel do currículo.
+  equipe: {
+    hero: "Quem constrói a Mimetica.",
+    fecho: "Tecnologia, mercado, pesquisa e compliance: cada parte do trabalho tem um responsável.",
+    socios: [
+      { ini: "GY", nome: "Geraldo Yoshizawa", titulo: "Sócio-fundador",
+        destaque: "Mais de 40 anos construindo empresas de tecnologia. Coinventor de patentes nos Estados Unidos.",
+        papel: "Lidera a tecnologia e o método dos gêmeos digitais da Mimetica.",
+        cv: "Empreendedor de tecnologia há mais de 40 anos, formado em Engenharia pela Escola Politécnica da USP. Fundou e dirigiu por 26 anos uma empresa de automação comercial, vendida a uma multinacional americana, onde foi diretor de desenvolvimento. É coinventor de patentes nos Estados Unidos em rastreamento de consumo e reposição automática de estoque. Fundou a primeira empresa a operar armários eletrônicos em escala no Brasil. Em 2025, fundou a Mimetica, que cria gêmeos digitais da população brasileira para simular comportamento e testar decisões de negócio. É autor de \"Simular o Brasil\".",
+        email: "geraldo@mimetica.net", linkedin: "https://www.linkedin.com/in/geraldoyoshizawa/" },
+      { ini: "FJ", nome: "Fernando Julião", titulo: "Sócio-fundador",
+        destaque: "25 anos abrindo mercados com tecnologias novas, dos dados variáveis aos smart lockers.",
+        papel: "Constrói a infraestrutura que replica o comportamento humano, a começar pelo Brasil.",
+        cv: "Há 25 anos atua em criação, inovação e marketing. Desde o início da carreira, é movido pelo pioneirismo. Participou de projetos pioneiros em comunicação com dados variáveis, cross-media, comunicação transacional e logística urbana, onde ajudou a criar as primeiras redes de smart lockers do país. Esteve à frente de equipes multidisciplinares, sempre com tecnologias novas, abrindo mercados para startups e multinacionais.",
+        email: "fernando@mimetica.net", linkedin: "https://www.linkedin.com/in/fjuliao/" },
+      { ini: "DI", nome: "Douglas Inoue", titulo: "Cofundador · Líder de Rigor de Pesquisa",
+        destaque: "18 anos em pesquisa de mercado, auditando o dado antes que ele vire conclusão.",
+        papel: "Garante que cada estudo da Mimetica siga o padrão de qualidade da indústria de pesquisa.",
+        cv: "Há 18 anos trabalha com pesquisa de mercado por dentro da indústria. Começou num instituto global, passou pelo primeiro instituto de pesquisa online do Brasil e, por quase doze anos, conduziu projetos de pesquisa farmacêutica e de saúde de marca para grandes institutos. Em centenas de projetos, seu papel foi auditar o dado antes que ele virasse conclusão: amostra, questionário, campo e base, uma etapa de cada vez.",
+        email: "douglas@mimetica.net", linkedin: "https://www.linkedin.com/in/douglasinoue/" },
+      { ini: "SB", nome: "Sérgio Brejon", titulo: "Cofundador · Líder de Compliance e Regulação",
+        destaque: "Engenheiro e mestre pela Poli/USP, com longa trajetória em operações logísticas.",
+        papel: "Cuida de regulação, certificações, contratos e qualidade dos processos da Mimetica.",
+        cv: "Engenheiro naval e mestre em pesquisa operacional e otimização aplicada a transportes pela Escola Politécnica da USP, com MBA em Comércio Internacional pela FIA/USP e pela Université Grenoble, na França. Tem experiência ampla em logística, em negociação, terceirização, planejamento, implantação e melhoria de operações. Empreende desde 2004 e é sócio de uma consultoria de logística de meios de pagamento, com foco em reparo e recuperação de equipamentos.",
+        email: "brejon@mimetica.net", linkedin: "https://www.linkedin.com/in/s%C3%A9rgio-brejon-6aa7bb/" }
+    ]
+  },
   mostrarRadar: true,
 
   // Slide animado: nome do projeto que entra como seed
@@ -835,6 +863,63 @@ html.retrato .cd-fecho small{font-size:34px; margin-top:18px}
   .slide{display:flex!important; position:relative; height:900px; break-after:page; animation:none}
   #barra,#dica{display:none}
 }
+/* ===== SLIDE EQUIPE ===== */
+.eq-grade{position:absolute; left:100px; right:100px; top:228px; display:grid; grid-template-columns:repeat(4,1fr); gap:36px; opacity:1!important}
+.eq-socio{display:flex; flex-direction:column; gap:12px; border-top:2px solid var(--texto); padding-top:22px; opacity:0; transform:translateY(16px); transition:opacity .55s, transform .55s; transition-delay:calc(var(--k) * 160ms); pointer-events:none; cursor:default}
+.eq-grade.on .eq-socio{opacity:1; transform:none; pointer-events:auto}
+.eq-ini{width:76px; height:76px; border-radius:4px; background:var(--texto); color:var(--osso); display:flex; align-items:center; justify-content:center; font:700 24px/1 var(--f-tit); letter-spacing:-.5px; flex:none}
+.eq-nome{font:600 32px/1.15 var(--f-tit); letter-spacing:-.4px; color:var(--texto)}
+.eq-socio .eq-nome{cursor:pointer}
+.eq-tit{font:500 15px/1.45 var(--f-mono); letter-spacing:1px; text-transform:uppercase; color:var(--texto2); min-height:44px}
+.eq-dest{font-size:22px; line-height:1.45; color:var(--texto2); min-height:140px}
+.eq-acao{display:flex; align-items:center; gap:12px; margin-top:4px}
+.eq-ver{background:none; border:1px solid var(--texto); color:var(--texto); font:600 15px/1 var(--f-mono); letter-spacing:1px; text-transform:uppercase; padding:13px 16px; border-radius:3px; cursor:pointer; transition:background .2s, color .2s}
+.eq-ver:hover, .eq-ver:focus-visible{background:var(--texto); color:var(--osso); outline:none}
+.eq-ver span{margin-left:6px}
+.eq-lin{display:block; width:41px; height:41px; color:var(--texto); transition:opacity .2s}
+.eq-lin svg{display:block; width:100%; height:100%}
+.eq-lin:hover{opacity:.75}
+.eq-mailc{font:500 15px/1.5 var(--f-mono); color:#8E8C86}
+.eq-liurl{display:none; font:500 14px/1.5 var(--f-mono); color:var(--texto2); word-break:break-all}
+.pdf-eq .eq-acao{display:none}
+.pdf-eq .eq-liurl{display:block}
+#s-equipe .banda.fecho{bottom:70px}
+.eq-painel{position:absolute; inset:0; z-index:30; display:flex; align-items:center; justify-content:center; background:rgba(12,12,14,.55); opacity:0; pointer-events:none; transition:opacity .3s; cursor:default}
+.eq-painel.on{opacity:1; pointer-events:auto}
+.eq-cv{position:relative; width:860px; box-sizing:border-box; background:var(--osso); border-radius:6px; padding:44px 48px 40px; transform:translateY(14px); transition:transform .35s}
+.eq-painel.on .eq-cv{transform:none}
+.eq-topo{display:flex; gap:20px; align-items:center; margin-bottom:22px}
+.eq-cv .eq-ini{width:72px; height:72px; font-size:27px}
+.eq-cv .eq-nome{font-size:36px}
+.eq-cv .eq-tit{min-height:0; margin-top:6px}
+.eq-papel{font:600 22px/1.35 var(--f-tit); color:var(--texto); margin-bottom:16px; padding-bottom:18px; border-bottom:1px solid var(--fio)}
+.eq-texto{font-size:19px; line-height:1.55; color:var(--texto2)}
+.eq-acoes{display:flex; gap:14px; align-items:center; margin-top:26px; flex-wrap:wrap}
+.eq-li{display:inline-flex; align-items:center; gap:8px; background:var(--texto); color:var(--osso); text-decoration:none; font:600 14px/1 var(--f-mono); letter-spacing:1px; text-transform:uppercase; padding:13px 16px; border-radius:3px}
+.eq-li svg{width:18px; height:18px}
+.eq-mail{font:500 15px/1 var(--f-mono); color:var(--texto2); text-decoration:none; border-bottom:1px solid var(--fio); padding-bottom:3px}
+.eq-x{position:absolute; top:18px; right:18px; width:40px; height:40px; border:none; background:none; cursor:pointer; font:400 30px/1 var(--f-txt); color:var(--texto2)}
+.eq-nav{position:absolute; bottom:40px; right:48px; display:flex; gap:8px}
+.eq-nav button{width:40px; height:40px; border:1px solid var(--fio); background:none; border-radius:3px; cursor:pointer; font:600 16px/1 var(--f-mono); color:var(--texto)}
+html.retrato .eq-grade{left:60px; right:60px; top:320px; grid-template-columns:1fr 1fr; gap:44px 30px}
+html.retrato .eq-ini{width:76px; height:76px; font-size:28px}
+html.retrato .eq-nome{font-size:38px}
+html.retrato .eq-tit{font-size:19px; min-height:54px}
+html.retrato .eq-dest{font-size:28px; min-height:200px}
+html.retrato .eq-ver{font-size:19px; padding:16px 18px}
+html.retrato .eq-lin{width:53px; height:53px}
+html.retrato .eq-mailc, html.retrato .eq-liurl{font-size:18px}
+html.retrato #s-equipe .banda.fecho{bottom:110px}
+html.retrato .eq-cv{width:840px; padding:56px 48px 120px}
+html.retrato .eq-cv .eq-ini{width:90px; height:90px; font-size:34px}
+html.retrato .eq-cv .eq-nome{font-size:46px}
+html.retrato .eq-papel{font-size:32px}
+html.retrato .eq-texto{font-size:30px}
+html.retrato .eq-li{font-size:20px; padding:18px 20px}
+html.retrato .eq-li svg{width:24px; height:24px}
+html.retrato .eq-mail{font-size:22px}
+html.retrato .eq-x{width:64px; height:64px; font-size:46px}
+html.retrato .eq-nav button{width:64px; height:64px; font-size:24px}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="sim" viewBox="0 0 700 700"><path d="M.54-.16v700h700V-.16H.54ZM490.39,543.57h-41.48c-3.35,0-6.2-2.54-6.72-6l-30.25-198.09c-1.05-6.86-9.89-8.26-12.83-2.03l-77.67,149.12c-7.44,15.76-29.9,15.63-37.16-.21l-75.43-149.23c-2.86-6.24-11.68-4.98-12.84,1.83l-33.77,198.74c-.58,3.4-3.4,5.88-6.7,5.88h-41.89c-4.29,0-7.51-4.09-6.68-8.5l69.76-373.03c1.26-6.75,10.03-7.9,12.84-1.68l98.97,219.32c5.9,13.07,24.42,13.2,30.5.2l102.59-219.48c2.9-6.2,11.68-4.9,12.82,1.9l62.65,372.89c.73,4.36-2.47,8.36-6.71,8.36ZM587.13,543.41h-31.61c-3.47,0-6.43-2.5-7.01-5.92l-63.34-373.07c-.74-4.34,2.61-8.3,7.01-8.3h31.99c3.47,0,6.43,2.51,7.01,5.93l62.97,373.07c.73,4.34-2.61,8.29-7.01,8.29Z"/></symbol></defs></svg>
@@ -1020,6 +1105,26 @@ html.retrato .cd-fecho small{font-size:34px; margin-top:18px}
     </div>
     <div class="banda fecho ent" data-in="3"><p class="rv" id="ctFecho"></p></div>
     <p class="pag"></p>
+  </section>
+
+  <!-- ============ SLIDE · EQUIPE (2 cliques; textos no CONFIG.equipe) ============ -->
+  <section class="slide cena" data-steps="2" id="s-equipe">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Equipe</p>
+    <h2 class="hero rv" data-in="0" data-up="1" id="eqHero"></h2>
+    <div class="eq-grade" id="eqGrade" data-in="1"></div>
+    <div class="banda fecho ent" data-in="2"><p class="rv" id="eqFecho"></p></div>
+    <p class="pag"></p>
+    <div class="eq-painel" id="eqPainel" role="dialog" aria-modal="true" aria-label="Currículo">
+      <div class="eq-cv">
+        <button class="eq-x" id="eqX" aria-label="Fechar">×</button>
+        <div class="eq-topo"><div class="eq-ini" id="eqCvIni"></div><div><p class="eq-nome" id="eqCvNome"></p><p class="eq-tit" id="eqCvTit"></p></div></div>
+        <p class="eq-papel" id="eqCvPapel"></p>
+        <p class="eq-texto" id="eqCvTexto"></p>
+        <div class="eq-acoes"><a class="eq-li" id="eqCvLi" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="3" fill="#F5F4F0"/><g fill="#1D1D1B"><circle cx="6.6" cy="6.7" r="1.75"/><rect x="5.1" y="9.3" width="3" height="9.6"/><path d="M10.6 9.3h2.9v1.3c.5-.9 1.6-1.6 3.2-1.6 2.9 0 3.5 1.9 3.5 4.4v5.5h-3v-4.9c0-1.2 0-2.6-1.6-2.6s-1.9 1.2-1.9 2.5v5h-3.1z"/></g></svg>Ver no LinkedIn ↗</a><a class="eq-mail" id="eqCvMail"></a></div>
+        <div class="eq-nav"><button id="eqAnt" aria-label="Sócio anterior">←</button><button id="eqProx" aria-label="Próximo sócio">→</button></div>
+      </div>
+    </div>
   </section>
 
   <!-- ============ SLIDE 08 · ENCERRAMENTO ============ -->
@@ -1998,6 +2103,45 @@ html.retrato .cd-fecho small{font-size:34px; margin-top:18px}
   })();
 
   /* ================================================================
+     EQUIPE: cartões dos sócios e painel do currículo completo
+     ================================================================ */
+  const equipe = (() => {
+    const E = CONFIG.equipe, $ = id => document.getElementById(id), sec = $('s-equipe'); if (!sec) return { fecha(){} };
+    $('eqHero').textContent = E.hero; $('eqFecho').textContent = E.fecho;
+    [$('eqHero'), $('eqFecho')].forEach(el => { const ws = el.textContent.trim().split(/\s+/); el.textContent = '';
+      ws.forEach((w, i) => { const sp = document.createElement('span'); sp.className = 'w'; sp.style.setProperty('--i', i); sp.textContent = w;
+        el.appendChild(sp); if (i < ws.length - 1) el.appendChild(document.createTextNode(' ')); }); });
+    const ICO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="3" fill="currentColor"/><g fill="#F5F4F0"><circle cx="6.6" cy="6.7" r="1.75"/><rect x="5.1" y="9.3" width="3" height="9.6"/><path d="M10.6 9.3h2.9v1.3c.5-.9 1.6-1.6 3.2-1.6 2.9 0 3.5 1.9 3.5 4.4v5.5h-3v-4.9c0-1.2 0-2.6-1.6-2.6s-1.9 1.2-1.9 2.5v5h-3.1z"/></g></svg>';
+    E.socios.forEach((s, k) => {
+      const d = document.createElement('div'); d.className = 'eq-socio'; d.style.setProperty('--k', k);
+      d.innerHTML = '<div class="eq-ini"></div><p class="eq-nome"></p><p class="eq-tit"></p><p class="eq-dest"></p>'
+        + '<div class="eq-acao"><button class="eq-ver" type="button">Ver currículo<span>→</span></button><a class="eq-lin" target="_blank" rel="noopener" aria-label="LinkedIn">' + ICO + '</a></div>'
+        + '<p class="eq-mailc"></p><p class="eq-liurl"></p>';
+      d.querySelector('.eq-ini').textContent = s.ini; d.querySelector('.eq-nome').textContent = s.nome; d.querySelector('.eq-tit').textContent = s.titulo;
+      d.querySelector('.eq-dest').textContent = s.destaque; d.querySelector('.eq-mailc').textContent = s.email;
+      d.querySelector('.eq-liurl').textContent = decodeURI(s.linkedin).replace(/^https:\/\/www\./, '').replace(/\/$/, '');
+      const li = d.querySelector('.eq-lin'); li.href = s.linkedin; li.title = 'LinkedIn de ' + s.nome;
+      d.addEventListener('click', e => e.stopPropagation());
+      d.querySelector('.eq-ver').addEventListener('click', () => abre(k));
+      d.querySelector('.eq-nome').addEventListener('click', () => abre(k));
+      $('eqGrade').appendChild(d);
+    });
+    let atual = -1; const P = $('eqPainel');
+    function abre(k){ atual = (k + E.socios.length) % E.socios.length; const s = E.socios[atual];
+      $('eqCvIni').textContent = s.ini; $('eqCvNome').textContent = s.nome; $('eqCvTit').textContent = s.titulo; $('eqCvPapel').textContent = s.papel; $('eqCvTexto').textContent = s.cv;
+      $('eqCvLi').href = s.linkedin; $('eqCvMail').textContent = s.email; $('eqCvMail').href = 'mailto:' + s.email;
+      P.classList.add('on'); $('eqX').focus({ preventScroll:true }); }
+    function fecha(){ P.classList.remove('on'); atual = -1; }
+    P.addEventListener('click', e => { e.stopPropagation(); if (e.target === P) fecha(); });
+    ['touchstart','touchend'].forEach(t => { P.addEventListener(t, e => e.stopPropagation(), { passive:true }); $('eqGrade').addEventListener(t, e => { if (e.target.closest('.eq-acao, .eq-nome')) e.stopPropagation(); }, { passive:true }); });
+    $('eqX').addEventListener('click', fecha);
+    $('eqAnt').addEventListener('click', () => abre(atual - 1)); $('eqProx').addEventListener('click', () => abre(atual + 1));
+    addEventListener('keydown', e => { if (atual < 0) return; e.preventDefault(); e.stopImmediatePropagation();
+      if (e.key === 'Escape') fecha(); else if (e.key === 'ArrowRight') abre(atual + 1); else if (e.key === 'ArrowLeft') abre(atual - 1); }, true);
+    return { fecha };
+  })();
+
+  /* ================================================================
      NAVEGAÇÃO
      ================================================================ */
   const stage = document.getElementById('stage');
@@ -2042,6 +2186,7 @@ html.retrato .cd-fecho small{font-size:34px; margin-top:18px}
     cidade.ativar(cur === cidIdx); if (cur === cidIdx) cidade.passo(passo, instant);
     if (cur === cfIdx) confia.passo(passo, instant);
     twin.ativar(cur === twinIdx);
+    equipe.fecha();
     if (cur === twinIdx) twin.setStep(passo, instant);
     const total = slides.length;
     const frac = (cur + (passosDe(cur) ? passo/passosDe(cur) : 0)) / (total - 1);

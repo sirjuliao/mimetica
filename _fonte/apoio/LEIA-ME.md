@@ -10,7 +10,7 @@ Pastas que começam com "_" não são publicadas pelo GitHub Pages.
 - `logo-claro.b64`, `logo-escuro.b64`: logos originais em base64 (não recolorir).
 - `montar.py`: gera `apoio/index.html` (site) e `apresentacao.html` (versão solta).
 - `pdf/`: gerador do PDF de quadros-chave.
-  - `frames.js` (Playwright): lista de quadros `[slide, passo, espera, comQR]`. Insere QR na capa e no
+  - `frames.js` (Playwright): lista de quadros `[slide, passo, espera, comQR]`. No slide Equipe, a classe `pdf-eq` troca os botões pelo endereço do LinkedIn. Insere QR na capa e no
     encerramento e o contato no encerramento.
   - `tabela.html`: página extra com a tabela das áreas.
   - Fontes locais via `npm install` (@fontsource/space-grotesk, inter, jetbrains-mono), porque o PDF
