@@ -865,7 +865,7 @@ html.retrato .cd-fecho small{font-size:34px; margin-top:18px}
 }
 /* ===== SLIDE EQUIPE ===== */
 .eq-grade{position:absolute; left:100px; right:100px; top:228px; display:grid; grid-template-columns:repeat(4,1fr); gap:36px; opacity:1!important}
-.eq-socio{display:flex; flex-direction:column; gap:12px; border-top:2px solid var(--texto); padding-top:22px; opacity:0; transform:translateY(16px); transition:opacity .55s, transform .55s; transition-delay:calc(var(--k) * 160ms); pointer-events:none; cursor:default}
+.eq-socio{display:flex; flex-direction:column; gap:12px; border-top:2px solid var(--texto); padding-top:22px; opacity:0; transform:translateY(16px); transition:opacity .55s, transform .55s; transition-delay:calc(var(--k) * 160ms); pointer-events:none}
 .eq-grade.on .eq-socio{opacity:1; transform:none; pointer-events:auto}
 .eq-ini{width:76px; height:76px; border-radius:4px; background:var(--texto); color:var(--osso); display:flex; align-items:center; justify-content:center; font:700 24px/1 var(--f-tit); letter-spacing:-.5px; flex:none}
 .eq-nome{font:600 32px/1.15 var(--f-tit); letter-spacing:-.4px; color:var(--texto)}
@@ -2121,9 +2121,9 @@ html.retrato .eq-nav button{width:64px; height:64px; font-size:24px}
       d.querySelector('.eq-dest').textContent = s.destaque; d.querySelector('.eq-mailc').textContent = s.email;
       d.querySelector('.eq-liurl').textContent = decodeURI(s.linkedin).replace(/^https:\/\/www\./, '').replace(/\/$/, '');
       const li = d.querySelector('.eq-lin'); li.href = s.linkedin; li.title = 'LinkedIn de ' + s.nome;
-      d.addEventListener('click', e => e.stopPropagation());
-      d.querySelector('.eq-ver').addEventListener('click', () => abre(k));
-      d.querySelector('.eq-nome').addEventListener('click', () => abre(k));
+      d.querySelector('.eq-ver').addEventListener('click', e => { e.stopPropagation(); abre(k); });
+      d.querySelector('.eq-nome').addEventListener('click', e => { e.stopPropagation(); abre(k); });
+      li.addEventListener('click', e => e.stopPropagation());
       $('eqGrade').appendChild(d);
     });
     let atual = -1; const P = $('eqPainel');
