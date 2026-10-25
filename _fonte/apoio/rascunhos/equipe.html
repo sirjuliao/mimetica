@@ -55,7 +55,8 @@ p,h2,h3{margin:0}
 .hero.up{top:140px; transform:none; font-size:44px; letter-spacing:-.6px}
 .grade{position:absolute; left:100px; right:100px; top:228px; display:grid; grid-template-columns:repeat(4,1fr); gap:36px}
 .socio{position:relative; display:flex; flex-direction:column; gap:12px; border-top:2px solid var(--texto); padding-top:22px; opacity:0; transform:translateY(16px); transition:opacity .55s, transform .55s; transition-delay:calc(var(--k) * 160ms); cursor:default}
-.grade.on .socio{opacity:1; transform:none}
+.socio{pointer-events:none}
+.grade.on .socio{opacity:1; transform:none; pointer-events:auto}
 .ini{width:76px; height:76px; border-radius:4px; background:var(--texto); color:var(--osso); display:flex; align-items:center; justify-content:center; font:700 24px/1 var(--f-tit); letter-spacing:-.5px}
 .nome{font:600 32px/1.15 var(--f-tit); letter-spacing:-.4px; color:var(--texto)}
 .titulo{font:500 15px/1.45 var(--f-mono); letter-spacing:1px; text-transform:uppercase; color:var(--texto2); min-height:44px}
