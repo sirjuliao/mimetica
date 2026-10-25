@@ -1,0 +1,194 @@
+<title>Renda e região</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+<script>
+/* Rascunho do slide "Renda e região". Números ilustrativos, editáveis abaixo. */
+const RENDA = {
+  hero: "No Brasil, a renda explica mais do que o lugar.",
+  pergunta: "Pergunta: você trocaria de marca por um desconto de 10%?",
+  legenda: "% que responde sim",
+  passo1: "Por região, as respostas quase não mudam.",
+  passo2: "Por renda, a diferença aparece.",
+  fecho: "Quando a região faz diferença, mostramos. Quando não faz, dizemos.",
+  nota: "Exemplo ilustrativo.",
+  regioes: [["Norte",44],["Nordeste",130],["Centro-Oeste",40],["Sudeste",200],["Sul",66]],
+  classes: [["Classe A",0.08,0.70],["Classe B",0.24,0.54],["Classe C",0.44,0.38],["Classes D e E",0.24,0.22]]
+};
+</script>
+<style>
+:root{
+  --osso:#F5F4F0; --preto:#0C0C0E; --texto:#1D1D1B; --texto2:#403F45; --claro2:#C9C7C0;
+  --fio:rgba(29,29,27,.18); --moldura:#050506;
+  --f-tit:"Space Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-txt:"Inter","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme: light;
+}
+html,body{height:100%; margin:0}
+body{background:var(--moldura); color:var(--texto); font-family:var(--f-txt); overflow:hidden; -webkit-font-smoothing:antialiased; user-select:none}
+#stage{position:fixed; left:50%; top:50%; width:1600px; height:900px; transform:translate(-50%,-50%); overflow:hidden; background:var(--osso); cursor:pointer}
+p,h2,h3{margin:0}
+.lbl{position:absolute; top:86px; left:100px; font:600 20px/1 var(--f-mono); letter-spacing:2.5px; text-transform:uppercase; color:var(--texto2)}
+.logo-sm{position:absolute; top:80px; right:100px; width:150px; height:auto}
+.pag{position:absolute; right:100px; bottom:30px; font:500 16px/1 var(--f-mono); letter-spacing:2px; color:var(--texto2)}
+.rascunho{position:absolute; left:100px; bottom:30px; font:500 14px/1 var(--f-mono); letter-spacing:1.5px; text-transform:uppercase; color:#8E8C86}
+.hero{position:absolute; left:100px; width:1300px; top:50%; transform:translateY(-50%); font:600 78px/1.08 var(--f-tit); letter-spacing:-1.6px; color:var(--texto); transform-origin:left top; transition:top .8s cubic-bezier(.65,0,.25,1), transform .8s cubic-bezier(.65,0,.25,1), font-size .8s cubic-bezier(.65,0,.25,1)}
+.hero.up{top:132px; transform:none; font-size:44px; letter-spacing:-.6px; width:1400px}
+.cap{position:absolute; left:100px; right:100px; top:205px; display:flex; justify-content:space-between; align-items:baseline; opacity:0; transition:opacity .6s .3s}
+.cap.on{opacity:1}
+.cap .q{font:600 26px/1.3 var(--f-tit); color:var(--texto)}
+.cap .leg{font:500 14px/1 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--texto2); display:flex; gap:18px; align-items:center}
+.cap .leg i{display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:7px; vertical-align:-1px}
+.estado{position:absolute; left:100px; top:262px; font:500 20px/1.4 var(--f-txt); color:var(--texto2); opacity:0; transition:opacity .4s}
+.estado.on{opacity:1}
+#cv{position:absolute; left:100px; top:300px; width:1400px; height:440px; opacity:0; transition:opacity .6s .2s}
+#cv.on{opacity:1}
+.grade{position:absolute; left:100px; right:100px; top:300px; display:grid; grid-template-columns:repeat(3,1fr); gap:28px}
+.emp{position:relative; border:1px solid var(--fio); border-radius:6px; background:#FBFAF7; padding:0 0 26px; overflow:hidden; opacity:0; transform:translateY(18px); transition:opacity .6s, transform .6s; transition-delay:calc(var(--k) * 180ms)}
+.emp.on{opacity:1; transform:none}
+.emp canvas{display:block; width:100%; height:190px}
+.emp .cab{display:flex; align-items:baseline; justify-content:space-between; padding:18px 26px 0}
+.emp h3{font:600 34px/1.1 var(--f-tit); letter-spacing:-.6px; color:var(--texto)}
+.emp .lugar{font:500 14px/1 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--texto2)}
+.emp p.t{padding:12px 26px 0; font-size:19px; line-height:1.45; color:var(--texto2)}
+.emp.nossa{background:var(--preto); border-color:var(--preto)}
+.emp.nossa h3{color:var(--osso)}
+.emp.nossa .lugar{color:var(--claro2)}
+.emp.nossa p.t{color:#E4E2DC}
+.nota{position:absolute; right:100px; top:268px; font:500 13px/1.4 var(--f-mono); letter-spacing:.6px; color:#8E8C86; opacity:0; transition:opacity .5s}
+.nota.on{opacity:1}
+.fecho{position:absolute; left:100px; right:100px; bottom:70px; background:var(--preto); border-radius:4px; padding:22px 34px; opacity:0; transform:translateY(12px); transition:opacity .5s, transform .5s}
+.fecho.on{opacity:1; transform:none}
+.fecho p{font:600 28px/1.3 var(--f-tit); color:var(--osso)}
+#barra{position:absolute; left:0; right:0; bottom:0; height:3px; background:rgba(128,128,128,.18)}
+#barra i{display:block; height:100%; width:0; background:#8E8C86; transition:width .35s}
+#dica{position:absolute; left:50%; bottom:58px; transform:translateX(-50%); background:rgba(12,12,14,.9); color:var(--osso); font:500 13px/1 var(--f-mono); padding:11px 16px; border-radius:4px; transition:opacity .6s; white-space:nowrap; z-index:5}
+#dica.sai{opacity:0}
+
+html.retrato #stage{width:900px; height:1800px}
+html.retrato .lbl{top:62px; left:60px; font-size:26px; letter-spacing:3px}
+html.retrato .logo-sm{top:52px; right:60px; width:170px}
+html.retrato .pag{right:60px; bottom:34px; font-size:24px}
+html.retrato .rascunho{left:60px; bottom:34px; font-size:20px}
+html.retrato .hero{left:60px; width:780px; font-size:86px}
+html.retrato .hero.up{top:128px; transform:none; font-size:54px; letter-spacing:-.8px; line-height:1.12}
+html.retrato .cap{left:60px; right:60px; top:290px; flex-direction:column; gap:18px}
+html.retrato .cap .q{font-size:36px}
+html.retrato .cap .leg{font-size:19px}
+html.retrato .cap .leg i{width:16px; height:16px}
+html.retrato .estado{left:60px; top:470px; font-size:30px; width:780px}
+html.retrato #cv{left:60px; top:540px; width:780px; height:930px}
+html.retrato .grade{left:60px; right:60px; top:560px; grid-template-columns:1fr; gap:22px}
+html.retrato .emp{display:grid; grid-template-columns:260px 1fr; padding:0}
+html.retrato .emp canvas{grid-row:1 / span 2; width:260px; height:100%; min-height:230px}
+html.retrato .emp .cab{padding:24px 26px 0; flex-direction:column; gap:10px}
+html.retrato .emp h3{font-size:42px}
+html.retrato .emp .lugar{font-size:18px}
+html.retrato .emp p.t{padding:12px 26px 24px; font-size:26px}
+html.retrato .nota{left:60px; right:auto; top:auto; bottom:330px; font-size:18px}
+html.retrato .fecho{left:60px; right:60px; bottom:110px; padding:30px 36px}
+html.retrato .fecho p{font-size:36px}
+html.retrato #dica{bottom:90px; font-size:24px; padding:18px 24px}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+
+<div id="stage">
+  <p class="lbl">Renda e região</p>
+  <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+  <h2 class="hero" id="hero"></h2>
+  <div class="cap" id="cap"><p class="q" id="q"></p><p class="leg"><span><i style="background:#1D1D1B"></i>sim</span><span><i style="background:#C9C7C0"></i>não</span></p></div>
+  <p class="estado" id="estado"></p>
+  <p class="nota" id="nota"></p>
+  <canvas id="cv" width="2800" height="880" aria-label="Pontos da população artificial agrupados por região e depois por renda"></canvas>
+  <div class="fecho" id="fecho"><p id="fechoP"></p></div>
+  <p class="rascunho">Rascunho</p>
+  <p class="pag">08</p>
+  <div id="barra"><i></i></div>
+  <div id="dica">← → ou clique para avançar</div>
+</div>
+
+<script>
+(() => {
+  const R = RENDA, $ = id => document.getElementById(id), PASSOS = 3, cv = $('cv'), c = cv.getContext('2d');
+  $('hero').textContent = R.hero; $('q').textContent = R.pergunta; $('fechoP').textContent = R.fecho; $('nota').textContent = R.nota;
+  function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  /* população: cada ponto é um gêmeo digital, com região, classe e resposta.
+     A mistura de classes é a mesma em toda região, e a resposta depende só da classe. */
+  const r = rng(7), P = [];
+  R.regioes.forEach(([nome, n], ri) => {
+    R.classes.forEach(([cn, frac, ps], ci) => { const m = Math.round(n * frac), sim = Math.round(m * ps);
+      for (let i = 0; i < m; i++) P.push({ ri, ci, sim: i < sim, j: r() }); });
+  });
+  P.sort((a, b) => a.j - b.j);
+  const pct = (sel) => { const g = P.filter(sel); return Math.round(100 * g.filter(p => p.sim).length / g.length); };
+  const pReg = R.regioes.map((_, i) => pct(p => p.ri === i)), pCla = R.classes.map((_, i) => pct(p => p.ci === i));
+  /* layout: colunas lado a lado; dentro de cada coluna, quem diz sim fica embaixo */
+  function layout(chave, grupos){
+    const W = cv.width, H = cv.height, ret = document.documentElement.classList.contains('retrato');
+    const gap = W * .03, colW = (W - gap * (grupos - 1)) / grupos, esp = ret ? 40 : 40, porLinha = Math.max(4, Math.floor(colW / esp));
+    const baseY = H - (ret ? 240 : 190), pos = new Map();
+    for (let g = 0; g < grupos; g++){
+      const membros = P.filter(p => p[chave] === g).sort((a, b) => (b.sim - a.sim) || (a.j - b.j));
+      const x0 = g * (colW + gap) + (colW - porLinha * esp) / 2 + esp / 2;
+      membros.forEach((p, i) => { pos.set(p, [x0 + (i % porLinha) * esp, baseY - Math.floor(i / porLinha) * esp]); });
+    }
+    return { pos, colW, gap, baseY, esp };
+  }
+  let L1, L2;
+  function prepara(){ const ret = document.documentElement.classList.contains('retrato');
+    cv.width = ret ? 1560 : 2800; cv.height = ret ? 1860 : 880; L1 = layout('ri', R.regioes.length); L2 = layout('ci', R.classes.length); }
+  let alvo = 0, mix = 0, ultimo = performance.now();
+  const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+  function rotulos(L, nomes, valores, alpha){
+    if (alpha <= 0) return; const ret = document.documentElement.classList.contains('retrato');
+    c.globalAlpha = alpha; c.textAlign = 'center';
+    nomes.forEach((n, g) => { const cx = g * (L.colW + L.gap) + L.colW / 2;
+      c.fillStyle = '#1D1D1B'; c.font = '600 ' + (ret ? 76 : 80) + 'px "Space Grotesk", sans-serif'; c.fillText(valores[g] + '%', cx, L.baseY + (ret ? 118 : 104));
+      c.fillStyle = '#403F45'; c.font = '500 ' + (ret ? 30 : 26) + 'px "JetBrains Mono", monospace';
+      const k0 = n.indexOf(' '), partes = ret && n.length > 9 && k0 > 0 ? [n.slice(0, k0), n.slice(k0 + 1)] : [n];
+      partes.forEach((pt, k) => c.fillText(pt.toUpperCase(), cx, L.baseY + (ret ? 166 : 150) + k * 36)); });
+    c.globalAlpha = 1;
+  }
+  function quadro(now){
+    const dt = Math.min(.05, (now - ultimo) / 1000); ultimo = now;
+    const v = 1 / 1.4; mix += Math.sign(alvo - mix) * Math.min(Math.abs(alvo - mix), dt * v);
+    const e = ease(mix); c.clearRect(0, 0, cv.width, cv.height);
+    c.strokeStyle = 'rgba(29,29,27,.25)'; c.lineWidth = 2; c.beginPath(); c.moveTo(0, L1.baseY + L1.esp * .6); c.lineTo(cv.width, L1.baseY + L1.esp * .6); c.stroke();
+    P.forEach(p => { const a = L1.pos.get(p), b = L2.pos.get(p);
+      const d = (p.j - .5) * .25, t = Math.min(1, Math.max(0, (e - .12 - d * .5) / .76)), tt = ease(t);
+      const x = a[0] + (b[0] - a[0]) * tt, y = a[1] + (b[1] - a[1]) * tt - Math.sin(Math.PI * tt) * 60 * (.5 + p.j);
+      c.fillStyle = p.sim ? '#1D1D1B' : '#C9C7C0'; c.beginPath(); c.arc(x, y, L1.esp * .36, 0, 7); c.fill(); });
+    rotulos(L1, R.regioes.map(x => x[0]), pReg, 1 - Math.min(1, e * 3));
+    rotulos(L2, R.classes.map(x => x[0]), pCla, Math.max(0, e * 3 - 2));
+    requestAnimationFrame(quadro);
+  }
+  let passo = 0;
+  function render(){
+    $('hero').classList.toggle('up', passo >= 1); $('cap').classList.toggle('on', passo >= 1); $('cv').classList.toggle('on', passo >= 1);
+    $('nota').classList.toggle('on', passo >= 1);
+    $('estado').classList.toggle('on', passo >= 1); $('estado').textContent = passo >= 2 ? R.passo2 : R.passo1;
+    alvo = passo >= 2 ? 1 : 0; $('fecho').classList.toggle('on', passo >= 3);
+    $('barra').firstChild.style.width = (passo / PASSOS * 100) + '%'; }
+  function prox(){ if (passo < PASSOS){ passo++; render(); dica(); } }
+  function ant(){ if (passo > 0){ passo--; render(); dica(); } }
+  let dicaFeita = false; function dica(){ if (!dicaFeita){ dicaFeita = true; $('dica').classList.add('sai'); } } setTimeout(dica, 7000);
+  addEventListener('keydown', e => { if (["ArrowRight","PageDown"," ","Enter"].includes(e.key)){ e.preventDefault(); prox(); } else if (["ArrowLeft","PageUp","Backspace"].includes(e.key)){ e.preventDefault(); ant(); } });
+  $('stage').addEventListener('click', e => { (e.clientX < innerWidth * .3) ? ant() : prox(); });
+  let tx = null; $('stage').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive:true });
+  $('stage').addEventListener('touchend', e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(dx) > 40){ dx < 0 ? prox() : ant(); } }, { passive:true });
+  const retrato = () => innerHeight > innerWidth && Math.min(screen.width, screen.height) <= 820;
+  let modo = null;
+  function fit(){ const ret = retrato(); document.documentElement.classList.toggle('retrato', ret);
+    const Wd = ret ? 900 : 1600, Hd = ret ? 1800 : 900; $('stage').style.transform = `translate(-50%,-50%) scale(${Math.min(innerWidth/Wd, innerHeight/Hd)})`;
+    if (ret) $('dica').textContent = 'Toque para avançar · toque à esquerda para voltar';
+    if (modo !== ret){ modo = ret; prepara(); } }
+  addEventListener('resize', fit); fit();
+  try { const m = location.hash.match(/^#p(\d+)$/); if (m){ passo = Math.min(PASSOS, +m[1]); dica(); mix = passo >= 2 ? 1 : 0; } } catch(e){}
+  render();
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(quadro));
+})();
+</script>
