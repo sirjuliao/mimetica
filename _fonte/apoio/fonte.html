@@ -23,6 +23,35 @@ const CONFIG = {
   // Liga e desliga partes do deck (true = aparece, false = some)
   mostrarSmallville: false,
 
+  // Slide Modelos fundacionais (Simile, Aaru e Mimetica): textos editáveis.
+  modelos: {
+    hero: "Modelos fundacionais de comportamento humano.",
+    intro: "Um modelo fundacional de comportamento aprende como as pessoas decidem e responde por elas, em escala. Poucas empresas no mundo operam um modelo próprio.",
+    empresas: [
+      { nome: "Simile", lugar: "Estados Unidos",
+        texto: "Nasceu em Stanford, criada pelos autores da pesquisa que deu origem aos agentes generativos." },
+      { nome: "Aaru", lugar: "Estados Unidos",
+        texto: "Simula o comportamento de populações para grandes empresas e consultorias globais, como a EY." },
+      { nome: "Mimetica", lugar: "Brasil", nossa: true,
+        texto: "A empresa brasileira que opera um modelo fundacional proprietário, construído com base no comportamento do brasileiro." }
+    ],
+    fecho: "Cada população tem o seu jeito de decidir. A Mimetica foi construída sobre o jeito do brasileiro.",
+    nota: "Simile e Aaru: informações públicas das empresas."
+  },
+
+  // Slide Renda e região: números ilustrativos. regioes = [nome, pontos]; classes = [nome, fração, chance de sim].
+  renda: {
+    hero: "No Brasil, a renda explica mais do que o lugar.",
+    pergunta: "Pergunta: você trocaria de marca por um desconto de 10%?",
+    legenda: "% que responde sim",
+    passo1: "Por região, as respostas quase não mudam.",
+    passo2: "Por renda, a diferença aparece.",
+    fecho: "Quando a região faz diferença, mostramos. Quando não faz, dizemos.",
+    nota: "Exemplo ilustrativo.",
+    regioes: [["Norte",44],["Nordeste",130],["Centro-Oeste",40],["Sudeste",200],["Sul",66]],
+    classes: [["Classe A",0.08,0.70],["Classe B",0.24,0.54],["Classe C",0.44,0.38],["Classes D e E",0.24,0.22]]
+  },
+
   // Slide Equipe: ordem da esquerda para a direita. "destaque" aparece no slide; "papel" e "cv" no painel do currículo.
   equipe: {
     hero: "Quem constrói a Mimetica.",
@@ -920,6 +949,50 @@ html.retrato .eq-li svg{width:24px; height:24px}
 html.retrato .eq-mail{font-size:22px}
 html.retrato .eq-x{width:64px; height:64px; font-size:46px}
 html.retrato .eq-nav button{width:64px; height:64px; font-size:24px}
+/* ===== SLIDE MODELOS FUNDACIONAIS ===== */
+#s-modelos .hero, #s-renda .hero{transition:top .8s cubic-bezier(.65,0,.25,1), transform .8s cubic-bezier(.65,0,.25,1), font-size .8s cubic-bezier(.65,0,.25,1), opacity .5s}
+#s-modelos .hero.up, #s-renda .hero.up{top:132px; transform:none; font-size:44px; letter-spacing:-.6px; line-height:1.12}
+.md-intro{position:absolute; left:100px; top:200px; width:1050px; font-size:22px; line-height:1.45; color:var(--texto2)}
+.md-grade{position:absolute; left:100px; right:100px; top:285px; display:grid; grid-template-columns:repeat(3,1fr); gap:28px}
+.md-emp{position:relative; border:1px solid var(--fio); border-radius:6px; background:#FBFAF7; padding:0 0 26px; overflow:hidden; opacity:0; transform:translateY(18px); transition:opacity .6s, transform .6s; transition-delay:calc(var(--k) * 180ms)}
+.md-emp.on{opacity:1; transform:none}
+.md-emp canvas{display:block; width:100%; height:240px}
+.md-cab{display:flex; align-items:baseline; justify-content:space-between; padding:18px 26px 0}
+.md-emp h3{font:600 34px/1.1 var(--f-tit); letter-spacing:-.6px; color:var(--texto)}
+.md-lugar{font:500 14px/1 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--texto2)}
+.md-t{padding:12px 26px 0; font-size:21px; line-height:1.45; color:var(--texto2)}
+.md-emp.nossa{background:var(--preto); border-color:var(--preto)}
+.md-emp.nossa h3{color:var(--osso)}
+.md-emp.nossa .md-lugar{color:var(--claro2)}
+.md-emp.nossa .md-t{color:#E4E2DC}
+.md-nota{position:absolute; left:100px; top:745px; font:500 13px/1.4 var(--f-mono); letter-spacing:.6px; color:#8E8C86}
+#s-modelos .banda.fecho, #s-renda .banda.fecho{bottom:70px}
+/* ===== SLIDE RENDA E REGIÃO ===== */
+.rr-cap{position:absolute; left:100px; right:100px; top:205px; display:flex; justify-content:space-between; align-items:baseline}
+.rr-q{font:600 26px/1.3 var(--f-tit); color:var(--texto)}
+.rr-leg{font:500 14px/1 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--texto2); display:flex; gap:18px; align-items:center}
+.rr-leg i{display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:7px; vertical-align:-1px}
+.rr-estado{position:absolute; left:100px; top:262px; font:500 20px/1.4 var(--f-txt); color:var(--texto2)}
+.rr-nota{position:absolute; right:100px; top:268px; font:500 13px/1.4 var(--f-mono); letter-spacing:.6px; color:#8E8C86}
+#rrCanvas{position:absolute; left:100px; top:300px; width:1400px; height:440px}
+html.retrato #s-modelos .hero.up, html.retrato #s-renda .hero.up{top:128px; font-size:54px; letter-spacing:-.8px; line-height:1.12; text-wrap:wrap}
+html.retrato .md-intro{left:60px; top:330px; width:780px; font-size:30px}
+html.retrato .md-grade{left:60px; right:60px; top:560px; grid-template-columns:1fr; gap:22px}
+html.retrato .md-emp{display:grid; grid-template-columns:260px 1fr; padding:0}
+html.retrato .md-emp canvas{grid-row:1 / span 2; width:260px; height:100%; min-height:230px}
+html.retrato .md-cab{padding:24px 26px 0; flex-direction:column; gap:10px}
+html.retrato .md-emp h3{font-size:42px}
+html.retrato .md-lugar{font-size:18px}
+html.retrato .md-t{padding:12px 26px 24px; font-size:26px}
+html.retrato .md-nota{left:60px; top:auto; bottom:330px; font-size:18px}
+html.retrato #s-modelos .banda.fecho, html.retrato #s-renda .banda.fecho{bottom:110px}
+html.retrato .rr-cap{left:60px; right:60px; top:290px; flex-direction:column; gap:18px}
+html.retrato .rr-q{font-size:36px}
+html.retrato .rr-leg{font-size:19px}
+html.retrato .rr-leg i{width:16px; height:16px}
+html.retrato .rr-estado{left:60px; top:470px; font-size:30px; width:780px}
+html.retrato .rr-nota{left:60px; right:auto; top:auto; bottom:330px; font-size:18px}
+html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="sim" viewBox="0 0 700 700"><path d="M.54-.16v700h700V-.16H.54ZM490.39,543.57h-41.48c-3.35,0-6.2-2.54-6.72-6l-30.25-198.09c-1.05-6.86-9.89-8.26-12.83-2.03l-77.67,149.12c-7.44,15.76-29.9,15.63-37.16-.21l-75.43-149.23c-2.86-6.24-11.68-4.98-12.84,1.83l-33.77,198.74c-.58,3.4-3.4,5.88-6.7,5.88h-41.89c-4.29,0-7.51-4.09-6.68-8.5l69.76-373.03c1.26-6.75,10.03-7.9,12.84-1.68l98.97,219.32c5.9,13.07,24.42,13.2,30.5.2l102.59-219.48c2.9-6.2,11.68-4.9,12.82,1.9l62.65,372.89c.73,4.36-2.47,8.36-6.71,8.36ZM587.13,543.41h-31.61c-3.47,0-6.43-2.5-7.01-5.92l-63.34-373.07c-.74-4.34,2.61-8.3,7.01-8.3h31.99c3.47,0,6.43,2.51,7.01,5.93l62.97,373.07c.73,4.34-2.61,8.29-7.01,8.29Z"/></symbol></defs></svg>
@@ -1012,6 +1085,18 @@ html.retrato .eq-nav button{width:64px; height:64px; font-size:24px}
     <p class="pag"></p>
   </section>
 
+  <!-- ============ SLIDE · MODELOS FUNDACIONAIS (3 cliques; textos no CONFIG.modelos) ============ -->
+  <section class="slide cena" data-steps="3" id="s-modelos">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Modelos fundacionais</p>
+    <h2 class="hero rv" data-in="0" data-up="1" id="mdHero"></h2>
+    <p class="md-intro" id="mdIntro" data-in="1"></p>
+    <div class="md-grade" id="mdGrade"></div>
+    <p class="md-nota" id="mdNota" data-in="1" data-out="3"></p>
+    <div class="banda fecho ent" data-in="3"><p class="rv" id="mdFecho"></p></div>
+    <p class="pag"></p>
+  </section>
+
   <!-- ============ SLIDE · POR QUE CONFIAR (7 cliques; textos no CONFIG.confia) ============ -->
   <section class="slide cena" data-steps="6" id="s-confia">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
@@ -1072,6 +1157,19 @@ html.retrato .eq-nav button{width:64px; height:64px; font-size:24px}
     <div class="ex-fim" data-in="5">
       <p class="rv">Das entrevistas originais a uma população artificial equilibrada, que dá para analisar em grupos menores e está sempre atualizada.</p>
     </div>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ SLIDE · RENDA E REGIÃO (3 cliques; números no CONFIG.renda) ============ -->
+  <section class="slide cena" data-steps="3" id="s-renda">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Renda e região</p>
+    <h2 class="hero rv" data-in="0" data-up="1" id="rrHero"></h2>
+    <div class="rr-cap" data-in="1"><p class="rr-q" id="rrQ"></p><p class="rr-leg"><span><i style="background:#1D1D1B"></i>sim</span><span><i style="background:#C9C7C0"></i>não</span></p></div>
+    <p class="rr-estado" id="rrEstado" data-in="1"></p>
+    <p class="rr-nota" id="rrNota" data-in="1"></p>
+    <canvas id="rrCanvas" width="2800" height="880" data-in="1" aria-label="Pontos da população artificial agrupados por região e depois por renda"></canvas>
+    <div class="banda fecho ent" data-in="3"><p class="rv" id="rrFecho"></p></div>
     <p class="pag"></p>
   </section>
 
@@ -2103,6 +2201,98 @@ html.retrato .eq-nav button{width:64px; height:64px; font-size:24px}
   })();
 
   /* ================================================================
+     MODELOS FUNDACIONAIS: Simile, Aaru e Mimetica, cada um com a sua população
+     ================================================================ */
+  const splitRv = el => { const ws = el.textContent.trim().split(/\s+/); el.textContent = '';
+    ws.forEach((w, i) => { const sp = document.createElement('span'); sp.className = 'w'; sp.style.setProperty('--i', i); sp.textContent = w;
+      el.appendChild(sp); if (i < ws.length - 1) el.appendChild(document.createTextNode(' ')); }); };
+  const modelos = (() => {
+    const M = CONFIG.modelos, $ = id => document.getElementById(id); if (!$('s-modelos')) return { ativar(){}, passo(){} };
+    $('mdHero').textContent = M.hero; $('mdIntro').textContent = M.intro; $('mdFecho').textContent = M.fecho; $('mdNota').textContent = M.nota;
+    splitRv($('mdHero')); splitRv($('mdFecho'));
+    const nuvens = [];
+    M.empresas.forEach((e, k) => {
+      const d = document.createElement('div'); d.className = 'md-emp' + (e.nossa ? ' nossa' : ''); d.style.setProperty('--k', e.nossa ? 0 : k);
+      d.innerHTML = '<canvas width="900" height="480" aria-hidden="true"></canvas><div class="md-cab"><h3></h3><span class="md-lugar"></span></div><p class="md-t"></p>';
+      d.querySelector('h3').textContent = e.nome; d.querySelector('.md-lugar').textContent = e.lugar; d.querySelector('.md-t').textContent = e.texto;
+      $('mdGrade').appendChild(d);
+      const r = rng(11 + k * 7), n = e.nossa ? 520 : 300, pts = [];
+      for (let i = 0; i < n; i++) pts.push({ a: r() * Math.PI * 2, raio: Math.sqrt(r()), f: .4 + r() * .9, s: 2.2 + r() * 2.6, tom: r() });
+      nuvens.push({ cv: d.querySelector('canvas'), pts, nossa: !!e.nossa, el: d });
+    });
+    let ativo = false, raf = 0; const t0 = performance.now();
+    function desenha(now){ if (!ativo){ raf = 0; return; } const t = (now - t0) / 1000;
+      nuvens.forEach(N => { if (!N.el.classList.contains('on')) return;
+        const c = N.cv.getContext('2d'), W = N.cv.width, H = N.cv.height; c.clearRect(0, 0, W, H);
+        const cx = W/2, cy = H/2, rx = W*.34, ry = H*.36;
+        N.pts.forEach(p => { const ang = p.a + Math.sin(t * .35 * p.f + p.a * 3) * .08, rr = p.raio * (1 + Math.sin(t * .6 * p.f + p.a) * .03);
+          c.fillStyle = N.nossa ? (p.tom < .25 ? '#8E8C86' : '#F5F4F0') : (p.tom < .3 ? '#C9C7C0' : p.tom < .7 ? '#8E8C86' : '#403F45');
+          c.beginPath(); c.arc(cx + Math.cos(ang) * rr * rx, cy + Math.sin(ang) * rr * ry, p.s, 0, 7); c.fill(); }); });
+      raf = requestAnimationFrame(desenha); }
+    return {
+      ativar(v){ ativo = v; if (v && !raf) raf = requestAnimationFrame(desenha); },
+      passo(p){ [...$('mdGrade').children].forEach((d, k) => d.classList.toggle('on', M.empresas[k].nossa ? p >= 2 : p >= 1)); }
+    };
+  })();
+
+  /* ================================================================
+     RENDA E REGIÃO: os mesmos gêmeos digitais, agrupados por região e depois por renda
+     ================================================================ */
+  const renda = (() => {
+    const R = CONFIG.renda, $ = id => document.getElementById(id), cv = $('rrCanvas'); if (!cv) return { ativar(){}, passo(){} };
+    const c = cv.getContext('2d');
+    $('rrHero').textContent = R.hero; $('rrQ').textContent = R.pergunta; $('rrFecho').textContent = R.fecho; $('rrNota').textContent = R.nota;
+    splitRv($('rrHero')); splitRv($('rrFecho'));
+    const r = rng(7), P = [];
+    R.regioes.forEach(([nome, n], ri) => { R.classes.forEach(([cn, frac, ps], ci) => { const m = Math.round(n * frac), sim = Math.round(m * ps);
+      for (let i = 0; i < m; i++) P.push({ ri, ci, sim: i < sim, j: r() }); }); });
+    P.sort((a, b) => a.j - b.j);
+    const pct = sel => { const g = P.filter(sel); return Math.round(100 * g.filter(p => p.sim).length / g.length); };
+    const pReg = R.regioes.map((_, i) => pct(p => p.ri === i)), pCla = R.classes.map((_, i) => pct(p => p.ci === i));
+    const ret = () => document.documentElement.classList.contains('retrato');
+    function layout(chave, grupos){
+      const W = cv.width, H = cv.height, rt = ret(), gap = W * .03, colW = (W - gap * (grupos - 1)) / grupos, esp = 40;
+      const porLinha = Math.max(4, Math.floor(colW / esp)), baseY = H - (rt ? 240 : 190), pos = new Map();
+      for (let g = 0; g < grupos; g++){
+        const membros = P.filter(p => p[chave] === g).sort((a, b) => (b.sim - a.sim) || (a.j - b.j));
+        const x0 = g * (colW + gap) + (colW - porLinha * esp) / 2 + esp / 2;
+        membros.forEach((p, i) => pos.set(p, [x0 + (i % porLinha) * esp, baseY - Math.floor(i / porLinha) * esp]));
+      }
+      return { pos, colW, gap, baseY, esp };
+    }
+    let L1, L2, modo = null;
+    function prepara(){ const rt = ret(); if (modo === rt) return; modo = rt;
+      cv.width = rt ? 1560 : 2800; cv.height = rt ? 1860 : 880; L1 = layout('ri', R.regioes.length); L2 = layout('ci', R.classes.length); }
+    const easeIO = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+    function rotulos(L, nomes, valores, alpha){
+      if (alpha <= 0) return; const rt = ret(); c.globalAlpha = alpha; c.textAlign = 'center';
+      nomes.forEach((n, g) => { const cx = g * (L.colW + L.gap) + L.colW / 2;
+        c.fillStyle = '#1D1D1B'; c.font = '600 ' + (rt ? 76 : 80) + 'px "Space Grotesk", sans-serif'; c.fillText(valores[g] + '%', cx, L.baseY + (rt ? 118 : 104));
+        c.fillStyle = '#403F45'; c.font = '500 ' + (rt ? 30 : 26) + 'px "JetBrains Mono", monospace';
+        const k0 = n.indexOf(' '), partes = rt && n.length > 9 && k0 > 0 ? [n.slice(0, k0), n.slice(k0 + 1)] : [n];
+        partes.forEach((pt, k) => c.fillText(pt.toUpperCase(), cx, L.baseY + (rt ? 166 : 150) + k * 36)); });
+      c.globalAlpha = 1; }
+    let alvo = 0, mix = 0, ultimo = 0, ativo = false, raf = 0;
+    function quadro(now){
+      if (!ativo){ raf = 0; return; }
+      const dt = ultimo ? Math.min(.05, (now - ultimo) / 1000) : 0; ultimo = now;
+      mix += Math.sign(alvo - mix) * Math.min(Math.abs(alvo - mix), dt / 1.4);
+      const e = easeIO(mix); c.clearRect(0, 0, cv.width, cv.height);
+      c.strokeStyle = 'rgba(29,29,27,.25)'; c.lineWidth = 2; c.beginPath(); c.moveTo(0, L1.baseY + L1.esp * .6); c.lineTo(cv.width, L1.baseY + L1.esp * .6); c.stroke();
+      P.forEach(p => { const a = L1.pos.get(p), b = L2.pos.get(p);
+        const d = (p.j - .5) * .25, t = Math.min(1, Math.max(0, (e - .12 - d * .5) / .76)), tt = easeIO(t);
+        const x = a[0] + (b[0] - a[0]) * tt, y = a[1] + (b[1] - a[1]) * tt - Math.sin(Math.PI * tt) * 60 * (.5 + p.j);
+        c.fillStyle = p.sim ? '#1D1D1B' : '#C9C7C0'; c.beginPath(); c.arc(x, y, L1.esp * .36, 0, 7); c.fill(); });
+      rotulos(L1, R.regioes.map(x => x[0]), pReg, 1 - Math.min(1, e * 3));
+      rotulos(L2, R.classes.map(x => x[0]), pCla, Math.max(0, e * 3 - 2));
+      raf = requestAnimationFrame(quadro); }
+    return {
+      ativar(v){ ativo = v; if (v){ prepara(); if (!raf){ ultimo = 0; raf = requestAnimationFrame(quadro); } } },
+      passo(p, instant){ prepara(); alvo = p >= 2 ? 1 : 0; if (instant || p === 0) mix = alvo; $('rrEstado').textContent = p >= 2 ? R.passo2 : R.passo1; }
+    };
+  })();
+
+  /* ================================================================
      EQUIPE: cartões dos sócios e painel do currículo completo
      ================================================================ */
   const equipe = (() => {
@@ -2156,6 +2346,8 @@ html.retrato .eq-nav button{width:64px; height:64px; font-size:24px}
   const ctIdx = slides.findIndex(s => s.id === 's-contrata');
   const cidIdx = slides.findIndex(s => s.id === 's-cidade');
   const cfIdx = slides.findIndex(s => s.id === 's-confia');
+  const mdIdx = slides.findIndex(s => s.id === 's-modelos');
+  const rrIdx = slides.findIndex(s => s.id === 's-renda');
   slides.forEach((s,i) => { s.querySelectorAll('[data-num]').forEach(b => b.textContent = String(i+1).padStart(2,'0'));
     s.querySelectorAll('.pag').forEach(p => p.textContent = String(i+1).padStart(2,'0')); });
 
@@ -2187,6 +2379,8 @@ html.retrato .eq-nav button{width:64px; height:64px; font-size:24px}
     if (cur === cfIdx) confia.passo(passo, instant);
     twin.ativar(cur === twinIdx);
     equipe.fecha();
+    modelos.ativar(cur === mdIdx); if (cur === mdIdx) modelos.passo(passo);
+    renda.ativar(cur === rrIdx); if (cur === rrIdx) renda.passo(passo, instant);
     if (cur === twinIdx) twin.setStep(passo, instant);
     const total = slides.length;
     const frac = (cur + (passosDe(cur) ? passo/passosDe(cur) : 0)) / (total - 1);
