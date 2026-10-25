@@ -21,7 +21,7 @@ Garante que cada estudo da Mimetica siga o padrão de qualidade da indústria de
 
 Há 18 anos trabalha com pesquisa de mercado por dentro da indústria. Começou num instituto global, passou pelo primeiro instituto de pesquisa online do Brasil e, por quase doze anos, conduziu projetos de pesquisa farmacêutica e de saúde de marca para grandes institutos. Em centenas de projetos, seu papel foi auditar o dado antes que ele virasse conclusão: amostra, questionário, campo e base, uma etapa de cada vez.
 
-[e-mail a confirmar] · linkedin.com/in/douglasinoue
+douglas@mimetica.net · linkedin.com/in/douglasinoue
 (LinkedIn ainda na versão antiga: atualizar antes de publicar o slide; corrigir "Trailist" para "Trialist")
 
 ## Sérgio Brejon · Cofundador · Líder de Compliance e Regulação
