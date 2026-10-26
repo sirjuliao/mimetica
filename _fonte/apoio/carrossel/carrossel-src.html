@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carrossel Mimetica</title>
+__FONTS__
+<style>
+:root{
+  --osso:#F5F4F0; --preto:#0C0C0E; --texto:#1D1D1B; --texto2:#403F45; --claro2:#C9C7C0; --cinza:#8E8C86;
+  --fio:rgba(29,29,27,.18);
+  --f-tit:"Space Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-txt:"Inter","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0; background:#2A2A2C}
+body{font-family:var(--f-txt); color:var(--texto); -webkit-font-smoothing:antialiased}
+p,h1,h2,h3{margin:0}
+#lista{display:flex; flex-direction:column; align-items:center; gap:28px; padding:28px 0 60px}
+.pg{position:relative; width:1080px; height:1350px; background:var(--osso); overflow:hidden; padding:96px 90px 90px; flex:none}
+.pg.esc{background:var(--preto); color:var(--osso)}
+.lbl{font:600 24px/1 var(--f-mono); letter-spacing:3px; text-transform:uppercase; color:var(--texto2)}
+.esc .lbl{color:var(--claro2)}
+.logo{position:absolute; top:84px; right:90px; width:180px; height:auto}
+.num{position:absolute; right:90px; bottom:62px; font:500 22px/1 var(--f-mono); letter-spacing:2px; color:var(--cinza)}
+.h{font:600 64px/1.08 var(--f-tit); letter-spacing:-1.4px; color:var(--texto); margin-top:34px; text-wrap:balance}
+.esc .h{color:var(--osso)}
+.sub{font-size:32px; line-height:1.42; color:var(--texto2); margin-top:26px; text-wrap:pretty}
+.esc .sub{color:#D9D7D0}
+.banda{position:absolute; left:90px; right:90px; bottom:130px; background:var(--preto); border-radius:6px; padding:30px 36px}
+.banda p{font:600 34px/1.28 var(--f-tit); color:var(--osso)}
+.esc .banda{background:var(--osso)} .esc .banda p{color:var(--preto)}
+canvas{display:block}
+
+/* 01 capa */
+.capa .nuvem{position:absolute; left:0; right:0; top:190px; height:470px; width:1080px}
+.capa .h{position:absolute; left:90px; right:90px; bottom:300px; font-size:86px; line-height:1.04; letter-spacing:-2.2px}
+.capa .sub{position:absolute; left:90px; right:180px; bottom:170px; font-size:32px}
+.capa .desl{position:absolute; left:90px; bottom:76px; font:600 24px/1 var(--f-mono); letter-spacing:3px; text-transform:uppercase; color:var(--osso)}
+
+/* 02 para que serve */
+.qs{margin-top:54px; display:flex; flex-direction:column}
+.q{border-top:2px solid var(--texto); padding:22px 0 26px}
+.q .t{font:600 22px/1 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--texto2)}
+.q .p{font:500 34px/1.3 var(--f-tit); color:var(--texto); margin-top:14px}
+
+/* 03 ficha */
+.ficha{margin-top:46px; border:1.5px solid var(--fio); border-radius:8px; background:#FBFAF7; padding:22px 26px 22px}
+.ficha .cab{display:flex; gap:18px; align-items:center; padding-bottom:22px; border-bottom:1px solid var(--fio)}
+.ficha .pt{width:26px; height:26px; border-radius:50%; background:var(--texto); flex:none; box-shadow:0 0 0 7px rgba(29,29,27,.08)}
+.ficha .id{font:600 32px/1.1 var(--f-tit)}
+.ficha .res{font:500 20px/1.3 var(--f-mono); color:var(--texto2); margin-top:6px}
+.fx{margin-top:14px; border-radius:6px; overflow:hidden}
+.fx .c{display:flex; gap:14px; align-items:baseline; padding:12px 18px; font:500 19px/1 var(--f-mono); color:var(--texto2)}
+.fx .c b{font:700 19px/1 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--texto)}
+.fx.m{border:2px solid var(--texto)} .fx.m .c{background:var(--texto); color:var(--claro2)} .fx.m .c b{color:var(--osso)}
+.fx.i{border:2px solid rgba(29,29,27,.55)}
+.fx.ia{border:2px dashed rgba(29,29,27,.5)}
+.fx .g{display:grid; grid-template-columns:1fr 1fr; gap:10px 22px; padding:12px 18px 14px}
+.fx .k{font:500 16px/1.2 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--cinza)}
+.fx .v{font-size:25px; line-height:1.3; color:var(--texto); margin-top:4px}
+.fx .o{font:500 17px/1.2 var(--f-mono); color:var(--texto2); margin-top:4px}
+.fx .voz{grid-column:1 / -1; font:500 26px/1.35 var(--f-tit); color:var(--texto)}
+
+/* 04 população */
+.pop{position:absolute; left:0; top:560px; width:1080px; height:470px}
+.pop-t{position:absolute; left:90px; right:90px; bottom:150px; display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
+.pop-t div{border-top:2px solid var(--texto); padding-top:14px; font:600 21px/1.2 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--texto)}
+.pop-t div span{display:block; margin-top:8px; font:500 18px/1.2 var(--f-mono); letter-spacing:.5px; text-transform:none; color:var(--texto2)}
+
+/* 05 modelos */
+.mods{margin-top:44px; display:flex; flex-direction:column; gap:20px}
+.mod{display:grid; grid-template-columns:250px 1fr; border:1.5px solid var(--fio); border-radius:8px; background:#FBFAF7; overflow:hidden}
+.mod canvas{width:250px; height:210px}
+.mod .tx{padding:26px 28px 24px 8px}
+.mod h3{font:600 40px/1 var(--f-tit); letter-spacing:-.6px}
+.mod .lu{font:500 19px/1 var(--f-mono); letter-spacing:1.6px; text-transform:uppercase; color:var(--texto2); margin-top:10px}
+.mod .d{font-size:25px; line-height:1.35; color:var(--texto2); margin-top:12px}
+.mod.nossa{background:var(--preto); border-color:var(--preto)} .mod.nossa h3{color:var(--osso)} .mod.nossa .lu{color:var(--claro2)} .mod.nossa .d{color:#E4E2DC}
+
+/* 06 confiar */
+.ordem{margin-top:56px; display:flex; flex-direction:column; gap:20px}
+.ord{display:grid; grid-template-columns:70px 1fr; gap:22px; align-items:start; padding:26px 28px; border-radius:6px}
+.ord .n{font:600 40px/1 var(--f-tit); color:inherit}
+.ord .t{font:600 30px/1.2 var(--f-tit)} .ord .s{font-size:25px; line-height:1.35; margin-top:6px; color:var(--texto2)}
+.ord.m{border:2px solid var(--texto)} .ord.i{border:2px solid rgba(29,29,27,.55)} .ord.ia{border:2px dashed rgba(29,29,27,.5)}
+.teste{margin-top:56px; border-top:2px solid var(--texto); padding-top:28px}
+.teste .t{font:600 38px/1.15 var(--f-tit)}
+.lin{display:grid; grid-template-columns:150px 1fr 140px; align-items:center; margin-top:20px; font:600 22px/1 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase}
+.lin .ck{display:flex; gap:12px} .lin .ck i{width:34px; height:34px; border-radius:50%; background:var(--texto)}
+.lin em{font-style:normal; text-align:right; color:var(--texto2)}
+.teste .f{margin-top:26px; font:500 28px/1.3 var(--f-tit); color:var(--texto2)}
+
+/* 07 números */
+.nums{margin-top:56px; display:flex; flex-direction:column}
+.nu{display:grid; grid-template-columns:420px 1fr; gap:28px; align-items:baseline; border-top:2px solid var(--texto); padding:30px 0 30px}
+.nu b{font:600 72px/1 var(--f-tit); letter-spacing:-2px; white-space:nowrap}
+.nu span{font-size:30px; line-height:1.35; color:var(--texto2)}
+
+/* 08 cidade */
+.mapa{display:block; width:900px; height:auto; margin:44px 0 0}
+.leg{margin-top:30px; display:grid; grid-template-columns:1fr 1fr; gap:18px 30px}
+.leg div{border-top:2px solid var(--texto); padding-top:14px}
+.leg b{display:block; font:700 22px/1 var(--f-mono); letter-spacing:2px}
+.leg span{display:block; font-size:24px; line-height:1.35; color:var(--texto2); margin-top:8px}
+
+/* 09 radar */
+.fluxo{position:absolute; left:0; top:480px; width:1080px; height:300px}
+.rnums{position:absolute; left:90px; right:90px; bottom:150px; display:flex; flex-direction:column}
+.rnums div{display:grid; grid-template-columns:330px 1fr; gap:28px; align-items:baseline; border-top:2px solid var(--texto); padding:24px 0}
+.rnums b{font:600 72px/1 var(--f-tit); letter-spacing:-2px}
+.rnums span{font-size:30px; line-height:1.3; color:var(--texto2)}
+
+/* 10 renda */
+.gr{margin-top:34px}
+.gr .tt{display:flex; justify-content:space-between; align-items:baseline; font:600 22px/1 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--texto2)}
+.gr canvas{width:900px; height:300px; margin-top:6px}
+.leg2{display:flex; gap:22px; font:500 20px/1 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--texto2)}
+.leg2 i{display:inline-block; width:16px; height:16px; border-radius:50%; margin-right:8px; vertical-align:-1px}
+.renda .banda{bottom:110px}
+
+/* 11 fim */
+.fim .h{font-size:80px; margin-top:250px}
+.fim .url{margin-top:40px; font:600 40px/1.2 var(--f-mono); color:var(--osso)}
+.fim .qr{position:absolute; left:90px; bottom:300px; display:flex; gap:28px; align-items:center}
+.fim .qr .q{background:var(--osso); padding:14px; width:190px; height:190px; border-top:0}
+.fim .qr p{font:500 24px/1.45 var(--f-mono); color:var(--claro2)}
+.fim .ct{position:absolute; left:90px; right:90px; bottom:120px; display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid rgba(245,244,240,.2); padding-top:30px}
+.fim .ct b{display:block; font:600 34px/1.2 var(--f-tit)}
+.fim .ct span{display:block; font:500 24px/1.5 var(--f-mono); color:var(--claro2); margin-top:8px}
+.fim .ct .r{text-align:right; font:600 24px/1 var(--f-mono); letter-spacing:3px; text-transform:uppercase; color:var(--claro2)}
+
+/* PDF: páginas coladas, sem moldura */
+html.pdf, html.pdf body{background:none}
+html.pdf #lista{padding:0; gap:0; zoom:1!important}
+@page{size:1080px 1350px; margin:0}
+@media print{ html,body{background:none} #lista{padding:0; gap:0; zoom:1!important} .pg{break-after:page} }
+</style>
+</head>
+<body>
+<div id="lista">
+
+  <!-- 01 -->
+  <section class="pg esc capa">
+    <p class="lbl">Mimetica · Apoio à decisão</p>
+    <img class="logo" src="__LOGO_CLARO__" alt="Mimetica">
+    <canvas class="nuvem" id="cvCapa" width="2160" height="940"></canvas>
+    <h1 class="h">Antes de decidir, pergunte para a população artificial.</h1>
+    <p class="sub">Gêmeos digitais da população brasileira, para testar decisões de negócio antes de gastar.</p>
+    <p class="desl">Deslize →</p>
+    <p class="num">01 / 11</p>
+  </section>
+
+  <!-- 02 -->
+  <section class="pg">
+    <p class="lbl">Para que serve</p>
+    <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
+    <h2 class="h">Perguntas que toda empresa faz antes de decidir.</h2>
+    <div class="qs">
+      <div class="q"><p class="t">01 · Preço</p><p class="p">Se o preço subir 8%, quantos clientes aceitam, quantos trocam de marca e quantos param de comprar?</p></div>
+      <div class="q"><p class="t">02 · Lançamento</p><p class="p">Se lançarmos uma linha nova, quem compra pela primeira vez? Quem experimenta e volta para a antiga?</p></div>
+      <div class="q"><p class="t">03 · Imagem da marca</p><p class="p">Se uma notícia negativa sobre a marca viralizar, quantos clientes mudam de opinião?</p></div>
+      <div class="q"><p class="t">04 · Concorrência</p><p class="p">Se um concorrente abrir 200 lojas em seis meses, quem troca de marca primeiro?</p></div>
+    </div>
+    <div class="banda"><p>Cada resposta vem separada por renda, região e idade, antes de gastar com produção ou mídia.</p></div>
+    <p class="num">02 / 11</p>
+  </section>
+
+  <!-- 03 -->
+  <section class="pg">
+    <p class="lbl">O gêmeo digital</p>
+    <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
+    <h2 class="h">Cada gêmeo digital tem uma ficha.</h2>
+    <p class="sub" style="font-size:29px">Construímos cada um com o Twin-2K-BR, método que criamos a partir do gêmeo digital da Universidade Columbia. Cada informação diz de onde veio.</p>
+    <div class="ficha" style="margin-top:34px">
+      <div class="cab"><span class="pt"></span><div><p class="id">Gêmeo digital nº 1.274</p><p class="res">Mulher · 47 anos · interior de Minas Gerais</p></div></div>
+      <div class="fx m"><div class="c"><b>Medido</b>fontes oficiais</div><div class="g">
+        <div><p class="k">Escolaridade</p><p class="v">Ensino médio completo</p><p class="o">fonte: PNAD</p></div>
+        <div><p class="k">Renda familiar</p><p class="v">2 a 3 salários mínimos</p><p class="o">fonte: PNAD</p></div>
+        <div><p class="k">Gasto com alimentação</p><p class="v">R$ 800 a 1.200 por mês</p><p class="o">fonte: POF</p></div>
+        <div><p class="k">Saúde declarada</p><p class="v">Hipertensão</p><p class="o">fonte: PNS</p></div></div></div>
+      <div class="fx i"><div class="c"><b>Inferido</b>com método</div><div class="g">
+        <div style="grid-column:1 / -1"><p class="k">Sensibilidade a preço</p><p class="v">Alta; troca de marca com frequência</p><p class="o">método: cruzamento de renda e gasto</p></div></div></div>
+      <div class="fx ia"><div class="c"><b>IA</b>voz e personalidade</div><div class="g">
+        <div><p class="k">Personalidade (Big Five)</p><p class="v">Organizada, reservada</p></div>
+        <div><p class="k">Como decide</p><p class="v">Consulta a família</p></div>
+        <p class="voz">“Olha, eu sempre pergunto pra minha mãe antes.”</p></div></div>
+    </div>
+    <p class="num">03 / 11</p>
+  </section>
+
+  <!-- 04 -->
+  <section class="pg">
+    <p class="lbl">A população artificial</p>
+    <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
+    <h2 class="h">Milhares de gêmeos digitais formam uma população artificial.</h2>
+    <p class="sub">Ela tem a mesma composição do Brasil, segundo o Censo. Em cada eixo, fica a menos de 1 ponto do Brasil real.</p>
+    <canvas class="pop" id="cvPop" width="2160" height="940"></canvas>
+    <div class="pop-t"><div>Idade<span>Censo</span></div><div>Sexo<span>Censo</span></div><div>Região<span>Censo</span></div><div>Renda<span>PNAD</span></div><div>Estudo<span>PNAD</span></div></div>
+    <p class="num">04 / 11</p>
+  </section>
+
+  <!-- 05 -->
+  <section class="pg">
+    <p class="lbl">Modelos fundacionais</p>
+    <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
+    <h2 class="h">Modelos fundacionais de comportamento humano.</h2>
+    <p class="sub">Eles aprendem como as pessoas decidem e respondem por elas, em escala. Poucas empresas no mundo operam um modelo próprio.</p>
+    <div class="mods">
+      <div class="mod"><canvas width="500" height="420" data-n="300" data-s="11"></canvas><div class="tx"><h3>Simile</h3><p class="lu">Estados Unidos</p><p class="d">Nasceu em Stanford, criada pelos autores da pesquisa dos agentes generativos.</p></div></div>
+      <div class="mod"><canvas width="500" height="420" data-n="300" data-s="18"></canvas><div class="tx"><h3>Aaru</h3><p class="lu">Estados Unidos</p><p class="d">Simula populações para grandes empresas e consultorias globais, como a EY.</p></div></div>
+      <div class="mod nossa"><canvas width="500" height="420" data-n="520" data-s="25" data-nossa="1"></canvas><div class="tx"><h3>Mimetica</h3><p class="lu">Brasil</p><p class="d">Opera um modelo fundacional proprietário, construído com base no comportamento do brasileiro.</p></div></div>
+    </div>
+    <p class="num">05 / 11</p>
+  </section>
+
+  <!-- 06 -->
+  <section class="pg">
+    <p class="lbl">Por que confiar</p>
+    <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
+    <h2 class="h">Primeiro medimos o Brasil. A IA entra por último.</h2>
+    <div class="ordem">
+      <div class="ord m"><span class="n">1</span><div><p class="t">Medido</p><p class="s">Idade, renda, escolaridade, saúde e gastos, do Censo e das pesquisas do IBGE.</p></div></div>
+      <div class="ord i"><span class="n">2</span><div><p class="t">Inferido</p><p class="s">O que ninguém mede diretamente é estimado com método, e registra de onde veio.</p></div></div>
+      <div class="ord ia"><span class="n">3</span><div><p class="t">IA</p><p class="s">Dá voz e personalidade. Não pode alterar nenhum dado medido.</p></div></div>
+    </div>
+    <div class="teste">
+      <p class="t">Tiramos a IA, e as respostas não mudaram.</p>
+      <div class="lin"><span>Com IA</span><span class="ck"><i></i><i></i><i></i><i></i><i></i><i></i></span><em>6 de 6</em></div>
+      <div class="lin"><span>Sem IA</span><span class="ck"><i></i><i></i><i></i><i></i><i></i><i></i></span><em>6 de 6</em></div>
+      <p class="f">Seis experimentos clássicos de comportamento. A resposta vem do dado. A IA só dá a voz.</p>
+    </div>
+    <p class="num">06 / 11</p>
+  </section>
+
+  <!-- 07 -->
+  <section class="pg">
+    <p class="lbl">Testado contra o Brasil real</p>
+    <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
+    <h2 class="h">Os resultados batem com a realidade.</h2>
+    <div class="nums">
+      <div class="nu"><b>15 de 16</b><span>pesquisas brasileiras reproduzidas dentro da margem de erro</span></div>
+      <div class="nu"><b>&lt; 3 pontos</b><span>de erro médio em eleições para o Senado, como as pesquisas de véspera</span></div>
+      <div class="nu"><b>0,98</b><span>de consistência: a mesma pessoa dá a mesma resposta</span></div>
+      <div class="nu"><b>2 modelos</b><span>de IA diferentes, a mesma direção nas respostas</span></div>
+    </div>
+    <p class="num">07 / 11</p>
+  </section>
+
+  <!-- 08 -->
+  <section class="pg">
+    <p class="lbl">Como aprendem sobre a sua empresa</p>
+    <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
+    <h2 class="h">Os gêmeos digitais vivem numa cidade do seu tema.</h2>
+    <img class="mapa" src="__CIDADE__" alt="Mapa de uma cidade fictícia com gêmeos digitais">
+    <div class="leg">
+      <div><b>BANCA</b><span>notícias, estudos e literatura do tema</span></div>
+      <div><b>PRAÇA</b><span>conversas das redes e das comunidades</span></div>
+      <div><b>LOJA</b><span>dados da sua empresa: vendas, cadastro, atendimento</span></div>
+      <div><b>CASAS</b><span>questionários respondidos por pessoas reais</span></div>
+    </div>
+    <p class="num">08 / 11</p>
+  </section>
+
+  <!-- 09 -->
+  <section class="pg">
+    <p class="lbl">Sempre atualizado</p>
+    <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
+    <h2 class="h">Todos os dias, os gêmeos digitais leem o Brasil.</h2>
+    <p class="sub">Como uma pessoa que lê o jornal e conversa com os vizinhos, eles sabem o que está acontecendo no país.</p>
+    <canvas class="fluxo" id="cvFluxo" width="2160" height="600"></canvas>
+    <div class="rnums">
+      <div><b>60+</b><span>fontes brasileiras</span></div>
+      <div><b>~90</b><span>coletas automáticas</span></div>
+      <div><b>~60 mil</b><span>registros novos por dia</span></div>
+    </div>
+    <p class="num">09 / 11</p>
+  </section>
+
+  <!-- 10 -->
+  <section class="pg renda">
+    <p class="lbl">Renda e região</p>
+    <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
+    <h2 class="h">No Brasil, a renda explica mais do que o lugar.</h2>
+    <p class="sub" style="font-size:28px">Pergunta: você trocaria de marca por um desconto de 10%?</p>
+    <div class="gr"><p class="tt"><span>Por região</span><span class="leg2"><span><i style="background:#1D1D1B"></i>sim</span><span><i style="background:#C9C7C0"></i>não</span></span></p><canvas id="cvReg" width="1800" height="600"></canvas></div>
+    <div class="gr"><p class="tt"><span>Por renda</span><span>Exemplo ilustrativo</span></p><canvas id="cvCla" width="1800" height="600"></canvas></div>
+    <div class="banda"><p>Quando a região faz diferença, mostramos. Quando não faz, dizemos.</p></div>
+    <p class="num">10 / 11</p>
+  </section>
+
+  <!-- 11 -->
+  <section class="pg esc fim">
+    <p class="lbl">Mimetica</p>
+    <img class="logo" src="__LOGO_CLARO__" alt="Mimetica">
+    <h2 class="h">Veja a versão interativa, com as animações.</h2>
+    <p class="url">mimetica.institute/apoio</p>
+    <div class="qr"><div class="q">__QR__</div><p>Aponte a câmera<br>do celular</p></div>
+    <div class="ct"><div><b>Fernando Julião</b><span>fernando@mimetica.net<br>+55 11 97633-1881</span></div><p class="r">mimetica.net</p></div>
+    <p class="num">11 / 11</p>
+  </section>
+</div>
+
+<script>
+(() => {
+  function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const disc = (c, x, y, r, cor) => { c.fillStyle = cor; c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); };
+  /* nuvem de pontos genérica */
+  function nuvem(cv, n, seed, cores, rx, ry, rmin, rmax){
+    const c = cv.getContext('2d'), W = cv.width, H = cv.height, r = rng(seed);
+    for (let i = 0; i < n; i++){ const a = r() * Math.PI * 2, d = Math.sqrt(r()), t = r();
+      disc(c, W/2 + Math.cos(a) * d * W * rx, H/2 + Math.sin(a) * d * H * ry, rmin + r() * (rmax - rmin), cores(t)); }
+  }
+  nuvem(document.getElementById('cvCapa'), 1400, 3, t => t < .3 ? '#403F45' : t < .7 ? '#8E8C86' : '#F5F4F0', .42, .44, 3, 7);
+  /* população: grade de pontos em forma de elipse, tons por grupo */
+  (() => { const cv = document.getElementById('cvPop'), c = cv.getContext('2d'), W = cv.width, H = cv.height, r = rng(5), esp = 30;
+    for (let y = esp; y < H; y += esp) for (let x = esp; x < W; x += esp){ const dx = (x - W/2) / (W*.46), dy = (y - H/2) / (H*.46);
+      if (dx*dx + dy*dy > 1 - r() * .12) continue; const t = r(); disc(c, x, y, 9.5, t < .22 ? '#1D1D1B' : t < .5 ? '#403F45' : t < .8 ? '#8E8C86' : '#C9C7C0'); } })();
+  document.querySelectorAll('.mod canvas').forEach(cv => { const nossa = !!cv.dataset.nossa;
+    nuvem(cv, +cv.dataset.n, +cv.dataset.s, t => nossa ? (t < .25 ? '#8E8C86' : '#F5F4F0') : (t < .3 ? '#C9C7C0' : t < .7 ? '#8E8C86' : '#403F45'), .38, .38, 2.4, 5); });
+  /* fluxo: pontos entrando da esquerda para a direita, cada vez mais densos */
+  (() => { const cv = document.getElementById('cvFluxo'), c = cv.getContext('2d'), W = cv.width, H = cv.height, r = rng(9);
+    for (let l = 0; l < 9; l++){ const y = 60 + l * (H - 120) / 8;
+      for (let i = 0; i < 70; i++){ const x = Math.pow(r(), .7) * W; const t = x / W; disc(c, x, y + (r() - .5) * 26, 4 + t * 6, t < .4 ? '#C9C7C0' : t < .75 ? '#8E8C86' : '#1D1D1B'); } } })();
+  /* renda e região: mesma população do slide da apresentação */
+  (() => {
+    const regioes = [["Norte",44],["Nordeste",130],["Centro-Oeste",40],["Sudeste",200],["Sul",66]];
+    const classes = [["Classe A",0.08,0.70],["Classe B",0.24,0.54],["Classe C",0.44,0.38],["Classes D e E",0.24,0.22]];
+    const r = rng(7), P = [];
+    regioes.forEach(([n, q], ri) => classes.forEach(([cn, f, ps], ci) => { const m = Math.round(q * f), s = Math.round(m * ps); for (let i = 0; i < m; i++) P.push({ ri, ci, sim: i < s, j: r() }); }));
+    function desenha(cv, chave, nomes){
+      const c = cv.getContext('2d'), W = cv.width, H = cv.height, G = nomes.length, gap = W * .035, colW = (W - gap * (G - 1)) / G, esp = 22;
+      const porLinha = Math.floor(colW / esp), base = H - 130;
+      c.strokeStyle = 'rgba(29,29,27,.3)'; c.lineWidth = 2; c.beginPath(); c.moveTo(0, base + 14); c.lineTo(W, base + 14); c.stroke();
+      for (let g = 0; g < G; g++){
+        const m = P.filter(p => p[chave] === g).sort((a, b) => (b.sim - a.sim) || (a.j - b.j));
+        const x0 = g * (colW + gap) + (colW - porLinha * esp) / 2 + esp / 2;
+        m.forEach((p, i) => disc(c, x0 + (i % porLinha) * esp, base - Math.floor(i / porLinha) * esp, esp * .38, p.sim ? '#1D1D1B' : '#C9C7C0'));
+        const pct = Math.round(100 * m.filter(p => p.sim).length / m.length), cx = g * (colW + gap) + colW / 2;
+        c.textAlign = 'center'; c.fillStyle = '#1D1D1B'; c.font = '600 60px "Space Grotesk", sans-serif'; c.fillText(pct + '%', cx, base + 80);
+        c.fillStyle = '#403F45'; c.font = '500 26px "JetBrains Mono", monospace'; c.fillText(nomes[g].toUpperCase(), cx, base + 120);
+      }
+    }
+    const vai = () => { desenha(document.getElementById('cvReg'), 'ri', regioes.map(x => x[0])); desenha(document.getElementById('cvCla'), 'ci', classes.map(x => x[0])); };
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(vai);
+  })();
+  /* visualização na tela: encaixa a largura da página */
+  const pdf = location.search.indexOf('pdf') >= 0; if (pdf) document.documentElement.classList.add('pdf');
+  function fit(){ if (pdf) return; document.getElementById('lista').style.zoom = Math.min(1, (innerWidth - 32) / 1080); }
+  addEventListener('resize', fit); fit();
+})();
+</script>
+</body>
+</html>
