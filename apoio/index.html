@@ -2165,7 +2165,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
       /* novidade: onda saindo da banca */
       let r = -1;
       if (passo >= 5){ const u = passo === 5 ? e : 1e9; r = u / 1.7;
-        if (r < 1100){ c.strokeStyle = "rgba(29,29,27," + Math.max(0, .5 - r / 2200) + ")"; c.lineWidth = 2; c.beginPath(); c.arc(BANCA.x, BANCA.y, r, 0, Math.PI * 2); c.stroke(); }
+        if (r >= 0 && r < 1100){ c.strokeStyle = "rgba(29,29,27," + Math.max(0, .5 - r / 2200) + ")"; c.lineWidth = 2; c.beginPath(); c.arc(BANCA.x, BANCA.y, r, 0, Math.PI * 2); c.stroke(); }
         const pul = .5 + .5 * Math.sin(now / 260), bb = blk(3, 1);
         c.globalAlpha = .75 + .25 * pul; c.fillStyle = COR.forte; c.font = "600 12px 'JetBrains Mono', monospace"; c.textAlign = "center"; c.textBaseline = "middle";
         c.fillRect(BANCA.x - 62, bb.y - 27, 124, 20); c.fillStyle = "#F5F4F0"; c.fillText("NOVA NOTÍCIA", BANCA.x, bb.y - 17); c.globalAlpha = 1;
