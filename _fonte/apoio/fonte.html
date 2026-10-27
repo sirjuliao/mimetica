@@ -11,8 +11,10 @@
    Os textos dos outros slides estão mais abaixo, no HTML, marcados
    com comentários do tipo  SLIDE 02 .
    ===================================================================== */
+const VERSAO = window.MIMETICA_VERSAO || 'apoio';  // 'apoio' ou 'gemeos': as duas apresentações saem deste arquivo
 const CONFIG = {
   // Capa
+  twinLbl: "Como nasce um gêmeo digital",
   capaTitulo: "O mundo muda mais rápido. Decidir ficou mais difícil.",
   capaTese: "A Mimetica apoia decisões com gêmeos digitais do Brasil real: respostas mais rápidas e leitura de cenários futuros.",
   oQueE: "Apresentação institucional",
@@ -258,6 +260,86 @@ const CONFIG = {
                 texto: "Fazemos uma pergunta e cada gêmeo digital responde. O resultado chega em porcentagens, com a margem de erro declarada." }
   }
 };
+
+/* ================= VERSÃO /gemeos (proposta do Geraldo; textos a partir do livro "Simular o Brasil") ================= */
+CONFIG.gemeos = {
+  capa: {
+    capaTitulo: "A mais completa base de gêmeos digitais no Brasil.",
+    capaTese: "Apoio à decisão para um mundo que muda cada dia mais rápido.",
+    twinLbl: "O gêmeo da população"
+  },
+  vetHero: "O mundo muda cada dia mais rápido. E cada vez é mais difícil decidir.",
+  vetores: [
+    ["Inteligência artificial", "Recompõe o trabalho cognitivo e o custo de quase toda operação."],
+    ["Clima", "Reorganiza o risco agrícola, hídrico, urbano e imobiliário."],
+    ["Saúde e novos fármacos", "Novos remédios redesenham obesidade, diabetes e o consumo de categorias inteiras."],
+    ["Longevidade", "Envelhecer vira problema tratável, e muda quem é o consumidor de sessenta anos."],
+    ["Geopolítica", "Blocos se reorganizam e mudam onde as coisas são feitas."],
+    ["Sistema monetário e dívida", "O custo do dinheiro está mudando de regime."],
+    ["Cadeias críticas e minerais", "Lítio, terras raras e cobre viraram política industrial."],
+    ["Vigilância pandêmica", "A próxima pandemia não é hipótese. É intervalo."],
+    ["Segurança alimentar", "Grãos e fertilizantes viraram ponto de estrangulamento."]
+  ],
+  vetLigacoes: [[0,5],[0,6],[1,8],[1,6],[2,3],[2,7],[4,6],[4,8],[5,4],[1,2]],
+  vetFecho: "Os nove vetores chegam juntos. Cada um, lido sozinho, mostra um pedaço. A leitura útil está na interseção.",
+  fluHero: "Respondemos ancorados em dois gêmeos do Brasil.",
+  fluBrasil: ["O Brasil real", "Dados oficiais, ciência, imprensa, conversas nas redes e os dados da sua empresa."],
+  fluGemeos: [["Gêmeo do Brasil", "Lê o que está acontecendo no país, todos os dias."], ["Gêmeo da população", "Responde o que as pessoas fariam diante de cada cenário."]],
+  fluDecisao: ["Apoio à decisão", "Cenários atuais e futuros, respondidos antes de gastar."],
+  fluCenarios: ["E se o preço subir 8%?", "E se um concorrente abrir 200 lojas?", "E se os juros caírem 2 pontos enquanto o dólar sobe 15%?"],
+  fluFecho: "Brasil, gêmeo, decisão: a resposta vem ancorada no que o Brasil já mostrou.",
+  brHero: "O gêmeo do Brasil lê tudo o que acontece no país.",
+  familias: [
+    ["Oficial brasileiro", "Banco Central, IBGE, saúde pública, preços de remédios, energia e Congresso"],
+    ["Macro global", "Juros americanos, FMI, commodities e mercados"],
+    ["Ciência e instituições", "Periódicos, preprints e boletins epidemiológicos"],
+    ["Imprensa e análise", "Veículos com perspectivas distintas e publicações setoriais"],
+    ["Redes e comunidades", "Comunidades de pacientes e consumidores, busca, fóruns e vídeo"]
+  ],
+  brNumeros: [["60+", "fontes primárias brasileiras"], ["~90", "coletas automáticas, permanentes"], ["~60 mil", "registros novos por dia"], ["9", "vetores de mudança"], ["7", "lentes de leitura"]],
+  brFecho: "Cada registro passa por camadas que transformam sinal bruto em leitura: o que mudou, por que importa e o que fazer.",
+  equipeFecho: "Tecnologia, mercado, rigor e compliance: cada parte do trabalho tem um responsável.",
+  csHero: "Cinco decisões, lidas com os gêmeos digitais.",
+  cases: [
+    { setor: "Alimentação fora do lar", tit: "A caneta para obesidade que ficou barata",
+      perg: "Um remédio para obesidade ganhou versão nacional pela metade do preço. O que acontece com a frequência nos restaurantes, e com o que as pessoas pedem?",
+      resp: "Pouco mais da metade dos que usariam o remédio diz que comeria fora menos. No cenário mais agressivo, quase dois terços.",
+      surp: "O impacto é concentrado. E quem reduz pede porção menor, sem acompanhamento. Criar linha saudável atacava o problema errado.",
+      naoProva: "Não prova que a frequência de alguma rede caiu. Prova uma hipótese testável, feita em horas." },
+    { setor: "Montadoras, pneus, varejo e eletrodomésticos", tit: "A pinça asiática atravessa setores",
+      perg: "Por que a mesma narrativa aparecia em quatro setores ao mesmo tempo?",
+      resp: "Era uma história só, com quatro capítulos. Diante de uma marca asiática desconhecida, o consumidor pesa assistência técnica e peças antes do preço.",
+      surp: "Quem conserta? é a maior barreira do entrante e o ativo mais subestimado de quem já está no mercado.",
+      naoProva: "Não prova o que decide a compra na loja. Prova a disposição declarada de arriscar." },
+    { setor: "Alimentos e bebidas", tit: "Marca própria e imposto seletivo",
+      perg: "Quantos consumidores testam a marca própria do varejista, quantos ficam nela? E o que acontece quando um imposto encarece o ultraprocessado?",
+      resp: "Seis em dez testam a marca própria. Pouco mais de um em cinco troca de vez. Quem volta à marca líder volta por qualidade, à frente de promoção.",
+      surp: "Os cortes por região e idade foram planos. A diferença estava toda na renda.",
+      naoProva: "Não prova comportamento de compra. Prova intenção declarada diante de cenários." },
+    { setor: "Farmácia e indústria farmacêutica", tit: "Uma molécula de seis para dez marcas em três meses",
+      perg: "O que está acontecendo com o preço, quem está entrando e quantas pessoas estão de fato usando?",
+      resp: "O preço-teto caiu cerca de 10%. Cerca de 1% dos adultos estava em uso, com faixa de incerteza declarada.",
+      surp: "O mercado informal respondia por mais da metade das doses. A decisão de estoque era, na verdade, uma decisão sobre competir com um canal invisível.",
+      naoProva: "Não prova quantas pessoas usam. Prova uma estimativa com faixa, que qualquer um pode refazer." },
+    { setor: "Eleições", tit: "Eleições passadas, comparadas ao resultado real",
+      perg: "Uma população artificial de eleitores, ancorada no eleitorado oficial, reproduz uma eleição sem ter visto o resultado?",
+      resp: "Dez mil eleitores reproduziram o primeiro turno de 2022 dentro de 1 ponto. No Senado de 2018, em quatro estados, o erro médio ficou abaixo de 3 pontos.",
+      surp: "Os erros são conhecidos: a população artificial conhece menos os candidatos menos conhecidos.",
+      naoProva: "Não prova que prevê eleições futuras. Prova que reproduz as passadas, com erros nomeados." }
+  ],
+  csFecho: "Outros casos, em beleza, educação e bens duráveis, ficam para uma segunda conversa, com o material completo.",
+  psHero: "Próximos passos: uma prova de conceito com uma pergunta da sua empresa.",
+  passos: [
+    ["Conversa inicial", "Semana 0", "Uma conversa sobre decisão. O que você decide, em que cadência, com que informação, e o que gostaria de estar vendo."],
+    ["Sintonia", "Semanas 1 e 2", "Vocabulário do setor, concorrentes, os dados da sua empresa em agregados e a primeira população artificial."],
+    ["Primeira leitura", "Semanas 2 a 4", "A sua pergunta respondida em cenários, com o que a leitura não prova ao lado de cada número."],
+    ["Depois", "Contínuo", "Leitura semanal, radar diário e cenários sob demanda."]
+  ],
+  psFecho: "Traga uma decisão real e recorrente.",
+  psContato: "geraldo@mimetica.net · fernando@mimetica.net · mimetica.net"
+};
+if (VERSAO === 'gemeos'){ Object.assign(CONFIG, CONFIG.gemeos.capa); CONFIG.equipe.fecho = CONFIG.gemeos.equipeFecho; }
+const BRASIL = {"aspect":0.9751292356790214,"pts":[[0.25,0.0318],[0.2935,0.0318],[0.3152,0.0318],[0.337,0.0318],[0.3587,0.0318],[0.5761,0.0318],[0.25,0.053],[0.2717,0.053],[0.2935,0.053],[0.3152,0.053],[0.337,0.053],[0.3587,0.053],[0.5543,0.053],[0.5761,0.053],[0.2717,0.0742],[0.2935,0.0742],[0.3152,0.0742],[0.337,0.0742],[0.3587,0.0742],[0.4674,0.0742],[0.4891,0.0742],[0.5543,0.0742],[0.5761,0.0742],[0.1196,0.0954],[0.1413,0.0954],[0.163,0.0954],[0.2717,0.0954],[0.2935,0.0954],[0.3152,0.0954],[0.337,0.0954],[0.3587,0.0954],[0.4022,0.0954],[0.4239,0.0954],[0.4457,0.0954],[0.4674,0.0954],[0.4891,0.0954],[0.5109,0.0954],[0.5326,0.0954],[0.5543,0.0954],[0.5761,0.0954],[0.5978,0.0954],[0.1413,0.1166],[0.163,0.1166],[0.1848,0.1166],[0.2065,0.1166],[0.2283,0.1166],[0.25,0.1166],[0.2717,0.1166],[0.2935,0.1166],[0.3152,0.1166],[0.337,0.1166],[0.3587,0.1166],[0.3804,0.1166],[0.4022,0.1166],[0.4239,0.1166],[0.4457,0.1166],[0.4674,0.1166],[0.4891,0.1166],[0.5109,0.1166],[0.5326,0.1166],[0.5543,0.1166],[0.5761,0.1166],[0.5978,0.1166],[0.1196,0.1378],[0.1413,0.1378],[0.163,0.1378],[0.1848,0.1378],[0.2065,0.1378],[0.2283,0.1378],[0.25,0.1378],[0.2717,0.1378],[0.2935,0.1378],[0.3152,0.1378],[0.337,0.1378],[0.3587,0.1378],[0.3804,0.1378],[0.4022,0.1378],[0.4239,0.1378],[0.4457,0.1378],[0.4674,0.1378],[0.4891,0.1378],[0.5109,0.1378],[0.5326,0.1378],[0.5543,0.1378],[0.5761,0.1378],[0.6196,0.1378],[0.1196,0.159],[0.1413,0.159],[0.163,0.159],[0.1848,0.159],[0.2065,0.159],[0.2283,0.159],[0.25,0.159],[0.2717,0.159],[0.2935,0.159],[0.3152,0.159],[0.337,0.159],[0.3587,0.159],[0.3804,0.159],[0.4022,0.159],[0.4239,0.159],[0.4457,0.159],[0.4674,0.159],[0.4891,0.159],[0.5109,0.159],[0.5326,0.159],[0.5543,0.159],[0.5761,0.159],[0.5978,0.159],[0.6196,0.159],[0.6413,0.159],[0.663,0.159],[0.6848,0.159],[0.1196,0.1802],[0.1413,0.1802],[0.163,0.1802],[0.1848,0.1802],[0.2065,0.1802],[0.2283,0.1802],[0.25,0.1802],[0.2717,0.1802],[0.2935,0.1802],[0.3152,0.1802],[0.337,0.1802],[0.3587,0.1802],[0.3804,0.1802],[0.4022,0.1802],[0.4239,0.1802],[0.4457,0.1802],[0.4674,0.1802],[0.4891,0.1802],[0.5109,0.1802],[0.5326,0.1802],[0.5543,0.1802],[0.5761,0.1802],[0.6413,0.1802],[0.663,0.1802],[0.6848,0.1802],[0.7065,0.1802],[0.7283,0.1802],[0.1196,0.2014],[0.1413,0.2014],[0.163,0.2014],[0.1848,0.2014],[0.2065,0.2014],[0.2283,0.2014],[0.25,0.2014],[0.2717,0.2014],[0.2935,0.2014],[0.3152,0.2014],[0.337,0.2014],[0.3587,0.2014],[0.3804,0.2014],[0.4022,0.2014],[0.4239,0.2014],[0.4457,0.2014],[0.4674,0.2014],[0.4891,0.2014],[0.5109,0.2014],[0.5326,0.2014],[0.5543,0.2014],[0.5761,0.2014],[0.5978,0.2014],[0.6196,0.2014],[0.6413,0.2014],[0.663,0.2014],[0.6848,0.2014],[0.7065,0.2014],[0.7283,0.2014],[0.75,0.2014],[0.7717,0.2014],[0.7935,0.2014],[0.1196,0.2226],[0.1413,0.2226],[0.163,0.2226],[0.1848,0.2226],[0.2065,0.2226],[0.2283,0.2226],[0.25,0.2226],[0.2717,0.2226],[0.2935,0.2226],[0.3152,0.2226],[0.337,0.2226],[0.3587,0.2226],[0.3804,0.2226],[0.4022,0.2226],[0.4239,0.2226],[0.4457,0.2226],[0.4674,0.2226],[0.4891,0.2226],[0.5109,0.2226],[0.5326,0.2226],[0.5543,0.2226],[0.5761,0.2226],[0.5978,0.2226],[0.6196,0.2226],[0.6413,0.2226],[0.663,0.2226],[0.6848,0.2226],[0.7065,0.2226],[0.7283,0.2226],[0.75,0.2226],[0.7717,0.2226],[0.7935,0.2226],[0.8152,0.2226],[0.837,0.2226],[0.8587,0.2226],[0.8804,0.2226],[0.1196,0.2438],[0.1413,0.2438],[0.163,0.2438],[0.1848,0.2438],[0.2065,0.2438],[0.2283,0.2438],[0.25,0.2438],[0.2717,0.2438],[0.2935,0.2438],[0.3152,0.2438],[0.337,0.2438],[0.3587,0.2438],[0.3804,0.2438],[0.4022,0.2438],[0.4239,0.2438],[0.4457,0.2438],[0.4674,0.2438],[0.4891,0.2438],[0.5109,0.2438],[0.5326,0.2438],[0.5543,0.2438],[0.5761,0.2438],[0.5978,0.2438],[0.6196,0.2438],[0.6413,0.2438],[0.663,0.2438],[0.6848,0.2438],[0.7065,0.2438],[0.7283,0.2438],[0.75,0.2438],[0.7717,0.2438],[0.7935,0.2438],[0.8152,0.2438],[0.837,0.2438],[0.8587,0.2438],[0.8804,0.2438],[0.9022,0.2438],[0.0326,0.265],[0.0543,0.265],[0.0761,0.265],[0.0978,0.265],[0.1196,0.265],[0.1413,0.265],[0.163,0.265],[0.1848,0.265],[0.2065,0.265],[0.2283,0.265],[0.25,0.265],[0.2717,0.265],[0.2935,0.265],[0.3152,0.265],[0.337,0.265],[0.3587,0.265],[0.3804,0.265],[0.4022,0.265],[0.4239,0.265],[0.4457,0.265],[0.4674,0.265],[0.4891,0.265],[0.5109,0.265],[0.5326,0.265],[0.5543,0.265],[0.5761,0.265],[0.5978,0.265],[0.6196,0.265],[0.6413,0.265],[0.663,0.265],[0.6848,0.265],[0.7065,0.265],[0.7283,0.265],[0.75,0.265],[0.7717,0.265],[0.7935,0.265],[0.8152,0.265],[0.837,0.265],[0.8587,0.265],[0.8804,0.265],[0.9022,0.265],[0.9239,0.265],[0.9457,0.265],[0.0326,0.2862],[0.0543,0.2862],[0.0761,0.2862],[0.0978,0.2862],[0.1196,0.2862],[0.1413,0.2862],[0.163,0.2862],[0.1848,0.2862],[0.2065,0.2862],[0.2283,0.2862],[0.25,0.2862],[0.2717,0.2862],[0.2935,0.2862],[0.3152,0.2862],[0.337,0.2862],[0.3587,0.2862],[0.3804,0.2862],[0.4022,0.2862],[0.4239,0.2862],[0.4457,0.2862],[0.4674,0.2862],[0.4891,0.2862],[0.5109,0.2862],[0.5326,0.2862],[0.5543,0.2862],[0.5761,0.2862],[0.5978,0.2862],[0.6196,0.2862],[0.6413,0.2862],[0.663,0.2862],[0.6848,0.2862],[0.7065,0.2862],[0.7283,0.2862],[0.75,0.2862],[0.7717,0.2862],[0.7935,0.2862],[0.8152,0.2862],[0.837,0.2862],[0.8587,0.2862],[0.8804,0.2862],[0.9022,0.2862],[0.9239,0.2862],[0.9457,0.2862],[0.9674,0.2862],[0.9891,0.2862],[0.0326,0.3074],[0.0543,0.3074],[0.0761,0.3074],[0.0978,0.3074],[0.1196,0.3074],[0.1413,0.3074],[0.163,0.3074],[0.1848,0.3074],[0.2065,0.3074],[0.2283,0.3074],[0.25,0.3074],[0.2717,0.3074],[0.2935,0.3074],[0.3152,0.3074],[0.337,0.3074],[0.3587,0.3074],[0.3804,0.3074],[0.4022,0.3074],[0.4239,0.3074],[0.4457,0.3074],[0.4674,0.3074],[0.4891,0.3074],[0.5109,0.3074],[0.5326,0.3074],[0.5543,0.3074],[0.5761,0.3074],[0.5978,0.3074],[0.6196,0.3074],[0.6413,0.3074],[0.663,0.3074],[0.6848,0.3074],[0.7065,0.3074],[0.7283,0.3074],[0.75,0.3074],[0.7717,0.3074],[0.7935,0.3074],[0.8152,0.3074],[0.837,0.3074],[0.8587,0.3074],[0.8804,0.3074],[0.9022,0.3074],[0.9239,0.3074],[0.9457,0.3074],[0.9674,0.3074],[0.9891,0.3074],[0.0109,0.3286],[0.0326,0.3286],[0.0543,0.3286],[0.0761,0.3286],[0.0978,0.3286],[0.1196,0.3286],[0.1413,0.3286],[0.163,0.3286],[0.1848,0.3286],[0.2065,0.3286],[0.2283,0.3286],[0.25,0.3286],[0.2717,0.3286],[0.2935,0.3286],[0.3152,0.3286],[0.337,0.3286],[0.3587,0.3286],[0.3804,0.3286],[0.4022,0.3286],[0.4239,0.3286],[0.4457,0.3286],[0.4674,0.3286],[0.4891,0.3286],[0.5109,0.3286],[0.5326,0.3286],[0.5543,0.3286],[0.5761,0.3286],[0.5978,0.3286],[0.6196,0.3286],[0.6413,0.3286],[0.663,0.3286],[0.6848,0.3286],[0.7065,0.3286],[0.7283,0.3286],[0.75,0.3286],[0.7717,0.3286],[0.7935,0.3286],[0.8152,0.3286],[0.837,0.3286],[0.8587,0.3286],[0.8804,0.3286],[0.9022,0.3286],[0.9239,0.3286],[0.9457,0.3286],[0.9674,0.3286],[0.9891,0.3286],[0.0326,0.3498],[0.0543,0.3498],[0.0761,0.3498],[0.0978,0.3498],[0.1196,0.3498],[0.1413,0.3498],[0.163,0.3498],[0.1848,0.3498],[0.2065,0.3498],[0.2283,0.3498],[0.25,0.3498],[0.2717,0.3498],[0.2935,0.3498],[0.3152,0.3498],[0.337,0.3498],[0.3587,0.3498],[0.3804,0.3498],[0.4022,0.3498],[0.4239,0.3498],[0.4457,0.3498],[0.4674,0.3498],[0.4891,0.3498],[0.5109,0.3498],[0.5326,0.3498],[0.5543,0.3498],[0.5761,0.3498],[0.5978,0.3498],[0.6196,0.3498],[0.6413,0.3498],[0.663,0.3498],[0.6848,0.3498],[0.7065,0.3498],[0.7283,0.3498],[0.75,0.3498],[0.7717,0.3498],[0.7935,0.3498],[0.8152,0.3498],[0.837,0.3498],[0.8587,0.3498],[0.8804,0.3498],[0.9022,0.3498],[0.9239,0.3498],[0.9457,0.3498],[0.9674,0.3498],[0.9891,0.3498],[0.0326,0.371],[0.0543,0.371],[0.0761,0.371],[0.0978,0.371],[0.1196,0.371],[0.1413,0.371],[0.163,0.371],[0.1848,0.371],[0.2065,0.371],[0.2283,0.371],[0.25,0.371],[0.2717,0.371],[0.2935,0.371],[0.3152,0.371],[0.337,0.371],[0.3587,0.371],[0.3804,0.371],[0.4022,0.371],[0.4239,0.371],[0.4457,0.371],[0.4674,0.371],[0.4891,0.371],[0.5109,0.371],[0.5326,0.371],[0.5543,0.371],[0.5761,0.371],[0.5978,0.371],[0.6196,0.371],[0.6413,0.371],[0.663,0.371],[0.6848,0.371],[0.7065,0.371],[0.7283,0.371],[0.75,0.371],[0.7717,0.371],[0.7935,0.371],[0.8152,0.371],[0.837,0.371],[0.8587,0.371],[0.8804,0.371],[0.9022,0.371],[0.9239,0.371],[0.9457,0.371],[0.9674,0.371],[0.0978,0.3922],[0.1196,0.3922],[0.1413,0.3922],[0.163,0.3922],[0.2283,0.3922],[0.25,0.3922],[0.2717,0.3922],[0.2935,0.3922],[0.3152,0.3922],[0.337,0.3922],[0.3587,0.3922],[0.3804,0.3922],[0.4022,0.3922],[0.4239,0.3922],[0.4457,0.3922],[0.4674,0.3922],[0.4891,0.3922],[0.5109,0.3922],[0.5326,0.3922],[0.5543,0.3922],[0.5761,0.3922],[0.5978,0.3922],[0.6196,0.3922],[0.6413,0.3922],[0.663,0.3922],[0.6848,0.3922],[0.7065,0.3922],[0.7283,0.3922],[0.75,0.3922],[0.7717,0.3922],[0.7935,0.3922],[0.8152,0.3922],[0.837,0.3922],[0.8587,0.3922],[0.8804,0.3922],[0.9022,0.3922],[0.9239,0.3922],[0.9457,0.3922],[0.9674,0.3922],[0.0978,0.4134],[0.1196,0.4134],[0.1413,0.4134],[0.2283,0.4134],[0.25,0.4134],[0.2717,0.4134],[0.2935,0.4134],[0.3152,0.4134],[0.337,0.4134],[0.3587,0.4134],[0.3804,0.4134],[0.4022,0.4134],[0.4239,0.4134],[0.4457,0.4134],[0.4674,0.4134],[0.4891,0.4134],[0.5109,0.4134],[0.5326,0.4134],[0.5543,0.4134],[0.5761,0.4134],[0.5978,0.4134],[0.6196,0.4134],[0.6413,0.4134],[0.663,0.4134],[0.6848,0.4134],[0.7065,0.4134],[0.7283,0.4134],[0.75,0.4134],[0.7717,0.4134],[0.7935,0.4134],[0.8152,0.4134],[0.837,0.4134],[0.8587,0.4134],[0.8804,0.4134],[0.9022,0.4134],[0.9239,0.4134],[0.2283,0.4346],[0.25,0.4346],[0.2717,0.4346],[0.2935,0.4346],[0.3152,0.4346],[0.337,0.4346],[0.3587,0.4346],[0.3804,0.4346],[0.4022,0.4346],[0.4239,0.4346],[0.4457,0.4346],[0.4674,0.4346],[0.4891,0.4346],[0.5109,0.4346],[0.5326,0.4346],[0.5543,0.4346],[0.5761,0.4346],[0.5978,0.4346],[0.6196,0.4346],[0.6413,0.4346],[0.663,0.4346],[0.6848,0.4346],[0.7065,0.4346],[0.7283,0.4346],[0.75,0.4346],[0.7717,0.4346],[0.7935,0.4346],[0.8152,0.4346],[0.837,0.4346],[0.8587,0.4346],[0.8804,0.4346],[0.9022,0.4346],[0.9239,0.4346],[0.2717,0.4558],[0.2935,0.4558],[0.3152,0.4558],[0.337,0.4558],[0.3587,0.4558],[0.3804,0.4558],[0.4022,0.4558],[0.4239,0.4558],[0.4457,0.4558],[0.4674,0.4558],[0.4891,0.4558],[0.5109,0.4558],[0.5326,0.4558],[0.5543,0.4558],[0.5761,0.4558],[0.5978,0.4558],[0.6196,0.4558],[0.6413,0.4558],[0.663,0.4558],[0.6848,0.4558],[0.7065,0.4558],[0.7283,0.4558],[0.75,0.4558],[0.7717,0.4558],[0.7935,0.4558],[0.8152,0.4558],[0.837,0.4558],[0.8587,0.4558],[0.8804,0.4558],[0.9022,0.4558],[0.3152,0.477],[0.337,0.477],[0.3587,0.477],[0.3804,0.477],[0.4022,0.477],[0.4239,0.477],[0.4457,0.477],[0.4674,0.477],[0.4891,0.477],[0.5109,0.477],[0.5326,0.477],[0.5543,0.477],[0.5761,0.477],[0.5978,0.477],[0.6196,0.477],[0.6413,0.477],[0.663,0.477],[0.6848,0.477],[0.7065,0.477],[0.7283,0.477],[0.75,0.477],[0.7717,0.477],[0.7935,0.477],[0.8152,0.477],[0.837,0.477],[0.8587,0.477],[0.8804,0.477],[0.3587,0.4982],[0.3804,0.4982],[0.4022,0.4982],[0.4239,0.4982],[0.4457,0.4982],[0.4674,0.4982],[0.4891,0.4982],[0.5109,0.4982],[0.5326,0.4982],[0.5543,0.4982],[0.5761,0.4982],[0.5978,0.4982],[0.6196,0.4982],[0.6413,0.4982],[0.663,0.4982],[0.6848,0.4982],[0.7065,0.4982],[0.7283,0.4982],[0.75,0.4982],[0.7717,0.4982],[0.7935,0.4982],[0.8152,0.4982],[0.837,0.4982],[0.8587,0.4982],[0.8804,0.4982],[0.3587,0.5194],[0.3804,0.5194],[0.4022,0.5194],[0.4239,0.5194],[0.4457,0.5194],[0.4674,0.5194],[0.4891,0.5194],[0.5109,0.5194],[0.5326,0.5194],[0.5543,0.5194],[0.5761,0.5194],[0.5978,0.5194],[0.6196,0.5194],[0.6413,0.5194],[0.663,0.5194],[0.6848,0.5194],[0.7065,0.5194],[0.7283,0.5194],[0.75,0.5194],[0.7717,0.5194],[0.7935,0.5194],[0.8152,0.5194],[0.837,0.5194],[0.8587,0.5194],[0.8804,0.5194],[0.3587,0.5406],[0.3804,0.5406],[0.4022,0.5406],[0.4239,0.5406],[0.4457,0.5406],[0.4674,0.5406],[0.4891,0.5406],[0.5109,0.5406],[0.5326,0.5406],[0.5543,0.5406],[0.5761,0.5406],[0.5978,0.5406],[0.6196,0.5406],[0.6413,0.5406],[0.663,0.5406],[0.6848,0.5406],[0.7065,0.5406],[0.7283,0.5406],[0.75,0.5406],[0.7717,0.5406],[0.7935,0.5406],[0.8152,0.5406],[0.837,0.5406],[0.8587,0.5406],[0.8804,0.5406],[0.4022,0.5618],[0.4239,0.5618],[0.4457,0.5618],[0.4674,0.5618],[0.4891,0.5618],[0.5109,0.5618],[0.5326,0.5618],[0.5543,0.5618],[0.5761,0.5618],[0.5978,0.5618],[0.6196,0.5618],[0.6413,0.5618],[0.663,0.5618],[0.6848,0.5618],[0.7065,0.5618],[0.7283,0.5618],[0.75,0.5618],[0.7717,0.5618],[0.7935,0.5618],[0.8152,0.5618],[0.837,0.5618],[0.8587,0.5618],[0.8804,0.5618],[0.4239,0.583],[0.4457,0.583],[0.4674,0.583],[0.4891,0.583],[0.5109,0.583],[0.5326,0.583],[0.5543,0.583],[0.5761,0.583],[0.5978,0.583],[0.6196,0.583],[0.6413,0.583],[0.663,0.583],[0.6848,0.583],[0.7065,0.583],[0.7283,0.583],[0.75,0.583],[0.7717,0.583],[0.7935,0.583],[0.8152,0.583],[0.837,0.583],[0.8587,0.583],[0.8804,0.583],[0.4239,0.6042],[0.4457,0.6042],[0.4674,0.6042],[0.4891,0.6042],[0.5109,0.6042],[0.5326,0.6042],[0.5543,0.6042],[0.5761,0.6042],[0.5978,0.6042],[0.6196,0.6042],[0.6413,0.6042],[0.663,0.6042],[0.6848,0.6042],[0.7065,0.6042],[0.7283,0.6042],[0.75,0.6042],[0.7717,0.6042],[0.7935,0.6042],[0.8152,0.6042],[0.837,0.6042],[0.8587,0.6042],[0.4239,0.6254],[0.4457,0.6254],[0.4674,0.6254],[0.4891,0.6254],[0.5109,0.6254],[0.5326,0.6254],[0.5543,0.6254],[0.5761,0.6254],[0.5978,0.6254],[0.6196,0.6254],[0.6413,0.6254],[0.663,0.6254],[0.6848,0.6254],[0.7065,0.6254],[0.7283,0.6254],[0.75,0.6254],[0.7717,0.6254],[0.7935,0.6254],[0.8152,0.6254],[0.837,0.6254],[0.8587,0.6254],[0.4239,0.6466],[0.4457,0.6466],[0.4674,0.6466],[0.4891,0.6466],[0.5109,0.6466],[0.5326,0.6466],[0.5543,0.6466],[0.5761,0.6466],[0.5978,0.6466],[0.6196,0.6466],[0.6413,0.6466],[0.663,0.6466],[0.6848,0.6466],[0.7065,0.6466],[0.7283,0.6466],[0.75,0.6466],[0.7717,0.6466],[0.7935,0.6466],[0.8152,0.6466],[0.837,0.6466],[0.8587,0.6466],[0.4239,0.6678],[0.4457,0.6678],[0.4674,0.6678],[0.4891,0.6678],[0.5109,0.6678],[0.5326,0.6678],[0.5543,0.6678],[0.5761,0.6678],[0.5978,0.6678],[0.6196,0.6678],[0.6413,0.6678],[0.663,0.6678],[0.6848,0.6678],[0.7065,0.6678],[0.7283,0.6678],[0.75,0.6678],[0.7717,0.6678],[0.7935,0.6678],[0.8152,0.6678],[0.837,0.6678],[0.4239,0.689],[0.4457,0.689],[0.4674,0.689],[0.4891,0.689],[0.5109,0.689],[0.5326,0.689],[0.5543,0.689],[0.5761,0.689],[0.5978,0.689],[0.6196,0.689],[0.6413,0.689],[0.663,0.689],[0.6848,0.689],[0.7065,0.689],[0.7283,0.689],[0.75,0.689],[0.7717,0.689],[0.7935,0.689],[0.8152,0.689],[0.837,0.689],[0.4674,0.7101],[0.4891,0.7101],[0.5109,0.7101],[0.5326,0.7101],[0.5543,0.7101],[0.5761,0.7101],[0.5978,0.7101],[0.6196,0.7101],[0.6413,0.7101],[0.663,0.7101],[0.6848,0.7101],[0.7065,0.7101],[0.7283,0.7101],[0.75,0.7101],[0.7717,0.7101],[0.7935,0.7101],[0.8152,0.7101],[0.4891,0.7313],[0.5109,0.7313],[0.5326,0.7313],[0.5543,0.7313],[0.5761,0.7313],[0.5978,0.7313],[0.6196,0.7313],[0.6413,0.7313],[0.663,0.7313],[0.6848,0.7313],[0.7065,0.7313],[0.7283,0.7313],[0.75,0.7313],[0.5109,0.7525],[0.5326,0.7525],[0.5543,0.7525],[0.5761,0.7525],[0.5978,0.7525],[0.6196,0.7525],[0.6413,0.7525],[0.663,0.7525],[0.6848,0.7525],[0.5109,0.7737],[0.5326,0.7737],[0.5543,0.7737],[0.5761,0.7737],[0.5978,0.7737],[0.6196,0.7737],[0.6413,0.7737],[0.663,0.7737],[0.5326,0.7949],[0.5543,0.7949],[0.5761,0.7949],[0.5978,0.7949],[0.6196,0.7949],[0.6413,0.7949],[0.5326,0.8161],[0.5543,0.8161],[0.5761,0.8161],[0.5978,0.8161],[0.6196,0.8161],[0.6413,0.8161],[0.5109,0.8373],[0.5326,0.8373],[0.5543,0.8373],[0.5761,0.8373],[0.5978,0.8373],[0.6196,0.8373],[0.6413,0.8373],[0.4674,0.8585],[0.4891,0.8585],[0.5109,0.8585],[0.5326,0.8585],[0.5543,0.8585],[0.5761,0.8585],[0.5978,0.8585],[0.6196,0.8585],[0.6413,0.8585],[0.4674,0.8797],[0.4891,0.8797],[0.5109,0.8797],[0.5326,0.8797],[0.5543,0.8797],[0.5761,0.8797],[0.5978,0.8797],[0.6196,0.8797],[0.4457,0.9009],[0.4674,0.9009],[0.4891,0.9009],[0.5109,0.9009],[0.5326,0.9009],[0.5543,0.9009],[0.5761,0.9009],[0.5978,0.9009],[0.4674,0.9221],[0.4891,0.9221],[0.5109,0.9221],[0.5326,0.9221],[0.5543,0.9221],[0.5761,0.9221],[0.5978,0.9221],[0.5109,0.9433],[0.5326,0.9433],[0.5543,0.9433],[0.5326,0.9645],[0.5326,0.9857]],"contorno":[[0.1818,0.1034],[0.1965,0.1155],[0.206,0.1127],[0.2132,0.1099],[0.2155,0.1172],[0.2229,0.1109],[0.2319,0.1035],[0.2403,0.0997],[0.2474,0.0975],[0.2542,0.086],[0.2591,0.0841],[0.2697,0.0795],[0.2657,0.0724],[0.254,0.0706],[0.2542,0.063],[0.2494,0.0453],[0.2381,0.0319],[0.2367,0.0252],[0.2418,0.0287],[0.252,0.0305],[0.2616,0.034],[0.271,0.0337],[0.2795,0.0403],[0.2873,0.0338],[0.2923,0.0301],[0.3041,0.029],[0.3223,0.0211],[0.3308,0.0189],[0.336,0.0135],[0.3418,0.0079],[0.339,0.0017],[0.3455,0.0018],[0.3526,0.0005],[0.3575,0.0045],[0.3564,0.0133],[0.3534,0.0186],[0.3596,0.0199],[0.3648,0.0232],[0.3651,0.0281],[0.3687,0.0339],[0.3654,0.0399],[0.3616,0.0477],[0.3579,0.0581],[0.3601,0.0742],[0.3636,0.0845],[0.3657,0.0876],[0.3691,0.0912],[0.3747,0.0973],[0.3849,0.1028],[0.3896,0.1028],[0.3956,0.1011],[0.3982,0.0968],[0.4002,0.094],[0.4046,0.0959],[0.4084,0.0944],[0.4134,0.0912],[0.421,0.0893],[0.4267,0.0846],[0.4328,0.0852],[0.4397,0.0863],[0.4459,0.0854],[0.4535,0.0864],[0.4613,0.0841],[0.4574,0.0775],[0.4582,0.0742],[0.4604,0.0702],[0.468,0.0728],[0.48,0.0695],[0.4846,0.0683],[0.4879,0.072],[0.4923,0.0733],[0.4952,0.0755],[0.5028,0.0795],[0.508,0.0797],[0.5156,0.0746],[0.5184,0.076],[0.5265,0.0752],[0.53,0.0783],[0.5367,0.0788],[0.5435,0.0742],[0.5472,0.0669],[0.5522,0.0566],[0.5554,0.0509],[0.5616,0.0399],[0.5657,0.0356],[0.5702,0.0307],[0.5785,0.0265],[0.587,0.0559],[0.5936,0.0738],[0.5956,0.0802],[0.6006,0.0879],[0.6135,0.0922],[0.6139,0.106],[0.6036,0.1156],[0.5915,0.1304],[0.5796,0.137],[0.5727,0.1489],[0.5659,0.1635],[0.5609,0.1707],[0.5534,0.1748],[0.5733,0.1695],[0.587,0.1601],[0.589,0.1634],[0.5914,0.1701],[0.5947,0.18],[0.6057,0.1841],[0.6149,0.1828],[0.6277,0.1854],[0.6226,0.2011],[0.6262,0.199],[0.6381,0.1817],[0.6516,0.1762],[0.6514,0.1705],[0.6556,0.1615],[0.6601,0.1552],[0.6644,0.1546],[0.6702,0.153],[0.6769,0.154],[0.6777,0.1514],[0.6857,0.1539],[0.6938,0.1548],[0.7012,0.1604],[0.7089,0.163],[0.72,0.1669],[0.731,0.175],[0.7353,0.1734],[0.7443,0.1777],[0.747,0.1808],[0.7517,0.1874],[0.7474,0.1923],[0.7507,0.192],[0.7557,0.1955],[0.7504,0.2008],[0.747,0.217],[0.7576,0.1998],[0.7628,0.2004],[0.7605,0.2069],[0.7724,0.1994],[0.7851,0.196],[0.8013,0.203],[0.8236,0.2068],[0.8371,0.2088],[0.8684,0.2082],[0.884,0.2168],[0.9064,0.2301],[0.9238,0.2477],[0.9452,0.2614],[0.9597,0.2652],[0.9828,0.2673],[0.9927,0.2934],[0.9983,0.3144],[0.9987,0.328],[0.9982,0.3335],[0.996,0.3504],[0.9756,0.3836],[0.9724,0.3873],[0.959,0.4038],[0.9417,0.4183],[0.936,0.4265],[0.9359,0.4237],[0.9335,0.4296],[0.9181,0.4576],[0.9058,0.467],[0.8995,0.4617],[0.8991,0.4657],[0.8923,0.4775],[0.8928,0.4831],[0.8922,0.4936],[0.8945,0.4946],[0.8945,0.5339],[0.8914,0.558],[0.8875,0.5788],[0.8825,0.5943],[0.8741,0.618],[0.8715,0.6386],[0.8598,0.6552],[0.849,0.6694],[0.8408,0.6862],[0.842,0.6989],[0.8169,0.7138],[0.8168,0.7206],[0.7954,0.7239],[0.7884,0.7207],[0.7852,0.7181],[0.786,0.723],[0.7722,0.7263],[0.7707,0.7258],[0.7642,0.7231],[0.748,0.7273],[0.7496,0.7327],[0.7316,0.74],[0.7265,0.7452],[0.6984,0.753],[0.6677,0.7746],[0.6645,0.7775],[0.6582,0.7865],[0.6531,0.7828],[0.649,0.7873],[0.6504,0.7892],[0.6464,0.7975],[0.6476,0.8061],[0.6455,0.8104],[0.6461,0.8195],[0.6492,0.8321],[0.6479,0.8483],[0.6431,0.8641],[0.6251,0.8803],[0.5966,0.9271],[0.5751,0.9477],[0.5596,0.957],[0.5615,0.9506],[0.5695,0.9496],[0.5828,0.9365],[0.588,0.931],[0.5947,0.9221],[0.5975,0.9153],[0.5886,0.9136],[0.5809,0.9071],[0.5797,0.9103],[0.5795,0.9192],[0.5772,0.9258],[0.5739,0.9324],[0.5615,0.9423],[0.5564,0.9545],[0.5543,0.9636],[0.5418,0.9878],[0.524,0.9992],[0.5223,0.9938],[0.5258,0.9813],[0.5318,0.9728],[0.5204,0.9657],[0.5164,0.9568],[0.5107,0.9535],[0.4981,0.9456],[0.4839,0.9368],[0.4776,0.9344],[0.4733,0.9288],[0.4682,0.9269],[0.4641,0.9306],[0.4589,0.9312],[0.4566,0.9224],[0.438,0.9068],[0.429,0.9108],[0.4182,0.9089],[0.4261,0.9004],[0.4396,0.8891],[0.4471,0.8808],[0.4567,0.8695],[0.461,0.8649],[0.4628,0.8618],[0.4676,0.8616],[0.4699,0.8559],[0.4786,0.8502],[0.4838,0.8468],[0.4879,0.8425],[0.4933,0.8406],[0.4989,0.8386],[0.5063,0.8337],[0.5124,0.8312],[0.5172,0.8221],[0.5177,0.8105],[0.5148,0.8004],[0.51,0.7907],[0.505,0.7894],[0.4989,0.7919],[0.4947,0.787],[0.4998,0.7724],[0.5022,0.7535],[0.499,0.7477],[0.4919,0.7464],[0.4827,0.7501],[0.4741,0.7489],[0.4716,0.7406],[0.4716,0.7352],[0.4705,0.7285],[0.4682,0.7217],[0.4683,0.7148],[0.4644,0.708],[0.4575,0.7062],[0.4503,0.7035],[0.4452,0.7024],[0.4395,0.7056],[0.4301,0.7044],[0.4216,0.7038],[0.4143,0.7017],[0.4087,0.7001],[0.4096,0.6951],[0.4101,0.6899],[0.4107,0.684],[0.4118,0.6786],[0.4109,0.6706],[0.4106,0.6675],[0.4087,0.6645],[0.4076,0.6583],[0.4047,0.6537],[0.4077,0.6491],[0.4075,0.6434],[0.4114,0.6279],[0.4152,0.6211],[0.4175,0.6085],[0.4211,0.6019],[0.4139,0.5879],[0.4085,0.5838],[0.3976,0.5728],[0.3993,0.5577],[0.3986,0.5523],[0.3839,0.5531],[0.3524,0.5485],[0.3475,0.5276],[0.3502,0.5217],[0.3471,0.5023],[0.3463,0.4963],[0.3443,0.4884],[0.3298,0.4807],[0.317,0.4816],[0.3038,0.4743],[0.2971,0.4715],[0.2848,0.4669],[0.279,0.4596],[0.2718,0.46],[0.2631,0.4548],[0.2486,0.4549],[0.2396,0.4477],[0.2318,0.4426],[0.2287,0.4381],[0.2255,0.4365],[0.2244,0.4317],[0.2209,0.4249],[0.2202,0.4197],[0.2184,0.4062],[0.2216,0.3977],[0.2217,0.3879],[0.217,0.3843],[0.206,0.3857],[0.1895,0.3886],[0.1715,0.3993],[0.1616,0.4066],[0.1533,0.4085],[0.1451,0.4162],[0.1358,0.4198],[0.1314,0.4171],[0.1128,0.4156],[0.1004,0.4164],[0.092,0.4184],[0.0857,0.4171],[0.0858,0.3959],[0.0876,0.3837],[0.0883,0.3768],[0.0828,0.3802],[0.0755,0.3866],[0.0611,0.3914],[0.0465,0.3889],[0.0436,0.3817],[0.0356,0.3772],[0.0232,0.3724],[0.0224,0.3608],[0.0165,0.3531],[0.013,0.35],[0.0099,0.3448],[0.0072,0.3396],[0.0073,0.3355],[0.0027,0.3311],[0.0005,0.328],[0.0009,0.324],[0.005,0.323],[0.0062,0.3187],[0.0062,0.3119],[0.0194,0.3031],[0.022,0.2975],[0.0202,0.2894],[0.0263,0.2781],[0.0279,0.267],[0.0355,0.2633],[0.049,0.2538],[0.0595,0.2499],[0.0705,0.2473],[0.08,0.2433],[0.0885,0.2417],[0.096,0.2451],[0.102,0.2458],[0.1043,0.2373],[0.1105,0.2032],[0.1154,0.1764],[0.1171,0.1643],[0.1161,0.1604],[0.1134,0.1573],[0.1118,0.1533],[0.112,0.149],[0.1065,0.1446],[0.1003,0.1343],[0.1024,0.1198],[0.1083,0.1188],[0.1122,0.1173],[0.1168,0.1169],[0.1198,0.1181],[0.1232,0.1185],[0.1231,0.1165],[0.1226,0.1118],[0.1184,0.1075],[0.1144,0.1076],[0.1084,0.1072],[0.1059,0.0952],[0.111,0.0902],[0.1175,0.0905],[0.1358,0.0907],[0.1477,0.0893],[0.1482,0.0839],[0.1534,0.0899],[0.1605,0.0855],[0.1669,0.0804],[0.1733,0.0875],[0.1763,0.1038]]};
 </script>
 
 <style>
@@ -993,6 +1075,128 @@ html.retrato .rr-leg i{width:16px; height:16px}
 html.retrato .rr-estado{left:60px; top:470px; font-size:30px; width:780px}
 html.retrato .rr-nota{left:60px; right:auto; top:auto; bottom:330px; font-size:18px}
 html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
+/* ===== /gemeos ===== */
+#s-vetores .hero, #s-fluxo .hero, #s-brasil .hero, #s-cases .hero, #s-passos .hero{transition:top .8s cubic-bezier(.65,0,.25,1), transform .8s cubic-bezier(.65,0,.25,1), font-size .8s cubic-bezier(.65,0,.25,1), opacity .5s}
+#s-vetores .hero.up, #s-fluxo .hero.up, #s-brasil .hero.up, #s-cases .hero.up, #s-passos .hero.up{top:132px; transform:none; font-size:42px; letter-spacing:-.6px; line-height:1.12}
+#s-vetores .banda.fecho, #s-fluxo .banda.fecho, #s-brasil .banda.fecho, #s-cases .banda.fecho, #s-passos .banda.fecho{bottom:60px; padding:20px 32px}
+#s-vetores .banda.fecho p, #s-brasil .banda.fecho p, #s-cases .banda.fecho p{font-size:24px}
+/* vetores */
+.vt-grid{position:absolute; left:100px; right:100px; top:236px; height:500px; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); gap:16px; opacity:1!important}
+.vt-grid canvas{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0}
+.vt-t{position:relative; z-index:1; border:1px solid var(--fio); border-radius:6px; background:#FBFAF7; padding:20px 24px; opacity:0; transform:translateY(12px); transition:opacity .5s, transform .5s, background .5s, border-color .5s; transition-delay:calc(var(--k) * 110ms)}
+.vt-grid.on .vt-t{opacity:1; transform:none}
+.vt-t b{display:block; font:500 13px/1 var(--f-mono); letter-spacing:1.4px; color:var(--cinza, #8E8C86)}
+.vt-t h3{font:600 26px/1.15 var(--f-tit); color:var(--texto); margin-top:10px}
+.vt-t p{font-size:19px; line-height:1.4; color:var(--texto2); margin-top:8px}
+#s-vetores[data-step="2"] .vt-t{background:rgba(251,250,247,.82); border-color:rgba(29,29,27,.35); transition-delay:0s}
+/* fluxo */
+#flCanvas{position:absolute; left:0; top:0; width:1600px; height:900px; pointer-events:none}
+.fl-col{position:absolute; top:240px; height:520px}
+.fl-br{left:100px; width:360px}
+.fl-br canvas{display:block; width:340px; height:352px; margin:0 0 18px}
+.fl-gm{left:590px; width:420px; display:flex; flex-direction:column; justify-content:center; gap:22px}
+.fl-dc{left:1130px; width:370px; display:flex; flex-direction:column; justify-content:center}
+.fl-t{font:600 32px/1.15 var(--f-tit); color:var(--texto)}
+.fl-s{font-size:20px; line-height:1.45; color:var(--texto2); margin-top:8px}
+.fl-card{border:2px solid var(--texto); border-radius:6px; padding:26px 28px; background:#FBFAF7}
+.fl-card:last-child{background:var(--preto)} .fl-card:last-child .fl-t{color:var(--osso)} .fl-card:last-child .fl-s{color:#D9D7D0}
+.fl-cen{margin-top:22px; display:flex; flex-direction:column; gap:12px}
+.fl-cen p{border-left:3px solid var(--texto); padding:6px 0 6px 14px; font:500 21px/1.35 var(--f-tit); color:var(--texto)}
+/* brasil */
+#brCanvas{position:absolute; left:560px; top:220px; width:520px; height:540px}
+.br-fam{position:absolute; left:100px; top:250px; width:400px; display:flex; flex-direction:column; gap:16px}
+.br-fam div{border-top:1px solid var(--fio); padding-top:10px; opacity:0; transform:translateX(-10px); transition:opacity .5s, transform .5s; transition-delay:calc(var(--k) * 260ms + 400ms)}
+.br-fam.on div{opacity:1; transform:none}
+.br-fam b{display:block; font:600 14px/1 var(--f-mono); letter-spacing:1.6px; text-transform:uppercase; color:var(--texto)}
+.br-fam span{display:block; font-size:17px; line-height:1.4; color:var(--texto2); margin-top:6px}
+.br-nums{position:absolute; left:1140px; right:100px; top:250px; display:flex; flex-direction:column}
+.br-nums div{border-top:2px solid var(--texto); padding:12px 0 14px; display:grid; grid-template-columns:130px 1fr; align-items:baseline; gap:12px}
+.br-nums b{font:600 36px/1 var(--f-tit); letter-spacing:-.8px}
+.br-nums span{font-size:16px; line-height:1.35; color:var(--texto2)}
+/* cases */
+.cs-lista{position:absolute; left:100px; top:236px; width:420px; display:flex; flex-direction:column}
+.cs-it{border-top:1px solid var(--fio); padding:16px 0; display:grid; grid-template-columns:44px 1fr; gap:10px; opacity:.38; transition:opacity .35s}
+.cs-it.on{opacity:1}
+.cs-it b{font:600 15px/1.3 var(--f-mono); color:var(--texto2)}
+.cs-it p{font:600 20px/1.25 var(--f-tit); color:var(--texto)}
+.cs-it span{display:block; font:500 13px/1.3 var(--f-mono); letter-spacing:.6px; text-transform:uppercase; color:var(--texto2); margin-top:4px}
+.cs-painel{position:absolute; left:580px; right:100px; top:236px; border:1px solid var(--fio); border-radius:8px; background:#FBFAF7; padding:26px 32px 24px}
+.cs-painel.troca{animation:entra .45s ease both}
+.cs-num{font:500 14px/1 var(--f-mono); letter-spacing:1.6px; color:var(--texto2)}
+.cs-setor{font:600 14px/1.3 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--texto2); margin-top:12px}
+.cs-tit{font:600 30px/1.15 var(--f-tit); margin:6px 0 14px}
+.cs-bl{border-top:1px solid var(--fio); padding:12px 0}
+.cs-k{font:600 13px/1 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--texto2)}
+.cs-v{font-size:18px; line-height:1.42; color:var(--texto); margin-top:6px}
+.cs-np{border-top:1px dashed rgba(29,29,27,.4); padding-top:12px; font:500 15px/1.4 var(--f-mono); color:var(--texto2)}
+/* passos */
+.ps-linha{position:absolute; left:100px; right:100px; top:330px; height:3px; background:rgba(29,29,27,.15)}
+.ps-linha i{display:block; height:100%; width:0; background:var(--texto); transition:width .9s cubic-bezier(.65,0,.25,1)}
+#s-passos[data-step="1"] .ps-linha i{width:12.5%} #s-passos[data-step="2"] .ps-linha i{width:37.5%} #s-passos[data-step="3"] .ps-linha i{width:62.5%} #s-passos[data-step="4"] .ps-linha i{width:100%}
+.ps-grade{position:absolute; left:100px; right:100px; top:316px; display:grid; grid-template-columns:repeat(4,1fr); gap:28px}
+.ps-it{padding-top:44px; position:relative; opacity:0; transform:translateY(12px); transition:opacity .5s, transform .5s}
+.ps-it.on{opacity:1; transform:none}
+.ps-it::before{content:""; position:absolute; left:0; top:4px; width:26px; height:26px; border-radius:50%; background:var(--texto); box-shadow:0 0 0 6px var(--osso)}
+.ps-it b{display:block; font:600 14px/1 var(--f-mono); letter-spacing:1.6px; text-transform:uppercase; color:var(--texto2)}
+.ps-it h3{font:600 34px/1.15 var(--f-tit); margin-top:12px}
+.ps-it p{font-size:21px; line-height:1.45; color:var(--texto2); margin-top:12px}
+.ps-fecho{display:flex; justify-content:space-between; align-items:center; gap:24px}
+.ps-fecho p{font:600 28px/1.3 var(--f-tit); flex:none}
+.banda .ps-ct{font:500 17px/1.5 var(--f-mono); color:var(--claro2); text-align:right}
+#s-passos .ps-fecho p.ps-ct{flex:1 1 auto; min-width:0; font:500 18px/1.5 var(--f-mono); color:var(--claro2); text-align:right}
+html.retrato #s-passos .ps-fecho p.ps-ct{font-size:22px; text-align:left}
+/* celular em pé */
+html.retrato #s-vetores .hero.up, html.retrato #s-fluxo .hero.up, html.retrato #s-brasil .hero.up, html.retrato #s-cases .hero.up, html.retrato #s-passos .hero.up{top:128px; font-size:50px; letter-spacing:-.8px; line-height:1.12; text-wrap:wrap}
+html.retrato #s-vetores .banda.fecho, html.retrato #s-fluxo .banda.fecho, html.retrato #s-brasil .banda.fecho, html.retrato #s-cases .banda.fecho, html.retrato #s-passos .banda.fecho{bottom:84px; padding:26px 32px}
+html.retrato #s-vetores .banda.fecho p, html.retrato #s-brasil .banda.fecho p, html.retrato #s-cases .banda.fecho p{font-size:30px}
+html.retrato .vt-grid{left:60px; right:60px; top:350px; height:1130px; grid-template-columns:1fr; grid-template-rows:repeat(9,1fr); gap:10px}
+html.retrato .vt-t{padding:12px 20px}
+html.retrato .vt-t b{font-size:17px}
+html.retrato .vt-t h3{font-size:28px; margin-top:4px}
+html.retrato .vt-t p{font-size:21px; margin-top:4px}
+html.retrato #flCanvas{width:900px; height:1800px}
+html.retrato .fl-col{left:60px; width:780px; height:auto}
+html.retrato .fl-br{top:330px; display:grid; grid-template-columns:240px 1fr; gap:24px; align-items:center}
+html.retrato .fl-br canvas{width:240px; height:250px; margin:0; grid-row:1 / span 2}
+html.retrato .fl-gm{top:690px; flex-direction:row; gap:20px}
+html.retrato .fl-gm .fl-card{flex:1}
+html.retrato .fl-dc{top:1070px}
+html.retrato .fl-t{font-size:36px}
+html.retrato .fl-s{font-size:25px}
+html.retrato .fl-cen p{font-size:26px}
+html.retrato #brCanvas{left:150px; top:300px; width:600px; height:620px}
+html.retrato .br-fam{left:60px; top:950px; width:780px; display:grid; grid-template-columns:1fr 1fr; gap:14px 26px}
+html.retrato .br-fam b{font-size:18px}
+html.retrato .br-fam span{font-size:20px}
+html.retrato .br-nums{left:60px; right:60px; top:1330px; display:grid; grid-template-columns:repeat(3,1fr); gap:0 20px}
+html.retrato .br-nums div{grid-template-columns:1fr; gap:6px}
+html.retrato .br-nums b{font-size:40px}
+html.retrato .br-nums span{font-size:19px}
+html.retrato .cs-lista{left:60px; right:60px; width:auto; top:330px; flex-direction:row; gap:10px}
+html.retrato .cs-it{flex:1; display:block; padding:14px 0 0; border-top:4px solid var(--texto)}
+html.retrato .cs-it b{font-size:20px}
+html.retrato .cs-it p, html.retrato .cs-it span{display:none}
+html.retrato .cs-painel{left:60px; right:60px; top:420px; padding:30px 32px}
+html.retrato .cs-num{font-size:19px}
+html.retrato .cs-setor{font-size:19px}
+html.retrato .cs-tit{font-size:40px}
+html.retrato .cs-k{font-size:17px}
+html.retrato .cs-v{font-size:26px}
+html.retrato .cs-np{font-size:20px}
+html.retrato .ps-linha{left:73px; right:auto; top:340px; width:3px; height:1090px}
+html.retrato .ps-linha i{width:100%!important; height:0; transition:height .9s cubic-bezier(.65,0,.25,1)}
+html.retrato #s-passos[data-step="1"] .ps-linha i{height:12.5%} html.retrato #s-passos[data-step="2"] .ps-linha i{height:37.5%} html.retrato #s-passos[data-step="3"] .ps-linha i{height:62.5%} html.retrato #s-passos[data-step="4"] .ps-linha i{height:100%}
+html.retrato .ps-grade{left:60px; right:60px; top:330px; grid-template-columns:1fr; gap:44px}
+html.retrato .ps-it{padding:0 0 0 64px}
+html.retrato .ps-it::before{top:2px; left:0}
+html.retrato .ps-it b{font-size:19px}
+html.retrato .ps-it h3{font-size:38px}
+html.retrato .ps-it p{font-size:26px}
+html.retrato .ps-fecho{flex-direction:column; align-items:flex-start; gap:10px}
+html.retrato .ps-fecho p{flex:initial}
+html.retrato .banda .ps-ct{white-space:normal}
+html.retrato .ps-fecho p{font-size:34px}
+html.retrato .banda .ps-ct{font-size:22px}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="sim" viewBox="0 0 700 700"><path d="M.54-.16v700h700V-.16H.54ZM490.39,543.57h-41.48c-3.35,0-6.2-2.54-6.72-6l-30.25-198.09c-1.05-6.86-9.89-8.26-12.83-2.03l-77.67,149.12c-7.44,15.76-29.9,15.63-37.16-.21l-75.43-149.23c-2.86-6.24-11.68-4.98-12.84,1.83l-33.77,198.74c-.58,3.4-3.4,5.88-6.7,5.88h-41.89c-4.29,0-7.51-4.09-6.68-8.5l69.76-373.03c1.26-6.75,10.03-7.9,12.84-1.68l98.97,219.32c5.9,13.07,24.42,13.2,30.5.2l102.59-219.48c2.9-6.2,11.68-4.9,12.82,1.9l62.65,372.89c.73,4.36-2.47,8.36-6.71,8.36ZM587.13,543.41h-31.61c-3.47,0-6.43-2.5-7.01-5.92l-63.34-373.07c-.74-4.34,2.61-8.3,7.01-8.3h31.99c3.47,0,6.43,2.51,7.01,5.93l62.97,373.07c.73,4.34-2.61,8.29-7.01,8.29Z"/></symbol></defs></svg>
@@ -1018,7 +1222,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
 
 
   <!-- ============ SLIDE · PARA QUE SERVE (6 cliques) ============ -->
-  <section class="slide cena" data-steps="5" id="s-serve">
+  <section class="slide cena" data-steps="5" id="s-serve" data-versao="apoio">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
     <p class="lbl topo">Para que serve</p>
     <h2 class="hero rv" data-in="0" data-up="1">Antes de decidir, pergunte para a população artificial.</h2>
@@ -1033,7 +1237,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   </section>
 
   <!-- ============ SLIDE 04 · SMALLVILLE (liga/desliga em CONFIG.mostrarSmallville; 6 cliques) ============ -->
-  <section class="slide cena" data-opcional="smallville" data-steps="5">
+  <section class="slide cena" data-opcional="smallville" data-versao="apoio" data-steps="5">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
     <p class="lbl topo">A terceira onda</p>
     <h2 class="hero rv" data-in="0" data-up="1">Simular comportamento humano é a terceira onda da IA.</h2>
@@ -1056,6 +1260,40 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
     <p class="pag"></p>
   </section>
 
+  <!-- ============ /gemeos · VETORES DE MUDANÇA (2 cliques) ============ -->
+  <section class="slide cena" data-steps="2" id="s-vetores" data-versao="gemeos">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Por que agora</p>
+    <h2 class="hero rv" data-in="0" data-up="1" id="vtHero"></h2>
+    <div class="vt-grid" id="vtGrid" data-in="1"><canvas id="vtCanvas" aria-hidden="true"></canvas></div>
+    <div class="banda fecho ent" data-in="2"><p class="rv" id="vtFecho"></p></div>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ /gemeos · BRASIL → GÊMEO → DECISÃO (3 cliques) ============ -->
+  <section class="slide cena" data-steps="3" id="s-fluxo" data-versao="gemeos">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Como respondemos</p>
+    <h2 class="hero rv" data-in="0" data-up="1" id="flHero"></h2>
+    <canvas id="flCanvas" aria-hidden="true"></canvas>
+    <div class="fl-col fl-br" id="flBr" data-in="1"><canvas id="flMapa" width="560" height="580" aria-hidden="true"></canvas><p class="fl-t"></p><p class="fl-s"></p></div>
+    <div class="fl-col fl-gm" id="flGm" data-in="2"><div class="fl-card" id="flG1"><p class="fl-t"></p><p class="fl-s"></p></div><div class="fl-card" id="flG2"><p class="fl-t"></p><p class="fl-s"></p></div></div>
+    <div class="fl-col fl-dc" id="flDc" data-in="3"><p class="fl-t"></p><p class="fl-s"></p><div class="fl-cen" id="flCen"></div></div>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ /gemeos · O GÊMEO DO BRASIL (3 cliques) ============ -->
+  <section class="slide cena" data-steps="3" id="s-brasil" data-versao="gemeos">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">O gêmeo do Brasil</p>
+    <h2 class="hero rv" data-in="0" data-up="1" id="brHero"></h2>
+    <canvas id="brCanvas" data-in="1" aria-label="Mapa do Brasil em pontos, recebendo dados de cinco famílias de fontes"></canvas>
+    <div class="br-fam" id="brFam" data-in="1"></div>
+    <div class="br-nums" id="brNums" data-in="2"></div>
+    <div class="banda fecho ent" data-in="3"><p class="rv" id="brFecho"></p></div>
+    <p class="pag"></p>
+  </section>
+
   <!-- ============ SLIDE 05 · COMO NASCE UM GÊMEO (animado; textos no CONFIG lá em cima) ============ -->
   <section class="slide twin esc" id="s-twin">
     <img class="logo-sm" src="__LOGO_CLARO__" alt="Mimetica">
@@ -1068,7 +1306,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
     <div class="ov" id="apiBox"><div class="api-cab">Dados da sua empresa</div><div id="apiLista"></div></div>
     </div>
     <div class="painel">
-      <p class="lbl">Como nasce um gêmeo digital</p>
+      <p class="lbl" data-cfg="twinLbl"></p>
       <div class="passo" id="passo"><div class="rot" id="pRot"></div><h2 id="pTit"></h2><p id="pTxt"></p></div>
       <div class="extra" id="exComp">
         <div class="cabx">Composição por região · % da população</div>
@@ -1086,7 +1324,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   </section>
 
   <!-- ============ SLIDE · MODELOS FUNDACIONAIS (3 cliques; textos no CONFIG.modelos) ============ -->
-  <section class="slide cena" data-steps="3" id="s-modelos">
+  <section class="slide cena" data-steps="3" id="s-modelos" data-versao="apoio">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
     <p class="lbl topo">Modelos fundacionais</p>
     <h2 class="hero rv" data-in="0" data-up="1" id="mdHero"></h2>
@@ -1098,7 +1336,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   </section>
 
   <!-- ============ SLIDE · POR QUE CONFIAR (7 cliques; textos no CONFIG.confia) ============ -->
-  <section class="slide cena" data-steps="6" id="s-confia">
+  <section class="slide cena" data-steps="6" id="s-confia" data-versao="apoio">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
     <p class="lbl topo">Por que confiar</p>
     <h2 class="hero rv" data-in="0" data-out="1" data-cfg="confHero"></h2>
@@ -1125,7 +1363,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   </section>
 
   <!-- ============ SLIDE · CIDADE DO TEMA (7 cliques; textos no CONFIG.cidade) ============ -->
-  <section class="slide cena" data-steps="6" id="s-cidade">
+  <section class="slide cena" data-steps="6" id="s-cidade" data-versao="apoio">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
     <p class="lbl topo">Como aprendem sobre a sua empresa</p>
     <h2 class="hero rv" data-in="0" data-out="1" data-cfg="cidHero"></h2>
@@ -1138,7 +1376,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   </section>
 
   <!-- ============ SLIDE · MOS SUITE, EXEMPLO HIPOTÉTICO (6 cliques; números no CONFIG.mosExemplo) ============ -->
-  <section class="slide cena" data-steps="5" id="s-mos">
+  <section class="slide cena" data-steps="5" id="s-mos" data-versao="apoio">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
     <p class="lbl topo">Qualidade dos dados</p>
     <h2 class="hero rv" data-in="0" data-out="1">Como melhoramos os estudos de mercado que a empresa já fez.</h2>
@@ -1161,7 +1399,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   </section>
 
   <!-- ============ SLIDE · RENDA E REGIÃO (3 cliques; números no CONFIG.renda) ============ -->
-  <section class="slide cena" data-steps="3" id="s-renda">
+  <section class="slide cena" data-steps="3" id="s-renda" data-versao="apoio">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
     <p class="lbl topo">Renda e região</p>
     <h2 class="hero rv" data-in="0" data-up="1" id="rrHero"></h2>
@@ -1174,7 +1412,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   </section>
 
   <!-- ============ SLIDE · MOS CONECTADO A TODAS AS ÁREAS (8 cliques; textos no CONFIG.areas) ============ -->
-  <section class="slide cena" data-steps="7" id="s-areas">
+  <section class="slide cena" data-steps="7" id="s-areas" data-versao="apoio">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
     <p class="lbl topo">Em toda a empresa</p>
     <h2 class="hero rv" data-in="0" data-out="1">Uma pergunta, respostas para todas as áreas da empresa.</h2>
@@ -1185,7 +1423,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   </section>
 
   <!-- ============ SLIDE · COMO CONTRATAR (4 cliques; textos no CONFIG.contratar) ============ -->
-  <section class="slide cena" data-steps="3" id="s-contrata">
+  <section class="slide cena" data-steps="3" id="s-contrata" data-versao="apoio">
     <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
     <p class="lbl topo">Como trabalhar com a Mimetica</p>
     <h2 class="hero rv" data-in="0" data-out="1">Duas formas de trabalhar com a Mimetica.</h2>
@@ -1202,6 +1440,23 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
       </div>
     </div>
     <div class="banda fecho ent" data-in="3"><p class="rv" id="ctFecho"></p></div>
+    <p class="pag"></p>
+  </section>
+
+  <!-- ============ /gemeos · CASES (6 cliques) ============ -->
+  <section class="slide cena" data-steps="6" id="s-cases" data-versao="gemeos">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Cases</p>
+    <h2 class="hero rv" data-in="0" data-up="1" id="csHero"></h2>
+    <div class="cs-lista" id="csLista" data-in="1"></div>
+    <div class="cs-painel" id="csPainel" data-in="1" data-out="6">
+      <p class="cs-num" id="csNum"></p><p class="cs-setor" id="csSetor"></p><h3 class="cs-tit" id="csTit"></h3>
+      <div class="cs-bl"><p class="cs-k">A pergunta</p><p class="cs-v" id="csPerg"></p></div>
+      <div class="cs-bl"><p class="cs-k">O que os gêmeos responderam</p><p class="cs-v" id="csResp"></p></div>
+      <div class="cs-bl"><p class="cs-k">O que surpreendeu</p><p class="cs-v" id="csSurp"></p></div>
+      <p class="cs-np" id="csNp"></p>
+    </div>
+    <div class="banda fecho ent" data-in="6"><p class="rv" id="csFecho"></p></div>
     <p class="pag"></p>
   </section>
 
@@ -1225,8 +1480,19 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
     </div>
   </section>
 
+  <!-- ============ /gemeos · PRÓXIMOS PASSOS (4 cliques) ============ -->
+  <section class="slide cena" data-steps="4" id="s-passos" data-versao="gemeos">
+    <img class="logo-sm" src="__LOGO_ESCURO__" alt="Mimetica">
+    <p class="lbl topo">Próximos passos</p>
+    <h2 class="hero rv" data-in="0" data-up="1" id="psHero"></h2>
+    <div class="ps-linha" data-in="1"><i></i></div>
+    <div class="ps-grade" id="psGrade"></div>
+    <div class="banda fecho ent ps-fecho" data-in="4"><p id="psFecho"></p><p class="ps-ct" id="psCt"></p></div>
+    <p class="pag"></p>
+  </section>
+
   <!-- ============ SLIDE 08 · ENCERRAMENTO ============ -->
-  <section class="slide fim esc">
+  <section class="slide fim esc" data-versao="apoio">
     <img class="logo" src="__LOGO_CLARO__" alt="Mimetica">
     <div class="fim-miolo">
       <h1 data-cfg="fimTitulo"></h1>
@@ -2293,6 +2559,123 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   })();
 
   /* ================================================================
+     /gemeos: vetores, fluxo, gêmeo do Brasil, cases e próximos passos
+     ================================================================ */
+  const G = CONFIG.gemeos, $g = id => document.getElementById(id);
+  const offs = (el, ate) => { let x = 0, y = 0; while (el && el !== ate){ x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return [x, y]; };
+  const ehRet = () => document.documentElement.classList.contains('retrato');
+  function textoRv(el, t){ el.textContent = t; splitRv(el); }
+  const vetores = (() => {
+    const sec = $g('s-vetores'); if (!sec) return { ativar(){}, passo(){} };
+    textoRv($g('vtHero'), G.vetHero); textoRv($g('vtFecho'), G.vetFecho);
+    const grid = $g('vtGrid'), cv = $g('vtCanvas'), c = cv.getContext('2d');
+    G.vetores.forEach(([n, f], k) => { const d = document.createElement('div'); d.className = 'vt-t'; d.style.setProperty('--k', k);
+      d.innerHTML = '<b></b><h3></h3><p></p>'; d.querySelector('b').textContent = String(k + 1).padStart(2, '0'); d.querySelector('h3').textContent = n; d.querySelector('p').textContent = f; grid.appendChild(d); });
+    const tiles = [...grid.querySelectorAll('.vt-t')];
+    let ativo = false, raf = 0, t0 = 0, liga = false;
+    function desenha(now){
+      if (!ativo){ raf = 0; return; }
+      const W = grid.offsetWidth * 2, H = grid.offsetHeight * 2; if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+      c.clearRect(0, 0, W, H);
+      if (liga){ const u = Math.min(1, (now - t0) / 1600);
+        G.vetLigacoes.forEach(([a, b], k) => { const A = tiles[a], B = tiles[b];
+          const ax = (A.offsetLeft + A.offsetWidth/2) * 2, ay = (A.offsetTop + A.offsetHeight/2) * 2, bx = (B.offsetLeft + B.offsetWidth/2) * 2, by = (B.offsetTop + B.offsetHeight/2) * 2;
+          const v = Math.max(0, Math.min(1, u * 1.6 - k * .06)); if (v <= 0) return;
+          c.strokeStyle = 'rgba(29,29,27,.55)'; c.lineWidth = 3; c.beginPath(); c.moveTo(ax, ay); c.lineTo(ax + (bx - ax) * v, ay + (by - ay) * v); c.stroke();
+          const f = (now / 1400 + k * .13) % 1; if (v >= 1){ c.fillStyle = '#1D1D1B'; c.beginPath(); c.arc(ax + (bx - ax) * f, ay + (by - ay) * f, 6, 0, 7); c.fill(); }
+          c.fillStyle = '#1D1D1B'; [[ax, ay], [bx, by]].forEach(([x, y]) => { c.beginPath(); c.arc(x, y, 7 * v, 0, 7); c.fill(); }); }); }
+      raf = requestAnimationFrame(desenha); }
+    return { ativar(v){ ativo = v; if (v && !raf) raf = requestAnimationFrame(desenha); },
+      passo(p, instant){ const novo = p >= 2; if (novo && !liga) t0 = instant ? -1e9 : performance.now(); liga = novo; } };
+  })();
+
+  function mapaPontos(cv, opts){
+    const c = cv.getContext('2d'), W = cv.width, H = cv.height, pad = opts.pad || 10;
+    const esc = Math.min((W - pad*2) / BRASIL.aspect, H - pad*2), w = esc * BRASIL.aspect, ox = (W - w) / 2, oy = (H - esc) / 2;
+    return { c, W, H, pts: BRASIL.pts.map(([x, y]) => [ox + x * w, oy + y * esc]), r: Math.max(1.6, w / 46 * .34) };
+  }
+  const fluxo = (() => {
+    const sec = $g('s-fluxo'); if (!sec) return { ativar(){}, passo(){} };
+    textoRv($g('flHero'), G.fluHero);
+    const pf = (el, [t, s]) => { el.querySelector('.fl-t').textContent = t; el.querySelector('.fl-s').textContent = s; };
+    pf($g('flBr'), G.fluBrasil); pf($g('flG1'), G.fluGemeos[0]); pf($g('flG2'), G.fluGemeos[1]); pf($g('flDc'), G.fluDecisao);
+    G.fluCenarios.forEach(t => { const q = document.createElement('p'); q.textContent = t; $g('flCen').appendChild(q); });
+    const mapa = $g('flMapa'), cv = $g('flCanvas'), c = cv.getContext('2d'), r = rng(21);
+    let M = null; const dots = [];
+    let ativo = false, raf = 0, p = 0;
+    function prep(){ const rt = ehRet(); cv.width = (rt ? 900 : 1600) * 2; cv.height = (rt ? 1800 : 900) * 2; M = mapaPontos(mapa, { pad: 6 }); }
+    function caixa(el){ const [x, y] = offs(el, sec); return { x: x * 2, y: y * 2, w: el.offsetWidth * 2, h: el.offsetHeight * 2 }; }
+    function nasce(de, para){ const a = caixa(de), b = caixa(para), rt = ehRet();
+      const sx = rt ? a.x + a.w * (.2 + r() * .6) : a.x + a.w, sy = rt ? a.y + a.h : a.y + a.h * (.15 + r() * .7);
+      const ex = rt ? b.x + b.w * (.1 + r() * .8) : b.x, ey = rt ? b.y : b.y + b.h * (.1 + r() * .8);
+      dots.push({ sx, sy, ex, ey, t: 0, v: .5 + r() * .5 }); }
+    function desenha(now){
+      if (!ativo){ raf = 0; return; }
+      if (!M) prep();
+      const mc = M.c; mc.clearRect(0, 0, M.W, M.H);
+      M.pts.forEach(([x, y], i) => { const pulso = .5 + .5 * Math.sin(now / 700 + i * .37); mc.fillStyle = pulso > .93 ? '#1D1D1B' : (i % 3 ? '#8E8C86' : '#403F45'); mc.beginPath(); mc.arc(x, y, M.r, 0, 7); mc.fill(); });
+      c.clearRect(0, 0, cv.width, cv.height);
+      if (p >= 2 && r() < .5) nasce($g('flBr'), r() < .5 ? $g('flG1') : $g('flG2'));
+      if (p >= 3 && r() < .5) nasce(r() < .5 ? $g('flG1') : $g('flG2'), $g('flDc'));
+      for (let k = dots.length - 1; k >= 0; k--){ const d = dots[k]; d.t += .012 * d.v; if (d.t >= 1){ dots.splice(k, 1); continue; }
+        const e = d.t < .5 ? 2*d.t*d.t : 1 - Math.pow(-2*d.t + 2, 2) / 2, x = d.sx + (d.ex - d.sx) * e, y = d.sy + (d.ey - d.sy) * e;
+        c.globalAlpha = Math.min(1, (1 - d.t) * 4, d.t * 6); c.fillStyle = '#1D1D1B'; c.beginPath(); c.arc(x, y, 5, 0, 7); c.fill(); }
+      c.globalAlpha = 1; raf = requestAnimationFrame(desenha); }
+    return { ativar(v){ ativo = v; if (v){ prep(); if (!raf) raf = requestAnimationFrame(desenha); } else dots.length = 0; },
+      passo(np){ p = np; if (np < 2) dots.length = 0; } };
+  })();
+
+  const gemeoBrasil = (() => {
+    const sec = $g('s-brasil'); if (!sec) return { ativar(){}, passo(){} };
+    textoRv($g('brHero'), G.brHero); textoRv($g('brFecho'), G.brFecho);
+    G.familias.forEach(([t, d], k) => { const el = document.createElement('div'); el.style.setProperty('--k', k); el.innerHTML = '<b></b><span></span>'; el.querySelector('b').textContent = t; el.querySelector('span').textContent = d; $g('brFam').appendChild(el); });
+    G.brNumeros.forEach(([n, t]) => { const el = document.createElement('div'); el.innerHTML = '<b></b><span></span>'; el.querySelector('b').textContent = n; el.querySelector('span').textContent = t; $g('brNums').appendChild(el); });
+    const cv = $g('brCanvas'), r = rng(33); let M = null, ativo = false, raf = 0, t0 = 0, p = 0; const dots = [], luz = new Map();
+    function prep(){ const rt = ehRet(); cv.width = (rt ? 600 : 520) * 2; cv.height = (rt ? 620 : 540) * 2; M = mapaPontos(cv, { pad: 20 }); }
+    function origem(){ const fams = [...$g('brFam').children], f = fams[Math.floor(r() * fams.length)], [fx, fy] = offs(f, sec), [cx, cy] = offs(cv, sec), rt = ehRet();
+      if (rt) return [ (fx + f.offsetWidth * r() - cx) * 2, (fy - cy) * 2 ];
+      return [ (fx + f.offsetWidth - cx) * 2, (fy + 14 - cy) * 2 ]; }
+    function desenha(now){
+      if (!ativo){ raf = 0; return; }
+      if (!M) prep();
+      const c = M.c, el = (now - t0) / 1000; c.clearRect(0, 0, M.W, M.H);
+      if (p >= 1 && el > 1 && r() < .55){ const [sx, sy] = origem(), alvo = Math.floor(r() * M.pts.length); dots.push({ sx, sy, alvo, t: 0, v: .6 + r() * .6 }); }
+      M.pts.forEach(([x, y], i) => { const ap = Math.max(0, Math.min(1, (el * 1.4 - y / M.H * 1.2)));
+        if (ap <= 0) return; const l = luz.get(i) || 0, br = Math.max(0, 1 - (now - l) / 1400);
+        c.globalAlpha = ap; c.fillStyle = br > 0 ? '#1D1D1B' : (i % 4 ? '#B9B7B0' : '#8E8C86'); c.beginPath(); c.arc(x, y, M.r * (1 + br * .9), 0, 7); c.fill(); });
+      c.globalAlpha = 1;
+      for (let k = dots.length - 1; k >= 0; k--){ const d = dots[k]; d.t += .016 * d.v; const [ex, ey] = M.pts[d.alvo];
+        if (d.t >= 1){ luz.set(d.alvo, now); dots.splice(k, 1); continue; }
+        const e = d.t * d.t * (3 - 2 * d.t), x = d.sx + (ex - d.sx) * e, y = d.sy + (ey - d.sy) * e;
+        c.globalAlpha = Math.min(1, d.t * 5); c.fillStyle = '#1D1D1B'; c.fillRect(x - 4, y - 4, 8, 8); }
+      c.globalAlpha = 1; raf = requestAnimationFrame(desenha); }
+    return { ativar(v){ const era = ativo; ativo = v; if (v){ if (!era){ prep(); t0 = performance.now(); } if (!raf) raf = requestAnimationFrame(desenha); } else { dots.length = 0; luz.clear(); } },
+      passo(np, instant){ if (np >= 1 && p < 1) t0 = instant ? performance.now() - 5000 : performance.now(); p = np; } };
+  })();
+
+  const cases = (() => {
+    const sec = $g('s-cases'); if (!sec) return { passo(){} };
+    textoRv($g('csHero'), G.csHero); textoRv($g('csFecho'), G.csFecho);
+    G.cases.forEach((cs, k) => { const d = document.createElement('div'); d.className = 'cs-it'; d.innerHTML = '<b></b><div><p></p><span></span></div>';
+      d.querySelector('b').textContent = String(k + 1).padStart(2, '0'); d.querySelector('p').textContent = cs.tit; d.querySelector('span').textContent = cs.setor; $g('csLista').appendChild(d); });
+    let atual = -1;
+    return { passo(p){ const k = Math.max(0, Math.min(G.cases.length - 1, p - 1));
+      [...$g('csLista').children].forEach((d, i) => d.classList.toggle('on', p >= 1 && p <= 5 ? i === k : p > 5));
+      if (k === atual) return; atual = k; const cs = G.cases[k];
+      $g('csNum').textContent = 'Case ' + (k + 1) + ' de ' + G.cases.length; $g('csSetor').textContent = cs.setor; $g('csTit').textContent = cs.tit;
+      $g('csPerg').textContent = cs.perg; $g('csResp').textContent = cs.resp; $g('csSurp').textContent = cs.surp; $g('csNp').textContent = 'O que não prova: ' + cs.naoProva;
+      const pn = $g('csPainel'); pn.classList.remove('troca'); void pn.offsetWidth; pn.classList.add('troca'); } };
+  })();
+
+  const passos = (() => {
+    const sec = $g('s-passos'); if (!sec) return { passo(){} };
+    textoRv($g('psHero'), G.psHero); $g('psFecho').textContent = G.psFecho; $g('psCt').textContent = G.psContato;
+    G.passos.forEach(([t, q, d]) => { const el = document.createElement('div'); el.className = 'ps-it'; el.innerHTML = '<b></b><h3></h3><p></p>';
+      el.querySelector('b').textContent = q; el.querySelector('h3').textContent = t; el.querySelector('p').textContent = d; $g('psGrade').appendChild(el); });
+    return { passo(p){ [...$g('psGrade').children].forEach((el, i) => el.classList.toggle('on', p >= i + 1)); } };
+  })();
+
+  /* ================================================================
      EQUIPE: cartões dos sócios e painel do currículo completo
      ================================================================ */
   const equipe = (() => {
@@ -2336,6 +2719,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
      ================================================================ */
   const stage = document.getElementById('stage');
   document.querySelectorAll('[data-opcional="smallville"]').forEach(el => { if (!CONFIG.mostrarSmallville) el.remove(); });
+  document.querySelectorAll('[data-versao]').forEach(el => { if (el.dataset.versao !== VERSAO) el.remove(); });
   const slides = [...document.querySelectorAll('.slide')];
   const twinIdx = slides.findIndex(s => s.id === 's-twin');
   const passosDe = i => i === twinIdx ? twin.passos : (+slides[i].dataset.steps || 0);
@@ -2347,6 +2731,7 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
   const cidIdx = slides.findIndex(s => s.id === 's-cidade');
   const cfIdx = slides.findIndex(s => s.id === 's-confia');
   const mdIdx = slides.findIndex(s => s.id === 's-modelos');
+  const vtIdx = slides.findIndex(s => s.id === 's-vetores'), flIdx = slides.findIndex(s => s.id === 's-fluxo'), brIdx = slides.findIndex(s => s.id === 's-brasil'), csIdx = slides.findIndex(s => s.id === 's-cases'), psIdx = slides.findIndex(s => s.id === 's-passos');
   const rrIdx = slides.findIndex(s => s.id === 's-renda');
   slides.forEach((s,i) => { s.querySelectorAll('[data-num]').forEach(b => b.textContent = String(i+1).padStart(2,'0'));
     s.querySelectorAll('.pag').forEach(p => p.textContent = String(i+1).padStart(2,'0')); });
@@ -2381,6 +2766,11 @@ html.retrato #rrCanvas{left:60px; top:540px; width:780px; height:930px}
     equipe.fecha();
     modelos.ativar(cur === mdIdx); if (cur === mdIdx) modelos.passo(passo);
     renda.ativar(cur === rrIdx); if (cur === rrIdx) renda.passo(passo, instant);
+    vetores.ativar(cur === vtIdx); if (cur === vtIdx) vetores.passo(passo, instant);
+    fluxo.ativar(cur === flIdx); if (cur === flIdx) fluxo.passo(passo);
+    gemeoBrasil.ativar(cur === brIdx); if (cur === brIdx) gemeoBrasil.passo(passo, instant);
+    if (cur === csIdx) cases.passo(passo);
+    if (cur === psIdx) passos.passo(passo);
     if (cur === twinIdx) twin.setStep(passo, instant);
     const total = slides.length;
     const frac = (cur + (passosDe(cur) ? passo/passosDe(cur) : 0)) / (total - 1);

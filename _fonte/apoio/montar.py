@@ -14,3 +14,18 @@ assert live[18:21] == new[2:5], 'cabeçalho mudou: conferir manualmente'
 out = live[:18] + new[2:5] + live[21:24] + new[5:] + live[-4:]
 open(site, 'w', encoding='utf8').write('\n'.join(out))
 print('ok: apoio/index.html e apresentacao.html')
+
+# Versão /gemeos (proposta do Geraldo): mesmo arquivo, com VERSAO = 'gemeos'
+V = "const VERSAO = window.MIMETICA_VERSAO || 'apoio';"
+g = '\n'.join(out)
+assert V in g
+g = g.replace(V, "const VERSAO = 'gemeos';")
+for a, b in [('<title>Mimetica · Apoio à decisão</title>', '<title>Mimetica · Gêmeos digitais</title>'),
+             ('content="https://mimetica.institute/apoio/"', 'content="https://mimetica.institute/gemeos/"'),
+             ('<meta property="og:title" content="Mimetica · Apoio à decisão">', '<meta property="og:title" content="Mimetica · Gêmeos digitais">')]:
+    assert a in g, a
+    g = g.replace(a, b)
+os.makedirs(os.path.join(aqui, '..', '..', 'gemeos'), exist_ok=True)
+open(os.path.join(aqui, '..', '..', 'gemeos', 'index.html'), 'w', encoding='utf8').write(g)
+open(os.path.join(aqui, 'gemeos.html'), 'w', encoding='utf8').write(s.replace(V, "const VERSAO = 'gemeos';"))
+print('ok: gemeos/index.html e gemeos.html')

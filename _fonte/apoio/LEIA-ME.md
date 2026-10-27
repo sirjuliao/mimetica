@@ -28,3 +28,10 @@ Pastas que começam com "_" não são publicadas pelo GitHub Pages.
 ## Regras de texto
 - Termos fixos: "gêmeo digital" e "população artificial". Sem sinônimos.
 - Evitar "pesquisa" e "sintético". Sem travessões.
+
+## Versão /gemeos (proposta do Geraldo)
+- Sai do mesmo `fonte.html`. A constante `VERSAO` escolhe a apresentação: `apoio` (padrão) ou `gemeos`.
+- Seções com `data-versao="apoio"` ou `data-versao="gemeos"` só aparecem na versão delas. Capa, gêmeo digital (cabeça) e equipe são comuns às duas.
+- Textos da versão /gemeos ficam em `CONFIG.gemeos`, baseados no livro "Simular o Brasil" (vetores, famílias de fontes, cinco casos e "Como começa").
+- `montar.py` gera `apoio/index.html` e `gemeos/index.html`.
+- O mapa do Brasil vem de `world-atlas` (Natural Earth, domínio público), amostrado em pontos e embutido em `BRASIL`.
