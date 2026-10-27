@@ -1,0 +1,337 @@
+<title>Sua entrevista Mimetica</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: uma coluna de celular. Pergunta no alto, onda do áudio no meio, botão de gravar embaixo, como um gravador de voz. */
+:root{
+  --bg:#0C0C0E; --palco:#161618; --linha:#2A2A2D; --fg:#F5F4F0; --sub:#9C9B96; --fraco:#5E5D59;
+  --onda:#F5F4F0; --ondafraca:#3A3A3D; --inverso:#0C0C0E; --rec:#FF453A;
+  --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --logo-claro:block; --logo-escuro:none;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
+  --bg:#F5F4F0; --palco:#FFFFFF; --linha:#DCDAD3; --fg:#1D1D1B; --sub:#6B6A65; --fraco:#A6A49D;
+  --onda:#1D1D1B; --ondafraca:#D6D4CD; --inverso:#F5F4F0; --rec:#E0352B; --logo-claro:none; --logo-escuro:block; color-scheme:light } }
+:root[data-theme="light"]{
+  --bg:#F5F4F0; --palco:#FFFFFF; --linha:#DCDAD3; --fg:#1D1D1B; --sub:#6B6A65; --fraco:#A6A49D;
+  --onda:#1D1D1B; --ondafraca:#D6D4CD; --inverso:#F5F4F0; --rec:#E0352B; --logo-claro:none; --logo-escuro:block; color-scheme:light }
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-corpo);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 24px}
+.app{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:18px}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,input:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.topo{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{height:24px;width:auto;max-width:100%}
+.lc{display:var(--logo-claro)} .le{display:var(--logo-escuro)}
+.btn{border:1px solid var(--linha);background:transparent;border-radius:999px;padding:12px 18px;font-size:15px}
+.btn.cheio{background:var(--fg);color:var(--inverso);border-color:var(--fg);font-weight:600}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.txt{border-color:transparent;padding-inline:6px;color:var(--sub)}
+.largo{width:100%}
+h1{font-family:var(--f-titulo);font-size:clamp(30px,8vw,40px);line-height:1.05;letter-spacing:-.025em;margin:6px 0 0;text-wrap:balance}
+p{margin:0}
+.sub{color:var(--sub)}
+.dicas{display:flex;flex-direction:column;gap:12px;margin:0;padding:0;list-style:none}
+.dicas li{display:grid;grid-template-columns:28px 1fr;gap:10px;color:var(--sub)}
+.dicas li b{font-family:var(--f-mono);color:var(--fg);font-weight:500}
+label.chk{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-size:15px;padding:14px;border:1px solid var(--linha);border-radius:12px}
+label.chk input{margin-top:4px;accent-color:var(--fg);width:18px;height:18px;flex:none}
+input[type=text]{width:100%;background:transparent;color:var(--fg);border:1px solid var(--linha);border-radius:12px;padding:14px;font:inherit}
+.pilha{display:flex;flex-direction:column;gap:12px}
+.rodape{margin-top:auto;display:flex;flex-direction:column;gap:10px}
+
+/* progresso */
+.prog{display:flex;gap:3px}
+.prog i{flex:1;height:4px;border-radius:2px;background:var(--ondafraca)}
+.prog i.ok{background:var(--onda)}
+.prog i.at{background:var(--rec)}
+
+/* pergunta */
+.perg{display:flex;flex-direction:column;gap:10px}
+.perg h2{font-family:var(--f-titulo);font-weight:600;font-size:clamp(22px,6vw,28px);line-height:1.2;letter-spacing:-.01em;margin:0;text-wrap:pretty}
+.perg .tipo{display:inline-flex;align-self:flex-start;gap:6px;align-items:center;border:1px solid var(--linha);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--sub)}
+
+/* gravador */
+.grav{background:var(--palco);border:1px solid var(--linha);border-radius:20px;padding:18px 16px 22px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.onda{width:100%;height:132px;display:block}
+.relogio{font-family:var(--f-mono);font-size:40px;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+.estado{font-size:13px;color:var(--sub);min-height:20px;text-align:center}
+.estado.rec{color:var(--rec)}
+.ctrl{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:100%;gap:8px}
+.ctrl .esq{justify-self:start} .ctrl .dir{justify-self:end}
+.rec-btn{width:78px;height:78px;border-radius:50%;border:3px solid var(--fg);background:transparent;display:grid;place-items:center;padding:0}
+.rec-btn span{display:block;width:62px;height:62px;border-radius:50%;background:var(--rec);transition:all .22s ease}
+.rec-btn.on span{width:30px;height:30px;border-radius:7px}
+@media (prefers-reduced-motion:reduce){.rec-btn span{transition:none}}
+.mini{width:46px;height:46px;border-radius:50%;border:1px solid var(--linha);background:transparent;display:grid;place-items:center}
+.mini:disabled{opacity:.3;cursor:not-allowed}
+.mini svg{width:18px;height:18px;fill:var(--fg)}
+.meta{width:100%;display:flex;flex-direction:column;gap:6px}
+.meta .barra{height:4px;border-radius:2px;background:var(--ondafraca);overflow:hidden}
+.meta .barra b{display:block;height:100%;width:0;background:var(--onda)}
+.meta span{font-size:12px;color:var(--fraco);text-align:center}
+.aviso{border:1px dashed var(--linha);border-radius:12px;padding:12px;font-size:13px;color:var(--sub)}
+.nav{display:grid;grid-template-columns:auto 1fr;gap:10px}
+
+/* fim */
+.lista{display:flex;flex-direction:column;gap:8px}
+.lin{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;border:1px solid var(--linha);border-radius:12px;padding:10px 12px;font-size:14px}
+.lin .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lin .d{font-family:var(--f-mono);font-size:13px;color:var(--sub)}
+.lin.falta .d{color:var(--fraco)}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.num{border:1px solid var(--linha);border-radius:14px;padding:14px}
+.num .v{font-family:var(--f-titulo);font-size:30px;font-weight:700;letter-spacing:-.02em}
+.nota{font-size:12px;color:var(--fraco)}
+</style>
+
+<div class="app" id="app"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const LOGO=`<img class="logo lc" src="__LC__" alt="Mimetica"><img class="logo le" src="__LE__" alt="Mimetica">`;
+const BLOCOS = [
+ {t:"História de vida",p:"Me conte a história da sua vida, da infância até hoje: onde cresceu, como foi a escola, a família, o trabalho e os acontecimentos que mudaram o seu rumo.",
+  a:["Qual foi o momento em que a sua vida mudou de direção?","O que você faria diferente, se pudesse voltar?"]},
+ {t:"O dia a dia",p:"Me descreva um dia normal seu, da hora em que acorda até a hora em que dorme.",
+  a:["O que costuma atrapalhar esse dia?","Onde você busca informação sobre o que acontece no Brasil e no mundo?"]},
+ {t:"Relações",p:"Quem são as pessoas mais importantes da sua vida hoje, e como é a relação com cada uma?",
+  a:["De quem você pede opinião antes de uma decisão importante?","Me conte um conflito recente e como ele terminou."]},
+ {t:"Trabalho e carreira",p:"Como você chegou ao trabalho que faz hoje?",
+  a:["Qual foi a decisão mais difícil da sua carreira, e como você decidiu?","Me conte uma vez em que você errou feio no trabalho. O que fez depois?"]},
+ {t:"Dinheiro e consumo",p:"Como é a sua relação com dinheiro: guardar, gastar, investir, emprestar?",
+  a:["Me conte a última compra grande que você fez. Como chegou à escolha?","Em que tipo de coisa você nunca economiza? E em qual sempre economiza?","Teve algum momento em que o dinheiro apertou? Como reagiu?"]},
+ {t:"Lugar onde vive",p:"Me fale da cidade e do bairro onde você mora. Por que escolheu viver aí?",a:["O que te faria mudar?"]},
+ {t:"Valores e crenças",p:"O que você acredita que é certo e errado no jeito como as pessoas e as empresas se comportam?",
+  a:["Uma ideia em que você acreditava há dez anos e mudou.","O que a maioria das pessoas do seu meio entende errado?","Como você se informa antes de formar opinião sobre um assunto polêmico?"]},
+ {t:"Identidade e sentido",p:"Se alguém tivesse que te descrever em três palavras, quais seriam? E quais você escolheria?",
+  a:["O que dá sentido ao seu trabalho e à sua vida?","Do que você mais se orgulha que não aparece no seu currículo?"]},
+ {t:"Fechamento",p:"Tem alguma coisa importante sobre você que eu não perguntei?",a:[]},
+];
+const P=[]; BLOCOS.forEach((b,bi)=>{ P.push({b:bi,t:b.p,principal:true,alvo:150}); b.a.forEach(t=>P.push({b:bi,t,principal:false,alvo:75})) });
+P[P.length-1].alvo=45;
+
+const CHAVE="mimetica-gravar-v1";
+const $=s=>document.querySelector(s);
+const app=$("#app");
+const fmt=(s,dec)=>{const m=Math.floor(s/60),x=s-m*60;return String(m).padStart(2,"0")+":"+(dec?x.toFixed(1).padStart(4,"0").replace(".",","):String(Math.floor(x)).padStart(2,"0"))};
+
+let S=(()=>{try{const j=JSON.parse(localStorage.getItem(CHAVE));if(j&&j.resp)return j}catch(e){}return {fase:"boas",nome:"",consent:[false,false,false],i:0,resp:{}}})();
+const guarda=()=>{try{localStorage.setItem(CHAVE,JSON.stringify(S))}catch(e){}};
+const BLOBS={};
+
+// ---- guarda o áudio no próprio aparelho, para não perder se a página recarregar ----
+let dbp=null;
+function idb(){ if(dbp) return dbp; dbp=new Promise((ok,no)=>{try{const r=indexedDB.open("mimetica-gravar",1);r.onupgradeneeded=()=>r.result.createObjectStore("a");r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)}catch(e){no(e)}}); return dbp }
+async function poe(k,v){ try{const d=await idb();d.transaction("a","readwrite").objectStore("a").put(v,k)}catch(e){} }
+async function pega(k){ try{const d=await idb();return await new Promise(ok=>{const q=d.transaction("a").objectStore("a").get(k);q.onsuccess=()=>ok(q.result);q.onerror=()=>ok(null)})}catch(e){return null} }
+async function carregaBlobs(){ for(const k of Object.keys(S.resp)){ const b=await pega(+k); if(b) BLOBS[k]=b } }
+
+// ---- microfone ----
+let stream=null, actx=null, anal=null, micOk=null;
+async function abreMic(){
+  if(micOk!==null) return micOk;
+  try{ stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
+    actx=new (window.AudioContext||window.webkitAudioContext)(); const src=actx.createMediaStreamSource(stream); anal=actx.createAnalyser(); anal.fftSize=1024; src.connect(anal); micOk=true }
+  catch(e){ micOk=false }
+  return micOk;
+}
+const tipo=()=>{const t=["audio/mp4","audio/webm;codecs=opus","audio/webm"];return (window.MediaRecorder&&t.find(x=>MediaRecorder.isTypeSupported(x)))||""};
+
+// ---- gravação ----
+let G=null; // {rec, chunks, bars, t0, raf, sim}
+let tocando=null;
+function nivel(){
+  if(G.sim){ const t=(performance.now()-G.t0)/1000; const fala=(Math.sin(t*2.1)+Math.sin(t*0.7+1)+2)/4; return Math.max(.04,Math.min(1,fala*(.35+Math.random()*.75))) }
+  const buf=new Uint8Array(anal.fftSize); anal.getByteTimeDomainData(buf); let s=0; for(const v of buf){const x=(v-128)/128; s+=x*x}
+  return Math.max(.03,Math.min(1,Math.sqrt(s/buf.length)*4.2));
+}
+async function comeca(){
+  pararToque();
+  const ok=await abreMic();
+  G={chunks:[],bars:[],t0:performance.now(),sim:!ok,ultimo:0};
+  if(ok){ const mt=tipo(); G.rec=new MediaRecorder(stream,mt?{mimeType:mt}:undefined); G.rec.ondataavailable=e=>e.data.size&&G.chunks.push(e.data); G.rec.start(1000); if(actx.state==="suspended") actx.resume() }
+  desenha(); laco();
+}
+function laco(){
+  const agora=performance.now();
+  if(agora-G.ultimo>55){ G.bars.push(nivel()); G.ultimo=agora }
+  const seg=(agora-G.t0)/1000;
+  const r=$("#rel"); r&&(r.textContent=fmt(seg,true));
+  const it=P[S.i]; const b=$("#metab"); if(b){ b.style.width=Math.min(100,seg/it.alvo*100)+"%"; $("#metat").textContent= seg>=it.alvo?"Ótimo. Pode continuar falando ou parar quando quiser.":"Sugestão: uns "+String(Math.round(it.alvo/60*2)/2).replace(".",",")+" min. Conte histórias e exemplos." }
+  onda(G.bars,true,0);
+  G.raf=requestAnimationFrame(laco);
+}
+async function para(){
+  cancelAnimationFrame(G.raf);
+  const dur=(performance.now()-G.t0)/1000, bars=G.bars, sim=G.sim;
+  let blob=null;
+  if(G.rec){ blob=await new Promise(ok=>{G.rec.onstop=()=>ok(new Blob(G.chunks,{type:G.rec.mimeType||tipo()||"audio/webm"}));G.rec.stop()}) }
+  G=null;
+  S.resp[S.i]={dur,sim,bars:compacta(bars,160),tipo:blob?blob.type:null};
+  if(blob){ BLOBS[S.i]=blob; poe(S.i,blob) }
+  guarda(); desenha();
+}
+function compacta(a,n){ if(a.length<=n) return a.map(x=>+x.toFixed(3)); const o=[]; for(let k=0;k<n;k++){ const i0=Math.floor(k*a.length/n), i1=Math.floor((k+1)*a.length/n); let m=0; for(let i=i0;i<i1;i++) m=Math.max(m,a[i]); o.push(+m.toFixed(3)) } return o }
+
+// ---- desenho da onda ----
+function cor(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim() }
+function onda(bars,gravando,prog){
+  const c=$("#onda"); if(!c) return;
+  const dpr=window.devicePixelRatio||1, w=c.clientWidth, h=c.clientHeight;
+  if(c.width!==Math.round(w*dpr)){ c.width=Math.round(w*dpr); c.height=Math.round(h*dpr) }
+  const x=c.getContext("2d"); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,w,h);
+  const meio=h/2, passo=4, larg=2.4, cOnda=cor("--onda"), cFraca=cor("--ondafraca"), cRec=cor("--rec");
+  if(gravando){
+    const cab=w*0.72; const n=Math.floor(cab/passo);
+    x.fillStyle=cFraca; for(let px=cab+passo;px<w;px+=passo) x.fillRect(px,meio-1,larg,2);
+    const ini=Math.max(0,bars.length-n);
+    x.fillStyle=cOnda;
+    for(let k=ini;k<bars.length;k++){ const px=cab-(bars.length-k)*passo; const a=Math.max(2,bars[k]*(h*0.9)); x.fillRect(px,meio-a/2,larg,a) }
+    x.fillStyle=cRec; x.fillRect(cab,6,2,h-12); x.beginPath(); x.arc(cab+1,6,4,0,7); x.arc(cab+1,h-6,4,0,7); x.fill();
+  } else if(bars&&bars.length){
+    const n=Math.floor(w/passo), b=compacta(bars,n), p=(w/b.length);
+    b.forEach((v,k)=>{ x.fillStyle=(k/b.length)<prog?cRec:cOnda; const a=Math.max(2,v*(h*0.85)); x.fillRect(k*p,meio-a/2,Math.min(larg,p*0.7),a) });
+  } else {
+    x.fillStyle=cFraca; for(let px=0;px<w;px+=passo) x.fillRect(px,meio-1,larg,2);
+  }
+}
+
+// ---- ouvir ----
+function pararToque(){ if(tocando){ tocando.a.pause(); cancelAnimationFrame(tocando.raf); URL.revokeObjectURL(tocando.u); tocando=null } }
+function ouvir(){
+  if(tocando){ pararToque(); desenha(); return }
+  const b=BLOBS[S.i]; if(!b) return;
+  const u=URL.createObjectURL(b), a=new Audio(u); tocando={a,u};
+  const r=S.resp[S.i];
+  const passo=()=>{ const d=a.duration&&isFinite(a.duration)?a.duration:r.dur; onda(r.bars,false,a.currentTime/d); const el=$("#rel"); el&&(el.textContent=fmt(a.currentTime,true)); tocando&&(tocando.raf=requestAnimationFrame(passo)) };
+  a.onended=()=>{ pararToque(); desenha() };
+  a.play().then(()=>{ desenha(); passo() }).catch(()=>{ pararToque(); desenha() });
+}
+
+// ---- telas ----
+function desenha(){ ({boas,consent,pergunta,fim})[S.fase]() }
+
+function boas(){
+  app.innerHTML=`
+  <div class="topo">${LOGO}<span class="rot">Entrevista</span></div>
+  <div><div class="rot">O gêmeo contra o original</div><h1>Conte a sua história em voz alta.</h1></div>
+  <p class="sub">Você vai ler ${BLOCOS.length-1} temas da sua vida e responder falando, como numa conversa. Cada resposta é gravada separada. O seu gêmeo digital vai aprender com o que você contar.</p>
+  <ul class="dicas">
+    <li><b>45</b><span>Leva uns 45 a 60 minutos. Dá para parar e voltar depois: o que já foi gravado fica guardado neste aparelho.</span></li>
+    <li><b>↻</b><span>Antes de seguir, você pode ouvir o que gravou e gravar de novo.</span></li>
+    <li><b>“ ”</b><span>Fale como se estivesse contando para um amigo. Histórias e exemplos valem mais do que respostas curtas.</span></li>
+    <li><b>◎</b><span>Escolha um lugar silencioso e deixe o celular perto da boca.</span></li>
+  </ul>
+  <div class="rodape"><button class="btn cheio largo" id="ir" type="button">${Object.keys(S.resp).length?"Continuar de onde parei":"Começar"}</button></div>`;
+  $("#ir").onclick=()=>{ S.fase=S.consent.every(Boolean)&&S.nome?"pergunta":"consent"; guarda(); desenha() };
+}
+
+function consent(){
+  app.innerHTML=`
+  <div class="topo">${LOGO}<button class="btn txt" id="volta" type="button">Voltar</button></div>
+  <div><div class="rot">Antes de gravar</div><h1>Combinados.</h1></div>
+  <div class="pilha">
+    <input type="text" id="nome" placeholder="Seu nome" value="${S.nome.replace(/"/g,"&quot;")}" autocomplete="name">
+    ${["Concordo com a gravação em áudio das minhas respostas.","Concordo com o uso interno das gravações para construir o meu gêmeo digital.","Sei que posso pedir para apagar as gravações e o gêmeo a qualquer momento. Só o placar e trechos que eu aprovar serão divulgados."]
+      .map((t,k)=>`<label class="chk"><input type="checkbox" data-c="${k}" ${S.consent[k]?"checked":""}><span>${t}</span></label>`).join("")}
+    <p class="nota">Saúde, religião e política só entram se você quiser falar delas.</p>
+  </div>
+  <div class="rodape"><button class="btn cheio largo" id="ok" type="button">Ir para a primeira pergunta</button><p class="nota" style="text-align:center">O celular vai pedir permissão para usar o microfone.</p></div>`;
+  const val=()=>{$("#ok").disabled=!(S.nome.trim()&&S.consent.every(Boolean));guarda()};
+  $("#nome").oninput=e=>{S.nome=e.target.value;val()};
+  app.querySelectorAll("[data-c]").forEach(c=>c.onchange=()=>{S.consent[+c.dataset.c]=c.checked;val()});
+  $("#volta").onclick=()=>{S.fase="boas";desenha()};
+  $("#ok").onclick=()=>{S.fase="pergunta";guarda();desenha()};
+  val();
+}
+
+const IC={play:'<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>',pausa:'<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>',
+  regrava:'<svg viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>'};
+function pergunta(){
+  const it=P[S.i], b=BLOCOS[it.b], r=S.resp[S.i], grav=!!G, temAudio=!!BLOBS[S.i];
+  const doBloco=P.map((x,k)=>k).filter(k=>P[k].b===it.b), pos=doBloco.indexOf(S.i)+1;
+  app.innerHTML=`
+  <div class="topo">${LOGO}<span class="rot mono">${S.i+1} de ${P.length}</span></div>
+  <div class="prog">${BLOCOS.map((_,bi)=>{const ks=P.map((x,k)=>k).filter(k=>P[k].b===bi);const feito=ks.every(k=>S.resp[k]);return `<i class="${bi===it.b?"at":feito?"ok":""}"></i>`}).join("")}</div>
+  <div class="perg">
+    <div class="rot">Tema ${it.b+1} · ${b.t}${doBloco.length>1?" · "+pos+" de "+doBloco.length:""}</div>
+    <h2>${it.t}</h2>
+    ${it.principal?"":`<span class="tipo">Para aprofundar o que você contou</span>`}
+  </div>
+  <div class="grav">
+    <canvas class="onda" id="onda" aria-hidden="true"></canvas>
+    <div class="relogio" id="rel">${fmt(grav?0:(r?r.dur:0),true)}</div>
+    <div class="estado ${grav?"rec":""}" aria-live="polite">${grav?(G.sim?"Gravando · prévia sem microfone, a onda é simulada":"Gravando"):r?(r.sim?"Resposta simulada nesta prévia":"Resposta gravada. Ouça, grave de novo ou siga."):"Toque no botão vermelho e comece a falar."}</div>
+    <div class="ctrl">
+      <button class="mini esq" id="regrava" type="button" aria-label="Gravar de novo" ${(!r||grav)?"disabled":""}>${IC.regrava}</button>
+      <button class="rec-btn ${grav?"on":""}" id="rec" type="button" aria-label="${grav?"Parar a gravação":"Gravar"}"><span></span></button>
+      <button class="mini dir" id="ouvir" type="button" aria-label="Ouvir" ${(!temAudio||grav)?"disabled":""}>${tocando?IC.pausa:IC.play}</button>
+    </div>
+    ${grav?`<div class="meta"><div class="barra"><b id="metab"></b></div><span id="metat"></span></div>`:""}
+  </div>
+  ${micOk===false&&!grav?`<div class="aviso">Esta página não conseguiu usar o microfone. Aqui no Claude isso é esperado: a prévia mostra como fica, com a onda simulada. No link do site da Mimetica, o celular pede permissão e grava de verdade.</div>`:""}
+  <div class="rodape">
+    <div class="nav">
+      <button class="btn" id="ant" type="button" ${S.i===0||grav?"disabled":""}>Voltar</button>
+      <button class="btn cheio" id="prox" type="button" ${grav||(!r&&it.principal)?"disabled":""}>${S.i===P.length-1?"Terminar":r?"Próxima pergunta":"Pular esta"}</button>
+    </div>
+  </div>`;
+  requestAnimationFrame(()=>onda(r&&!grav?r.bars:null,false,0));
+  $("#rec").onclick=()=>grav?para():comeca();
+  $("#regrava").onclick=()=>{ pararToque(); delete S.resp[S.i]; delete BLOBS[S.i]; guarda(); comeca() };
+  $("#ouvir").onclick=ouvir;
+  $("#ant").onclick=()=>{pararToque();S.i--;guarda();desenha()};
+  $("#prox").onclick=()=>{pararToque(); if(S.i===P.length-1){S.fase="fim"} else S.i++; guarda(); desenha()};
+}
+
+function fim(){
+  const ks=Object.keys(S.resp).map(Number), total=ks.reduce((s,k)=>s+S.resp[k].dur,0);
+  const faltam=P.map((p,k)=>k).filter(k=>P[k].principal&&!S.resp[k]);
+  app.innerHTML=`
+  <div class="topo">${LOGO}<span class="rot">Pronto</span></div>
+  <div><div class="rot">${S.nome||"Entrevista"}</div><h1>${faltam.length?"Quase lá.":"Obrigado. A sua parte está feita."}</h1></div>
+  <div class="nums">
+    <div class="num"><div class="rot">Tempo falado</div><div class="v mono">${fmt(total)}</div></div>
+    <div class="num"><div class="rot">Respostas</div><div class="v mono">${ks.length}/${P.length}</div></div>
+  </div>
+  ${faltam.length?`<div class="aviso">Faltam ${faltam.length} ${faltam.length>1?"temas principais":"tema principal"}. Toque na linha para voltar e gravar.</div>`:""}
+  <div class="lista">${P.map((p,k)=>{const r=S.resp[k];return `<button type="button" class="lin ${r?"":"falta"}" data-k="${k}" style="background:transparent;text-align:left">
+    <span class="t">${p.principal?"":"↳ "}${p.principal?BLOCOS[p.b].t:p.t}</span><span class="d">${r?fmt(r.dur):p.principal?"falta":"pulada"}</span><span class="rot">${r?"✓":""}</span></button>`}).join("")}</div>
+  <div class="rodape">
+    <button class="btn cheio largo" id="env" type="button" ${ks.some(k=>BLOBS[k])?"":"disabled"}>Baixar as gravações</button>
+    <p class="nota" id="st">Na versão ligada ao banco, cada resposta sobe sozinha para o armazenamento privado da Mimetica assim que você toca em parar, e este botão vira "Enviar".</p>
+    <button class="btn txt" id="apaga" type="button">Apagar tudo deste aparelho</button>
+  </div>`;
+  app.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{S.i=+b.dataset.k;S.fase="pergunta";guarda();desenha()});
+  $("#env").onclick=baixa;
+  $("#apaga").onclick=()=>{ const b=$("#apaga"); if(b.dataset.ok){ apaga() } else { b.dataset.ok=1; b.textContent="Toque de novo para confirmar"; b.style.color="var(--rec)" } };
+}
+async function apaga(){ try{const d=await idb();d.transaction("a","readwrite").objectStore("a").clear()}catch(e){} for(const k in BLOBS) delete BLOBS[k]; S={fase:"boas",nome:"",consent:[false,false,false],i:0,resp:{}}; guarda(); desenha() }
+const slug=t=>(t||"participante").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+async function baixa(){
+  const st=$("#st"); st.textContent="Preparando o arquivo...";
+  const z=new JSZip(), pasta=z.folder("entrevista-"+slug(S.nome));
+  const ficha={tipo:"entrevista-semente-gravada",versao:1,participante:S.nome,data:new Date().toLocaleDateString("pt-BR"),consentimento:S.consent.every(Boolean),respostas:[]};
+  P.forEach((p,k)=>{ const r=S.resp[k], nome=String(k+1).padStart(2,"0")+"-"+slug(BLOCOS[p.b].t)+(p.principal?"":"-aprofundamento");
+    let arq=null; if(BLOBS[k]){ arq=nome+(BLOBS[k].type.includes("mp4")?".m4a":".webm"); pasta.file(arq,BLOBS[k]) }
+    ficha.respostas.push({n:k+1,tema:BLOCOS[p.b].t,principal:p.principal,pergunta:p.t,duracao_seg:r?Math.round(r.dur):0,arquivo:arq}) });
+  pasta.file("ficha.json",JSON.stringify(ficha,null,2));
+  const blob=await z.generateAsync({type:"blob"}), nome="entrevista-"+slug(S.nome)+".zip";
+  let feito=false;
+  try{ if(window.claude&&window.claude.use){ const d=await window.claude.use("downloads"); if(d){ await d.save({filename:nome,data:blob}); feito=true } } }catch(e){ feito=true }
+  if(!feito){ const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=nome;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000) }
+  st.textContent="Arquivo pronto: "+nome+". Envie para o Geraldo.";
+}
+
+window.addEventListener("resize",()=>{ if(S.fase==="pergunta"&&!G){ const r=S.resp[S.i]; onda(r?r.bars:null,false,0) } });
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>S.fase==="pergunta"&&desenha());
+carregaBlobs().then(desenha);
+desenha();
+</script>
