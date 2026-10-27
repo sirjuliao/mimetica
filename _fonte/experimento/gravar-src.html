@@ -135,6 +135,7 @@ async function carregaBlobs(){ for(const k of Object.keys(S.resp)){ const b=awai
 
 // ---- microfone ----
 let stream=null, actx=null, anal=null, micOk=null;
+const NA_PREVIA=!!(window.claude&&window.claude.use); // na prévia do Claude o microfone é bloqueado e a onda é simulada
 async function abreMic(){
   if(micOk!==null) return micOk;
   try{ stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
@@ -155,6 +156,7 @@ function nivel(){
 async function comeca(){
   pararToque();
   const ok=await abreMic();
+  if(!ok && !NA_PREVIA){ desenha(); return }
   G={chunks:[],bars:[],t0:performance.now(),sim:!ok,ultimo:0};
   if(ok){ const mt=tipo(); G.rec=new MediaRecorder(stream,mt?{mimeType:mt}:undefined); G.rec.ondataavailable=e=>e.data.size&&G.chunks.push(e.data); G.rec.start(1000); if(actx.state==="suspended") actx.resume() }
   desenha(); laco();
@@ -276,7 +278,8 @@ function pergunta(){
     </div>
     ${grav?`<div class="meta"><div class="barra"><b id="metab"></b></div><span id="metat"></span></div>`:""}
   </div>
-  ${micOk===false&&!grav?`<div class="aviso">Esta página não conseguiu usar o microfone. Aqui no Claude isso é esperado: a prévia mostra como fica, com a onda simulada. No link do site da Mimetica, o celular pede permissão e grava de verdade.</div>`:""}
+  ${micOk===false&&!grav?(NA_PREVIA?`<div class="aviso">Esta prévia não usa o microfone, então a onda é simulada. No link do site da Mimetica, o celular pede permissão e grava de verdade.</div>`
+    :`<div class="aviso"><strong style="color:var(--fg)">O microfone não foi liberado.</strong> No iPhone, toque em “aA” na barra do endereço, abra os ajustes do site e permita o microfone. No Android, toque no cadeado ao lado do endereço. Depois recarregue a página: o que já foi gravado continua guardado.</div>`):""}
   <div class="rodape">
     <div class="nav">
       <button class="btn" id="ant" type="button" ${S.i===0||grav?"disabled":""}>Voltar</button>
