@@ -1,0 +1,377 @@
+<title>Entrevista-semente Mimetica</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: mesa do entrevistador. Roteiro do bloco atual à esquerda, gravação e mapa dos blocos à direita. Monocromático, osso e preto. */
+:root{
+  --bg:#0C0C0E; --palco:#141416; --linha:#2A2A2D; --fg:#F5F4F0; --sub:#9C9B96; --fraco:#5E5D59;
+  --cheio:#F5F4F0; --meio:#8E8D88; --vazio:#2A2A2D; --inverso:#0C0C0E; --rec:#E5484D;
+  --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --logo-claro:block; --logo-escuro:none;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
+  --bg:#F5F4F0; --palco:#FFFFFF; --linha:#DCDAD3; --fg:#1D1D1B; --sub:#6B6A65; --fraco:#A6A49D;
+  --cheio:#1D1D1B; --meio:#8E8D88; --vazio:#E4E2DB; --inverso:#F5F4F0; --rec:#C8282E; --logo-claro:none; --logo-escuro:block; color-scheme:light } }
+:root[data-theme="light"]{
+  --bg:#F5F4F0; --palco:#FFFFFF; --linha:#DCDAD3; --fg:#1D1D1B; --sub:#6B6A65; --fraco:#A6A49D;
+  --cheio:#1D1D1B; --meio:#8E8D88; --vazio:#E4E2DB; --inverso:#F5F4F0; --rec:#C8282E; --logo-claro:none; --logo-escuro:block; color-scheme:light }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-corpo);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.nota{font-size:12px;color:var(--fraco);max-width:80ch;margin:0}
+.topo{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--linha);padding-bottom:14px}
+.marca{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:var(--f-titulo);font-weight:600}
+.marca span{color:var(--sub);font-weight:500;font-size:14px;border-left:1px solid var(--linha);padding-left:14px}
+.logo{height:30px;width:auto;max-width:100%}
+.lc{display:var(--logo-claro)} .le{display:var(--logo-escuro)}
+.btn{border:1px solid var(--linha);background:transparent;border-radius:999px;padding:8px 16px;font-size:14px}
+.btn:hover:not(:disabled){border-color:var(--fg)}
+.btn.cheio{background:var(--fg);color:var(--inverso);border-color:var(--fg);font-weight:600}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.caixa{background:var(--palco);border:1px solid var(--linha);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.caixa h3{margin:0;font-family:var(--f-titulo);font-size:18px}
+input[type=text]{width:100%;background:transparent;color:var(--fg);border:1px solid var(--linha);border-radius:10px;padding:10px 12px;font:inherit}
+textarea{width:100%;min-height:96px;resize:vertical;background:transparent;color:var(--fg);border:1px solid var(--linha);border-radius:10px;padding:12px;font:inherit}
+label.chk{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:14px}
+label.chk input{margin-top:4px;accent-color:var(--fg)}
+
+/* preparo */
+.prep{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
+.prep h1{font-family:var(--f-titulo);font-size:clamp(32px,4.6vw,56px);line-height:1.03;letter-spacing:-.03em;margin:8px 0 16px;text-wrap:balance}
+.prep p{color:var(--sub);max-width:60ch;margin:0 0 12px}
+.campos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.campos label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--sub)}
+.regras{margin:0;padding-left:18px;color:var(--sub);font-size:14px;display:flex;flex-direction:column;gap:4px}
+
+/* mesa */
+.mesa{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start}
+.bloco{display:flex;flex-direction:column;gap:18px;min-width:0}
+.atual{background:var(--palco);border:1px solid var(--linha);border-radius:14px;padding:24px 26px;display:flex;flex-direction:column;gap:16px}
+.atual .meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.atual h2{font-family:var(--f-titulo);font-weight:600;font-size:clamp(24px,2.8vw,34px);line-height:1.15;letter-spacing:-.015em;margin:0;text-wrap:balance}
+.tempo{display:flex;flex-direction:column;gap:6px}
+.barra{height:6px;border-radius:3px;background:var(--vazio);overflow:hidden;position:relative}
+.barra b{display:block;height:100%;background:var(--cheio);transition:width .3s}
+.barra.passou b{background:var(--rec)}
+.aprof{display:flex;flex-direction:column;gap:8px}
+.ap{text-align:left;border:1px solid var(--linha);background:transparent;border-radius:10px;padding:12px 14px;font-size:15px;display:flex;gap:12px;align-items:flex-start}
+.ap:hover{border-color:var(--fg)}
+.ap .m{width:18px;height:18px;border:1px solid var(--sub);border-radius:5px;flex:none;margin-top:2px;display:grid;place-items:center;font-size:12px}
+.ap.usado{color:var(--sub)} .ap.usado .m{background:var(--fg);border-color:var(--fg);color:var(--inverso)}
+.nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.dica{font-size:12px;color:var(--fraco)}
+
+/* painel */
+.painel{display:flex;flex-direction:column;gap:16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+.rec{display:flex;align-items:center;gap:10px}
+.ponto{width:12px;height:12px;border-radius:50%;background:var(--fraco);flex:none}
+.ponto.on{background:var(--rec);animation:pisca 1.2s infinite}
+@keyframes pisca{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.ponto.on{animation:none}}
+.relogio{font-family:var(--f-mono);font-size:44px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.nivel{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;height:22px;align-items:end}
+.nivel i{display:block;background:var(--vazio);border-radius:1px;height:100%}
+.nivel i.on{background:var(--cheio)}
+.linha-btn{display:flex;flex-wrap:wrap;gap:8px}
+.aviso{border:1px dashed var(--linha);border-radius:10px;padding:12px;font-size:13px;color:var(--sub);display:flex;flex-direction:column;gap:8px}
+.lista{display:flex;flex-direction:column;gap:4px}
+.it{display:grid;grid-template-columns:22px 1fr 64px;gap:8px;align-items:center;text-align:left;background:transparent;border:1px solid transparent;border-radius:8px;padding:6px 8px;font-size:13px}
+.it:hover{border-color:var(--linha)}
+.it.on{border-color:var(--fg)}
+.it .n{font-family:var(--f-mono);color:var(--fraco)}
+.it .t{font-family:var(--f-mono);font-size:12px;text-align:right;color:var(--sub)}
+.it .t.passou{color:var(--rec)}
+.it.feito .n{color:var(--fg)}
+.marcas{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow:auto;font-size:13px}
+.marcas div{display:grid;grid-template-columns:58px 1fr;gap:8px}
+
+/* resumo */
+.tabela{overflow-x:auto}
+.tabela table{border-collapse:collapse;width:100%;font-size:13px;min-width:560px}
+.tabela th,.tabela td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--linha);vertical-align:top}
+.tabela th{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);font-weight:500}
+.tabela td.n{font-family:var(--f-mono);text-align:right;white-space:nowrap}
+.res h1{font-family:var(--f-titulo);font-size:clamp(28px,4vw,46px);letter-spacing:-.03em;line-height:1.05;margin:6px 0 0;text-wrap:balance}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.num{border:1px solid var(--linha);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.num .v{font-family:var(--f-titulo);font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.num p{margin:0;font-size:13px;color:var(--sub)}
+@media (max-width:900px){ .mesa,.prep{grid-template-columns:1fr} .painel{position:static} .nums{grid-template-columns:1fr} }
+@media (max-width:560px){ .campos{grid-template-columns:1fr} .relogio{font-size:36px} }
+</style>
+
+<div class="wrap">
+  <header class="topo">
+    <div class="marca"><img class="logo lc" src="__LC__" alt="Mimetica"><img class="logo le" src="__LE__" alt="Mimetica"><span>Entrevista-semente · Parte A</span></div>
+    <button class="btn" id="zerar" type="button">Nova entrevista</button>
+  </header>
+  <main id="tela"></main>
+</div>
+
+<script>
+const BLOCOS = [
+ {t:"História de vida",min:12,p:"Me conte a história da sua vida, da infância até hoje: onde cresceu, como foi a escola, a família, o trabalho e os acontecimentos que mudaram o seu rumo.",
+  a:["Qual foi o momento em que a sua vida mudou de direção?","O que você faria diferente, se pudesse voltar?"]},
+ {t:"O dia a dia",min:6,p:"Me descreva um dia normal seu, da hora em que acorda até a hora em que dorme.",
+  a:["O que costuma atrapalhar esse dia?","Onde você busca informação sobre o que acontece no Brasil e no mundo?"]},
+ {t:"Relações",min:6,p:"Quem são as pessoas mais importantes da sua vida hoje, e como é a relação com cada uma?",
+  a:["De quem você pede opinião antes de uma decisão importante?","Me conte um conflito recente e como ele terminou."]},
+ {t:"Trabalho e carreira",min:8,p:"Como você chegou ao trabalho que faz hoje?",
+  a:["Qual foi a decisão mais difícil da sua carreira, e como você decidiu?","Me conte uma vez em que você errou feio no trabalho. O que fez depois?"]},
+ {t:"Dinheiro e consumo",min:8,p:"Como é a sua relação com dinheiro: guardar, gastar, investir, emprestar?",
+  a:["Me conte a última compra grande que você fez. Como chegou à escolha?","Em que tipo de coisa você nunca economiza? E em qual sempre economiza?","Teve algum momento em que o dinheiro apertou? Como reagiu?"]},
+ {t:"Lugar onde vive",min:4,p:"Me fale da cidade e do bairro onde você mora. Por que escolheu viver aí?",
+  a:["O que te faria mudar?"]},
+ {t:"Valores e crenças",min:8,p:"O que você acredita que é certo e errado no jeito como as pessoas e as empresas se comportam?",
+  a:["Uma ideia em que você acreditava há dez anos e mudou.","O que a maioria das pessoas do seu meio entende errado?","Como você se informa antes de formar opinião sobre um assunto polêmico?"]},
+ {t:"Identidade e sentido",min:6,p:"Se alguém tivesse que te descrever em três palavras, quais seriam? E quais você escolheria?",
+  a:["O que dá sentido ao seu trabalho e à sua vida?","Do que você mais se orgulha que não aparece no seu currículo?"]},
+ {t:"Fechamento",min:2,p:"Tem alguma coisa importante sobre você que eu não perguntei?",a:[]},
+];
+const ALVO = BLOCOS.reduce((s,b)=>s+b.min,0)*60;
+const CHAVE="mimetica-entrevista-v1";
+const $=s=>document.querySelector(s);
+const tela=$("#tela");
+const mmss=s=>{s=Math.max(0,Math.round(s));const m=Math.floor(s/60),x=s%60;return String(m).padStart(2,"0")+":"+String(x).padStart(2,"0")};
+
+let S, timer=null, ultimo=0;
+let rec=null, stream=null, pedacos=[], actx=null, anal=null, raf=null;
+
+function vazio(){ return {fase:"preparo",participante:"",entrevistador:"Fernando",data:new Date().toLocaleDateString("pt-BR"),
+  consent:[false,false,false],ativo:0,rodando:false,total:0,
+  blocos:BLOCOS.map(()=>({seg:0,usados:[],notas:""})),marcas:[],gravando:"nao",pedacosSalvos:0,microfone:null,arquivo:null} }
+function carrega(){ try{ const j=JSON.parse(localStorage.getItem(CHAVE)); if(j&&j.blocos) { j.rodando=false; if(j.gravando==="sim") j.gravando="interrompida"; return j } }catch(e){} return vazio() }
+function guarda(){ try{ localStorage.setItem(CHAVE,JSON.stringify(S)) }catch(e){} }
+S=carrega();
+
+function tick(){
+  const agora=performance.now(), d=(agora-ultimo)/1000; ultimo=agora;
+  if(S.rodando){ S.total+=d; S.blocos[S.ativo].seg+=d; atualizaTempos(); }
+}
+function liga(){ if(timer) return; ultimo=performance.now(); timer=setInterval(()=>{tick(); if(Math.floor(S.total)%5===0) guarda()},250) }
+
+// ---------- gravação ----------
+function tipoAudio(){ const t=["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg"]; return (window.MediaRecorder&&t.find(x=>MediaRecorder.isTypeSupported(x)))||"" }
+async function grava(){
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+  }catch(e){ S.microfone="indisponivel"; desenha(); return false }
+  S.microfone="ok"; pedacos=[];
+  const mt=tipoAudio();
+  rec=new MediaRecorder(stream, mt?{mimeType:mt}:undefined);
+  rec.ondataavailable=e=>{ if(e.data&&e.data.size){ pedacos.push(e.data); S.pedacosSalvos=pedacos.length; const el=$("#pedacos"); el&&(el.textContent=pedacos.length) } };
+  rec.start(30000); // um pedaço a cada 30 s. Na versão ligada ao banco, cada pedaço sobe na hora.
+  S.gravando="sim";
+  try{ actx=new (window.AudioContext||window.webkitAudioContext)(); const src=actx.createMediaStreamSource(stream); anal=actx.createAnalyser(); anal.fftSize=256; src.connect(anal); medidor() }catch(e){}
+  return true;
+}
+function medidor(){
+  const buf=new Uint8Array(anal.fftSize);
+  const passo=()=>{ anal.getByteTimeDomainData(buf); let m=0; for(const v of buf) m=Math.max(m,Math.abs(v-128)); const n=Math.round(Math.min(1,m/70)*24);
+    document.querySelectorAll(".nivel i").forEach((el,k)=>el.classList.toggle("on",k<n && S.rodando)); raf=requestAnimationFrame(passo) };
+  passo();
+}
+function paraGravacao(){
+  return new Promise(res=>{
+    if(!rec||rec.state==="inactive"){ res(); return }
+    rec.onstop=()=>{ stream&&stream.getTracks().forEach(t=>t.stop()); cancelAnimationFrame(raf); actx&&actx.close(); S.gravando="encerrada"; res() };
+    rec.stop();
+  });
+}
+
+// ---------- ações ----------
+async function inicia(){
+  S.fase="mesa"; S.rodando=true; liga(); desenha();
+  await grava(); guarda(); desenha();
+}
+function pausa(){ S.rodando=!S.rodando; if(rec){ S.rodando?rec.state==="paused"&&rec.resume():rec.state==="recording"&&rec.pause() } ultimo=performance.now(); guarda(); desenha() }
+function vaiPara(k){ S.ativo=k; guarda(); desenha() }
+function marca(){ S.marcas.push({t:S.total,b:S.ativo,txt:""}); guarda(); desenhaMarcas(); }
+async function encerra(){ S.rodando=false; await paraGravacao(); S.fase="resumo"; guarda(); desenha() }
+
+async function baixa(nome,blob){
+  let ok=false;
+  try{ if(window.claude&&window.claude.use){ const d=await window.claude.use("downloads"); if(d){ await d.save({filename:nome,data:blob}); ok=true } } }catch(e){ ok=true }
+  if(!ok){ const u=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=u; a.download=nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(u),4000) }
+}
+function semente(){
+  return {tipo:"entrevista-semente",versao:1,participante:S.participante,entrevistador:S.entrevistador,data:S.data,
+    duracao_seg:Math.round(S.total),consentimento:S.consent.every(Boolean),
+    audio:S.gravando==="encerrada"?{pedacos:S.pedacosSalvos,formato:tipoAudio()||"desconhecido"}:(S.arquivo?{arquivo:S.arquivo}:null),
+    blocos:BLOCOS.map((b,i)=>({bloco:i+1,titulo:b.t,alvo_min:b.min,usado_seg:Math.round(S.blocos[i].seg),
+      pergunta:b.p,aprofundamentos_usados:S.blocos[i].usados.map(k=>b.a[k]),notas:S.blocos[i].notas})),
+    marcadores:S.marcas.map(m=>({tempo:mmss(m.t),bloco:m.b+1,nota:m.txt}))};
+}
+const slug=()=> (S.participante||"participante").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+
+// ---------- telas ----------
+function desenha(){ if(S.fase==="preparo") return preparo(); if(S.fase==="mesa") return mesa(); return resumo() }
+
+function preparo(){
+  const pronto=S.participante.trim() && S.consent.every(Boolean);
+  tela.innerHTML=`
+  <section class="prep">
+    <div>
+      <div class="rot">Dia 1 · semente do gêmeo</div>
+      <h1>A entrevista que ensina o gêmeo a pensar como a pessoa.</h1>
+      <p>São 8 blocos e um fechamento, em cerca de ${ALVO/60} minutos. A gravação começa junto com o primeiro bloco e o relógio marca o tempo de cada um.</p>
+      <div class="caixa" style="margin-top:18px">
+        <h3>Regras do entrevistador</h3>
+        <ul class="regras">
+          <li>Pedir exemplos concretos: "me conta uma vez em que isso aconteceu".</li>
+          <li>Perguntar o porquê de cada escolha que a pessoa mencionar.</li>
+          <li>Não concordar, não discordar, não completar frases.</li>
+          <li>Usar um aprofundamento sempre que a resposta vier curta ou genérica.</li>
+          <li>Respeitar o tempo indicado em cada bloco.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="caixa">
+      <h3>Antes de começar</h3>
+      <div class="campos">
+        <label>Participante<input type="text" id="part" value="${S.participante.replace(/"/g,"&quot;")}" placeholder="Nome do sócio"></label>
+        <label>Entrevistador<input type="text" id="entr" value="${S.entrevistador.replace(/"/g,"&quot;")}"></label>
+      </div>
+      <div class="rot" style="margin-top:4px">Consentimento, lido em voz alta</div>
+      ${["Concordo com a gravação em áudio desta entrevista.","Concordo com o uso interno da gravação para construir o meu gêmeo digital.","Sei que posso pedir para apagar a gravação e o gêmeo a qualquer momento, e que só o placar e trechos que eu aprovar serão divulgados."]
+        .map((t,k)=>`<label class="chk"><input type="checkbox" data-c="${k}" ${S.consent[k]?"checked":""}><span>${t}</span></label>`).join("")}
+      <p class="nota">Saúde, religião e política só entram se a própria pessoa quiser falar delas.</p>
+      <button class="btn cheio" id="iniciar" type="button" ${pronto?"":"disabled"}>Começar a entrevista e gravar</button>
+      <p class="nota">O navegador vai pedir permissão para usar o microfone.</p>
+    </div>
+  </section>`;
+  const val=()=>{ $("#iniciar").disabled=!(S.participante.trim()&&S.consent.every(Boolean)); guarda() };
+  $("#part").oninput=e=>{S.participante=e.target.value;val()};
+  $("#entr").oninput=e=>{S.entrevistador=e.target.value;guarda()};
+  tela.querySelectorAll("[data-c]").forEach(c=>c.onchange=()=>{S.consent[+c.dataset.c]=c.checked;val()});
+  $("#iniciar").onclick=inicia;
+}
+
+function mesa(){
+  const b=BLOCOS[S.ativo], e=S.blocos[S.ativo];
+  const avisoMic = S.microfone==="indisponivel" ? `
+    <div class="aviso"><strong style="color:var(--fg)">Sem acesso ao microfone nesta página.</strong>
+      <span>O relógio e as anotações seguem funcionando. Grave pelo celular ou pelo Meet e anexe o arquivo no fim. Na página do experimento no site da Mimetica, a gravação acontece aqui mesmo.</span></div>` : "";
+  tela.innerHTML=`
+  <section class="mesa">
+    <div class="bloco">
+      <div class="atual">
+        <div class="meta"><span class="rot">Bloco ${S.ativo+1} de ${BLOCOS.length} · ${b.t}</span><span class="rot" id="tb">${mmss(e.seg)} de ${b.min} min</span></div>
+        <h2>${b.p}</h2>
+        <div class="tempo"><div class="barra" id="bb"><b style="width:0"></b></div></div>
+        ${b.a.length?`<div class="rot">Aprofundamentos · marque os que usar</div>
+        <div class="aprof">${b.a.map((t,k)=>`<button type="button" class="ap ${e.usados.includes(k)?"usado":""}" data-a="${k}"><span class="m">${e.usados.includes(k)?"✓":""}</span><span>${t}</span></button>`).join("")}</div>`:""}
+        <label class="rot" for="notas">Anotações do entrevistador · a resposta da pessoa vai para o áudio</label>
+        <textarea id="notas" placeholder="Só para você: nomes, palavras-chave, histórias para retomar. O que a pessoa fala é gravado, não precisa ser digitado.">${e.notas}</textarea>
+      </div>
+      <div class="nav">
+        <button class="btn" id="ant" type="button" ${S.ativo===0?"disabled":""}>Bloco anterior</button>
+        <span class="dica">M marca um momento. Espaço pausa. As setas trocam de bloco.</span>
+        ${S.ativo<BLOCOS.length-1?`<button class="btn cheio" id="prox" type="button">Próximo bloco: ${BLOCOS[S.ativo+1].t}</button>`
+          :`<button class="btn cheio" id="fim" type="button">Encerrar a entrevista</button>`}
+      </div>
+    </div>
+    <aside class="painel">
+      <div class="caixa">
+        <div class="rec"><span class="ponto ${S.rodando&&S.gravando==="sim"?"on":""}"></span>
+          <span class="rot">${S.gravando==="sim"?(S.rodando?"Gravando":"Gravação pausada"):S.microfone==="indisponivel"?"Só o relógio":"Preparando o microfone"}</span></div>
+        <div class="relogio" id="rel">${mmss(S.total)}</div>
+        <div class="dica" id="alvo">meta de ${ALVO/60} min</div>
+        ${S.gravando==="sim"?`<div class="nivel">${"<i></i>".repeat(24)}</div><div class="dica"><span id="pedacos">${pedacos.length}</span> pedaços de 30 s guardados</div>`:""}
+        ${avisoMic}
+        <div class="linha-btn">
+          <button class="btn" id="pausa" type="button">${S.rodando?"Pausar":"Continuar"}</button>
+          <button class="btn" id="marca" type="button">Marcar momento</button>
+          <button class="btn" id="enc" type="button">Encerrar</button>
+        </div>
+      </div>
+      <div class="caixa">
+        <h3>Blocos</h3>
+        <div class="lista">${BLOCOS.map((x,k)=>{const s=S.blocos[k].seg;return `<button type="button" class="it ${k===S.ativo?"on":""} ${s>20?"feito":""}" data-b="${k}">
+          <span class="n">${k+1}</span><span>${x.t}</span><span class="t ${s>x.min*60?"passou":""}" data-tb="${k}">${mmss(s)}</span></button>`}).join("")}</div>
+      </div>
+      <div class="caixa">
+        <h3>Momentos marcados</h3>
+        <div class="marcas" id="marcas"></div>
+      </div>
+    </aside>
+  </section>`;
+  tela.querySelectorAll("[data-a]").forEach(x=>x.onclick=()=>{const k=+x.dataset.a;const u=e.usados;u.includes(k)?u.splice(u.indexOf(k),1):u.push(k);guarda();mesa()});
+  $("#notas").oninput=ev=>{e.notas=ev.target.value;guarda()};
+  tela.querySelectorAll("[data-b]").forEach(x=>x.onclick=()=>vaiPara(+x.dataset.b));
+  $("#ant").onclick=()=>vaiPara(S.ativo-1);
+  $("#prox")&&($("#prox").onclick=()=>vaiPara(S.ativo+1));
+  $("#fim")&&($("#fim").onclick=encerra);
+  $("#enc").onclick=encerra;
+  $("#pausa").onclick=pausa;
+  $("#marca").onclick=marca;
+  desenhaMarcas(); atualizaTempos();
+  if(S.gravando==="sim"&&anal) medidor();
+}
+function desenhaMarcas(){
+  const el=$("#marcas"); if(!el) return;
+  el.innerHTML = S.marcas.length? S.marcas.map((m,k)=>`<div><span class="mono">${mmss(m.t)}</span><input type="text" data-m="${k}" value="${(m.txt||"").replace(/"/g,"&quot;")}" placeholder="Bloco ${m.b+1}: o que aconteceu" style="padding:4px 8px;font-size:13px"></div>`).join("")
+    : `<span class="dica">Use para assinalar uma história boa ou um trecho para revisar na transcrição.</span>`;
+  el.querySelectorAll("[data-m]").forEach(i=>i.oninput=()=>{S.marcas[+i.dataset.m].txt=i.value;guarda()});
+}
+function atualizaTempos(){
+  const r=$("#rel"); if(!r) return;
+  r.textContent=mmss(S.total);
+  const b=BLOCOS[S.ativo], s=S.blocos[S.ativo].seg;
+  const tb=$("#tb"); tb&&(tb.textContent=mmss(s)+" de "+b.min+" min");
+  const bb=$("#bb"); if(bb){ bb.firstElementChild.style.width=Math.min(100,s/(b.min*60)*100)+"%"; bb.classList.toggle("passou",s>b.min*60) }
+  const t=document.querySelector(`[data-tb="${S.ativo}"]`); if(t){ t.textContent=mmss(s); t.classList.toggle("passou",s>b.min*60) }
+}
+
+function resumo(){
+  const aprofTot=S.blocos.reduce((n,x)=>n+x.usados.length,0), aprofMax=BLOCOS.reduce((n,x)=>n+x.a.length,0);
+  const temAudio=S.gravando==="encerrada"&&pedacos.length;
+  tela.innerHTML=`
+  <section class="res" style="display:flex;flex-direction:column;gap:22px">
+    <div><div class="rot">Entrevista encerrada · ${S.participante||"participante"} · ${S.data}</div><h1>A semente está pronta para seguir ao construtor.</h1></div>
+    <div class="nums">
+      <div class="num"><span class="rot">Duração</span><div class="v mono">${mmss(S.total)}</div><p>Meta de ${ALVO/60} minutos.</p></div>
+      <div class="num"><span class="rot">Aprofundamentos usados</span><div class="v mono">${aprofTot}/${aprofMax}</div><p>Quanto mais histórias, mais o gêmeo aprende.</p></div>
+      <div class="num"><span class="rot">Áudio</span><div class="v mono">${temAudio?pedacos.length:"·"}</div><p>${temAudio?"pedaços de 30 s gravados nesta página.":S.arquivo?"Arquivo anexado: "+S.arquivo:"Nenhum áudio nesta página. Anexe a gravação abaixo."}</p></div>
+    </div>
+    <div class="caixa">
+      <h3>Tempo por bloco</h3>
+      <div class="tabela"><table><thead><tr><th>Bloco</th><th>Tempo</th><th>Meta</th><th>Aprofundamentos</th><th>Anotações</th></tr></thead><tbody>
+      ${BLOCOS.map((b,i)=>{const x=S.blocos[i];return `<tr><td>${i+1}. ${b.t}</td><td class="n" style="${x.seg>b.min*60?"color:var(--rec)":""}">${mmss(x.seg)}</td><td class="n">${b.min} min</td><td class="n">${x.usados.length}/${b.a.length}</td><td>${x.notas?x.notas.replace(/</g,"&lt;"):'<span class="dica">sem anotações</span>'}</td></tr>`}).join("")}
+      </tbody></table></div>
+    </div>
+    <div class="caixa">
+      <h3>Entregar a semente</h3>
+      <div class="linha-btn">
+        ${temAudio?`<button class="btn cheio" id="baudio" type="button">Baixar o áudio</button>`:`<label class="btn" style="cursor:pointer">Anexar a gravação<input type="file" id="arq" accept="audio/*,video/*" hidden></label>`}
+        <button class="btn" id="bjson" type="button">Baixar a ficha da entrevista</button>
+        <button class="btn" id="volta" type="button">Voltar à entrevista</button>
+      </div>
+      <p class="nota">Na versão ligada ao banco, o áudio e a ficha sobem sozinhos para o armazenamento privado do participante, e o sistema dispara a transcrição. O construtor recebe o aviso de que a semente está pronta.</p>
+    </div>
+  </section>`;
+  $("#baudio")&&($("#baudio").onclick=()=>baixa("entrevista-"+slug()+(tipoAudio().includes("mp4")?".m4a":".webm"),new Blob(pedacos,{type:tipoAudio()||"audio/webm"})));
+  $("#arq")&&($("#arq").onchange=ev=>{const f=ev.target.files[0]; if(f){S.arquivo=f.name;guarda();resumo()}});
+  $("#bjson").onclick=()=>baixa("semente-"+slug()+".json",new Blob([JSON.stringify(semente(),null,2)],{type:"application/json"}));
+  $("#volta").onclick=()=>{S.fase="mesa";desenha()};
+}
+
+document.addEventListener("keydown",ev=>{
+  if(S.fase!=="mesa"||["TEXTAREA","INPUT"].includes(ev.target.tagName)) return;
+  if(ev.key==="m"||ev.key==="M"){ev.preventDefault();marca()}
+  else if(ev.key===" "){ev.preventDefault();pausa()}
+  else if(ev.key==="ArrowRight"&&S.ativo<BLOCOS.length-1) vaiPara(S.ativo+1);
+  else if(ev.key==="ArrowLeft"&&S.ativo>0) vaiPara(S.ativo-1);
+});
+$("#zerar").onclick=async()=>{ await paraGravacao(); S=vazio(); pedacos=[]; guarda(); desenha() };
+window.addEventListener("beforeunload",guarda);
+liga();
+desenha();
+</script>
