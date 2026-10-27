@@ -139,43 +139,44 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
 @media print{ html,body{background:none} #lista{padding:0; gap:0; zoom:1!important} .pg{break-after:page} }
 
 /* ===== carrossel /gemeos ===== */
-.vg{position:relative; margin-top:34px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+.vg{position:relative; margin-top:40px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
 .vg canvas{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
-.vt{position:relative; border:1.5px solid var(--fio); border-radius:6px; background:rgba(251,250,247,.86); padding:16px 16px 18px; min-height:200px}
-.vt b{font:500 18px/1 var(--f-mono); color:var(--cinza)}
-.vt h3{font:600 25px/1.12 var(--f-tit); margin-top:8px}
-.vt p{font-size:19px; line-height:1.32; color:var(--texto2); margin-top:6px}
+.vt{position:relative; border:2px solid rgba(29,29,27,.35); border-radius:6px; background:rgba(251,250,247,.9); padding:20px 18px; min-height:212px; display:flex; flex-direction:column; justify-content:space-between}
+.vt b{font:600 26px/1 var(--f-mono); color:var(--cinza)}
+.vt h3{font:600 34px/1.08 var(--f-tit); margin-top:10px}
+.vt p{display:none}
 .fx3{margin-top:44px; display:flex; flex-direction:column; gap:14px}
 .f-br{display:grid; grid-template-columns:300px 1fr; gap:26px; align-items:center}
 .f-br canvas{width:300px; height:314px}
-.fx3 .t{font:600 38px/1.15 var(--f-tit)}
-.fx3 .s{font-size:27px; line-height:1.38; color:var(--texto2); margin-top:6px}
+.fx3 .t{font:600 42px/1.12 var(--f-tit)}
+.fx3 .s{font-size:31px; line-height:1.38; color:var(--texto2); margin-top:6px}
 .f-seta{font:600 40px/1 var(--f-tit); color:var(--cinza); padding-left:96px}
 .f-gm{display:grid; grid-template-columns:1fr 1fr; gap:16px}
 .f-gm .cd{border:2px solid var(--texto); border-radius:6px; padding:22px 22px 24px}
 .f-gm .cd.pr{background:var(--preto)} .f-gm .cd.pr .t{color:var(--osso)} .f-gm .cd.pr .s{color:#D9D7D0}
-.f-gm .t{font-size:33px}
-.f-dc .q{border-left:4px solid var(--texto); padding:6px 0 6px 16px; margin-top:14px; font:500 29px/1.3 var(--f-tit)}
-.mapa-br{display:block; width:700px; height:600px; margin:20px auto 0}
-.fams{position:absolute; left:90px; right:90px; bottom:120px; display:grid; grid-template-columns:1fr 1fr; gap:16px 30px}
+.f-gm .t{font-size:36px}
+.f-dc .q{border-left:5px solid var(--texto); padding:6px 0 6px 18px; margin-top:16px; font:500 34px/1.25 var(--f-tit)}
+.mapa-br{display:block; width:640px; height:548px; margin:10px auto 0}
+.fams{position:absolute; left:90px; right:90px; bottom:120px; display:grid; grid-template-columns:1fr 1fr; gap:18px 30px}
+.fams .ttl{grid-column:1 / -1; border:0; padding:0; font:600 24px/1 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--texto2)}
 .fams div{border-top:2px solid var(--texto); padding-top:12px}
-.fams b{display:block; font:600 20px/1 var(--f-mono); letter-spacing:1.6px; text-transform:uppercase}
-.fams span{display:block; font-size:21px; line-height:1.35; color:var(--texto2); margin-top:6px}
-.cab{display:block; width:500px; height:auto; margin:40px 0 0 -50px}
-.cams{position:absolute; right:90px; top:400px; width:420px; display:flex; flex-direction:column; gap:18px}
+.fams b{display:block; font:600 30px/1.15 var(--f-tit); letter-spacing:-.3px}
+.fams span{display:none}
+.cab{display:block; width:560px; height:auto; margin:30px auto 0}
+.cams{position:absolute; left:90px; right:90px; top:auto; bottom:110px; width:auto; display:grid!important; grid-template-columns:1fr 1fr; gap:24px 30px; display:flex; flex-direction:column; gap:18px}
 .cams div{border-top:1px solid rgba(245,244,240,.3); padding-top:12px}
-.cams b{display:block; font:600 20px/1.1 var(--f-mono); letter-spacing:1.4px; text-transform:uppercase; color:var(--osso)}
-.cams span{display:block; font-size:22px; line-height:1.35; color:#D9D7D0; margin-top:6px}
-.caso .cb{border-top:2px solid var(--texto); padding:30px 0 34px; margin-top:0}
+.cams b{display:block; font:600 34px/1.1 var(--f-tit); color:var(--osso)}
+.cams span{display:block; font-size:28px; line-height:1.3; color:#D9D7D0; margin-top:8px}
+.caso .cb{border-top:2px solid var(--texto); padding:34px 0 40px; margin-top:0}
 .caso .cb:first-of-type{margin-top:44px}
-.caso .k{font:600 21px/1 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--texto2)}
-.caso .v{font-size:32px; line-height:1.38; color:var(--texto); margin-top:12px}
-.caso .v.forte{font:600 40px/1.25 var(--f-tit)}
+.caso .k{font:600 26px/1 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--texto2)}
+.caso .v{font-size:38px; line-height:1.3; color:var(--texto); margin-top:12px}
+.caso .v.forte{font:600 48px/1.16 var(--f-tit)}
 .tl{margin-top:56px; display:flex; flex-direction:column; gap:22px; border-left:3px solid rgba(245,244,240,.4); padding-left:34px}
-.tl b{display:block; font:600 22px/1 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--claro2)}
-.tl p{font:500 32px/1.25 var(--f-tit); color:var(--osso); margin-top:8px}
+.tl b{display:block; font:600 24px/1 var(--f-mono); letter-spacing:2px; text-transform:uppercase; color:var(--claro2)}
+.tl p{font:500 36px/1.22 var(--f-tit); color:var(--osso); margin-top:8px}
 .fim .qr{bottom:290px}
-.fim .qr p{font-size:24px}
+.fim .qr p{font-size:28px}
 </style>
 </head>
 <body>
@@ -187,7 +188,7 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
     <img class="logo" src="__LOGO_CLARO__" alt="Mimetica">
     <canvas class="nuvem" id="cvCapa" width="2160" height="940"></canvas>
     <h1 class="h">Gêmeos digitais do Brasil, para decidir num mundo que muda cada dia mais rápido.</h1>
-    <p class="sub">Construídos sobre o que o Brasil já mostrou: dados oficiais, ciência, imprensa e conversas.</p>
+    <p class="sub">Construídos sobre o que o Brasil já mostrou.</p>
     <p class="desl">Deslize →</p>
     <p class="num">01 / 10</p>
   </section>
@@ -196,7 +197,7 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
   <section class="pg">
     <p class="lbl">Por que agora</p>
     <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
-    <h2 class="h" style="font-size:56px">O mundo muda cada dia mais rápido. E cada vez é mais difícil decidir.</h2>
+    <h2 class="h">Tudo muda ao mesmo tempo.</h2><p class="sub">E cada vez é mais difícil decidir.</p>
     <div class="vg" id="vg"><canvas id="cvVet"></canvas></div>
     <div class="banda"><p>Os nove vetores chegam juntos. A leitura útil está na interseção.</p></div>
     <p class="num">02 / 10</p>
@@ -208,11 +209,11 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
     <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
     <h2 class="h">Respondemos ancorados em dois gêmeos do Brasil.</h2>
     <div class="fx3">
-      <div class="f-br"><canvas id="cvMini" width="440" height="460"></canvas><div><p class="t">O Brasil real</p><p class="s">Dados oficiais, ciência, imprensa, conversas nas redes e os dados da sua empresa.</p></div></div>
+      <div class="f-br"><canvas id="cvMini" width="440" height="460"></canvas><div><p class="t">O Brasil real</p><p class="s">Dados oficiais, imprensa, redes e os dados da sua empresa.</p></div></div>
       <div class="f-seta">↓</div>
-      <div class="f-gm"><div class="cd"><p class="t">Gêmeo do Brasil</p><p class="s">Lê o que está acontecendo no país, todos os dias.</p></div><div class="cd pr"><p class="t">Gêmeo da população</p><p class="s">Responde o que as pessoas fariam diante de cada cenário.</p></div></div>
+      <div class="f-gm"><div class="cd"><p class="t">Gêmeo do Brasil</p><p class="s">Lê o país todos os dias.</p></div><div class="cd pr"><p class="t">Gêmeo da população</p><p class="s">Responde como as pessoas.</p></div></div>
       <div class="f-seta">↓</div>
-      <div class="f-dc"><p class="t">Apoio à decisão</p><p class="q">E se o preço subir 8%?</p><p class="q">E se os juros caírem 2 pontos enquanto o dólar sobe 15%?</p></div>
+      <div class="f-dc"><p class="t">Apoio à decisão</p><p class="q">E se o preço subir 8%?</p><p class="q">E se o dólar subir 15%?</p></div>
     </div>
     <p class="num">03 / 10</p>
   </section>
@@ -223,7 +224,7 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
     <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
     <h2 class="h">O gêmeo do Brasil lê tudo o que acontece no país.</h2>
     <canvas class="mapa-br" id="cvMapa" width="1400" height="1200"></canvas>
-    <div class="fams">
+    <div class="fams"><p class="ttl">Cinco famílias de fontes</p>
       <div><b>Oficial brasileiro</b><span>Banco Central, IBGE, saúde pública, energia, Congresso</span></div>
       <div><b>Macro global</b><span>Juros americanos, FMI, commodities, mercados</span></div>
       <div><b>Ciência e instituições</b><span>Periódicos, preprints, boletins epidemiológicos</span></div>
@@ -237,7 +238,7 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
   <section class="pg">
     <p class="lbl">Em números</p>
     <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
-    <h2 class="h">Todos os dias, o gêmeo do Brasil lê o país.</h2>
+    <h2 class="h">Todos os dias, o gêmeo lê o Brasil.</h2>
     <div class="nums">
       <div class="nu"><b>60+</b><span>fontes primárias brasileiras</span></div>
       <div class="nu"><b>~90</b><span>coletas automáticas, permanentes</span></div>
@@ -255,11 +256,11 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
     <h2 class="h">Cada gêmeo digital nasce em camadas.</h2>
     <img class="cab" src="__CABECA__" alt="Cabeça de um gêmeo digital, feita de pontos">
     <div class="cams">
-      <div><b>Quem é</b><span>Perfil real do Censo: idade, região, classe, renda</span></div>
-      <div><b>Como pensa e fala</b><span>Aprende com pessoas reais do mesmo perfil</span></div>
-      <div><b>Como decide</b><span>Mostra a chance de cada opção e a margem de erro</span></div>
-      <div><b>Radar</b><span>Acompanha o Brasil de hoje, todos os dias</span></div>
-      <div><b>Dados da sua empresa</b><span>Passa a representar o cliente da sua marca</span></div>
+      <div><b>Quem é</b><span>Perfil real do Censo</span></div>
+      <div><b>Como fala</b><span>Aprende com pessoas reais</span></div>
+      <div><b>Como decide</b><span>Chance e margem de erro</span></div>
+      <div><b>Radar</b><span>Lê o Brasil todo dia</span></div>
+      <div style="grid-column:1 / -1"><b>Dados da sua empresa</b><span>Passa a representar o seu cliente</span></div>
     </div>
     <p class="num">06 / 10</p>
   </section>
@@ -268,9 +269,9 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
     <p class="lbl">Case · Alimentação fora do lar</p>
     <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
     <h2 class="h">A caneta para obesidade que ficou barata</h2>
-    <div class="cb"><p class="k">A pergunta</p><p class="v">Um remédio para obesidade ganhou versão nacional pela metade do preço. O que acontece com a frequência nos restaurantes?</p></div>
-    <div class="cb"><p class="k">O que os gêmeos responderam</p><p class="v forte">Pouco mais da metade dos que usariam o remédio diz que comeria fora menos. No cenário mais agressivo, quase dois terços.</p></div>
-    <div class="cb"><p class="k">O que surpreendeu</p><p class="v">Quem reduz pede porção menor, sem acompanhamento. Criar linha saudável atacava o problema errado.</p></div>
+    <div class="cb"><p class="k">A pergunta</p><p class="v">Um remédio para obesidade ficou pela metade do preço. O que acontece com os restaurantes?</p></div>
+    <div class="cb"><p class="k">O que os gêmeos responderam</p><p class="v forte">Mais da metade de quem usaria o remédio comeria fora menos.</p></div>
+    <div class="cb"><p class="k">O que surpreendeu</p><p class="v">Quem reduz pede porção menor. A linha saudável atacava o problema errado.</p></div>
     <p class="num">07 / 10</p>
   </section>
 
@@ -278,9 +279,9 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
     <p class="lbl">Case · Quatro setores</p>
     <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
     <h2 class="h">A pinça asiática atravessa setores</h2>
-    <div class="cb"><p class="k">A pergunta</p><p class="v">Por que a mesma narrativa aparecia em quatro setores ao mesmo tempo?</p></div>
-    <div class="cb"><p class="k">O que os gêmeos responderam</p><p class="v forte">Era uma história só. Diante de uma marca asiática desconhecida, o consumidor pesa assistência técnica e peças antes do preço.</p></div>
-    <div class="cb"><p class="k">O que surpreendeu</p><p class="v">“Quem conserta?” é a maior barreira de quem entra e o ativo mais subestimado de quem já está.</p></div>
+    <div class="cb"><p class="k">A pergunta</p><p class="v">Por que a mesma história aparecia em montadoras, pneus, varejo e eletrodomésticos?</p></div>
+    <div class="cb"><p class="k">O que os gêmeos responderam</p><p class="v forte">Diante de uma marca asiática desconhecida, o consumidor pesa a assistência técnica antes do preço.</p></div>
+    <div class="cb"><p class="k">O que surpreendeu</p><p class="v">“Quem conserta?” é a maior barreira de quem entra no mercado.</p></div>
     <p class="num">08 / 10</p>
   </section>
 
@@ -288,9 +289,9 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
     <p class="lbl">Case · Eleições</p>
     <img class="logo" src="__LOGO_ESCURO__" alt="Mimetica">
     <h2 class="h">Eleições passadas, comparadas ao resultado real</h2>
-    <div class="cb"><p class="k">A pergunta</p><p class="v">Uma população artificial de eleitores reproduz uma eleição sem ter visto o resultado?</p></div>
-    <div class="cb"><p class="k">O que os gêmeos responderam</p><p class="v forte">Dez mil eleitores reproduziram o primeiro turno de 2022 dentro de 1 ponto. No Senado de 2018, em quatro estados, o erro médio ficou abaixo de 3 pontos.</p></div>
-    <div class="cb"><p class="k">O que surpreendeu</p><p class="v">Os erros são conhecidos e nomeados: a população artificial conhece menos os candidatos menos conhecidos.</p></div>
+    <div class="cb"><p class="k">A pergunta</p><p class="v">Uma população artificial reproduz uma eleição sem ver o resultado?</p></div>
+    <div class="cb"><p class="k">O que os gêmeos responderam</p><p class="v forte">Primeiro turno de 2022: dentro de 1 ponto. Senado de 2018: erro médio abaixo de 3 pontos.</p></div>
+    <div class="cb"><p class="k">O que surpreendeu</p><p class="v">Os erros têm nome: ela conhece menos os candidatos menos conhecidos.</p></div>
     <p class="num">09 / 10</p>
   </section>
 
@@ -302,9 +303,9 @@ html.pdf #lista{padding:0; gap:0; zoom:1!important}
     <img class="logo" src="__LOGO_CLARO__" alt="Mimetica">
     <h2 class="h" style="margin-top:34px; font-size:64px">Uma prova de conceito com uma pergunta da sua empresa.</h2>
     <div class="tl">
-      <div><b>Semana 0</b><p>Conversa inicial sobre a decisão</p></div>
-      <div><b>Semanas 1 e 2</b><p>Sintonia com o setor e os seus dados</p></div>
-      <div><b>Semanas 2 a 4</b><p>A sua pergunta respondida em cenários</p></div>
+      <div><b>Semana 0</b><p>Conversa sobre a decisão</p></div>
+      <div><b>Semanas 1 e 2</b><p>Sintonia com os seus dados</p></div>
+      <div><b>Semanas 2 a 4</b><p>A sua pergunta, em cenários</p></div>
     </div>
     <div class="qr"><div class="q">__QR2__</div><p>Veja a versão interativa<br><b style="color:#F5F4F0">mimetica.institute/gemeos</b></p></div>
     <div class="ct"><div><b>Geraldo Yoshizawa · Fernando Julião</b><span>geraldo@mimetica.net · fernando@mimetica.net</span></div><p class="r">mimetica.net</p></div>
