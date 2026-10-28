@@ -182,6 +182,22 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .passos3 h3{margin:0;font-family:var(--f-titulo);font-size:19px}
 .passos3 p{margin:4px 0 0;color:var(--sub);font-size:15px}
 @media (max-width:900px){ .cards3,.cards4{grid-template-columns:1fr} }
+.halt{gap:14px}
+.hl,.leg,.eixo{display:grid;grid-template-columns:110px 1fr 96px;gap:12px;align-items:center;font-size:15px}
+.hl .v,.leg .v{font-family:var(--f-mono);font-size:13px;text-align:right;white-space:nowrap;color:var(--sub)}
+.pista{position:relative;height:22px}
+.pista::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--linha)}
+.pista .seg{position:absolute;top:50%;height:4px;margin-top:-2px;background:var(--fraco);border-radius:2px;left:0;width:0;opacity:0;transition:left 1.1s cubic-bezier(.2,.7,.2,1),width 1.1s cubic-bezier(.2,.7,.2,1),opacity .4s}
+.pt{display:inline-block;width:16px;height:16px;border-radius:50%}
+.pista .pt{position:absolute;top:50%;margin:-8px 0 0 -8px}
+.pt.u{background:var(--texto)}
+.pt.g{background:var(--osso);border:3px solid var(--sub);box-sizing:border-box}
+.pista .pt.g{transition:left 1.1s cubic-bezier(.2,.7,.2,1)}
+.leg{font-size:13px;color:var(--sub)} .leg>span:first-child,.leg>span:nth-child(2){display:flex;gap:8px;align-items:center;white-space:nowrap}
+.leg{grid-template-columns:auto 1fr 96px}
+.esc{position:relative;height:16px;font-family:var(--f-mono);font-size:12px;color:var(--fraco)} .esc em{position:absolute;font-style:normal;transform:translateX(-50%)}
+@media (max-width:520px){ .hl,.eixo{grid-template-columns:84px 1fr 78px;gap:8px;font-size:13px} .hl .v,.leg .v{font-size:11px} .leg{grid-template-columns:1fr 1fr} .leg .v{display:none} }
+@media (prefers-reduced-motion:reduce){ .pista .seg,.pista .pt.g{transition:none!important} }
 </style>
 
 <div class="barra"><b id="barra"></b></div>
@@ -249,7 +265,30 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   </div>
 </section>
 
-<!-- 5. CAMADAS -->
+<!-- 5. PROVA: 2º TURNO 2026 -->
+<section class="tela" data-t="turno">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Uma prova feita no Brasil</div>
+      <h2 class="aparece d1" style="margin-top:14px">No 2º turno de 2026, os gêmeos acertaram as pontas do mapa.</h2>
+      <p class="lead aparece d2">Nordeste no topo e Sul na base, como na urna. A distância entre as regiões veio pela metade: 15 pontos nos gêmeos e 32 na urna.</p>
+      <p class="lead aparece d3" style="font-size:16px">É essa distância que as camadas de precisão, no próximo slide, ajudam a recuperar.</p>
+    </div>
+    <div class="barras halt aparece d2">
+      <span class="rot">Lula nos votos válidos, por região</span>
+      <div class="leg"><span><i class="pt u"></i>Urna</span><span><i class="pt g"></i>Gêmeos da Mimetica</span><span class="v">urna · gêmeos</span></div>
+      <div class="hl"><span class="nm">Nordeste</span><span class="pista"><i class="seg" data-a="74.86" data-b="98.29"></i><i class="pt g" data-x="74.86" data-u="98.29"></i><i class="pt u" style="left:98.29%"></i></span><span class="v">69,4 · 61,2</span></div>
+      <div class="hl"><span class="nm">Norte</span><span class="pista"><i class="seg" data-a="33.43" data-b="42.86"></i><i class="pt g" data-x="33.43" data-u="42.86"></i><i class="pt u" style="left:42.86%"></i></span><span class="v">50,0 · 46,7</span></div>
+      <div class="hl"><span class="nm">Sudeste</span><span class="pista"><i class="seg" data-a="34.86" data-b="42.29"></i><i class="pt g" data-x="42.29" data-u="34.86"></i><i class="pt u" style="left:34.86%"></i></span><span class="v">47,2 · 49,8</span></div>
+      <div class="hl"><span class="nm">Centro-Oeste</span><span class="pista"><i class="seg" data-a="14.29" data-b="34.86"></i><i class="pt g" data-x="34.86" data-u="14.29"></i><i class="pt u" style="left:14.29%"></i></span><span class="v">40,0 · 47,2</span></div>
+      <div class="hl"><span class="nm">Sul</span><span class="pista"><i class="seg" data-a="6.86" data-b="31.14"></i><i class="pt g" data-x="31.14" data-u="6.86"></i><i class="pt u" style="left:6.86%"></i></span><span class="v">37,4 · 45,9</span></div>
+      <div class="eixo"><span></span><span class="esc"><em style="left:0">35%</em><em style="left:42.86%">50%</em><em style="left:100%">70%</em></span><span></span></div>
+      <div style="font-size:13px;color:var(--fraco)">Gêmeos com a informação chegando pela bolha de cada um.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CAMADAS -->
 <section class="tela" data-t="camadas">
   <div class="miolo dupla">
     <div>
@@ -266,7 +305,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   </div>
 </section>
 
-<!-- 6. COMO ENTRA NA ROTINA -->
+<!-- 7. COMO ENTRA NA ROTINA -->
 <section class="tela" data-t="rotina">
   <div class="miolo">
     <div class="rot aparece">Como entra na rotina de insights</div>
@@ -317,7 +356,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 </section>
 
 <footer class="rodape">
-  <span class="cont" id="cont">01 / 08</span>
+  <span class="cont" id="cont">01 / 09</span>
   <div class="nav">
     <button type="button" id="ant" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.5 4 7.5 12l8 8 1.4-1.4L10.3 12l6.6-6.6z"/></svg></button>
     <button type="button" id="prox" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.5 4 7.1 5.4 13.7 12l-6.6 6.6L8.5 20l8-8z"/></svg></button>
@@ -373,7 +412,10 @@ function renda(){ const box=$("#rendaBarras"), txt=$("#rendaTxt");
   const mostra=(lin,f)=>{ box.innerHTML=lin.map(([n,v])=>`<div class="br ${f}"><span>${n}</span><span class="trilho"><b data-w="${v}"></b></span><span class="v">${v}%</span></div>`).join(""); barras("#rendaBarras") };
   txt.textContent="Por região, as respostas quase não mudam."; mostra(REG,"f");
   depois(3800,()=>{ txt.textContent="Por renda, a diferença aparece. É por isso que o modelo da Mimetica parte da renda, e não só do lugar."; mostra(CLS,"") }) }
-const ENTRA={abertura:()=>animaCabeca("cabeca"),ditofeito:()=>barras("[data-t=ditofeito]"),rotina:ruido};
+function halteres(){ const r=document.querySelectorAll("[data-t=turno] .hl");
+  r.forEach(l=>{const g=l.querySelector(".pt.g"),sg=l.querySelector(".seg");g.style.left=g.dataset.u+"%";sg.style.left=g.dataset.u+"%";sg.style.width="0";sg.style.opacity="0"});
+  depois(500,()=>r.forEach(l=>{const g=l.querySelector(".pt.g"),sg=l.querySelector(".seg");g.style.left=g.dataset.x+"%";sg.style.left=sg.dataset.a+"%";sg.style.width=(sg.dataset.b-sg.dataset.a)+"%";sg.style.opacity="1"})) }
+const ENTRA={turno:halteres,abertura:()=>animaCabeca("cabeca"),ditofeito:()=>barras("[data-t=ditofeito]"),rotina:ruido};
 
 function vai(i){ if(i<0||i>=TELAS.length) return; limpa();
   TELAS.forEach((t,k)=>{ t.classList.toggle("on",k===i); t.classList.toggle("antes",k<i); t.setAttribute("aria-hidden",k===i?"false":"true") });
