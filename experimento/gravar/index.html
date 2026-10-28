@@ -134,6 +134,49 @@ async function carregaBlobs(){ for(const k of Object.keys(S.resp)){ const b=awai
 // ---- microfone ----
 let stream=null, actx=null, anal=null, micOk=null;
 const NA_PREVIA=!!(window.claude&&window.claude.use); // na prévia do Claude o microfone é bloqueado e a onda é simulada
+
+// ---- servidor da Mimetica (Supabase) ----
+const FN="https://owsqgufiaexenvgflvqe.supabase.co/functions/v1/entrevista";
+const TOKEN=(()=>{ if(NA_PREVIA) return null; let t=null;
+  try{ t=new URLSearchParams(location.search).get("c") }catch(e){}
+  try{ if(t&&/^[a-f0-9]{24}$/.test(t)) localStorage.setItem("mimetica-gravar-token",t); else t=localStorage.getItem("mimetica-gravar-token") }catch(e){}
+  return t&&/^[a-f0-9]{24}$/.test(t)?t:null })();
+let LINK_OK=null; // null = verificando, true, false = link inválido
+async function api(body){ const r=await fetch(FN,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...body,token:TOKEN})}); const j=await r.json().catch(()=>({})); if(r.status===401) LINK_OK=false; return {ok:r.ok,...j} }
+const enviando=new Set();
+async function envia(k){
+  if(!TOKEN||LINK_OK===false||!BLOBS[k]||!S.resp[k]||enviando.has(k)) return;
+  enviando.add(k); S.resp[k].nuvem="enviando"; marcaNuvem();
+  const p=P[k], blob=BLOBS[k], fd=new FormData();
+  fd.append("token",TOKEN); fd.append("pergunta_n",String(k+1)); fd.append("tema",BLOCOS[p.b].t);
+  fd.append("principal",String(p.principal)); fd.append("pergunta",p.t); fd.append("duracao",(S.resp[k].dur||0).toFixed(1));
+  fd.append("arquivo",blob,"resposta");
+  try{ const r=await fetch(FN,{method:"POST",body:fd}); const j=await r.json().catch(()=>({}));
+    if(r.status===401) LINK_OK=false;
+    if(S.resp[k]&&BLOBS[k]===blob) S.resp[k].nuvem=(r.ok&&j.ok)?"ok":"erro";
+  }catch(e){ if(S.resp[k]&&BLOBS[k]===blob) S.resp[k].nuvem="erro" }
+  enviando.delete(k); guarda(); marcaNuvem();
+  if(S.resp[k]&&BLOBS[k]!==blob) envia(k); // regravou enquanto enviava
+}
+function pendentes(){ return Object.keys(S.resp).map(Number).filter(k=>BLOBS[k]&&S.resp[k].nuvem!=="ok") }
+function sincroniza(){ if(navigator.onLine===false) return; pendentes().forEach(envia) }
+const TXT_NUVEM={ok:"✓ Guardada na Mimetica",enviando:"Enviando para a Mimetica...",erro:"Sem conexão agora. Vai tentar de novo sozinho."};
+function marcaNuvem(){
+  const el=document.getElementById("nuvem"); if(el){ const r=S.resp[S.i]; el.textContent=(TOKEN&&r&&!G)?(r.remoto?TXT_NUVEM.ok+" (gravada em outro aparelho)":TXT_NUVEM[r.nuvem]||""):"" }
+  const st=document.getElementById("nv-fim"); if(st) st.innerHTML=textoFim();
+}
+async function conecta(){
+  if(!TOKEN) return;
+  try{ const j=await api({acao:"quem"});
+    if(LINK_OK===false){ desenha(); return }
+    LINK_OK=true;
+    if(!S.nome&&j.nome) S.nome=j.nome;
+    for(const r of j.respostas||[]){ const k=r.n-1; if(!S.resp[k]) S.resp[k]={dur:r.dur||0,bars:[],remoto:true,nuvem:"ok"} }
+    guarda(); desenha(); sincroniza();
+  }catch(e){}
+}
+setInterval(sincroniza,20000);
+window.addEventListener("online",sincroniza);
 async function abreMic(){
   if(micOk!==null) return micOk;
   try{ stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
@@ -174,9 +217,10 @@ async function para(){
   let blob=null;
   if(G.rec){ blob=await new Promise(ok=>{G.rec.onstop=()=>ok(new Blob(G.chunks,{type:G.rec.mimeType||tipo()||"audio/webm"}));G.rec.stop()}) }
   G=null;
-  S.resp[S.i]={dur,sim,bars:compacta(bars,160),tipo:blob?blob.type:null};
+  S.resp[S.i]={dur,sim,bars:compacta(bars,160),tipo:blob?blob.type:null,nuvem:blob&&TOKEN?"enviando":null};
   if(blob){ BLOBS[S.i]=blob; poe(S.i,blob) }
   guarda(); desenha();
+  if(blob) envia(S.i);
 }
 function compacta(a,n){ if(a.length<=n) return a.map(x=>+x.toFixed(3)); const o=[]; for(let k=0;k<n;k++){ const i0=Math.floor(k*a.length/n), i1=Math.floor((k+1)*a.length/n); let m=0; for(let i=i0;i<i1;i++) m=Math.max(m,a[i]); o.push(+m.toFixed(3)) } return o }
 
@@ -216,15 +260,20 @@ function ouvir(){
 }
 
 // ---- telas ----
-function desenha(){ ({boas,consent,pergunta,fim})[S.fase]() }
+function desenha(){ if(!NA_PREVIA&&(!TOKEN||LINK_OK===false)) return boas(); ({boas,consent,pergunta,fim})[S.fase]() }
 
 function boas(){
+  if(!NA_PREVIA&&(!TOKEN||LINK_OK===false)){ app.innerHTML=`
+  <div class="topo">${LOGO}<span class="rot">Entrevista</span></div>
+  <div><div class="rot">O gêmeo contra o original</div><h1>${TOKEN?"Este link não vale mais.":"Abra pelo seu link pessoal."}</h1></div>
+  <p class="sub">Cada sócio recebeu um link próprio para gravar a entrevista. É ele que guarda as suas respostas no lugar certo. Abra a mensagem com o seu link e toque nele de novo.</p>
+  <p class="nota">Se não encontrar o link, peça ao Fernando.</p>`; return }
   app.innerHTML=`
   <div class="topo">${LOGO}<span class="rot">Entrevista</span></div>
   <div><div class="rot">O gêmeo contra o original</div><h1>Conte a sua história em voz alta.</h1></div>
   <p class="sub">Você vai ler ${BLOCOS.length-1} temas da sua vida e responder falando, como numa conversa. Cada resposta é gravada separada. O seu gêmeo digital vai aprender com o que você contar.</p>
   <ul class="dicas">
-    <li><b>45</b><span>Leva uns 45 a 60 minutos. Dá para parar e voltar depois: o que já foi gravado fica guardado neste aparelho.</span></li>
+    <li><b>45</b><span>Leva uns 45 a 60 minutos. Dá para parar e voltar depois: cada resposta é enviada para a Mimetica assim que você para de gravar.</span></li>
     <li><b>↻</b><span>Antes de seguir, você pode ouvir o que gravou e gravar de novo.</span></li>
     <li><b>“ ”</b><span>Fale como se estivesse contando para um amigo. Histórias e exemplos valem mais do que respostas curtas.</span></li>
     <li><b>◎</b><span>Escolha um lugar silencioso e deixe o celular perto da boca.</span></li>
@@ -248,12 +297,13 @@ function consent(){
   $("#nome").oninput=e=>{S.nome=e.target.value;val()};
   app.querySelectorAll("[data-c]").forEach(c=>c.onchange=()=>{S.consent[+c.dataset.c]=c.checked;val()});
   $("#volta").onclick=()=>{S.fase="boas";desenha()};
-  $("#ok").onclick=()=>{S.fase="pergunta";guarda();desenha()};
+  $("#ok").onclick=()=>{S.fase="pergunta";guarda();desenha(); if(TOKEN) api({acao:"consentir",nome:S.nome}).catch(()=>{})};
   val();
 }
 
 const IC={play:'<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>',pausa:'<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>',
   regrava:'<svg viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>'};
+let confirma=false, tConf=null;
 function pergunta(){
   const it=P[S.i], b=BLOCOS[it.b], r=S.resp[S.i], grav=!!G, temAudio=!!BLOBS[S.i];
   const doBloco=P.map((x,k)=>k).filter(k=>P[k].b===it.b), pos=doBloco.indexOf(S.i)+1;
@@ -268,7 +318,8 @@ function pergunta(){
   <div class="grav">
     <canvas class="onda" id="onda" aria-hidden="true"></canvas>
     <div class="relogio" id="rel">${fmt(grav?0:(r?r.dur:0),true)}</div>
-    <div class="estado ${grav?"rec":""}" aria-live="polite">${grav?(G.sim?"Gravando · prévia sem microfone, a onda é simulada":"Gravando"):r?(r.sim?"Resposta simulada nesta prévia":"Resposta gravada. Ouça, grave de novo ou siga."):"Toque no botão vermelho e comece a falar."}</div>
+    <div class="estado ${grav||confirma?"rec":""}" aria-live="polite">${grav?(G.sim?"Gravando · prévia sem microfone, a onda é simulada":"Gravando"):confirma?"Gravar de novo apaga a resposta anterior. Toque de novo para confirmar.":r?(r.sim?"Resposta simulada nesta prévia":"Resposta gravada. Ouça, grave de novo ou siga."):"Toque no botão vermelho e comece a falar."}</div>
+    <div class="nota" id="nuvem" style="min-height:18px;text-align:center"></div>
     <div class="ctrl">
       <button class="mini esq" id="regrava" type="button" aria-label="Gravar de novo" ${(!r||grav)?"disabled":""}>${IC.regrava}</button>
       <button class="rec-btn ${grav?"on":""}" id="rec" type="button" aria-label="${grav?"Parar a gravação":"Gravar"}"><span></span></button>
@@ -285,13 +336,21 @@ function pergunta(){
     </div>
   </div>`;
   requestAnimationFrame(()=>onda(r&&!grav?r.bars:null,false,0));
-  $("#rec").onclick=()=>grav?para():comeca();
-  $("#regrava").onclick=()=>{ pararToque(); delete S.resp[S.i]; delete BLOBS[S.i]; guarda(); comeca() };
+  const regravar=()=>{ if(!confirma){ confirma=true; clearTimeout(tConf); tConf=setTimeout(()=>{confirma=false; if(!G) desenha()},5000); desenha(); return }
+    confirma=false; clearTimeout(tConf); pararToque(); comeca() };
+  $("#rec").onclick=()=>grav?para():(r?regravar():comeca());
+  $("#regrava").onclick=regravar;
+  marcaNuvem();
   $("#ouvir").onclick=ouvir;
-  $("#ant").onclick=()=>{pararToque();S.i--;guarda();desenha()};
-  $("#prox").onclick=()=>{pararToque(); if(S.i===P.length-1){S.fase="fim"} else S.i++; guarda(); desenha()};
+  $("#ant").onclick=()=>{pararToque();confirma=false;S.i--;guarda();desenha()};
+  $("#prox").onclick=()=>{pararToque();confirma=false; if(S.i===P.length-1){S.fase="fim"} else S.i++; guarda(); desenha()};
 }
 
+function textoFim(){
+  const ks=Object.keys(S.resp).map(Number), ok=ks.filter(k=>S.resp[k].nuvem==="ok").length, falta=ks.length-ok;
+  return falta?`<strong style="color:var(--fg)">${ok} de ${ks.length} respostas já estão na Mimetica.</strong> As outras ${falta} sobem sozinhas quando houver internet. Deixe esta página aberta um pouco.`
+    :`<strong style="color:var(--fg)">Todas as ${ks.length} respostas estão guardadas na Mimetica.</strong> Pode fechar a página.`;
+}
 function fim(){
   const ks=Object.keys(S.resp).map(Number), total=ks.reduce((s,k)=>s+S.resp[k].dur,0);
   const faltam=P.map((p,k)=>k).filter(k=>P[k].principal&&!S.resp[k]);
@@ -304,10 +363,11 @@ function fim(){
   </div>
   ${faltam.length?`<div class="aviso">Faltam ${faltam.length} ${faltam.length>1?"temas principais":"tema principal"}. Toque na linha para voltar e gravar.</div>`:""}
   <div class="lista">${P.map((p,k)=>{const r=S.resp[k];return `<button type="button" class="lin ${r?"":"falta"}" data-k="${k}" style="background:transparent;text-align:left">
-    <span class="t">${p.principal?"":"↳ "}${p.principal?BLOCOS[p.b].t:p.t}</span><span class="d">${r?fmt(r.dur):p.principal?"falta":"pulada"}</span><span class="rot">${r?"✓":""}</span></button>`}).join("")}</div>
+    <span class="t">${p.principal?"":"↳ "}${p.principal?BLOCOS[p.b].t:p.t}</span><span class="d">${r?fmt(r.dur):p.principal?"falta":"pulada"}</span><span class="rot">${r?(TOKEN&&r.nuvem!=="ok"?"…":"✓"):""}</span></button>`}).join("")}</div>
   <div class="rodape">
-    <button class="btn cheio largo" id="env" type="button" ${ks.some(k=>BLOBS[k])?"":"disabled"}>Baixar as gravações</button>
-    <p class="nota" id="st">Na versão ligada ao banco, cada resposta sobe sozinha para o armazenamento privado da Mimetica assim que você toca em parar, e este botão vira "Enviar".</p>
+    <div class="aviso" id="nv-fim" style="${TOKEN?"":"display:none"}">${textoFim()}</div>
+    <button class="btn ${TOKEN?"":"cheio"} largo" id="env" type="button" ${ks.some(k=>BLOBS[k])?"":"disabled"}>Baixar uma cópia das gravações</button>
+    <p class="nota" id="st">${TOKEN?"A cópia é só uma reserva. Você não precisa enviar nada.":"Baixe o arquivo e envie para o Geraldo."}</p>
     <button class="btn txt" id="apaga" type="button">Apagar tudo deste aparelho</button>
   </div>`;
   app.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{S.i=+b.dataset.k;S.fase="pergunta";guarda();desenha()});
@@ -333,7 +393,7 @@ async function baixa(){
 
 window.addEventListener("resize",()=>{ if(S.fase==="pergunta"&&!G){ const r=S.resp[S.i]; onda(r?r.bars:null,false,0) } });
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>S.fase==="pergunta"&&desenha());
-carregaBlobs().then(desenha);
+carregaBlobs().then(()=>{ desenha(); conecta() });
 desenha();
 </script>
 </body></html>
