@@ -24,7 +24,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--texto);outline-offs
 .topo{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
   padding:calc(env(safe-area-inset-top,0px) + 18px) max(22px,env(safe-area-inset-right,0px)) 0 max(22px,env(safe-area-inset-left,0px));pointer-events:none}
 .topo>*{pointer-events:auto}
-.logo{height:26px;width:auto;display:block}
+.logo{height:26px;width:auto;display:block;flex:none;align-self:center;object-fit:contain}
+.cel-tela .logo{height:16px;width:auto;align-self:flex-start}
 .voltar{font-size:13px;color:var(--sub);text-decoration:none;border:1px solid var(--linha);border-radius:999px;padding:6px 14px;background:rgba(245,244,240,.8)}
 .voltar:hover{color:var(--texto);border-color:var(--texto)}
 .barra{position:fixed;left:0;right:0;top:0;height:3px;z-index:11;background:transparent}
@@ -40,7 +41,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--texto);outline-offs
 .cont{font-family:var(--f-mono);font-size:13px;color:var(--sub)}
 
 /* telas */
-.tela{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+.tela{position:fixed;inset:0;display:flex;align-items:flex-start;justify-content:center;
   padding:88px max(28px,env(safe-area-inset-right,0px)) 84px max(28px,env(safe-area-inset-left,0px));
   opacity:0;visibility:hidden;transform:translateX(24px);transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s;overflow-y:auto}
 .tela.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease,visibility 0s}
@@ -62,7 +63,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 
 /* capa */
 .capa{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-#cabeca{width:100%;max-width:460px;aspect-ratio:420/540;display:block;margin-left:auto}
+#cabeca{width:100%;max-width:470px;aspect-ratio:840/1000;display:block;margin-left:auto;background:var(--preto);border-radius:28px}
 
 /* celular */
 .cel{width:300px;max-width:100%;aspect-ratio:9/18.5;background:var(--preto);border-radius:44px;padding:14px;margin:0 auto;box-shadow:0 30px 60px -30px rgba(12,12,14,.45)}
@@ -82,17 +83,12 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 @keyframes toque{30%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
 
 /* temas */
-.temas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
-.tema{text-align:left;border:1px solid var(--linha);background:var(--papel);border-radius:14px;padding:16px;min-height:118px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s}
-.tema:hover{border-color:var(--texto)}
-.tema .n{font-family:var(--f-mono);font-size:12px;color:var(--fraco)}
-.tema .t{font-family:var(--f-titulo);font-weight:600;font-size:18px;line-height:1.2}
-.tema .q{font-size:14px;color:var(--sub);display:none}
-.tema .x{font-size:13px;color:var(--fraco);display:none}
-.tema.aberto{border-color:var(--texto)}
-.tema.aberto .q,.tema.aberto .x{display:block}
+.temas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.tema{text-align:left;border:1px solid var(--linha);background:var(--papel);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;opacity:.15;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.tema.v{opacity:1;transform:none}
+.tema .n{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
+.tema .q{font-family:var(--f-titulo);font-size:15px;line-height:1.3;font-weight:500;color:var(--texto)}
 .tema .chip{align-self:flex-start;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:1px 8px;color:var(--sub);margin-top:auto}
-.tema.ex .chip{border-color:var(--texto);color:var(--texto)}
 
 /* camadas */
 .camadas{display:flex;flex-direction:column;gap:12px}
@@ -116,7 +112,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
 .caixa-preta>*:not(canvas){position:relative}
 .saida{background:var(--papel);border:1px solid var(--texto);border-radius:16px;padding:18px;text-align:center}
-.saida canvas{width:110px;height:140px;display:block;margin:0 auto 8px}
+.saida canvas{width:132px;height:157px;display:block;margin:0 auto 10px;background:var(--preto);border-radius:14px}
 .saida b{font-family:var(--f-titulo);font-size:18px}
 
 /* teste */
@@ -154,7 +150,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .grande{font-family:var(--f-titulo);font-size:clamp(56px,7vw,96px);font-weight:700;letter-spacing:-.04em;line-height:1}
 
 /* população */
-#povo{width:100%;max-width:560px;aspect-ratio:1.25;display:block;margin-left:auto}
+#povoCanvas{width:100%;max-width:560px;aspect-ratio:1.25;display:block;margin-left:auto}
 .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .btn{border:1px solid var(--texto);border-radius:999px;padding:12px 20px;font-size:15px;text-decoration:none;font-weight:600;background:var(--texto);color:var(--osso)}
 .btn.claro{background:transparent;color:var(--texto);font-weight:500}
@@ -165,7 +161,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   .temas{grid-template-columns:1fr 1fr}
   .fluxo{grid-template-columns:1fr;gap:10px}
   .seta{transform:rotate(90deg);justify-self:center}
-  #cabeca,#povo{margin:0 auto;max-width:320px}
+  #cabeca,#povoCanvas{margin:0 auto;max-width:320px}
   .cel{width:250px}
   .tela{padding-top:76px;align-items:flex-start}
 }
@@ -187,7 +183,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
       <h1 class="aparece d1" style="margin-top:14px">Como nasce o gêmeo de uma pessoa.</h1>
       <p class="lead aparece d2">Antes de simular uma população inteira, a Mimetica aprende como pessoas reais pensam e decidem. Este é o caminho, passo a passo.</p>
     </div>
-    <canvas id="cabeca" width="840" height="1080" aria-hidden="true"></canvas>
+    <canvas id="cabeca" width="840" height="1000" aria-hidden="true"></canvas>
   </div>
 </section>
 
@@ -206,7 +202,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     </div>
     <div class="cel aparece d2" aria-label="Tela de gravação no celular">
       <div class="cel-tela">
-        <img class="logo" src="__LE__" alt="" style="height:16px">
+        <img class="logo" src="__LE__" alt="">
         <div class="cel-prog"><i class="at"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="rot" style="font-size:9px">Tema 1 · História de vida</div>
         <h4>Me conte a história da sua vida, da infância até hoje.</h4>
@@ -227,9 +223,9 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   <div class="miolo">
     <div class="rot aparece">Passo 2 · O roteiro</div>
     <h2 class="aparece d1" style="margin-top:14px">Nove temas da vida de uma pessoa.</h2>
-    <p class="lead aparece d2" style="max-width:62ch">Cada tema tem uma pergunta principal e aprofundamentos que puxam escolhas reais. Toque nos temas marcados para ver um exemplo.</p>
-    <div class="temas aparece d3" id="temas"></div>
-    <p class="nota">26 perguntas no total. O roteiro completo é proprietário da Mimetica.</p>
+    <p class="lead aparece d2" style="max-width:62ch">Em cada tema, uma pergunta abre a conversa e os aprofundamentos puxam histórias e escolhas reais.</p>
+    <div class="temas aparece d3" id="gradeTemas"></div>
+    <p class="nota">26 perguntas no total, contando os aprofundamentos.</p>
   </div>
 </section>
 
@@ -261,7 +257,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
       <span class="seta">→</span>
       <div class="caixa-preta"><canvas id="ruido" width="600" height="400"></canvas><span class="rot">Etapa proprietária</span><h3>Modelo fundacional da Mimetica</h3><span style="font-size:14px;color:var(--escurosub)">Treinado no comportamento do brasileiro</span></div>
       <span class="seta">→</span>
-      <div class="saida"><canvas id="gemeoMini" width="220" height="280" aria-hidden="true"></canvas><b>O gêmeo digital</b><div style="font-size:14px;color:var(--sub)">Responde como a pessoa responderia</div></div>
+      <div class="saida"><canvas id="gemeoMini" width="264" height="314" aria-hidden="true"></canvas><b>O gêmeo digital</b><div style="font-size:14px;color:var(--sub)">Responde como a pessoa responderia</div></div>
     </div>
     <p class="nota aparece d3">O gêmeo nunca vê as perguntas usadas para testá-lo.</p>
   </div>
@@ -317,7 +313,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
       <p class="lead aparece d2">Cada gêmeo testado ensina ao modelo como o brasileiro decide de verdade. É esse aprendizado que faz um gêmeo do Brasil responder como o Brasil.</p>
       <div class="cta aparece d3"><a class="btn" href="https://mimetica.institute/apoio/">Voltar à apresentação</a><button class="btn claro" type="button" id="denovo">Ver de novo</button></div>
     </div>
-    <canvas id="povo" width="1120" height="896" aria-hidden="true"></canvas>
+    <canvas id="povoCanvas" width="1120" height="896" aria-hidden="true"></canvas>
   </div>
 </section>
 
@@ -338,26 +334,34 @@ const limpa=()=>{ timers.forEach(clearTimeout); timers=[]; Object.values(rafs).f
 const depois=(ms,f)=>timers.push(setTimeout(f,reduz?0:ms));
 function rnd(s){ return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646 } }
 
-// ---------- cabeça de perfil em pontos ----------
-function perfil(p){
-  p.moveTo(300,520); p.bezierCurveTo(292,480,286,450,292,420);
-  p.bezierCurveTo(350,370,372,260,350,170); p.bezierCurveTo(330,80,250,30,170,40);
-  p.bezierCurveTo(110,48,78,100,78,160); p.bezierCurveTo(78,180,82,192,74,205);
-  p.bezierCurveTo(60,228,42,256,34,276); p.bezierCurveTo(30,288,44,294,62,296);
-  p.bezierCurveTo(60,306,58,312,66,318); p.bezierCurveTo(56,326,58,334,68,338);
-  p.bezierCurveTo(62,346,60,354,70,362); p.bezierCurveTo(64,382,72,400,100,410);
-  p.bezierCurveTo(130,418,150,420,165,425); p.bezierCurveTo(170,460,168,490,160,520); p.closePath();
-}
-const CAB=(()=>{ const path=new Path2D(); perfil(path); const c=document.createElement("canvas"), t=c.getContext("2d"); const pts=[]; const R=rnd(11);
-  for(let i=20;i<400;i+=11) for(let j=30;j<530;j+=11) if(t.isPointInPath(path,i,j)) pts.push({x:i,y:j,sx:R()*420,sy:R()*540,d:R()*0.6});
-  return pts })();
-function cabeca(id,cor,prog,esc){ const c=document.getElementById(id); if(!c) return; const x=c.getContext("2d"), W=c.width, H=c.height, k=Math.min(W/420,H/540)*(esc||1);
-  x.clearRect(0,0,W,H); x.fillStyle=cor;
-  for(const p of CAB){ const t=Math.max(0,Math.min(1,(prog-p.d)/0.4)); const e=1-Math.pow(1-t,3);
-    const px=(p.sx+(p.x-p.sx)*e)*k+(W-420*k)/2, py=(p.sy+(p.y-p.sy)*e)*k+(H-540*k)/2;
-    x.globalAlpha=0.15+0.85*e; x.beginPath(); x.arc(px,py,(2.2)*k*(0.6+0.4*e),0,7); x.fill() }
-  x.globalAlpha=1 }
-function animaCabeca(id,cor,dur){ const t0=performance.now(); const f=now=>{ const p=Math.min(1,(now-t0)/dur); cabeca(id,cor,p*1.05); if(p<1) rafs[id]=requestAnimationFrame(f) }; if(reduz) cabeca(id,cor,1.05); else rafs[id]=requestAnimationFrame(f) }
+// ---------- o gêmeo: mesma silhueta e mesmas camadas da apresentação institucional ----------
+const D_FULL="M730.604,1818.587c-190.833,-114.167 -402.5,55 -593.333,-59.163c36.842,-113.592 56.017,-609.704 62.5,-726.671c-120.904,-93.425 -206.667,-204.871 -197.5,-365c13.517,-324.433 210.646,-473.067 537.5,-497.5c222.119,-4.834 391.724,49.752 480.092,196.266c29.159,48.346 49.472,106.701 59.908,176.234c15.833,44.167 31.667,88.333 47.5,132.504c3.021,16.104 -17.417,27.512 -32.5,39.996c21.458,80.625 63.542,138.125 85,225c-11.462,33.388 -45.029,35.2 -80,35c-7.754,32.392 -8.917,64.279 5,95c-1.35,12.796 -19.296,18.95 -37.5,25.004c15.275,17.471 26.45,37.488 17.5,69.996c-7.842,4.55 -16.321,2.125 -25,-2.5c-4.167,14.167 -8.333,28.337 -12.5,42.5c69.483,41.667 34.938,150.208 -52.5,125c-55.883,-15.871 -122.387,-15.058 -190,-12.5c-12.612,112.388 -71.183,178.817 -117.5,257.5c-3.95,52.517 23.692,195.875 43.333,243.333Zm80.079,-1539.729c32.079,-0 58.933,22.379 65.8,52.375c2.183,-0.329 4.421,-0.5 6.7,-0.5c24.508,0 44.375,19.867 44.375,44.375c0,4.429 -0.65,8.704 -1.858,12.742c20.308,4.071 35.608,22 35.608,43.508c0,12.042 -4.8,22.962 -12.587,30.958c18.788,5.163 32.588,22.367 32.588,42.792c0,9.312 -2.871,17.95 -7.771,25.087c16.279,6.575 27.771,22.525 27.771,41.162c0,14.438 -6.896,27.263 -17.575,35.367c12.088,7.929 20.075,21.596 20.075,37.133c0,24.508 -19.867,44.375 -44.375,44.375c-8.129,0 -15.746,-2.188 -22.3,-6.004c-5.275,18.617 -22.396,32.254 -42.7,32.254c-5.671,0 -11.092,-1.067 -16.079,-3.004c-7.092,15.071 -22.412,25.504 -40.171,25.504c-16.912,0 -31.613,-9.462 -39.1,-23.379c-6.729,15.942 -22.508,27.129 -40.9,27.129c-9.979,0 -19.192,-3.296 -26.604,-8.858c-4.263,20.058 -22.075,35.108 -43.404,35.108c-12.996,0 -24.683,-5.588 -32.796,-14.487c-145.979,150.696 -184.867,350.817 -198.467,562.613c-5,-16.667 -10,-33.333 -15,-50c-4.167,19.167 -8.333,38.333 -12.5,57.5c7.467,-132.783 8.521,-265.567 -7.246,-398.35c-2.117,-0.675 -4.163,-1.504 -6.125,-2.475c-6.267,16.904 -22.533,28.95 -41.617,28.95c-9.983,0 -19.192,-3.296 -26.604,-8.854c-7.858,7.058 -18.25,11.354 -29.646,11.354c-17.921,0 -33.354,-10.621 -40.362,-25.908c-6.517,3.758 -14.075,5.908 -22.138,5.908c-24.508,0 -44.375,-19.867 -44.375,-44.375c0,-1.5 0.075,-2.987 0.221,-4.45c-11.558,-2.079 -21.563,-8.633 -28.154,-17.808c-2.367,0.492 -4.821,0.75 -7.338,0.75c-19.846,0 -35.938,-16.088 -35.938,-35.938c0,-6.158 1.55,-11.958 4.283,-17.025c-18.654,-1.308 -33.383,-16.858 -33.383,-35.846c0,-8.225 2.767,-15.804 7.417,-21.858c-11.125,-8.067 -18.358,-21.158 -18.358,-35.95c0,-7.454 1.842,-14.483 5.092,-20.654c-14.846,-7.175 -25.083,-22.375 -25.083,-39.971c0,-17.888 10.583,-33.304 25.833,-40.325c-1.758,-5.833 -2.708,-12.021 -2.708,-18.425c0,-15.162 5.292,-29.083 14.129,-40.025c-10.85,-8.091 -17.879,-21.025 -17.879,-35.6c0,-22.921 17.375,-41.779 39.675,-44.129c-2.204,-5.267 -3.425,-11.05 -3.425,-17.121c0,-24.508 19.867,-44.375 44.375,-44.375c0.883,0 1.758,0.029 2.629,0.079c-1.7,-4.708 -2.629,-9.783 -2.629,-15.079c0,-24.508 19.867,-44.375 44.375,-44.375c4.654,0 9.142,0.717 13.363,2.046c-0.971,-3.646 -1.487,-7.475 -1.487,-11.421c0,-24.508 19.867,-44.375 44.375,-44.375c8.55,0 16.533,2.421 23.308,6.608c2.029,-22.625 21.038,-40.358 44.192,-40.358c10.425,0 20.013,3.596 27.588,9.617c3.767,-20.687 21.879,-36.371 43.65,-36.371c12.867,0 24.45,5.475 32.55,14.221c8.042,-11.325 21.262,-18.717 36.212,-18.717c13.279,0 25.192,5.829 33.325,15.071c7.788,-12.783 21.858,-21.321 37.925,-21.321c16.746,0 31.321,9.275 38.875,22.967c8.104,-10.704 20.946,-17.621 35.404,-17.621c13.308,0 25.246,5.858 33.379,15.137c8.092,-8.55 19.542,-13.888 32.246,-13.888c14.433,0 27.25,6.892 35.354,17.558c5.992,-3.012 12.758,-4.712 19.921,-4.712c17.779,0 33.117,10.458 40.196,25.563c5.092,-1.229 10.404,-1.879 15.875,-1.879Z";
+const D_HEAD="M730.604,1818.587c-190.833,-114.167 -402.5,55 -593.333,-59.163c36.842,-113.592 56.017,-609.704 62.5,-726.671c-120.904,-93.425 -206.667,-204.871 -197.5,-365c13.517,-324.433 210.646,-473.067 537.5,-497.5c222.119,-4.834 391.724,49.752 480.092,196.266c29.159,48.346 49.472,106.701 59.908,176.234c15.833,44.167 31.667,88.333 47.5,132.504c3.021,16.104 -17.417,27.512 -32.5,39.996c21.458,80.625 63.542,138.125 85,225c-11.462,33.388 -45.029,35.2 -80,35c-7.754,32.392 -8.917,64.279 5,95c-1.35,12.796 -19.296,18.95 -37.5,25.004c15.275,17.471 26.45,37.488 17.5,69.996c-7.842,4.55 -16.321,2.125 -25,-2.5c-4.167,14.167 -8.333,28.337 -12.5,42.5c69.483,41.667 34.938,150.208 -52.5,125c-55.883,-15.871 -122.387,-15.058 -190,-12.5c-12.612,112.388 -71.183,178.817 -117.5,257.5c-3.95,52.517 23.692,195.875 43.333,243.333Z";
+const HEADP=new Path2D(D_HEAD), FULLP=new Path2D(D_FULL);
+const CELLS=(()=>{ const off=document.createElement("canvas"); off.width=1184; off.height=1900; const oc=off.getContext("2d"); const r=rnd(11), sp=23, out=[];
+  for(let y=220;y<1340;y+=sp*.87){ const row=Math.round(y/(sp*.87));
+    for(let x=60;x<1040;x+=sp){ const px=x+(row%2)*sp/2, py=y;
+      if(!oc.isPointInPath(HEADP,px,py)||oc.isPointInPath(FULLP,px,py,"evenodd")) continue;
+      let borda=false; for(const [dx,dy] of [[9,0],[-9,0],[0,9],[0,-9]]) if(oc.isPointInPath(FULLP,px+dx,py+dy,"evenodd")) borda=true; if(borda) continue;
+      let layer; if(py>930) layer="seed"; else if(r()<.12) layer="seed"; else if(px>700) layer="quant"; else if(py<540) layer="antrop"; else layer="prob";
+      out.push({x:px,y:py,layer,j:r()}) } }
+  const anc={quant:[980,560],antrop:[420,240],prob:[120,700],seed:[450,1300]};
+  out.forEach(c=>{ const [ax,ay]=anc[c.layer]; c.delay=Math.hypot(c.x-ax,c.y-ay)*1.35+c.j*160 });
+  return out })();
+const MAXD=Math.max(...CELLS.map(c=>c.delay))+300;
+function gemeo(id,ms){ const cv=document.getElementById(id); if(!cv) return; const ctx=cv.getContext("2d"), W=cv.width, H=cv.height;
+  const k=Math.min(W/1240,H/1560), ox=(W-1184*k)/2+20*k, oy=H-1500*k; const S=2.4, now=performance.now()/1000;
+  ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,W,H); ctx.save(); ctx.translate(ox,oy); ctx.scale(k,k);
+  ctx.fillStyle="#1F1F23"; ctx.fill(HEADP); ctx.fillStyle="#141417"; ctx.fill(FULLP,"evenodd");
+  ctx.fillStyle="rgba(245,244,240,.08)"; ctx.beginPath(); CELLS.forEach(c=>{ ctx.moveTo(c.x+2.3*S,c.y); ctx.arc(c.x,c.y,2.3*S,0,7) }); ctx.fill();
+  for(const c of CELLS){ const v=Math.max(0,Math.min(1,(ms-c.delay)/260)); if(v<=0) continue; const e=1-Math.pow(1-v,3); ctx.globalAlpha=e;
+    if(c.layer==="quant"){ ctx.fillStyle="#F5F4F0"; ctx.beginPath(); ctx.arc(c.x,c.y,(2.2+1.1*e)*S,0,7); ctx.fill() }
+    else if(c.layer==="antrop"){ ctx.strokeStyle="#E4E2DC"; ctx.lineWidth=1.2*S; ctx.beginPath(); ctx.arc(c.x,c.y,3.1*S,0,7); ctx.stroke() }
+    else if(c.layer==="prob"){ const f=.35+.65*(.5+.5*Math.sin(now*2.2+c.j*12)); ctx.globalAlpha=e*f; ctx.fillStyle="#C9C7C0"; ctx.beginPath(); ctx.arc(c.x,c.y,3*S,0,7); ctx.fill() }
+    else { ctx.fillStyle="#FFFFFF"; ctx.fillRect(c.x-3*S,c.y-3*S,6*S,6*S) } }
+  ctx.globalAlpha=1; ctx.lineJoin="round"; ctx.lineWidth=1.6/k; ctx.strokeStyle="rgba(245,244,240,.8)"; ctx.stroke(FULLP); ctx.restore() }
+function animaCabeca(id){ const t0=performance.now(); const f=now=>{ const ms=reduz?MAXD:now-t0; gemeo(id,ms); rafs[id]=requestAnimationFrame(f) }; rafs[id]=requestAnimationFrame(f) }
+function cabeca(id){ gemeo(id,0) }
 
 // ---------- celular gravando ----------
 function celular(){
@@ -379,16 +383,20 @@ function celular(){
 }
 
 // ---------- temas ----------
-const TEMAS=[["História de vida","Me conte a história da sua vida, da infância até hoje: onde cresceu, a família, o trabalho e os acontecimentos que mudaram o seu rumo.",true],
- ["O dia a dia"],["Relações"],["Trabalho e carreira"],
- ["Dinheiro e consumo","Me conte a última compra grande que você fez. Como chegou à escolha?",true],
- ["Lugar onde vive"],["Valores e crenças","Uma ideia em que você acreditava há dez anos e mudou.",true],["Identidade e sentido"],["Fechamento"]];
-function montaTemas(){ $("#temas").innerHTML=TEMAS.map(([t,q,ex],i)=>`<button type="button" class="tema ${ex?"ex":""}" data-i="${i}">
-  <span class="n">${String(i+1).padStart(2,"0")}</span><span class="t">${t}</span>
-  ${ex?`<span class="q">“${q}”</span>`:`<span class="x">Pergunta reservada.</span>`}<span class="chip">${ex?"Ver exemplo":"Reservado"}</span></button>`).join("");
-  document.querySelectorAll(".tema").forEach(b=>b.onclick=e=>{ e.stopPropagation(); b.classList.toggle("aberto") }) }
+const TEMAS=[["História de vida","Me conte a história da sua vida, da infância até hoje: onde cresceu, a família, o trabalho e os acontecimentos que mudaram o seu rumo.",2],
+ ["O dia a dia","Me descreva um dia normal seu, da hora em que acorda até a hora em que dorme.",2],
+ ["Relações","Quem são as pessoas mais importantes da sua vida hoje, e como é a relação com cada uma?",2],
+ ["Trabalho e carreira","Qual foi a decisão mais difícil da sua carreira, e como você decidiu?",2],
+ ["Dinheiro e consumo","Me conte a última compra grande que você fez. Como chegou à escolha?",3],
+ ["Lugar onde vive","Me fale da cidade e do bairro onde você mora. Por que escolheu viver aí?",1],
+ ["Valores e crenças","Uma ideia em que você acreditava há dez anos e mudou.",3],
+ ["Identidade e sentido","Se alguém tivesse que te descrever em três palavras, quais seriam? E quais você escolheria?",2],
+ ["Fechamento","Tem alguma coisa importante sobre você que eu não perguntei?",0]];
+function montaTemas(){ $("#gradeTemas").innerHTML=TEMAS.map(([t,q,a],i)=>`<div class="tema">
+  <span class="n">${String(i+1).padStart(2,"0")} · ${t}</span><span class="q">“${q}”</span>
+  <span class="chip">${a?`+ ${a} ${a>1?"aprofundamentos":"aprofundamento"}`:"encerra a conversa"}</span></div>`).join("") }
 montaTemas();
-function temas(){ document.querySelectorAll(".tema").forEach(b=>b.classList.remove("aberto")); depois(1600,()=>document.querySelector('.tema[data-i="0"]').classList.add("aberto")) }
+function temas(){ const els=[...document.querySelectorAll(".tema")]; els.forEach(e=>e.classList.remove("v")); els.forEach((e,i)=>depois(250+i*120,()=>e.classList.add("v"))) }
 
 // ---------- camadas ----------
 function camadas(){ const s=[...document.querySelectorAll("#esc1 span")]; s.forEach(e=>e.classList.remove("on")); depois(1300,()=>s[5].classList.add("on")) }
@@ -396,7 +404,7 @@ function camadas(){ const s=[...document.querySelectorAll("#esc1 span")]; s.forE
 // ---------- construção ----------
 function construcao(){ const c=$("#ruido"), x=c.getContext("2d"); const R=rnd(5); const ps=Array.from({length:70},()=>({x:R()*c.width,y:R()*c.height,v:.3+R()*.9}));
   const f=()=>{ x.clearRect(0,0,c.width,c.height); x.fillStyle="#F5F4F0"; for(const p of ps){ p.x+=p.v; if(p.x>c.width) p.x=0; x.beginPath(); x.arc(p.x,p.y,1.6,0,7); x.fill() } rafs.ruido=requestAnimationFrame(f) };
-  if(!reduz) f(); cabeca("gemeoMini","#1D1D1B",0); depois(900,()=>animaCabeca("gemeoMini","#1D1D1B",2200)) }
+  if(!reduz) f(); cabeca("gemeoMini"); depois(900,()=>animaCabeca("gemeoMini")) }
 
 // ---------- teste ----------
 const ITENS=[{b:"Dinheiro",p:"Você prefere R$ 800 garantidos ou 50% de chance de ganhar R$ 2.000?",pes:"R$ 800 garantidos",gem:"R$ 800 garantidos",s:1},
@@ -418,7 +426,7 @@ function numero(){ document.querySelectorAll(".br .trilho b").forEach(b=>b.style
     const t0=performance.now(); const f=now=>{ const p=Math.min(1,(now-t0)/1200); el.textContent=(0.85*(1-Math.pow(1-p,3))).toFixed(2).replace(".",","); if(p<1) rafs.idx=requestAnimationFrame(f) }; rafs.idx=requestAnimationFrame(f) }) }
 
 // ---------- população ----------
-function povo(){ const c=$("#povo"), x=c.getContext("2d"), W=c.width, H=c.height; const R=rnd(9); const N=520;
+function povo(){ const c=$("#povoCanvas"), x=c.getContext("2d"), W=c.width, H=c.height; const R=rnd(9); const N=520;
   const alvo=Array.from({length:N},()=>{ let px,py; do{ px=R(); py=R() } while(((px-.5)**2)/.25+((py-.5)**2)/.2>1); return {x:px*W,y:py*H,r:2+R()*2.5,a:.25+R()*.75} });
   const t0=performance.now(); const f=now=>{ const p=Math.min(1,(now-t0)/2600), e=1-Math.pow(1-p,3); x.clearRect(0,0,W,H);
     for(let i=0;i<N;i++){ const q=alvo[i]; const sx=W/2, sy=H/2; x.globalAlpha=q.a*Math.min(1,e*1.4); x.fillStyle="#1D1D1B"; x.beginPath(); x.arc(sx+(q.x-sx)*e,sy+(q.y-sy)*e,q.r,0,7); x.fill() }
@@ -426,10 +434,11 @@ function povo(){ const c=$("#povo"), x=c.getContext("2d"), W=c.width, H=c.height
     if(p<1) rafs.povo=requestAnimationFrame(f) };
   if(reduz){ const save=performance.now; } rafs.povo=requestAnimationFrame(f) }
 
-const ENTRA={capa:()=>animaCabeca("cabeca","#1D1D1B",2400),conversa:celular,temas,camadas,construcao,teste,numero,povo};
+const ENTRA={capa:()=>animaCabeca("cabeca"),conversa:celular,temas,camadas,construcao,teste,numero,povo};
 
 function vai(i){ if(i<0||i>=TELAS.length) return; limpa();
   TELAS.forEach((t,k)=>{ t.classList.toggle("on",k===i); t.classList.toggle("antes",k<i); t.setAttribute("aria-hidden",k===i?"false":"true") });
+  TELAS[i].scrollTop=0;
   atual=i; $("#cont").textContent=String(i+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
   $("#barra").style.width=((i+1)/TELAS.length*100)+"%"; $("#ant").disabled=i===0; $("#prox").disabled=i===TELAS.length-1;
   try{ history.replaceState(null,"","#"+TELAS[i].dataset.t) }catch(e){}
@@ -438,8 +447,9 @@ $("#prox").onclick=e=>{ e.stopPropagation(); vai(atual+1) };
 $("#ant").onclick=e=>{ e.stopPropagation(); vai(atual-1) };
 $("#denovo").onclick=e=>{ e.stopPropagation(); vai(0) };
 document.addEventListener("keydown",e=>{ if(["ArrowRight","PageDown"," ","Enter"].includes(e.key)){ e.preventDefault(); vai(atual+1) } else if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); vai(atual-1) } });
-document.addEventListener("click",e=>{ if(e.target.closest("a,button,.tema")) return; if(matchMedia("(max-width:900px)").matches) return; (e.clientX>innerWidth*.35)?vai(atual+1):vai(atual-1) });
+document.addEventListener("click",e=>{ if(e.target.closest("a,button")) return; if(matchMedia("(max-width:900px)").matches) return; (e.clientX>innerWidth*.35)?vai(atual+1):vai(atual-1) });
 let sx=null; document.addEventListener("touchstart",e=>{ sx=e.touches[0].clientX },{passive:true});
 document.addEventListener("touchend",e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) vai(atual+(dx<0?1:-1)); sx=null });
 const ini=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); vai(ini>=0?ini:0);
+addEventListener("hashchange",()=>{ const i=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); if(i>=0&&i!==atual) vai(i) });
 </script>
