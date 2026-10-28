@@ -1,0 +1,445 @@
+<title>Como nasce o gêmeo de uma pessoa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: uma tela por vez, avanço por clique, mesmo visual da apresentação institucional (osso e preto).
+   Visual único e deliberado, claro, como a /apoio. */
+:root{
+  --osso:#F5F4F0; --papel:#FFFFFF; --preto:#0C0C0E; --texto:#1D1D1B; --sub:#6B6A65; --fraco:#A6A49D; --linha:#DCDAD3; --vazio:#E7E5DF;
+  --rec:#E0352B; --escuro2:#18181B; --escurolinha:#2C2C30; --escurosub:#9C9B96;
+  --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--osso);color:var(--texto);font-family:var(--f-corpo);font-size:16px;line-height:1.5;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--texto);outline-offset:3px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+
+/* moldura */
+.topo{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:calc(env(safe-area-inset-top,0px) + 18px) max(22px,env(safe-area-inset-right,0px)) 0 max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.topo>*{pointer-events:auto}
+.logo{height:26px;width:auto;display:block}
+.voltar{font-size:13px;color:var(--sub);text-decoration:none;border:1px solid var(--linha);border-radius:999px;padding:6px 14px;background:rgba(245,244,240,.8)}
+.voltar:hover{color:var(--texto);border-color:var(--texto)}
+.barra{position:fixed;left:0;right:0;top:0;height:3px;z-index:11;background:transparent}
+.barra b{display:block;height:100%;background:var(--texto);width:0;transition:width .4s ease}
+.rodape{position:fixed;inset:auto 0 0 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:0 max(22px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.rodape>*{pointer-events:auto}
+.nav{display:flex;gap:8px}
+.nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--linha);background:var(--papel);display:grid;place-items:center}
+.nav button:hover:not(:disabled){border-color:var(--texto)}
+.nav button:disabled{opacity:.3;cursor:default}
+.nav svg{width:16px;height:16px;fill:var(--texto)}
+.cont{font-family:var(--f-mono);font-size:13px;color:var(--sub)}
+
+/* telas */
+.tela{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  padding:88px max(28px,env(safe-area-inset-right,0px)) 84px max(28px,env(safe-area-inset-left,0px));
+  opacity:0;visibility:hidden;transform:translateX(24px);transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s;overflow-y:auto}
+.tela.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease,visibility 0s}
+.tela.antes{transform:translateX(-24px)}
+.miolo{width:100%;max-width:1180px;margin:auto 0}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+h1,h2{font-family:var(--f-titulo);font-weight:700;letter-spacing:-.03em;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6.2vw,84px);line-height:1}
+h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
+.lead{font-size:clamp(17px,1.6vw,21px);color:var(--sub);max-width:46ch;margin:22px 0 0}
+.pontos{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;max-width:46ch}
+.pontos li{display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:16px}
+.pontos li b{font-family:var(--f-mono);font-weight:500;color:var(--texto)}
+.pontos li span{color:var(--sub)}
+.nota{font-size:12px;color:var(--fraco);margin-top:18px}
+.aparece{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+.tela.on .aparece{opacity:1;transform:none}
+.tela.on .aparece.d1{transition-delay:.15s}.tela.on .aparece.d2{transition-delay:.3s}.tela.on .aparece.d3{transition-delay:.45s}.tela.on .aparece.d4{transition-delay:.6s}
+
+/* capa */
+.capa{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+#cabeca{width:100%;max-width:460px;aspect-ratio:420/540;display:block;margin-left:auto}
+
+/* celular */
+.cel{width:300px;max-width:100%;aspect-ratio:9/18.5;background:var(--preto);border-radius:44px;padding:14px;margin:0 auto;box-shadow:0 30px 60px -30px rgba(12,12,14,.45)}
+.cel-tela{width:100%;height:100%;background:var(--osso);border-radius:32px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:12px;overflow:hidden;position:relative}
+.cel-prog{display:flex;gap:3px}.cel-prog i{flex:1;height:3px;border-radius:2px;background:var(--vazio)}.cel-prog i.at{background:var(--rec)}
+.cel h4{margin:0;font-family:var(--f-titulo);font-size:16px;line-height:1.25;font-weight:600}
+.cel .grav{margin-top:auto;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:12px 10px 16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cel canvas{width:100%;height:70px;display:block}
+.cel .rel{font-family:var(--f-mono);font-size:24px}
+.cel .est{font-size:11px;color:var(--sub);min-height:16px}
+.cel .est.r{color:var(--rec)}
+.recb{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--texto);display:grid;place-items:center}
+.recb span{width:44px;height:44px;border-radius:50%;background:var(--rec);transition:all .25s}
+.recb.on span{width:22px;height:22px;border-radius:5px}
+.toque{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(12,12,14,.18);pointer-events:none;opacity:0;transform:scale(.6)}
+.toque.v{animation:toque .6s ease}
+@keyframes toque{30%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
+
+/* temas */
+.temas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
+.tema{text-align:left;border:1px solid var(--linha);background:var(--papel);border-radius:14px;padding:16px;min-height:118px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s}
+.tema:hover{border-color:var(--texto)}
+.tema .n{font-family:var(--f-mono);font-size:12px;color:var(--fraco)}
+.tema .t{font-family:var(--f-titulo);font-weight:600;font-size:18px;line-height:1.2}
+.tema .q{font-size:14px;color:var(--sub);display:none}
+.tema .x{font-size:13px;color:var(--fraco);display:none}
+.tema.aberto{border-color:var(--texto)}
+.tema.aberto .q,.tema.aberto .x{display:block}
+.tema .chip{align-self:flex-start;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:1px 8px;color:var(--sub);margin-top:auto}
+.tema.ex .chip{border-color:var(--texto);color:var(--texto)}
+
+/* camadas */
+.camadas{display:flex;flex-direction:column;gap:12px}
+.cam{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.cam .i{font-family:var(--f-mono);font-size:13px;width:44px;height:44px;border-radius:12px;background:var(--preto);color:var(--osso);display:grid;place-items:center}
+.cam h3{margin:0;font-family:var(--f-titulo);font-size:20px}
+.cam p{margin:4px 0 0;color:var(--sub);font-size:15px}
+.escala{display:flex;gap:6px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.escala span{width:30px;height:30px;border-radius:8px;border:1px solid var(--linha);display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;color:var(--sub)}
+.escala span.on{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.escala small{font-size:12px;color:var(--fraco);margin:0 4px}
+
+/* construção */
+.fluxo{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:16px;align-items:center;margin-top:34px}
+.ent{display:flex;flex-direction:column;gap:10px}
+.ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
+.seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+.caixa-preta{background:var(--preto);color:var(--osso);border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.caixa-preta .rot{color:var(--escurosub)}
+.caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
+.caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.caixa-preta>*:not(canvas){position:relative}
+.saida{background:var(--papel);border:1px solid var(--texto);border-radius:16px;padding:18px;text-align:center}
+.saida canvas{width:110px;height:140px;display:block;margin:0 auto 8px}
+.saida b{font-family:var(--f-titulo);font-size:18px}
+
+/* teste */
+.duelo{display:flex;flex-direction:column;gap:12px}
+.dq{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
+.dq .rot{display:flex;justify-content:space-between;gap:8px}
+.dq h4{margin:8px 0 0;font-family:var(--f-titulo);font-size:20px;line-height:1.2;font-weight:600;min-height:48px}
+.lados{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lado{border:1px solid var(--linha);border-radius:16px;padding:16px;background:var(--papel);min-height:128px;display:flex;flex-direction:column;gap:8px}
+.lado.g{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.lado.g .rot{color:var(--escurosub)}
+.lado .r{font-family:var(--f-titulo);font-size:19px;line-height:1.2;opacity:0;transition:opacity .4s}
+.lado .r.v{opacity:1}
+.lacre{font-family:var(--f-mono);font-size:12px;color:var(--escurosub);word-break:break-all}
+.ver{align-self:flex-start;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;border:1px solid var(--escurolinha);opacity:0;transition:opacity .3s}
+.ver.v{opacity:1}
+.ver.ok{background:var(--osso);color:var(--preto);border-color:var(--osso)}
+.placar{display:flex;align-items:center;gap:14px}
+.placar .trilha{display:flex;gap:5px}
+.placar .trilha i{width:16px;height:16px;border-radius:4px;border:1px solid var(--linha)}
+.placar .trilha i.s1{background:var(--texto);border-color:var(--texto)}
+.placar .trilha i.s05{background:linear-gradient(135deg,var(--fraco) 50%,transparent 50%);border-color:var(--fraco)}
+.placar .trilha i.s0{background:var(--vazio)}
+
+/* índice */
+.formula{display:flex;align-items:center;gap:16px;flex-wrap:nowrap;font-family:var(--f-titulo);font-size:clamp(26px,3vw,40px);font-weight:700;letter-spacing:-.02em;margin-top:28px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;text-align:center;font-size:.5em;line-height:1.2;font-weight:600}
+.frac span:first-child{border-bottom:2px solid currentColor;padding-bottom:5px;margin-bottom:5px}
+.barras{display:flex;flex-direction:column;gap:18px;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:24px}
+.br{display:grid;grid-template-columns:150px 1fr 56px;gap:12px;align-items:center;font-size:15px}
+.br .trilho{height:14px;border-radius:7px;background:var(--vazio);overflow:hidden}
+.br .trilho b{display:block;height:100%;width:0;background:var(--texto);border-radius:7px;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.br.f .trilho b{background:var(--fraco)}
+.br .v{font-family:var(--f-mono);text-align:right}
+.grande{font-family:var(--f-titulo);font-size:clamp(56px,7vw,96px);font-weight:700;letter-spacing:-.04em;line-height:1}
+
+/* população */
+#povo{width:100%;max-width:560px;aspect-ratio:1.25;display:block;margin-left:auto}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{border:1px solid var(--texto);border-radius:999px;padding:12px 20px;font-size:15px;text-decoration:none;font-weight:600;background:var(--texto);color:var(--osso)}
+.btn.claro{background:transparent;color:var(--texto);font-weight:500}
+
+@media (max-width:900px){
+  body{overflow:auto}
+  .dupla,.capa{grid-template-columns:1fr;gap:28px}
+  .temas{grid-template-columns:1fr 1fr}
+  .fluxo{grid-template-columns:1fr;gap:10px}
+  .seta{transform:rotate(90deg);justify-self:center}
+  #cabeca,#povo{margin:0 auto;max-width:320px}
+  .cel{width:250px}
+  .tela{padding-top:76px;align-items:flex-start}
+}
+@media (max-width:520px){ .temas{grid-template-columns:1fr} .lados{grid-template-columns:1fr} .br{grid-template-columns:110px 1fr 48px} .voltar{display:none} }
+@media (prefers-reduced-motion:reduce){ .tela,.aparece,.br .trilho b{transition:none!important} }
+</style>
+
+<div class="barra"><b id="barra"></b></div>
+<header class="topo">
+  <img class="logo" src="__LE__" alt="Mimetica">
+  <a class="voltar" href="https://mimetica.institute/apoio/">Voltar à apresentação</a>
+</header>
+
+<!-- 1. CAPA -->
+<section class="tela" data-t="capa">
+  <div class="miolo capa">
+    <div>
+      <div class="rot aparece">Por dentro do método</div>
+      <h1 class="aparece d1" style="margin-top:14px">Como nasce o gêmeo de uma pessoa.</h1>
+      <p class="lead aparece d2">Antes de simular uma população inteira, a Mimetica aprende como pessoas reais pensam e decidem. Este é o caminho, passo a passo.</p>
+    </div>
+    <canvas id="cabeca" width="840" height="1080" aria-hidden="true"></canvas>
+  </div>
+</section>
+
+<!-- 2. A CONVERSA -->
+<section class="tela" data-t="conversa">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Passo 1 · A conversa</div>
+      <h2 class="aparece d1" style="margin-top:14px">Tudo começa com a pessoa contando a própria história.</h2>
+      <p class="lead aparece d2">Pelo celular, no seu ritmo. Ela lê cada pergunta e responde falando, como numa conversa.</p>
+      <ul class="pontos aparece d3">
+        <li><b>45</b><span>Cerca de 45 minutos no total, que podem ser feitos em partes.</span></li>
+        <li><b>1:1</b><span>Cada resposta é gravada separada e transcrita automaticamente.</span></li>
+        <li><b>“ ”</b><span>Histórias e exemplos concretos valem mais do que respostas curtas.</span></li>
+      </ul>
+    </div>
+    <div class="cel aparece d2" aria-label="Tela de gravação no celular">
+      <div class="cel-tela">
+        <img class="logo" src="__LE__" alt="" style="height:16px">
+        <div class="cel-prog"><i class="at"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="rot" style="font-size:9px">Tema 1 · História de vida</div>
+        <h4>Me conte a história da sua vida, da infância até hoje.</h4>
+        <div class="grav">
+          <canvas id="ondaCel" width="520" height="140"></canvas>
+          <div class="rel" id="relCel">00:00,0</div>
+          <div class="est" id="estCel">Toque no botão vermelho e comece a falar.</div>
+          <div class="recb" id="recCel"><span></span></div>
+        </div>
+        <div class="toque" id="toqueCel"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. OS TEMAS -->
+<section class="tela" data-t="temas">
+  <div class="miolo">
+    <div class="rot aparece">Passo 2 · O roteiro</div>
+    <h2 class="aparece d1" style="margin-top:14px">Nove temas da vida de uma pessoa.</h2>
+    <p class="lead aparece d2" style="max-width:62ch">Cada tema tem uma pergunta principal e aprofundamentos que puxam escolhas reais. Toque nos temas marcados para ver um exemplo.</p>
+    <div class="temas aparece d3" id="temas"></div>
+    <p class="nota">26 perguntas no total. O roteiro completo é proprietário da Mimetica.</p>
+  </div>
+</section>
+
+<!-- 4. AS CAMADAS -->
+<section class="tela" data-t="camadas">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Passo 3 · As camadas</div>
+      <h2 class="aparece d1" style="margin-top:14px">A conversa ganha camadas que se medem.</h2>
+      <p class="lead aparece d2">A entrevista mostra como a pessoa pensa. Um questionário curto, de cerca de 15 minutos, completa com números estáveis sobre ela.</p>
+    </div>
+    <div class="camadas">
+      <div class="cam aparece d1"><span class="i">01</span><div><h3>Personalidade</h3><p>Os cinco grandes traços, medidos numa escala de 1 a 7.</p>
+        <div class="escala"><small>“Eu me vejo como alguém aberto a novas experiências”</small></div>
+        <div class="escala" id="esc1"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div></div></div>
+      <div class="cam aparece d2"><span class="i">02</span><div><h3>Estilo de decisão</h3><p>Risco, paciência, confiança nas pessoas, reciprocidade e o peso da intuição.</p></div></div>
+      <div class="cam aparece d3"><span class="i">03</span><div><h3>Perfil</h3><p>Idade, cidade, escolaridade, ocupação, domicílio e renda. Os mesmos campos que as populações artificiais recebem do Censo.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. A CONSTRUÇÃO -->
+<section class="tela" data-t="construcao">
+  <div class="miolo">
+    <div class="rot aparece">Passo 4 · A construção</div>
+    <h2 class="aparece d1" style="margin-top:14px">O gêmeo é construído só com o que a pessoa contou.</h2>
+    <div class="fluxo aparece d2">
+      <div class="ent"><div>A conversa gravada e transcrita</div><div>Personalidade e estilo de decisão</div><div>Perfil</div></div>
+      <span class="seta">→</span>
+      <div class="caixa-preta"><canvas id="ruido" width="600" height="400"></canvas><span class="rot">Etapa proprietária</span><h3>Modelo fundacional da Mimetica</h3><span style="font-size:14px;color:var(--escurosub)">Treinado no comportamento do brasileiro</span></div>
+      <span class="seta">→</span>
+      <div class="saida"><canvas id="gemeoMini" width="220" height="280" aria-hidden="true"></canvas><b>O gêmeo digital</b><div style="font-size:14px;color:var(--sub)">Responde como a pessoa responderia</div></div>
+    </div>
+    <p class="nota aparece d3">O gêmeo nunca vê as perguntas usadas para testá-lo.</p>
+  </div>
+</section>
+
+<!-- 6. O TESTE -->
+<section class="tela" data-t="teste">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Passo 5 · O teste</div>
+      <h2 class="aparece d1" style="margin-top:14px">Depois, o gêmeo enfrenta a pessoa.</h2>
+      <ul class="pontos aparece d2">
+        <li><b>30</b><span>perguntas que o gêmeo nunca viu: opiniões, escolhas com dinheiro, consumo e hábitos.</span></li>
+        <li><b>#</b><span>As previsões do gêmeo são lacradas antes da sessão. Um código prova que nada foi trocado depois.</span></li>
+        <li><b>↔</b><span>A pessoa responde. Só então a previsão é revelada e pontuada.</span></li>
+      </ul>
+    </div>
+    <div class="duelo aparece d2">
+      <div class="dq"><div class="rot"><span id="tNum">Pergunta 1 de 30</span><span id="tBloco">Dinheiro</span></div><h4 id="tPerg"></h4></div>
+      <div class="lados">
+        <div class="lado"><span class="rot">A pessoa</span><span class="r" id="tPes"></span></div>
+        <div class="lado g"><span class="rot">O gêmeo</span><span class="lacre" id="tLacre">lacrado · 8f3a 91c2 e07b</span><span class="r" id="tGem"></span><span class="ver" id="tVer"></span></div>
+      </div>
+      <div class="placar"><span class="rot">Placar</span><span class="trilha" id="tTrilha"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. O NÚMERO -->
+<section class="tela" data-t="numero">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Passo 6 · O número</div>
+      <h2 class="aparece d1" style="margin-top:14px">Um número que leva em conta que ninguém responde igual duas vezes.</h2>
+      <div class="formula aparece d2"><span>Índice =</span><span class="frac"><span>acerto do gêmeo</span><span>coerência da pessoa</span></span></div>
+      <p class="lead aparece d3">Duas semanas depois, a pessoa responde tudo de novo. O gêmeo é medido contra essa coerência, e comparado com um gêmeo de controle, feito só com dados de cadastro.</p>
+    </div>
+    <div class="barras aparece d2">
+      <div><span class="rot">Exemplo ilustrativo</span><div class="grande mono" id="idx">0,00</div><div style="color:var(--sub);font-size:15px">o gêmeo acerta 85% do que a pessoa acerta sobre si mesma</div></div>
+      <div class="br"><span>Gêmeo completo</span><span class="trilho"><b data-w="85"></b></span><span class="v">0,85</span></div>
+      <div class="br f"><span>Gêmeo só de cadastro</span><span class="trilho"><b data-w="58"></b></span><span class="v">0,58</span></div>
+      <div style="font-size:13px;color:var(--fraco)">A distância entre as duas barras é o valor da conversa.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. DA PESSOA À POPULAÇÃO -->
+<section class="tela" data-t="povo">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Passo 7 · Da pessoa à população</div>
+      <h2 class="aparece d1" style="margin-top:14px">O que aprendemos com pessoas reais calibra as populações artificiais.</h2>
+      <p class="lead aparece d2">Cada gêmeo testado ensina ao modelo como o brasileiro decide de verdade. É esse aprendizado que faz um gêmeo do Brasil responder como o Brasil.</p>
+      <div class="cta aparece d3"><a class="btn" href="https://mimetica.institute/apoio/">Voltar à apresentação</a><button class="btn claro" type="button" id="denovo">Ver de novo</button></div>
+    </div>
+    <canvas id="povo" width="1120" height="896" aria-hidden="true"></canvas>
+  </div>
+</section>
+
+<footer class="rodape">
+  <span class="cont" id="cont">01 / 08</span>
+  <div class="nav">
+    <button type="button" id="ant" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.5 4 7.5 12l8 8 1.4-1.4L10.3 12l6.6-6.6z"/></svg></button>
+    <button type="button" id="prox" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.5 4 7.1 5.4 13.7 12l-6.6 6.6L8.5 20l8-8z"/></svg></button>
+  </div>
+</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const TELAS=[...document.querySelectorAll(".tela")];
+const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let atual=0, timers=[], rafs={};
+const limpa=()=>{ timers.forEach(clearTimeout); timers=[]; Object.values(rafs).forEach(cancelAnimationFrame); rafs={} };
+const depois=(ms,f)=>timers.push(setTimeout(f,reduz?0:ms));
+function rnd(s){ return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646 } }
+
+// ---------- cabeça de perfil em pontos ----------
+function perfil(p){
+  p.moveTo(300,520); p.bezierCurveTo(292,480,286,450,292,420);
+  p.bezierCurveTo(350,370,372,260,350,170); p.bezierCurveTo(330,80,250,30,170,40);
+  p.bezierCurveTo(110,48,78,100,78,160); p.bezierCurveTo(78,180,82,192,74,205);
+  p.bezierCurveTo(60,228,42,256,34,276); p.bezierCurveTo(30,288,44,294,62,296);
+  p.bezierCurveTo(60,306,58,312,66,318); p.bezierCurveTo(56,326,58,334,68,338);
+  p.bezierCurveTo(62,346,60,354,70,362); p.bezierCurveTo(64,382,72,400,100,410);
+  p.bezierCurveTo(130,418,150,420,165,425); p.bezierCurveTo(170,460,168,490,160,520); p.closePath();
+}
+const CAB=(()=>{ const path=new Path2D(); perfil(path); const c=document.createElement("canvas"), t=c.getContext("2d"); const pts=[]; const R=rnd(11);
+  for(let i=20;i<400;i+=11) for(let j=30;j<530;j+=11) if(t.isPointInPath(path,i,j)) pts.push({x:i,y:j,sx:R()*420,sy:R()*540,d:R()*0.6});
+  return pts })();
+function cabeca(id,cor,prog,esc){ const c=document.getElementById(id); if(!c) return; const x=c.getContext("2d"), W=c.width, H=c.height, k=Math.min(W/420,H/540)*(esc||1);
+  x.clearRect(0,0,W,H); x.fillStyle=cor;
+  for(const p of CAB){ const t=Math.max(0,Math.min(1,(prog-p.d)/0.4)); const e=1-Math.pow(1-t,3);
+    const px=(p.sx+(p.x-p.sx)*e)*k+(W-420*k)/2, py=(p.sy+(p.y-p.sy)*e)*k+(H-540*k)/2;
+    x.globalAlpha=0.15+0.85*e; x.beginPath(); x.arc(px,py,(2.2)*k*(0.6+0.4*e),0,7); x.fill() }
+  x.globalAlpha=1 }
+function animaCabeca(id,cor,dur){ const t0=performance.now(); const f=now=>{ const p=Math.min(1,(now-t0)/dur); cabeca(id,cor,p*1.05); if(p<1) rafs[id]=requestAnimationFrame(f) }; if(reduz) cabeca(id,cor,1.05); else rafs[id]=requestAnimationFrame(f) }
+
+// ---------- celular gravando ----------
+function celular(){
+  const c=$("#ondaCel"), x=c.getContext("2d"), W=c.width, H=c.height; const bars=[]; let t0=0, gravando=false, ultimo=0;
+  const btn=$("#recCel"), rel=$("#relCel"), est=$("#estCel"), toque=$("#toqueCel");
+  const desenha=()=>{ x.clearRect(0,0,W,H); const meio=H/2, passo=8, cab=W*.72;
+    x.fillStyle="#E7E5DF"; for(let px=gravando?cab+passo:0;px<W;px+=passo) x.fillRect(px,meio-2,4,4);
+    if(gravando||bars.length){ x.fillStyle="#1D1D1B"; const n=Math.floor(cab/passo); const ini=Math.max(0,bars.length-n);
+      for(let k=ini;k<bars.length;k++){ const px=cab-(bars.length-k)*passo, a=Math.max(4,bars[k]*H*.9); x.fillRect(px,meio-a/2,4,a) }
+      if(gravando){ x.fillStyle="#E0352B"; x.fillRect(cab,8,3,H-16) } } };
+  const bate=(el)=>{ const r=el.getBoundingClientRect(), p=el.closest(".cel-tela").getBoundingClientRect(); toque.style.left=(r.left-p.left+r.width/2-22)+"px"; toque.style.top=(r.top-p.top+r.height/2-22)+"px"; toque.classList.remove("v"); void toque.offsetWidth; toque.classList.add("v") };
+  const R=rnd(3);
+  const laco=now=>{ if(now-ultimo>60){ const t=(now-t0)/1000; const fala=(Math.sin(t*2.3)+Math.sin(t*.8+1)+2)/4; bars.push(Math.max(.06,Math.min(1,fala*(.35+R()*.8)))); ultimo=now;
+      const s=(now-t0)/1000; rel.textContent="00:"+String(Math.floor(s)).padStart(2,"0")+","+Math.floor((s%1)*10) }
+    desenha(); rafs.cel=requestAnimationFrame(laco) };
+  bars.length=0; gravando=false; btn.classList.remove("on"); rel.textContent="00:00,0"; est.textContent="Toque no botão vermelho e comece a falar."; est.classList.remove("r"); desenha();
+  depois(1400,()=>{ bate(btn); gravando=true; btn.classList.add("on"); est.textContent="Gravando"; est.classList.add("r"); t0=performance.now(); rafs.cel=requestAnimationFrame(laco) });
+  depois(9400,()=>{ cancelAnimationFrame(rafs.cel); bate(btn); gravando=false; btn.classList.remove("on"); est.classList.remove("r"); est.textContent="✓ Resposta guardada"; desenha() });
+}
+
+// ---------- temas ----------
+const TEMAS=[["História de vida","Me conte a história da sua vida, da infância até hoje: onde cresceu, a família, o trabalho e os acontecimentos que mudaram o seu rumo.",true],
+ ["O dia a dia"],["Relações"],["Trabalho e carreira"],
+ ["Dinheiro e consumo","Me conte a última compra grande que você fez. Como chegou à escolha?",true],
+ ["Lugar onde vive"],["Valores e crenças","Uma ideia em que você acreditava há dez anos e mudou.",true],["Identidade e sentido"],["Fechamento"]];
+function montaTemas(){ $("#temas").innerHTML=TEMAS.map(([t,q,ex],i)=>`<button type="button" class="tema ${ex?"ex":""}" data-i="${i}">
+  <span class="n">${String(i+1).padStart(2,"0")}</span><span class="t">${t}</span>
+  ${ex?`<span class="q">“${q}”</span>`:`<span class="x">Pergunta reservada.</span>`}<span class="chip">${ex?"Ver exemplo":"Reservado"}</span></button>`).join("");
+  document.querySelectorAll(".tema").forEach(b=>b.onclick=e=>{ e.stopPropagation(); b.classList.toggle("aberto") }) }
+montaTemas();
+function temas(){ document.querySelectorAll(".tema").forEach(b=>b.classList.remove("aberto")); depois(1600,()=>document.querySelector('.tema[data-i="0"]').classList.add("aberto")) }
+
+// ---------- camadas ----------
+function camadas(){ const s=[...document.querySelectorAll("#esc1 span")]; s.forEach(e=>e.classList.remove("on")); depois(1300,()=>s[5].classList.add("on")) }
+
+// ---------- construção ----------
+function construcao(){ const c=$("#ruido"), x=c.getContext("2d"); const R=rnd(5); const ps=Array.from({length:70},()=>({x:R()*c.width,y:R()*c.height,v:.3+R()*.9}));
+  const f=()=>{ x.clearRect(0,0,c.width,c.height); x.fillStyle="#F5F4F0"; for(const p of ps){ p.x+=p.v; if(p.x>c.width) p.x=0; x.beginPath(); x.arc(p.x,p.y,1.6,0,7); x.fill() } rafs.ruido=requestAnimationFrame(f) };
+  if(!reduz) f(); cabeca("gemeoMini","#1D1D1B",0); depois(900,()=>animaCabeca("gemeoMini","#1D1D1B",2200)) }
+
+// ---------- teste ----------
+const ITENS=[{b:"Dinheiro",p:"Você prefere R$ 800 garantidos ou 50% de chance de ganhar R$ 2.000?",pes:"R$ 800 garantidos",gem:"R$ 800 garantidos",s:1},
+ {b:"Opiniões",p:"Marcas grandes merecem mais confiança do que marcas novas.",pes:"2 · Discordo",gem:"3 · Neutro",s:.5},
+ {b:"Consumo",p:"Na Black Friday, você normalmente:",pes:"Compra o que já tinha planejado",gem:"Compra o que já tinha planejado",s:1},
+ {b:"Hábitos",p:"Num jantar com amigos, você costuma:",pes:"Mais ouvir do que falar",gem:"Conduzir a conversa",s:0}];
+function teste(){ const tr=$("#tTrilha"); tr.innerHTML=ITENS.map(()=>"<i></i>").join(""); let k=0;
+  const um=()=>{ const it=ITENS[k]; $("#tNum").textContent=`Pergunta ${k+1} de 30`; $("#tBloco").textContent=it.b; $("#tPerg").textContent=it.p;
+    const pes=$("#tPes"), gem=$("#tGem"), ver=$("#tVer"), lac=$("#tLacre"); pes.classList.remove("v"); gem.classList.remove("v"); ver.classList.remove("v","ok"); lac.style.display="";
+    depois(1300,()=>{ pes.textContent=it.pes; pes.classList.add("v") });
+    depois(2600,()=>{ lac.style.display="none"; gem.textContent=it.gem; gem.classList.add("v"); ver.textContent=it.s===1?"Acertou · 1 ponto":it.s===.5?"Chegou perto · 0,5":"Errou · 0"; if(it.s===1) ver.classList.add("ok"); ver.classList.add("v");
+      tr.children[k].className=it.s===1?"s1":it.s===.5?"s05":"s0" });
+    depois(4600,()=>{ k++; if(k<ITENS.length) um() }) };
+  um() }
+
+// ---------- número ----------
+function numero(){ document.querySelectorAll(".br .trilho b").forEach(b=>b.style.width="0"); const el=$("#idx"); el.textContent="0,00";
+  depois(500,()=>{ document.querySelectorAll(".br .trilho b").forEach(b=>b.style.width=b.dataset.w+"%");
+    const t0=performance.now(); const f=now=>{ const p=Math.min(1,(now-t0)/1200); el.textContent=(0.85*(1-Math.pow(1-p,3))).toFixed(2).replace(".",","); if(p<1) rafs.idx=requestAnimationFrame(f) }; rafs.idx=requestAnimationFrame(f) }) }
+
+// ---------- população ----------
+function povo(){ const c=$("#povo"), x=c.getContext("2d"), W=c.width, H=c.height; const R=rnd(9); const N=520;
+  const alvo=Array.from({length:N},()=>{ let px,py; do{ px=R(); py=R() } while(((px-.5)**2)/.25+((py-.5)**2)/.2>1); return {x:px*W,y:py*H,r:2+R()*2.5,a:.25+R()*.75} });
+  const t0=performance.now(); const f=now=>{ const p=Math.min(1,(now-t0)/2600), e=1-Math.pow(1-p,3); x.clearRect(0,0,W,H);
+    for(let i=0;i<N;i++){ const q=alvo[i]; const sx=W/2, sy=H/2; x.globalAlpha=q.a*Math.min(1,e*1.4); x.fillStyle="#1D1D1B"; x.beginPath(); x.arc(sx+(q.x-sx)*e,sy+(q.y-sy)*e,q.r,0,7); x.fill() }
+    x.globalAlpha=1; x.fillStyle="#E0352B"; x.beginPath(); x.arc(W/2,H/2,9,0,7); x.fill();
+    if(p<1) rafs.povo=requestAnimationFrame(f) };
+  if(reduz){ const save=performance.now; } rafs.povo=requestAnimationFrame(f) }
+
+const ENTRA={capa:()=>animaCabeca("cabeca","#1D1D1B",2400),conversa:celular,temas,camadas,construcao,teste,numero,povo};
+
+function vai(i){ if(i<0||i>=TELAS.length) return; limpa();
+  TELAS.forEach((t,k)=>{ t.classList.toggle("on",k===i); t.classList.toggle("antes",k<i); t.setAttribute("aria-hidden",k===i?"false":"true") });
+  atual=i; $("#cont").textContent=String(i+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
+  $("#barra").style.width=((i+1)/TELAS.length*100)+"%"; $("#ant").disabled=i===0; $("#prox").disabled=i===TELAS.length-1;
+  try{ history.replaceState(null,"","#"+TELAS[i].dataset.t) }catch(e){}
+  (ENTRA[TELAS[i].dataset.t]||(()=>{}))() }
+$("#prox").onclick=e=>{ e.stopPropagation(); vai(atual+1) };
+$("#ant").onclick=e=>{ e.stopPropagation(); vai(atual-1) };
+$("#denovo").onclick=e=>{ e.stopPropagation(); vai(0) };
+document.addEventListener("keydown",e=>{ if(["ArrowRight","PageDown"," ","Enter"].includes(e.key)){ e.preventDefault(); vai(atual+1) } else if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); vai(atual-1) } });
+document.addEventListener("click",e=>{ if(e.target.closest("a,button,.tema")) return; if(matchMedia("(max-width:900px)").matches) return; (e.clientX>innerWidth*.35)?vai(atual+1):vai(atual-1) });
+let sx=null; document.addEventListener("touchstart",e=>{ sx=e.touches[0].clientX },{passive:true});
+document.addEventListener("touchend",e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) vai(atual+(dx<0?1:-1)); sx=null });
+const ini=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); vai(ini>=0?ini:0);
+</script>

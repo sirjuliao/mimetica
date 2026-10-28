@@ -14,6 +14,7 @@ OG={
  'experimento/gravar/index.html':('O gêmeo contra o original · convite pessoal','Um gêmeo digital seu, construído a partir da sua história. Grave a entrevista pelo celular, no seu ritmo.'),
  'experimento/index.html':('O gêmeo contra o original','O experimento da Mimetica: um gêmeo digital construído a partir de uma entrevista, testado contra a pessoa real.'),
  'experimento/sessao/index.html':('O gêmeo contra o original · sessão ao vivo','A pessoa responde, a tela revela o que o gêmeo previu.'),
+ 'apoio/gemeo/index.html':('Como nasce o gêmeo de uma pessoa · Mimetica','O passo a passo de como a Mimetica constrói e testa o gêmeo digital de uma pessoa.'),
  'experimento/convites/index.html':('Convites do experimento','Página interna de convites.'),
 }
 def og(dst):
@@ -23,7 +24,7 @@ def og(dst):
             f'<meta property="og:title" content="{t}"><meta property="og:description" content="{d}">'
             f'<meta property="og:image" content="{img}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'
             f'<meta name="twitter:card" content="summary_large_image"><meta name="description" content="{d}">')
-PAGINAS={'inicio-src.html':'experimento/index.html','gravar-src.html':'experimento/gravar/index.html','sessao.html':'experimento/sessao/index.html','convites-src.html':'experimento/convites/index.html'}
+PAGINAS={'inicio-src.html':'experimento/index.html','gravar-src.html':'experimento/gravar/index.html','sessao.html':'experimento/sessao/index.html','convites-src.html':'experimento/convites/index.html','demo-src.html':'apoio/gemeo/index.html'}
 for src,dst in PAGINAS.items():
     s=open(os.path.join(aqui,src)).read().replace('__LC__',LC).replace('__LE__',LE)
     s=s.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')
