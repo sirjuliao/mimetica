@@ -1,0 +1,57 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:"Space Grotesk";font-weight:500;src:url(fontes/space-grotesk-latin-500-normal.woff2)}
+@font-face{font-family:"Space Grotesk";font-weight:700;src:url(fontes/space-grotesk-latin-700-normal.woff2)}
+@font-face{font-family:"JetBrains Mono";font-weight:500;src:url(fontes/jetbrains-mono-latin-500-normal.woff2)}
+</style>
+<style>html,body{margin:0;background:#0C0C0E}canvas{display:block}</style></head><body>
+<canvas id="c" width="1200" height="630"></canvas>
+<script>
+// Imagem de prévia do link (1200x630): perfil de uma cabeça sendo montado por pontos, logo e título.
+const c=document.getElementById('c'), x=c.getContext('2d');
+const OSSO='#F5F4F0', FUNDO='#0C0C0E', SUB='#8E8D88';
+function perfil(p){ // cabeça de perfil olhando para a esquerda, numa caixa ~380x520
+  p.moveTo(300,520); p.bezierCurveTo(292,480,286,450,292,420);
+  p.bezierCurveTo(350,370,372,260,350,170); p.bezierCurveTo(330,80,250,30,170,40);
+  p.bezierCurveTo(110,48,78,100,78,160); p.bezierCurveTo(78,180,82,192,74,205);
+  p.bezierCurveTo(60,228,42,256,34,276); p.bezierCurveTo(30,288,44,294,62,296);
+  p.bezierCurveTo(60,306,58,312,66,318); p.bezierCurveTo(56,326,58,334,68,338);
+  p.bezierCurveTo(62,346,60,354,70,362); p.bezierCurveTo(64,382,72,400,100,410);
+  p.bezierCurveTo(130,418,150,420,165,425); p.bezierCurveTo(170,460,168,490,160,520); p.closePath();
+}
+function rnd(s){ return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646 } }
+Promise.all(['700 76px "Space Grotesk"','500 25px "Space Grotesk"','500 17px "JetBrains Mono"'].map(f=>document.fonts.load(f,'gêmeo'))).then(()=>{
+  x.fillStyle=FUNDO; x.fillRect(0,0,1200,630);
+  // grade de pontos de fundo
+  x.fillStyle='#1C1C1F'; for(let i=24;i<1200;i+=24) for(let j=24;j<630;j+=24){ x.beginPath(); x.arc(i,j,1.2,0,7); x.fill() }
+  // cabeça
+  const OX=700, OY=60, R=rnd(7);
+  const path=new Path2D(); perfil(path);
+  const tmp=document.createElement('canvas'); tmp.width=420; tmp.height=540; const t=tmp.getContext('2d');
+  const passo=11, corte=OX+235; // à esquerda do corte, pontos no lugar; à direita, ainda se juntando
+  for(let i=20;i<400;i+=passo) for(let j=30;j<530;j+=passo){
+    if(!t.isPointInPath(path,i,j)) continue;
+    let px=OX+i, py=OY+j; const borda=!t.isPointInPath(path,i-passo,j)||!t.isPointInPath(path,i+passo,j)||!t.isPointInPath(path,i,j-passo)||!t.isPointInPath(path,i,j+passo);
+    let a=1, r=borda?2.6:2.1;
+    if(px>corte){ const d=(px-corte)/140; const ang=R()*6.283, dist=d*d*90*R();
+      px+=Math.cos(ang)*dist+d*60; py+=Math.sin(ang)*dist; a=Math.max(.12,1-d*.75); r*=1-Math.min(.5,d*.3) }
+    x.globalAlpha=a; x.fillStyle=OSSO; x.beginPath(); x.arc(px,py,r,0,7); x.fill();
+  }
+  // pontos soltos chegando pela direita
+  for(let k=0;k<70;k++){ const px=corte+120+R()*260, py=OY+60+R()*440; x.globalAlpha=.08+R()*.25; x.beginPath(); x.arc(px,py,1+R()*1.6,0,7); x.fill() }
+  x.globalAlpha=1;
+  // linha de varredura
+  const g=x.createLinearGradient(0,OY+10,0,OY+540); g.addColorStop(0,'rgba(245,244,240,0)'); g.addColorStop(.5,'rgba(245,244,240,.9)'); g.addColorStop(1,'rgba(245,244,240,0)');
+  x.fillStyle=g; x.fillRect(corte,OY+10,2,530);
+  // texto
+  const logo=new Image(); logo.onload=()=>{
+    const h=46, w=logo.width*h/logo.height; x.drawImage(logo,72,70,w,h);
+    x.fillStyle=SUB; x.font='500 17px "JetBrains Mono"'; x.fillText('EXPERIMENTO · CONVITE PESSOAL'.split('').join(String.fromCharCode(8202)),74,222);
+    x.fillStyle=OSSO; x.font='700 76px "Space Grotesk"';
+    ['O gêmeo','contra o','original.'].forEach((l,i)=>x.fillText(l,70,312+i*78));
+    x.fillStyle=SUB; x.font='500 25px "Space Grotesk"';
+    x.fillText('Um gêmeo digital seu, construído a partir',72,540); x.fillText('da sua história. Quanto ele vai acertar?',72,574);
+    document.title='pronto';
+  }; logo.src=window.LOGO;
+});
+</script></body></html>

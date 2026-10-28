@@ -10,10 +10,23 @@ TOPO=('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
  '<meta name="robots" content="noindex,nofollow">'
  '<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}'
  'body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>')
+OG={
+ 'experimento/gravar/index.html':('O gêmeo contra o original · convite pessoal','Um gêmeo digital seu, construído a partir da sua história. Grave a entrevista pelo celular, no seu ritmo.'),
+ 'experimento/index.html':('O gêmeo contra o original','O experimento da Mimetica: um gêmeo digital construído a partir de uma entrevista, testado contra a pessoa real.'),
+ 'experimento/sessao/index.html':('O gêmeo contra o original · sessão ao vivo','A pessoa responde, a tela revela o que o gêmeo previu.'),
+ 'experimento/convites/index.html':('Convites do experimento','Página interna de convites.'),
+}
+def og(dst):
+    t,d=OG.get(dst,('O gêmeo contra o original',''))
+    img='https://mimetica.institute/experimento/og.jpg'
+    return (f'<meta property="og:type" content="website"><meta property="og:site_name" content="Mimetica">'
+            f'<meta property="og:title" content="{t}"><meta property="og:description" content="{d}">'
+            f'<meta property="og:image" content="{img}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'
+            f'<meta name="twitter:card" content="summary_large_image"><meta name="description" content="{d}">')
 PAGINAS={'inicio-src.html':'experimento/index.html','gravar-src.html':'experimento/gravar/index.html','sessao.html':'experimento/sessao/index.html','convites-src.html':'experimento/convites/index.html'}
 for src,dst in PAGINAS.items():
     s=open(os.path.join(aqui,src)).read().replace('__LC__',LC).replace('__LE__',LE)
     s=s.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')
     d=os.path.join(raiz,dst); os.makedirs(os.path.dirname(d),exist_ok=True)
     cab,corpo=s.split('<style>',1)
-    open(d,'w').write(TOPO.replace('</head><body>',cab.strip()+'</head><body>')+'<style>'+corpo+'</body></html>\n'); print('ok',dst)
+    open(d,'w').write(TOPO.replace('</head><body>',og(dst)+cab.strip()+'</head><body>')+'<style>'+corpo+'</body></html>\n'); print('ok',dst)

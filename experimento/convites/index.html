@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>Convites do experimento</title>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><meta property="og:type" content="website"><meta property="og:site_name" content="Mimetica"><meta property="og:title" content="Convites do experimento"><meta property="og:description" content="Página interna de convites."><meta property="og:image" content="https://mimetica.institute/experimento/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="description" content="Página interna de convites."><title>Convites do experimento</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"></head><body><style>
 /* Layout: painel de uma coluna. Formulário de convite no alto, lista de convidados com o andamento embaixo. Monocromático. */
@@ -86,7 +86,9 @@ async function api(body){
 }
 const primeiro=n=>String(n||"").trim().split(/\s+/)[0]||"";
 function mensagem(c){
-  return `${primeiro(c.nome)}, que bom ter você no experimento da Mimetica. Este é o seu link pessoal para gravar a entrevista:\n${BASE+c.token}\n\nAbra no Safari ou no Chrome. São ${TEMAS} temas da sua vida, respondidos em voz alta, uns 45 minutos no total. Dá para fazer em partes: cada resposta fica guardada assim que você para de gravar.`;
+  const n=primeiro(c.nome), link=BASE+c.token;
+  if(c.tipo==="socio") return `${n}, o seu link pessoal para gravar a entrevista do experimento O gêmeo contra o original:\n${link}\n\nAbra no Safari ou no Chrome. São ${TEMAS} temas, uns 45 minutos no total, e dá para fazer em partes.`;
+  return `${n}, quero te convidar para um experimento da Mimetica.\n\nVamos construir um gêmeo digital seu a partir de uma conversa sobre a sua vida, o seu trabalho e as suas escolhas. Depois, você e o seu gêmeo respondem às mesmas perguntas, e a gente vê o quanto ele acerta sobre você.\n\nPara começar, é só gravar a entrevista pelo celular, no seu ritmo. São ${TEMAS} temas, uns 45 minutos no total, e dá para fazer em partes.\n\nO seu link pessoal:\n${link}\n\nAbra no Safari ou no Chrome. O que você gravar serve só para construir o seu gêmeo e não é divulgado sem a sua autorização.`;
 }
 function quando(iso){ if(!iso) return ""; const d=(Date.now()-new Date(iso))/60000;
   if(d<2) return "agora"; if(d<60) return `há ${Math.round(d)} min`; if(d<60*24) return `há ${Math.round(d/60)} h`; return `há ${Math.round(d/1440)} dias` }
@@ -126,7 +128,7 @@ function desenha(){
     <div class="msg">${esc(mensagem(NOVO))}</div>
     <div class="btns">
       <a class="btn cheio" href="${wa(mensagem(NOVO))}" target="_blank" rel="noopener">Mandar pelo WhatsApp</a>
-      <button class="btn" type="button" data-copia="msg" data-t="${NOVO.token}">Copiar mensagem</button>
+      <button class="btn" type="button" data-copia="msg" data-t="${NOVO.token}">Copiar convite</button>
       <button class="btn" type="button" data-copia="link" data-t="${NOVO.token}">Copiar só o link</button>
     </div></div>`:""}
   <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
@@ -142,7 +144,7 @@ function desenha(){
       <div class="barra"><b style="width:${Math.min(100,c.principais/TEMAS*100)}%"></b></div>
       <div class="btns">
         <a class="btn peq" href="${wa(mensagem(c))}" target="_blank" rel="noopener">WhatsApp</a>
-        <button class="btn peq" type="button" data-copia="msg" data-t="${c.token}">Copiar mensagem</button>
+        <button class="btn peq" type="button" data-copia="msg" data-t="${c.token}">Copiar convite</button>
         <button class="btn peq" type="button" data-copia="link" data-t="${c.token}">Copiar link</button>
         ${c.admin?"":`<button class="btn peq" type="button" data-ativa="${c.token}" data-v="${c.ativo?0:1}">${c.ativo?"Desativar":"Reativar"}</button>`}
       </div>
