@@ -176,9 +176,9 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .br.r .trilho b{background:var(--rec)}
 .br .v{white-space:nowrap}
 .lista-br{display:flex;flex-direction:column;gap:14px}
-.passos3{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
-.passos3 li{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px}
-.passos3 b{width:44px;height:44px;border-radius:12px;background:#F5F4F0;color:#0C0C0E;display:grid;place-items:center;font-family:var(--f-mono)}
+.passos3{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.passos3 li{display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:14px 16px}
+.passos3 b{width:40px;height:40px;border-radius:12px;background:#F5F4F0;color:#0C0C0E;display:grid;place-items:center;font-family:var(--f-mono)}
 .passos3 h3{margin:0;font-family:var(--f-titulo);font-size:19px}
 .passos3 p{margin:4px 0 0;color:var(--sub);font-size:15px}
 @media (max-width:900px){ .cards3,.cards4{grid-template-columns:1fr} }
@@ -249,19 +249,20 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   </div>
 </section>
 
-<!-- 5. RENDA E REGIÃO -->
-<section class="tela" data-t="renda">
+<!-- 5. CAMADAS -->
+<section class="tela" data-t="camadas">
   <div class="miolo dupla">
     <div>
-      <div class="rot aparece">O jeito do brasileiro</div>
-      <h2 class="aparece d1" style="margin-top:14px">No Brasil, a renda explica mais do que o lugar.</h2>
-      <p class="lead aparece d2" id="rendaTxt">Por região, as respostas quase não mudam.</p>
-      <p class="nota aparece d3">Exemplo ilustrativo.</p>
+      <div class="rot aparece">Como o gêmeo ganha precisão</div>
+      <h2 class="aparece d1" style="margin-top:14px">Cada gêmeo é construído em camadas.</h2>
+      <p class="lead aparece d2">Quanto mais camadas, mais a população responde com o detalhe que a decisão pede, também nas aberturas por perfil.</p>
     </div>
-    <div class="barras aparece d2">
-      <span class="rot">“Você trocaria de banco por isenção total de tarifas?” · % que responde sim</span>
-      <div id="rendaBarras" class="lista-br"></div>
-    </div>
+    <ol class="passos3 aparece d2">
+      <li><b>1</b><div><h3>A base brasileira</h3><p>O Twin-2K-BR: duas mil características que ancoram como o brasileiro consome, sente e decide.</p></div></li>
+      <li><b>2</b><div><h3>As fontes oficiais</h3><p>Censo, IBGE e outras bases públicas dão a composição real do país.</p></div></li>
+      <li><b>3</b><div><h3>Os dados de vocês</h3><p>Estudos anteriores e dados agregados calibram os gêmeos para o perfil da base do banco.</p></div></li>
+      <li><b>4</b><div><h3>Uma população viva</h3><p>Os gêmeos continuam sendo atualizados e ficam prontos para novas rodadas.</p></div></li>
+    </ol>
   </div>
 </section>
 
@@ -269,14 +270,15 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 <section class="tela" data-t="rotina">
   <div class="miolo">
     <div class="rot aparece">Como entra na rotina de insights</div>
-    <h2 class="aparece d1" style="margin-top:14px">Uma população artificial do seu cliente, pronta para responder.</h2>
+    <h2 class="aparece d1" style="margin-top:14px">Uma população artificial do seu cliente, operada pela Mimetica.</h2>
     <div class="fluxo aparece d2">
       <div class="ent"><div>Estudos que vocês já fizeram</div><div>Dados agregados de clientes</div><div>Leitura diária de fontes brasileiras</div></div>
       <span class="seta">→</span>
-      <div class="caixa-preta"><canvas id="ruido" width="600" height="400"></canvas><span class="rot">Modelo fundacional da Mimetica</span><h3>População artificial do banco</h3><span style="font-size:14px;color:#9C9B96">Calibrada no comportamento do brasileiro</span></div>
+      <div class="caixa-preta"><canvas id="ruido" width="600" height="400"></canvas><span class="rot">Ambiente exclusivo do banco</span><h3>População artificial do banco</h3><span style="font-size:14px;color:#9C9B96">Operada e acompanhada pela equipe da Mimetica</span></div>
       <span class="seta">→</span>
-      <div class="ent"><div>Respostas em horas</div><div>Leitura por renda, idade e perfil</div><div>Roda de novo depois de cada evento</div></div>
+      <div class="ent"><div>Respostas em dias</div><div>Leituras sob demanda, com a nossa equipe junto</div><div>Novas rodadas depois de cada evento</div></div>
     </div>
+    <p class="lead aparece d3" style="max-width:70ch;margin-top:26px;font-size:16px">Por trás, uma leitura mais ampla acompanha, com sete lentes, as forças que mexem com o mercado. Quando várias apontam na mesma direção, acende o alerta. Foi assim que nasceu o nosso painel de GLP-1.</p>
     <p class="nota aparece d3">Trabalhamos com dados agregados e anonimizados. Nenhum dado pessoal de cliente é necessário.</p>
   </div>
 </section>
@@ -300,15 +302,16 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   <div class="miolo dupla">
     <div>
       <div class="rot aparece">Proposta</div>
-      <h2 class="aparece d1" style="margin-top:14px">Um teste às cegas, com um estudo de vocês.</h2>
-      <p class="lead aparece d2">O mesmo caminho que a EY fez com a Aaru. Vocês comparam com um resultado que só vocês conhecem, dentro das regras de compliance do banco.</p>
+      <h2 class="aparece d1" style="margin-top:14px">Um teste com um estudo de vocês.</h2>
+      <p class="lead aparece d2">Vocês entregam uma parte do estudo como semente e guardam o resto. A Mimetica prevê o que falta, sem ver as respostas, dentro das regras de compliance do banco.</p>
       <div class="cta aparece d3"><a class="btn" href="mailto:fernando@mimetica.net">fernando@mimetica.net</a><a class="btn claro" href="https://mimetica.institute/apoio/gemeo/">Como nasce um gêmeo</a></div>
     </div>
     <ol class="passos3 aparece d2">
       <li><b>1</b><div><h3>Formalizamos a parceria</h3><p>Acordo de confidencialidade, compliance e cadastro da Mimetica como fornecedor.</p></div></li>
-      <li><b>2</b><div><h3>Vocês escolhem um estudo antigo</h3><p>Com resultado conhecido, e guardam o resultado.</p></div></li>
-      <li><b>3</b><div><h3>A Mimetica responde às mesmas perguntas</h3><p>Com a população artificial, sem ver o resultado.</p></div></li>
-      <li><b>4</b><div><h3>Vocês comparam, número por número</h3><p>O cronograma é definido junto com vocês, depois da formalização.</p></div></li>
+      <li><b>2</b><div><h3>Vocês escolhem um estudo</h3><p>Com resultado conhecido.</p></div></li>
+      <li><b>3</b><div><h3>Vocês entregam uma parte como semente</h3><p>O perfil da amostra e algumas das perguntas, com as respostas.</p></div></li>
+      <li><b>4</b><div><h3>A Mimetica prevê as perguntas restantes</h3><p>Sem ver as respostas.</p></div></li>
+      <li><b>5</b><div><h3>Vocês comparam</h3><p>Número por número e por perfil. O cronograma é definido junto com vocês, depois da formalização.</p></div></li>
     </ol>
   </div>
 </section>
@@ -370,7 +373,7 @@ function renda(){ const box=$("#rendaBarras"), txt=$("#rendaTxt");
   const mostra=(lin,f)=>{ box.innerHTML=lin.map(([n,v])=>`<div class="br ${f}"><span>${n}</span><span class="trilho"><b data-w="${v}"></b></span><span class="v">${v}%</span></div>`).join(""); barras("#rendaBarras") };
   txt.textContent="Por região, as respostas quase não mudam."; mostra(REG,"f");
   depois(3800,()=>{ txt.textContent="Por renda, a diferença aparece. É por isso que o modelo da Mimetica parte da renda, e não só do lugar."; mostra(CLS,"") }) }
-const ENTRA={abertura:()=>animaCabeca("cabeca"),ditofeito:()=>barras("[data-t=ditofeito]"),renda,rotina:ruido};
+const ENTRA={abertura:()=>animaCabeca("cabeca"),ditofeito:()=>barras("[data-t=ditofeito]"),rotina:ruido};
 
 function vai(i){ if(i<0||i>=TELAS.length) return; limpa();
   TELAS.forEach((t,k)=>{ t.classList.toggle("on",k===i); t.classList.toggle("antes",k<i); t.setAttribute("aria-hidden",k===i?"false":"true") });
