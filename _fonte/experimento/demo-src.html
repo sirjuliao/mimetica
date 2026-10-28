@@ -3,13 +3,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <style>
-/* Layout: uma tela por vez, avanço por clique, mesmo visual da apresentação institucional (osso e preto).
-   Visual único e deliberado, claro, como a /apoio. */
+/* Layout: uma tela por vez, avanço por clique, identidade da apresentação institucional.
+   Visual único e deliberado, todo em fundo preto. */
 :root{
-  --osso:#F5F4F0; --papel:#FFFFFF; --preto:#0C0C0E; --texto:#1D1D1B; --sub:#6B6A65; --fraco:#A6A49D; --linha:#DCDAD3; --vazio:#E7E5DF;
-  --rec:#E0352B; --escuro2:#18181B; --escurolinha:#2C2C30; --escurosub:#9C9B96;
+  --osso:#0C0C0E; --papel:#141416; --preto:#F5F4F0; --texto:#F5F4F0; --sub:#9C9B96; --fraco:#6B6A65; --linha:#2A2A2D; --vazio:#232326;
+  --rec:#FF453A; --escuro2:#18181B; --escurolinha:#C9C7C0; --escurosub:#6B6A65;
   --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
-  color-scheme:light;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -26,7 +26,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--texto);outline-offs
 .topo>*{pointer-events:auto}
 .logo{height:26px;width:auto;display:block;flex:none;align-self:center;object-fit:contain}
 .cel-tela .logo{height:16px;width:auto;align-self:flex-start}
-.voltar{font-size:13px;color:var(--sub);text-decoration:none;border:1px solid var(--linha);border-radius:999px;padding:6px 14px;background:rgba(245,244,240,.8)}
+.voltar{font-size:13px;color:var(--sub);text-decoration:none;border:1px solid var(--linha);border-radius:999px;padding:6px 14px;background:rgba(12,12,14,.7)}
 .voltar:hover{color:var(--texto);border-color:var(--texto)}
 .barra{position:fixed;left:0;right:0;top:0;height:3px;z-index:11;background:transparent}
 .barra b{display:block;height:100%;background:var(--texto);width:0;transition:width .4s ease}
@@ -63,10 +63,10 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 
 /* capa */
 .capa{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-#cabeca{width:100%;max-width:470px;aspect-ratio:840/1000;display:block;margin-left:auto;background:var(--preto);border-radius:28px}
+#cabeca{width:100%;max-width:470px;aspect-ratio:840/1000;display:block;margin-left:auto}
 
 /* celular */
-.cel{width:300px;max-width:100%;aspect-ratio:9/18.5;background:var(--preto);border-radius:44px;padding:14px;margin:0 auto;box-shadow:0 30px 60px -30px rgba(12,12,14,.45)}
+.cel{width:300px;max-width:100%;aspect-ratio:9/18.5;background:#2A2A2D;border-radius:44px;padding:14px;margin:0 auto;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
 .cel-tela{width:100%;height:100%;background:var(--osso);border-radius:32px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:12px;overflow:hidden;position:relative}
 .cel-prog{display:flex;gap:3px}.cel-prog i{flex:1;height:3px;border-radius:2px;background:var(--vazio)}.cel-prog i.at{background:var(--rec)}
 .cel h4{margin:0;font-family:var(--f-titulo);font-size:16px;line-height:1.25;font-weight:600}
@@ -78,7 +78,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .recb{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--texto);display:grid;place-items:center}
 .recb span{width:44px;height:44px;border-radius:50%;background:var(--rec);transition:all .25s}
 .recb.on span{width:22px;height:22px;border-radius:5px}
-.toque{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(12,12,14,.18);pointer-events:none;opacity:0;transform:scale(.6)}
+.toque{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(245,244,240,.25);pointer-events:none;opacity:0;transform:scale(.6)}
 .toque.v{animation:toque .6s ease}
 @keyframes toque{30%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
 
@@ -106,13 +106,13 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .ent{display:flex;flex-direction:column;gap:10px}
 .ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
 .seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
-.caixa-preta{background:var(--preto);color:var(--osso);border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
-.caixa-preta .rot{color:var(--escurosub)}
+.caixa-preta{background:#18181B;border:1px solid var(--linha);color:#F5F4F0;border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.caixa-preta .rot{color:#9C9B96}
 .caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
 .caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
 .caixa-preta>*:not(canvas){position:relative}
 .saida{background:var(--papel);border:1px solid var(--texto);border-radius:16px;padding:18px;text-align:center}
-.saida canvas{width:132px;height:157px;display:block;margin:0 auto 10px;background:var(--preto);border-radius:14px}
+.saida canvas{width:132px;height:157px;display:block;margin:0 auto 10px;background:#0C0C0E;border-radius:14px}
 .saida b{font-family:var(--f-titulo);font-size:18px}
 
 /* teste */
@@ -171,7 +171,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 
 <div class="barra"><b id="barra"></b></div>
 <header class="topo">
-  <img class="logo" src="__LE__" alt="Mimetica">
+  <img class="logo" src="__LC__" alt="Mimetica">
   <a class="voltar" href="https://mimetica.institute/apoio/">Voltar à apresentação</a>
 </header>
 
@@ -202,7 +202,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     </div>
     <div class="cel aparece d2" aria-label="Tela de gravação no celular">
       <div class="cel-tela">
-        <img class="logo" src="__LE__" alt="">
+        <img class="logo" src="__LC__" alt="">
         <div class="cel-prog"><i class="at"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="rot" style="font-size:9px">Tema 1 · História de vida</div>
         <h4>Me conte a história da sua vida, da infância até hoje.</h4>
@@ -255,7 +255,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     <div class="fluxo aparece d2">
       <div class="ent"><div>A conversa gravada e transcrita</div><div>Personalidade e estilo de decisão</div><div>Perfil</div></div>
       <span class="seta">→</span>
-      <div class="caixa-preta"><canvas id="ruido" width="600" height="400"></canvas><span class="rot">Etapa proprietária</span><h3>Modelo fundacional da Mimetica</h3><span style="font-size:14px;color:var(--escurosub)">Treinado no comportamento do brasileiro</span></div>
+      <div class="caixa-preta"><canvas id="ruido" width="600" height="400"></canvas><span class="rot">Etapa proprietária</span><h3>Modelo fundacional da Mimetica</h3><span style="font-size:14px;color:#9C9B96">Treinado no comportamento do brasileiro</span></div>
       <span class="seta">→</span>
       <div class="saida"><canvas id="gemeoMini" width="264" height="314" aria-hidden="true"></canvas><b>O gêmeo digital</b><div style="font-size:14px;color:var(--sub)">Responde como a pessoa responderia</div></div>
     </div>
@@ -368,10 +368,10 @@ function celular(){
   const c=$("#ondaCel"), x=c.getContext("2d"), W=c.width, H=c.height; const bars=[]; let t0=0, gravando=false, ultimo=0;
   const btn=$("#recCel"), rel=$("#relCel"), est=$("#estCel"), toque=$("#toqueCel");
   const desenha=()=>{ x.clearRect(0,0,W,H); const meio=H/2, passo=8, cab=W*.72;
-    x.fillStyle="#E7E5DF"; for(let px=gravando?cab+passo:0;px<W;px+=passo) x.fillRect(px,meio-2,4,4);
-    if(gravando||bars.length){ x.fillStyle="#1D1D1B"; const n=Math.floor(cab/passo); const ini=Math.max(0,bars.length-n);
+    x.fillStyle="#2A2A2D"; for(let px=gravando?cab+passo:0;px<W;px+=passo) x.fillRect(px,meio-2,4,4);
+    if(gravando||bars.length){ x.fillStyle="#F5F4F0"; const n=Math.floor(cab/passo); const ini=Math.max(0,bars.length-n);
       for(let k=ini;k<bars.length;k++){ const px=cab-(bars.length-k)*passo, a=Math.max(4,bars[k]*H*.9); x.fillRect(px,meio-a/2,4,a) }
-      if(gravando){ x.fillStyle="#E0352B"; x.fillRect(cab,8,3,H-16) } } };
+      if(gravando){ x.fillStyle="#FF453A"; x.fillRect(cab,8,3,H-16) } } };
   const bate=(el)=>{ const r=el.getBoundingClientRect(), p=el.closest(".cel-tela").getBoundingClientRect(); toque.style.left=(r.left-p.left+r.width/2-22)+"px"; toque.style.top=(r.top-p.top+r.height/2-22)+"px"; toque.classList.remove("v"); void toque.offsetWidth; toque.classList.add("v") };
   const R=rnd(3);
   const laco=now=>{ if(now-ultimo>60){ const t=(now-t0)/1000; const fala=(Math.sin(t*2.3)+Math.sin(t*.8+1)+2)/4; bars.push(Math.max(.06,Math.min(1,fala*(.35+R()*.8)))); ultimo=now;
@@ -429,8 +429,8 @@ function numero(){ document.querySelectorAll(".br .trilho b").forEach(b=>b.style
 function povo(){ const c=$("#povoCanvas"), x=c.getContext("2d"), W=c.width, H=c.height; const R=rnd(9); const N=520;
   const alvo=Array.from({length:N},()=>{ let px,py; do{ px=R(); py=R() } while(((px-.5)**2)/.25+((py-.5)**2)/.2>1); return {x:px*W,y:py*H,r:2+R()*2.5,a:.25+R()*.75} });
   const t0=performance.now(); const f=now=>{ const p=Math.min(1,(now-t0)/2600), e=1-Math.pow(1-p,3); x.clearRect(0,0,W,H);
-    for(let i=0;i<N;i++){ const q=alvo[i]; const sx=W/2, sy=H/2; x.globalAlpha=q.a*Math.min(1,e*1.4); x.fillStyle="#1D1D1B"; x.beginPath(); x.arc(sx+(q.x-sx)*e,sy+(q.y-sy)*e,q.r,0,7); x.fill() }
-    x.globalAlpha=1; x.fillStyle="#E0352B"; x.beginPath(); x.arc(W/2,H/2,9,0,7); x.fill();
+    for(let i=0;i<N;i++){ const q=alvo[i]; const sx=W/2, sy=H/2; x.globalAlpha=q.a*Math.min(1,e*1.4); x.fillStyle="#F5F4F0"; x.beginPath(); x.arc(sx+(q.x-sx)*e,sy+(q.y-sy)*e,q.r,0,7); x.fill() }
+    x.globalAlpha=1; x.fillStyle="#FF453A"; x.beginPath(); x.arc(W/2,H/2,9,0,7); x.fill();
     if(p<1) rafs.povo=requestAnimationFrame(f) };
   if(reduz){ const save=performance.now; } rafs.povo=requestAnimationFrame(f) }
 
