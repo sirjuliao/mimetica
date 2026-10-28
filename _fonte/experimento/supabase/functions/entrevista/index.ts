@@ -5,6 +5,7 @@
 //   JSON {acao:"consentir", token, nome}               -> registra o consentimento
 //   multipart acao=enviar, token, pergunta_n, tema, principal, pergunta, duracao, arquivo
 //   JSON {acao:"enviar_b64", ...mesmos campos, arquivo_b64, mime}
+//   JSON {acao:"admin_listar"|"admin_criar"|"admin_ativar", token de administrador, ...}
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
 
 const CORS = {
@@ -22,8 +23,9 @@ const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE
 async function usuarioDoToken(token: string) {
   if (!token || !/^[a-f0-9]{24}$/.test(token)) return null;
   const { data: c } = await admin.from("convites").select("*").eq("token", token).maybeSingle();
-  if (!c) return null;
-  if (c.user_id) return { id: c.user_id as string, nome: c.nome as string };
+  if (!c || c.ativo === false) return null;
+  const extra = { tipo: c.tipo as string, admin: !!c.admin };
+  if (c.user_id) return { id: c.user_id as string, nome: c.nome as string, ...extra };
   // Primeiro uso: cria o usuário (o gatilho cria a linha em participantes).
   let uid: string | null = null;
   const { data: novo, error } = await admin.auth.admin.createUser({ email: c.email, email_confirm: true });
@@ -35,7 +37,33 @@ async function usuarioDoToken(token: string) {
   }
   await admin.from("participantes").upsert({ id: uid, email: c.email, nome: c.nome }, { onConflict: "id" });
   await admin.from("convites").update({ user_id: uid }).eq("token", token);
-  return { id: uid, nome: c.nome as string };
+  return { id: uid, nome: c.nome as string, ...extra };
+}
+
+const novoToken = () => Array.from(crypto.getRandomValues(new Uint8Array(12)), (x) => x.toString(16).padStart(2, "0")).join("");
+
+async function listaConvites() {
+  const { data: cs } = await admin.from("convites").select("token, nome, empresa, tipo, admin, ativo, user_id, criado_em").order("criado_em");
+  const ids = (cs ?? []).map((c) => c.user_id).filter(Boolean);
+  const { data: rs } = ids.length
+    ? await admin.from("respostas_audio").select("user_id, principal, duracao_seg, transcricao_status, atualizado_em").in("user_id", ids)
+    : { data: [] as Record<string, unknown>[] };
+  const { data: ps } = ids.length
+    ? await admin.from("participantes").select("id, consentimento_em").in("id", ids)
+    : { data: [] as Record<string, unknown>[] };
+  return (cs ?? []).map((c) => {
+    const minhas = (rs ?? []).filter((r) => r.user_id === c.user_id);
+    return {
+      token: c.token, nome: c.nome, empresa: c.empresa, tipo: c.tipo, admin: c.admin, ativo: c.ativo, criado_em: c.criado_em,
+      abriu: !!c.user_id,
+      consentiu: !!(ps ?? []).find((p) => p.id === c.user_id && p.consentimento_em),
+      respostas: minhas.length,
+      principais: minhas.filter((r) => r.principal).length,
+      minutos: Math.round(minhas.reduce((t, r) => t + Number(r.duracao_seg || 0), 0) / 6) / 10,
+      transcritas: minhas.filter((r) => r.transcricao_status === "ok").length,
+      ultimo: minhas.map((r) => r.atualizado_em as string).sort().pop() ?? null,
+    };
+  });
 }
 
 const extDe = (mime: string) =>
@@ -126,6 +154,29 @@ Deno.serve(async (req) => {
     }
     const u = await usuarioDoToken(String(b.token ?? ""));
     if (!u) return json({ erro: "link inválido" }, 401);
+    if (String(b.acao ?? "").startsWith("admin_")) {
+      if (!u.admin) return json({ erro: "sem permissão" }, 403);
+      if (b.acao === "admin_listar") return json({ convites: await listaConvites() });
+      if (b.acao === "admin_criar") {
+        const nome = String(b.nome ?? "").trim().slice(0, 120);
+        if (!nome) return json({ erro: "nome vazio" }, 400);
+        const tipo = ["socio", "convidado", "teste"].includes(String(b.tipo)) ? String(b.tipo) : "convidado";
+        const token = novoToken();
+        const { error } = await admin.from("convites").insert({
+          token, nome, empresa: String(b.empresa ?? "").trim().slice(0, 120) || null, tipo,
+          email: `${tipo}-${token.slice(0, 10)}@convite.mimetica.institute`,
+        });
+        if (error) return json({ erro: error.message }, 500);
+        return json({ ok: true, token, convites: await listaConvites() });
+      }
+      if (b.acao === "admin_ativar") {
+        const alvo = String(b.alvo ?? "");
+        if (alvo === b.token) return json({ erro: "não dá para desativar o próprio link" }, 400);
+        await admin.from("convites").update({ ativo: !!b.ativo }).eq("token", alvo);
+        return json({ ok: true, convites: await listaConvites() });
+      }
+      return json({ erro: "ação desconhecida" }, 400);
+    }
     if (b.acao === "consentir") {
       await admin.from("participantes").update({ consentimento_em: new Date().toISOString(), nome: String(b.nome || u.nome).slice(0, 120) }).eq("id", u.id);
       return json({ ok: true });
@@ -137,7 +188,7 @@ Deno.serve(async (req) => {
       // Tenta de novo as transcrições que ficaram para trás.
       for (const r of rs ?? []) if (["sem_chave", "erro", "pendente"].includes(r.transcricao_status)) emSegundoPlano(transcrever(r.id));
       return json({
-        nome: p?.nome || u.nome, consentiu: !!p?.consentimento_em,
+        nome: p?.nome || u.nome, consentiu: !!p?.consentimento_em, tipo: u.tipo,
         respostas: (rs ?? []).map((r) => ({ n: r.pergunta_n, dur: Number(r.duracao_seg), status: r.transcricao_status })),
       });
     }

@@ -142,6 +142,16 @@ const TOKEN=(()=>{ if(NA_PREVIA) return null; let t=null;
   try{ if(t&&/^[a-f0-9]{24}$/.test(t)) localStorage.setItem("mimetica-gravar-token",t); else t=localStorage.getItem("mimetica-gravar-token") }catch(e){}
   return t&&/^[a-f0-9]{24}$/.test(t)?t:null })();
 let LINK_OK=null; // null = verificando, true, false = link inválido
+// O aparelho guarda o progresso de um único link. Outro link no mesmo aparelho começa do zero.
+const VAZIO=()=>({fase:"boas",nome:"",consent:[false,false,false],i:0,resp:{}});
+let LIMPAR_AUDIOS=false;
+if(TOKEN){
+  if(S.dono&&S.dono!==TOKEN){ S=VAZIO(); LIMPAR_AUDIOS=true }
+  else if(!S.dono&&Object.keys(S.resp).length) S.legado=true; // gravações feitas antes do link pessoal
+  S.dono=TOKEN;
+}
+if(S.fase==="pergunta"||S.fase==="fim") S.fase="boas"; // toda visita começa pela abertura
+guarda();
 async function api(body){ const r=await fetch(FN,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...body,token:TOKEN})}); const j=await r.json().catch(()=>({})); if(r.status===401) LINK_OK=false; return {ok:r.ok,...j} }
 const enviando=new Set();
 async function envia(k){
@@ -159,7 +169,7 @@ async function envia(k){
   if(S.resp[k]&&BLOBS[k]!==blob) envia(k); // regravou enquanto enviava
 }
 function pendentes(){ return Object.keys(S.resp).map(Number).filter(k=>BLOBS[k]&&S.resp[k].nuvem!=="ok") }
-function sincroniza(){ if(navigator.onLine===false) return; pendentes().forEach(envia) }
+function sincroniza(){ if(navigator.onLine===false||S.legado) return; pendentes().forEach(envia) }
 const TXT_NUVEM={ok:"✓ Guardada na Mimetica",enviando:"Enviando para a Mimetica...",erro:"Sem conexão agora. Vai tentar de novo sozinho."};
 function marcaNuvem(){
   const el=document.getElementById("nuvem"); if(el){ const r=S.resp[S.i]; el.textContent=(TOKEN&&r&&!G)?(r.remoto?TXT_NUVEM.ok+" (gravada em outro aparelho)":TXT_NUVEM[r.nuvem]||""):"" }
@@ -270,8 +280,11 @@ function boas(){
   <p class="nota">Se não encontrar o link, peça ao Fernando.</p>`; return }
   app.innerHTML=`
   <div class="topo">${LOGO}<span class="rot">Entrevista</span></div>
-  <div><div class="rot">O gêmeo contra o original</div><h1>Conte a sua história em voz alta.</h1></div>
-  <p class="sub">Você vai ler ${BLOCOS.length-1} temas da sua vida e responder falando, como numa conversa. Cada resposta é gravada separada. O seu gêmeo digital vai aprender com o que você contar.</p>
+  <div><div class="rot">O gêmeo contra o original</div><h1>${S.nome?esc(primeiro(S.nome))+", conte":"Conte"} a sua história em voz alta.</h1></div>
+  ${S.legado?`<div class="aviso pilha" style="gap:10px"><strong style="color:var(--fg)">Este celular já tem ${Object.keys(S.resp).length} ${Object.keys(S.resp).length>1?"respostas gravadas":"resposta gravada"} antes do seu link.</strong>
+    <span>Se foi você gravando a sua entrevista, use essas respostas. Se foi um teste, comece do zero.</span>
+    <div class="nav" style="grid-template-columns:1fr 1fr"><button class="btn" id="zera" type="button">Começar do zero</button><button class="btn cheio" id="usa" type="button">Usar as respostas</button></div></div>`:""}
+  <p class="sub">Você vai ler ${BLOCOS.length} temas da sua vida e responder falando, como numa conversa. Cada resposta é gravada separada. O seu gêmeo digital vai aprender com o que você contar.</p>
   <ul class="dicas">
     <li><b>45</b><span>Leva uns 45 a 60 minutos. Dá para parar e voltar depois: cada resposta é enviada para a Mimetica assim que você para de gravar.</span></li>
     <li><b>↻</b><span>Antes de seguir, você pode ouvir o que gravou e gravar de novo.</span></li>
@@ -279,6 +292,9 @@ function boas(){
     <li><b>◎</b><span>Escolha um lugar silencioso e deixe o celular perto da boca.</span></li>
   </ul>
   <div class="rodape"><button class="btn cheio largo" id="ir" type="button">${Object.keys(S.resp).length?"Continuar de onde parei":"Começar"}</button></div>`;
+  if($("#usa")) $("#usa").onclick=()=>{ delete S.legado; guarda(); desenha(); sincroniza() };
+  if($("#zera")) $("#zera").onclick=async()=>{ await apagaAudios(); S={...VAZIO(),dono:TOKEN,nome:S.nome}; guarda(); desenha() };
+  $("#ir").disabled=!!S.legado;
   $("#ir").onclick=()=>{ S.fase=S.consent.every(Boolean)&&S.nome?"pergunta":"consent"; guarda(); desenha() };
 }
 
@@ -374,7 +390,10 @@ function fim(){
   $("#env").onclick=baixa;
   $("#apaga").onclick=()=>{ const b=$("#apaga"); if(b.dataset.ok){ apaga() } else { b.dataset.ok=1; b.textContent="Toque de novo para confirmar"; b.style.color="var(--rec)" } };
 }
-async function apaga(){ try{const d=await idb();d.transaction("a","readwrite").objectStore("a").clear()}catch(e){} for(const k in BLOBS) delete BLOBS[k]; S={fase:"boas",nome:"",consent:[false,false,false],i:0,resp:{}}; guarda(); desenha() }
+async function apagaAudios(){ try{const d=await idb();d.transaction("a","readwrite").objectStore("a").clear()}catch(e){} for(const k in BLOBS) delete BLOBS[k] }
+async function apaga(){ await apagaAudios(); S={...VAZIO(),dono:TOKEN||undefined}; guarda(); desenha() }
+const esc=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const primeiro=n=>String(n||"").trim().split(/\s+/)[0]||"";
 const slug=t=>(t||"participante").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 async function baixa(){
   const st=$("#st"); st.textContent="Preparando o arquivo...";
@@ -393,7 +412,7 @@ async function baixa(){
 
 window.addEventListener("resize",()=>{ if(S.fase==="pergunta"&&!G){ const r=S.resp[S.i]; onda(r?r.bars:null,false,0) } });
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>S.fase==="pergunta"&&desenha());
-carregaBlobs().then(()=>{ desenha(); conecta() });
+(LIMPAR_AUDIOS?apagaAudios():carregaBlobs()).then(()=>{ desenha(); conecta() });
 desenha();
 </script>
 </body></html>

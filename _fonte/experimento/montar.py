@@ -10,7 +10,7 @@ TOPO=('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
  '<meta name="robots" content="noindex,nofollow">'
  '<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}'
  'body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>')
-PAGINAS={'inicio-src.html':'experimento/index.html','gravar-src.html':'experimento/gravar/index.html','sessao.html':'experimento/sessao/index.html'}
+PAGINAS={'inicio-src.html':'experimento/index.html','gravar-src.html':'experimento/gravar/index.html','sessao.html':'experimento/sessao/index.html','convites-src.html':'experimento/convites/index.html'}
 for src,dst in PAGINAS.items():
     s=open(os.path.join(aqui,src)).read().replace('__LC__',LC).replace('__LE__',LE)
     s=s.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')

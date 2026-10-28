@@ -1,0 +1,167 @@
+<title>Convites do experimento</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: painel de uma coluna. Formulário de convite no alto, lista de convidados com o andamento embaixo. Monocromático. */
+:root{
+  --bg:#F5F4F0; --palco:#FFFFFF; --linha:#DCDAD3; --fg:#1D1D1B; --sub:#6B6A65; --fraco:#A6A49D; --inverso:#F5F4F0; --cheio:#1D1D1B; --vazio:#E4E2DB; --alerta:#C8282E;
+  --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --logo-claro:none; --logo-escuro:block;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0C0C0E; --palco:#141416; --linha:#2A2A2D; --fg:#F5F4F0; --sub:#9C9B96; --fraco:#5E5D59; --inverso:#0C0C0E; --cheio:#F5F4F0; --vazio:#2A2A2D; --alerta:#FF6B63;
+  --logo-claro:block; --logo-escuro:none; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0C0C0E; --palco:#141416; --linha:#2A2A2D; --fg:#F5F4F0; --sub:#9C9B96; --fraco:#5E5D59; --inverso:#0C0C0E; --cheio:#F5F4F0; --vazio:#2A2A2D; --alerta:#FF6B63;
+  --logo-claro:block; --logo-escuro:none; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-corpo);font-size:15px;line-height:1.5;margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 48px}
+.col{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+a{color:inherit}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.topo{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--linha);padding-bottom:14px}
+.logo{height:26px;width:auto;max-width:100%}
+.lc{display:var(--logo-claro)} .le{display:var(--logo-escuro)}
+h1{font-family:var(--f-titulo);font-size:clamp(28px,5vw,40px);letter-spacing:-.025em;line-height:1.05;margin:4px 0 0}
+h2{font-family:var(--f-titulo);font-size:20px;margin:0}
+.caixa{background:var(--palco);border:1px solid var(--linha);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.campos{display:grid;grid-template-columns:1.3fr 1fr 150px;gap:10px}
+label.c{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--sub);min-width:0}
+input[type=text],select{width:100%;background:transparent;border:1px solid var(--linha);border-radius:10px;padding:11px 12px}
+.btn{border:1px solid var(--linha);background:transparent;border-radius:999px;padding:9px 16px;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover:not(:disabled){border-color:var(--fg)}
+.btn.cheio{background:var(--fg);color:var(--inverso);border-color:var(--fg);font-weight:600}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.peq{padding:6px 12px;font-size:13px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.novo{border:1px solid var(--fg)}
+.link{font-family:var(--f-mono);font-size:13px;word-break:break-all;background:var(--bg);border-radius:8px;padding:10px 12px;border:1px solid var(--linha)}
+.msg{white-space:pre-wrap;font-size:14px;color:var(--sub);background:var(--bg);border-radius:8px;padding:10px 12px;border:1px solid var(--linha)}
+.lista{display:flex;flex-direction:column;gap:10px}
+.cv{border:1px solid var(--linha);border-radius:12px;padding:14px;display:grid;grid-template-columns:1fr auto;gap:10px 14px;align-items:start;background:var(--palco)}
+.cv.off{opacity:.55}
+.cv .nm{font-weight:600;font-size:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.chip{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:1px 8px;color:var(--sub);font-weight:500}
+.st{font-size:13px;color:var(--sub)}
+.st b{color:var(--fg);font-weight:600}
+.barra{height:5px;border-radius:3px;background:var(--vazio);overflow:hidden;grid-column:1/-1}
+.barra b{display:block;height:100%;background:var(--cheio)}
+.cv .btns{grid-column:1/-1}
+.filtro{display:flex;gap:6px;flex-wrap:wrap}
+.filtro button{border:1px solid var(--linha);background:transparent;border-radius:999px;padding:5px 12px;font-size:13px}
+.filtro button.on{background:var(--fg);color:var(--inverso);border-color:var(--fg)}
+.nota{font-size:12px;color:var(--fraco);margin:0}
+.erro{color:var(--alerta);font-size:13px;margin:0}
+.ok{font-size:13px;color:var(--sub)}
+@media (max-width:640px){ .campos{grid-template-columns:1fr} }
+</style>
+
+<div class="col">
+  <header class="topo"><img class="logo lc" src="__LC__" alt="Mimetica"><img class="logo le" src="__LE__" alt="Mimetica"><span class="rot">Convites</span></header>
+  <main id="app" class="col" style="gap:22px"></main>
+</div>
+
+<script>
+const FN="https://owsqgufiaexenvgflvqe.supabase.co/functions/v1/entrevista";
+const BASE="https://mimetica.institute/experimento/gravar/?c=";
+const TEMAS=9;
+const $=s=>document.querySelector(s);
+const app=$("#app");
+const esc=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const TOKEN=(()=>{ let t=null; try{ t=new URLSearchParams(location.search).get("c") }catch(e){}
+  try{ if(t&&/^[a-f0-9]{24}$/.test(t)) localStorage.setItem("mimetica-admin-token",t); else t=localStorage.getItem("mimetica-admin-token") }catch(e){}
+  return t&&/^[a-f0-9]{24}$/.test(t)?t:null })();
+let LISTA=null, ERRO="", NOVO=null, FILTRO="todos", ocupado=false;
+let filtroSalvo; try{ filtroSalvo=localStorage.getItem("mimetica-admin-filtro") }catch(e){} if(filtroSalvo) FILTRO=filtroSalvo;
+
+async function api(body){
+  const r=await fetch(FN,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...body,token:TOKEN})});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(r.status===403?"Este link não tem permissão para convidar.":r.status===401?"Link de administrador inválido.":(j.erro||"Erro "+r.status));
+  return j;
+}
+const primeiro=n=>String(n||"").trim().split(/\s+/)[0]||"";
+function mensagem(c){
+  return `${primeiro(c.nome)}, que bom ter você no experimento da Mimetica. Este é o seu link pessoal para gravar a entrevista:\n${BASE+c.token}\n\nAbra no Safari ou no Chrome. São ${TEMAS} temas da sua vida, respondidos em voz alta, uns 45 minutos no total. Dá para fazer em partes: cada resposta fica guardada assim que você para de gravar.`;
+}
+function quando(iso){ if(!iso) return ""; const d=(Date.now()-new Date(iso))/60000;
+  if(d<2) return "agora"; if(d<60) return `há ${Math.round(d)} min`; if(d<60*24) return `há ${Math.round(d/60)} h`; return `há ${Math.round(d/1440)} dias` }
+function estado(c){
+  if(!c.ativo) return "Desativado";
+  if(!c.abriu) return "Ainda não abriu o link";
+  if(!c.respostas) return c.consentiu?"Aceitou os combinados, ainda não gravou":"Abriu o link";
+  if(c.principais>=TEMAS) return "Terminou a entrevista";
+  return `Gravando: ${c.principais} de ${TEMAS} temas`;
+}
+async function copia(txt,btn){
+  const antes=btn.textContent;
+  try{ await navigator.clipboard.writeText(txt); btn.textContent="Copiado" }
+  catch(e){ const t=document.createElement("textarea"); t.value=txt; document.body.appendChild(t); t.select(); try{document.execCommand("copy"); btn.textContent="Copiado"}catch(_){btn.textContent="Selecione e copie"} t.remove() }
+  setTimeout(()=>btn.textContent=antes,1800);
+}
+const wa=txt=>"https://wa.me/?text="+encodeURIComponent(txt);
+
+function desenha(){
+  if(!TOKEN){ app.innerHTML=`<div><div class="rot">Experimento do gêmeo</div><h1>Abra pelo seu link de administrador.</h1></div><p class="st">Esta página só funciona com o link de convites que o Fernando recebeu.</p>`; return }
+  const lst=(LISTA||[]).filter(c=>FILTRO==="todos"||c.tipo===FILTRO).slice().reverse();
+  const cont=t=>(LISTA||[]).filter(c=>t==="todos"||c.tipo===t).length;
+  app.innerHTML=`
+  <div><div class="rot">Experimento do gêmeo</div><h1>Convidar alguém.</h1></div>
+  <form class="caixa" id="form" autocomplete="off">
+    <div class="campos">
+      <label class="c">Nome<input type="text" id="nome" placeholder="Renato Zanoni" required></label>
+      <label class="c">Empresa<input type="text" id="empresa" placeholder="Ferrero"></label>
+      <label class="c">Tipo<select id="tipo"><option value="convidado">Convidado</option><option value="socio">Sócio</option><option value="teste">Teste</option></select></label>
+    </div>
+    <div class="btns"><button class="btn cheio" id="criar" type="submit" ${ocupado?"disabled":""}>${ocupado?"Criando...":"Criar convite"}</button></div>
+    ${ERRO?`<p class="erro">${esc(ERRO)}</p>`:""}
+  </form>
+  ${NOVO?`<div class="caixa novo">
+    <h2>Convite de ${esc(NOVO.nome)} pronto.</h2>
+    <div class="link">${esc(BASE+NOVO.token)}</div>
+    <div class="msg">${esc(mensagem(NOVO))}</div>
+    <div class="btns">
+      <a class="btn cheio" href="${wa(mensagem(NOVO))}" target="_blank" rel="noopener">Mandar pelo WhatsApp</a>
+      <button class="btn" type="button" data-copia="msg" data-t="${NOVO.token}">Copiar mensagem</button>
+      <button class="btn" type="button" data-copia="link" data-t="${NOVO.token}">Copiar só o link</button>
+    </div></div>`:""}
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+    <h2>Quem foi convidado</h2>
+    <button class="btn peq" id="atualiza" type="button">Atualizar</button>
+  </div>
+  <div class="filtro">${[["todos","Todos"],["convidado","Convidados"],["socio","Sócios"],["teste","Testes"]].map(([v,t])=>`<button type="button" data-f="${v}" class="${FILTRO===v?"on":""}">${t} · ${cont(v)}</button>`).join("")}</div>
+  <div class="lista">${LISTA===null?`<p class="st">Carregando...</p>`:lst.length?lst.map(c=>`
+    <div class="cv ${c.ativo?"":"off"}">
+      <div><div class="nm">${esc(c.nome)}${c.empresa?`<span class="st">${esc(c.empresa)}</span>`:""}<span class="chip">${{convidado:"convidado",socio:"sócio",teste:"teste"}[c.tipo]||c.tipo}</span>${c.admin?`<span class="chip">admin</span>`:""}</div>
+        <div class="st"><b>${estado(c)}</b>${c.respostas?` · ${c.respostas} respostas · ${String(c.minutos).replace(".",",")} min · ${c.transcritas} transcritas`:""}${c.ultimo?` · último envio ${quando(c.ultimo)}`:""}</div></div>
+      <span class="mono st">${new Date(c.criado_em).toLocaleDateString("pt-BR")}</span>
+      <div class="barra"><b style="width:${Math.min(100,c.principais/TEMAS*100)}%"></b></div>
+      <div class="btns">
+        <a class="btn peq" href="${wa(mensagem(c))}" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="btn peq" type="button" data-copia="msg" data-t="${c.token}">Copiar mensagem</button>
+        <button class="btn peq" type="button" data-copia="link" data-t="${c.token}">Copiar link</button>
+        ${c.admin?"":`<button class="btn peq" type="button" data-ativa="${c.token}" data-v="${c.ativo?0:1}">${c.ativo?"Desativar":"Reativar"}</button>`}
+      </div>
+    </div>`).join(""):`<p class="st">Ninguém aqui ainda.</p>`}</div>
+  <p class="nota">Cada link é pessoal. Desativar um link impede novas gravações por ele, sem apagar o que já foi gravado.</p>`;
+  $("#form").onsubmit=async e=>{ e.preventDefault(); const nome=$("#nome").value.trim(); if(!nome) return;
+    ocupado=true; ERRO=""; desenha(); $("#nome").value=nome;
+    try{ const j=await api({acao:"admin_criar",nome,empresa:$("#empresa")?.value||"",tipo:$("#tipo")?.value||"convidado"}); LISTA=j.convites; NOVO=LISTA.find(c=>c.token===j.token) }
+    catch(err){ ERRO=err.message }
+    ocupado=false; desenha(); };
+  $("#atualiza").onclick=carrega;
+  app.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{FILTRO=b.dataset.f; try{localStorage.setItem("mimetica-admin-filtro",FILTRO)}catch(e){} desenha()});
+  app.querySelectorAll("[data-copia]").forEach(b=>b.onclick=()=>{ const c=(LISTA||[]).find(x=>x.token===b.dataset.t); if(c) copia(b.dataset.copia==="msg"?mensagem(c):BASE+c.token,b) });
+  app.querySelectorAll("[data-ativa]").forEach(b=>b.onclick=async()=>{
+    if(b.dataset.v==="0"&&!b.dataset.ok){ b.dataset.ok=1; b.textContent="Toque de novo para desativar"; b.style.color="var(--alerta)"; return }
+    try{ const j=await api({acao:"admin_ativar",alvo:b.dataset.t,ativo:b.dataset.v==="1"}); LISTA=j.convites }catch(err){ ERRO=err.message } desenha() });
+}
+async function carrega(){ if(!TOKEN) return; try{ const j=await api({acao:"admin_listar"}); LISTA=j.convites; ERRO="" }catch(e){ ERRO=e.message; if(LISTA===null) LISTA=[] } desenha() }
+desenha(); carrega(); setInterval(()=>{ if(!document.hidden&&!ocupado) carrega() },30000);
+</script>

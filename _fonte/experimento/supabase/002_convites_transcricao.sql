@@ -28,3 +28,11 @@ create unique index if not exists respostas_audio_user_pergunta_n
 
 -- 003: create extension if not exists pg_net with schema extensions;  (usado para testar a função pelo banco)
 -- Convites: um por sócio, código aleatório de 24 caracteres. Os códigos ficam só no banco.
+
+-- 004_convites_admin (aplicado em 28/10/2026)
+alter table public.convites
+  add column if not exists tipo text not null default 'socio' check (tipo in ('socio','convidado','teste')),
+  add column if not exists empresa text,
+  add column if not exists admin boolean not null default false,
+  add column if not exists ativo boolean not null default true;
+-- O link do Fernando é o de administrador (admin = true).
