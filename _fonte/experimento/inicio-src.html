@@ -1,0 +1,184 @@
+<title>O gêmeo contra o original</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: página única de leitura, coluna de texto com uma linha do tempo vertical das etapas. Monocromático, osso e preto. */
+:root{
+  --bg:#F5F4F0; --palco:#FFFFFF; --linha:#DCDAD3; --fg:#1D1D1B; --sub:#6B6A65; --fraco:#A6A49D; --inverso:#F5F4F0; --faixa:#0C0C0E; --faixafg:#F5F4F0;
+  --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --logo-claro:none; --logo-escuro:block;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0C0C0E; --palco:#141416; --linha:#2A2A2D; --fg:#F5F4F0; --sub:#9C9B96; --fraco:#5E5D59; --inverso:#0C0C0E; --faixa:#F5F4F0; --faixafg:#0C0C0E;
+  --logo-claro:block; --logo-escuro:none; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0C0C0E; --palco:#141416; --linha:#2A2A2D; --fg:#F5F4F0; --sub:#9C9B96; --fraco:#5E5D59; --inverso:#0C0C0E; --faixa:#F5F4F0; --faixafg:#0C0C0E;
+  --logo-claro:block; --logo-escuro:none; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-corpo);font-size:16px;line-height:1.6;margin:0}
+.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:860px;margin:0 auto}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.logo{height:28px;width:auto;max-width:100%}
+.lc{display:var(--logo-claro)} .le{display:var(--logo-escuro)}
+header.topo{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:20px;border-bottom:1px solid var(--linha)}
+.hero{padding-block:56px 40px;display:flex;flex-direction:column;gap:18px}
+.hero h1{font-family:var(--f-titulo);font-size:clamp(40px,7vw,76px);line-height:.98;letter-spacing:-.035em;margin:0;text-wrap:balance}
+.hero p{font-size:19px;color:var(--sub);max-width:60ch;margin:0}
+.acoes{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--linha);border-radius:999px;padding:11px 18px;font-size:15px;text-decoration:none;font-weight:500}
+.btn:hover{border-color:var(--fg)}
+.btn.cheio{background:var(--fg);color:var(--inverso);border-color:var(--fg);font-weight:600}
+section{padding-block:40px;border-top:1px solid var(--linha);display:flex;flex-direction:column;gap:20px}
+h2{font-family:var(--f-titulo);font-size:clamp(26px,3.6vw,36px);letter-spacing:-.02em;line-height:1.1;margin:0;text-wrap:balance}
+section > p{margin:0;max-width:64ch;color:var(--sub)}
+
+/* linha do tempo */
+.etapas{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.et{display:grid;grid-template-columns:76px 1fr;gap:18px;position:relative;padding-bottom:28px}
+.et:last-child{padding-bottom:0}
+.et::before{content:"";position:absolute;left:37px;top:36px;bottom:0;width:1px;background:var(--linha)}
+.et:last-child::before{display:none}
+.dia{width:76px;height:36px;border-radius:999px;border:1px solid var(--fg);display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;background:var(--bg);position:relative;z-index:1}
+.et.feito .dia{background:var(--fg);color:var(--inverso)}
+.et h3{margin:4px 0 4px;font-family:var(--f-titulo);font-size:21px;letter-spacing:-.01em;display:flex;flex-wrap:wrap;gap:10px;align-items:baseline}
+.et p{margin:0;color:var(--sub);max-width:60ch}
+.quem{font-family:var(--f-mono);font-size:12px;color:var(--fg);border:1px solid var(--linha);border-radius:999px;padding:1px 10px}
+.et .lk{margin-top:10px}
+.st{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco)}
+
+/* índice */
+.faixa{background:var(--faixa);color:var(--faixafg);border-radius:18px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.faixa .rot{color:var(--faixafg);opacity:.6}
+.formula{font-family:var(--f-titulo);font-size:clamp(28px,4vw,44px);line-height:1.1;letter-spacing:-.02em;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.frac{display:inline-flex;flex-direction:column;align-items:center;font-size:.62em;line-height:1.15}
+.frac span:first-child{border-bottom:2px solid currentColor;padding-bottom:4px;margin-bottom:4px}
+.faixa p{margin:0;opacity:.8}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cx{border:1px solid var(--linha);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px;background:var(--palco);min-width:0}
+.cx h3{margin:0;font-family:var(--f-titulo);font-size:18px}
+.cx p{margin:0;color:var(--sub);font-size:15px}
+
+/* papéis */
+.tabela{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:520px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--linha);vertical-align:top}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);font-weight:500}
+td:first-child{font-weight:600;white-space:nowrap}
+
+/* perguntas */
+details{border-bottom:1px solid var(--linha);padding-block:14px}
+details:first-of-type{border-top:1px solid var(--linha)}
+summary{cursor:pointer;font-family:var(--f-titulo);font-size:18px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--f-mono);color:var(--sub)}
+details[open] summary::after{content:"–"}
+details p,details ul{margin:10px 0 0;color:var(--sub);max-width:64ch}
+details ul{padding-left:20px}
+.regras{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.regras li{display:grid;grid-template-columns:28px 1fr;gap:10px}
+.regras li::before{content:"·";font-family:var(--f-mono);font-size:22px;line-height:1;color:var(--fg)}
+footer{padding-block:32px 48px;border-top:1px solid var(--linha);color:var(--fraco);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:720px){ .faixa,.duas{grid-template-columns:1fr} .faixa{padding:24px} .et{grid-template-columns:64px 1fr;gap:14px} .dia{width:64px} .et::before{left:31px} }
+</style>
+
+<div class="pad"><div class="col">
+  <header class="topo"><img class="logo lc" src="__LC__" alt="Mimetica"><img class="logo le" src="__LE__" alt="Mimetica"><span class="rot">Experimento interno</span></header>
+
+  <div class="hero">
+    <div class="rot">Entre os sócios da Mimetica</div>
+    <h1>O gêmeo contra o original.</h1>
+    <p>Cada sócio ganha um gêmeo digital, construído só a partir de uma entrevista. Depois, os dois respondem às mesmas 30 perguntas. A gente mede quanto o gêmeo acerta, comparado com quanto a própria pessoa acerta sobre si mesma.</p>
+    <div class="acoes">
+      <a class="btn cheio" href="../experimento/gravar/">Gravar a minha entrevista</a>
+      <a class="btn" href="../experimento/sessao/">Ver a sessão ao vivo (exemplo)</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="rot">Como funciona</div>
+    <h2>Seis etapas, três semanas.</h2>
+    <ol class="etapas">
+      <li class="et feito"><span class="dia">dia 1</span><div>
+        <h3>Gravar a entrevista <span class="quem">cada sócio</span></h3>
+        <p>Pelo celular, no seu ritmo. São 9 temas da sua vida, como história, trabalho, dinheiro e valores, com perguntas para aprofundar. Você lê, toca no botão vermelho e fala. Leva de 45 a 60 minutos e pode ser feito em partes.</p>
+        <div class="lk"><a class="btn" href="../experimento/gravar/">Abrir a gravação</a></div></div></li>
+      <li class="et"><span class="dia">dia 1</span><div>
+        <h3>Questionário curto <span class="quem">cada sócio</span></h3>
+        <p>Cerca de 15 minutos: escalas de personalidade, preferências de decisão, o Eneagrama do Cadu e dados de perfil. Completa o que a entrevista conta.</p>
+        <div class="lk"><span class="st">Em construção</span></div></div></li>
+      <li class="et"><span class="dia">dias 2 a 5</span><div>
+        <h3>Construção dos gêmeos <span class="quem">Geraldo</span></h3>
+        <p>Cada gêmeo é montado só com a sua entrevista e o questionário. O Geraldo também monta um segundo gêmeo de cada um, só com os dados de perfil, para servir de comparação.</p></div></li>
+      <li class="et"><span class="dia">dia 6</span><div>
+        <h3>Previsões lacradas <span class="quem">Geraldo e guardião</span></h3>
+        <p>O gêmeo responde às 30 perguntas do teste. As respostas entram no sistema e recebem um lacre, uma impressão digital que muda inteira se uma única letra for alterada. Ninguém vê as previsões até a sessão.</p></div></li>
+      <li class="et"><span class="dia">dia 7</span><div>
+        <h3>Sessão ao vivo <span class="quem">todos</span></h3>
+        <p>Cada sócio responde às 30 perguntas em voz alta. Depois de cada resposta, a tela revela o que o gêmeo previu e o placar sobe. Gravamos em vídeo.</p>
+        <div class="lk"><a class="btn" href="../experimento/sessao/">Ver como funciona</a></div></div></li>
+      <li class="et"><span class="dia">dia 21</span><div>
+        <h3>Reteste <span class="quem">cada sócio</span></h3>
+        <p>Duas semanas depois, cada um responde às mesmas perguntas de novo, sem ver as respostas anteriores. Isso mede o quanto a pessoa é coerente com ela mesma e fecha o resultado.</p></div></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="rot">O resultado</div>
+    <h2>Um número que leva em conta que ninguém responde igual duas vezes.</h2>
+    <div class="faixa">
+      <div class="formula"><span>Índice =</span><span class="frac"><span>acerto do gêmeo</span><span>coerência da pessoa</span></span></div>
+      <div><div class="rot">Como ler</div><p>Um índice de 0,85 quer dizer que o gêmeo acerta 85% do que a própria pessoa acerta sobre si mesma, quando responde de novo duas semanas depois.</p></div>
+    </div>
+    <div class="duas">
+      <div class="cx"><h3>Como se pontua</h3><p>Mesma resposta vale 1 ponto. Nas escalas, chegar a um ponto de distância vale meio. As três perguntas abertas são pontuadas por dois sócios que não sabem qual resposta é do gêmeo.</p></div>
+      <div class="cx"><h3>O controle</h3><p>O segundo gêmeo, feito só com idade, cidade, profissão e renda, é o que qualquer um faria com um perfil do LinkedIn. Se o gêmeo completo ficar bem acima dele, fica provado que a entrevista faz diferença.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="rot">Quem faz o quê</div>
+    <h2>Papéis.</h2>
+    <div class="tabela"><table>
+      <thead><tr><th>Papel</th><th>Quem</th><th>O que faz</th></tr></thead>
+      <tbody>
+        <tr><td>Participante</td><td>Cada sócio</td><td>Grava a entrevista, responde ao questionário, à sessão e ao reteste</td></tr>
+        <tr><td>Construtor</td><td>Geraldo</td><td>Monta os gêmeos só com a semente de cada um</td></tr>
+        <tr><td>Guardião</td><td>Um sócio diferente para cada participante</td><td>Cuida das previsões lacradas e conduz a revelação na sessão</td></tr>
+        <tr><td>Árbitro</td><td>Douglas</td><td>Fecha o critério de acerto antes da sessão e confere a pontuação</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <div class="rot">Regras</div>
+    <h2>O que não se quebra.</h2>
+    <ul class="regras">
+      <li>Ninguém vê as 30 perguntas do teste antes da sessão. Nem quem monta os gêmeos as mostra a ninguém.</li>
+      <li>Nenhuma pergunta do teste aparece na entrevista, nem em outras palavras.</li>
+      <li>O critério de acerto é fechado antes da sessão, junto com o lacre.</li>
+      <li>Ninguém é guardião ou árbitro do próprio gêmeo.</li>
+      <li>Nada é corrigido depois da sessão. Um erro de pontuação vira nota, e o número original fica registrado.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="rot">Dúvidas</div>
+    <h2>Perguntas frequentes.</h2>
+    <div>
+      <details><summary>Se eu gravar de novo uma resposta, o que fica?</summary><p>Fica só a última gravação. A anterior é apagada e a nova entra no lugar.</p></details>
+      <details><summary>Tem limite de tempo por pergunta?</summary><p>Não. A barra que aparece enquanto você grava é uma sugestão: uns 2,5 minutos nos temas principais e pouco mais de 1 minuto nos aprofundamentos. Falar mais é bom, porque quanto mais histórias, mais o gêmeo aprende.</p></details>
+      <details><summary>Posso fechar o link e continuar depois?</summary><p>Pode. Ao abrir de novo, a tela volta na pergunta em que você parou, com as gravações guardadas. Por enquanto elas ficam no próprio celular, então:</p>
+        <ul><li>abra sempre no mesmo celular e no mesmo navegador;</li><li>não use aba anônima;</li><li>não limpe os dados do navegador antes de terminar;</li><li>termine em poucos dias e baixe o arquivo na última tela.</li></ul></details>
+      <details><summary>O microfone não funciona. O que faço?</summary><p>Abra o link no Safari ou no Chrome. O navegador de dentro do WhatsApp costuma bloquear o microfone. No iPhone, se você negou a permissão, toque em “aA” na barra do endereço e libere o microfone nos ajustes do site.</p></details>
+      <details><summary>Para onde vão as gravações?</summary><p>Hoje ficam no seu celular até você baixar o arquivo no fim. Em breve, cada resposta vai subir sozinha para um armazenamento privado da Mimetica, assim que você parar de gravar. Só você e o Geraldo terão acesso.</p></details>
+      <details><summary>O que acontece com os meus dados?</summary><p>A gravação e o gêmeo são de uso interno. Só o placar e os trechos que você aprovar podem ser divulgados. Se você pedir, a gravação e o gêmeo são apagados. Saúde, religião e política só entram se você quiser falar delas.</p></details>
+    </div>
+  </section>
+
+  <footer><span>Mimetica · experimento interno · página fora do menu do site</span><span class="mono">v1 · outubro de 2026</span></footer>
+</div></div>
