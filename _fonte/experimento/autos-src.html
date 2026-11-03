@@ -1,0 +1,626 @@
+<title>Gêmeos digitais para montadoras</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: uma tela por vez, avanço por clique, identidade da apresentação institucional.
+   Visual único e deliberado, todo em fundo preto. */
+:root{
+  --osso:#0C0C0E; --papel:#141416; --preto:#F5F4F0; --texto:#F5F4F0; --sub:#9C9B96; --fraco:#6B6A65; --linha:#2A2A2D; --vazio:#232326;
+  --rec:#FF453A; --escuro2:#18181B; --escurolinha:#C9C7C0; --escurosub:#6B6A65;
+  --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--osso);color:var(--texto);font-family:var(--f-corpo);font-size:16px;line-height:1.5;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--texto);outline-offset:3px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+
+/* moldura */
+.topo{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:calc(env(safe-area-inset-top,0px) + 18px) max(22px,env(safe-area-inset-right,0px)) 0 max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.topo>*{pointer-events:auto}
+.logo{height:26px;width:auto;display:block;flex:none;align-self:center;object-fit:contain}
+.cel-tela .logo{height:16px;width:auto;align-self:flex-start}
+.voltar{font-size:13px;color:var(--sub);text-decoration:none;border:1px solid var(--linha);border-radius:999px;padding:6px 14px;background:rgba(12,12,14,.7)}
+.voltar:hover{color:var(--texto);border-color:var(--texto)}
+.barra{position:fixed;left:0;right:0;top:0;height:3px;z-index:11;background:transparent}
+.barra b{display:block;height:100%;background:var(--texto);width:0;transition:width .4s ease}
+.rodape{position:fixed;inset:auto 0 0 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:0 max(22px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.rodape>*{pointer-events:auto}
+.nav{display:flex;gap:8px}
+.nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--linha);background:var(--papel);display:grid;place-items:center}
+.nav button:hover:not(:disabled){border-color:var(--texto)}
+.nav button:disabled{opacity:.3;cursor:default}
+.nav svg{width:16px;height:16px;fill:var(--texto)}
+.cont{font-family:var(--f-mono);font-size:13px;color:var(--sub)}
+
+/* telas */
+.tela{position:fixed;inset:0;display:flex;align-items:flex-start;justify-content:center;
+  padding:88px max(28px,env(safe-area-inset-right,0px)) 84px max(28px,env(safe-area-inset-left,0px));
+  opacity:0;visibility:hidden;transform:translateX(24px);transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s;overflow-y:auto}
+.tela.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease,visibility 0s}
+.tela.antes{transform:translateX(-24px)}
+.miolo{width:100%;max-width:1180px;margin:auto 0}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+h1,h2{font-family:var(--f-titulo);font-weight:700;letter-spacing:-.03em;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6.2vw,84px);line-height:1}
+h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
+.lead{font-size:clamp(17px,1.6vw,21px);color:var(--sub);max-width:46ch;margin:22px 0 0}
+.pontos{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;max-width:46ch}
+.pontos li{display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:16px}
+.pontos li b{font-family:var(--f-mono);font-weight:500;color:var(--texto)}
+.pontos li span{color:var(--sub)}
+.nota{font-size:12px;color:var(--fraco);margin-top:18px}
+.aparece{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+.tela.on .aparece{opacity:1;transform:none}
+.tela.on .aparece.d1{transition-delay:.15s}.tela.on .aparece.d2{transition-delay:.3s}.tela.on .aparece.d3{transition-delay:.45s}.tela.on .aparece.d4{transition-delay:.6s}
+
+/* capa */
+.capa{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+#cabeca{width:100%;max-width:470px;aspect-ratio:840/1000;display:block;margin-left:auto}
+
+/* celular */
+.cel{width:300px;max-width:100%;aspect-ratio:9/18.5;background:#2A2A2D;border-radius:44px;padding:14px;margin:0 auto;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.cel-tela{width:100%;height:100%;background:var(--osso);border-radius:32px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:12px;overflow:hidden;position:relative}
+.cel-prog{display:flex;gap:3px}.cel-prog i{flex:1;height:3px;border-radius:2px;background:var(--vazio)}.cel-prog i.at{background:var(--rec)}
+.cel h4{margin:0;font-family:var(--f-titulo);font-size:16px;line-height:1.25;font-weight:600}
+.cel .grav{margin-top:auto;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:12px 10px 16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cel canvas{width:100%;height:70px;display:block}
+.cel .rel{font-family:var(--f-mono);font-size:24px}
+.cel .est{font-size:11px;color:var(--sub);min-height:16px}
+.cel .est.r{color:var(--rec)}
+.recb{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--texto);display:grid;place-items:center}
+.recb span{width:44px;height:44px;border-radius:50%;background:var(--rec);transition:all .25s}
+.recb.on span{width:22px;height:22px;border-radius:5px}
+.toque{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(245,244,240,.25);pointer-events:none;opacity:0;transform:scale(.6)}
+.toque.v{animation:toque .6s ease}
+@keyframes toque{30%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
+
+/* temas */
+.temas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.tema{text-align:left;border:1px solid var(--linha);background:var(--papel);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;opacity:.15;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.tema.v{opacity:1;transform:none}
+.tema .n{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
+.tema .q{font-family:var(--f-titulo);font-size:15px;line-height:1.3;font-weight:500;color:var(--texto)}
+.tema .chip{align-self:flex-start;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:1px 8px;color:var(--sub);margin-top:auto}
+
+/* camadas */
+.camadas{display:flex;flex-direction:column;gap:12px}
+.cam{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.cam .i{font-family:var(--f-mono);font-size:13px;width:44px;height:44px;border-radius:12px;background:var(--preto);color:var(--osso);display:grid;place-items:center}
+.cam h3{margin:0;font-family:var(--f-titulo);font-size:20px}
+.cam p{margin:4px 0 0;color:var(--sub);font-size:15px}
+.escala{display:flex;gap:6px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.escala span{width:30px;height:30px;border-radius:8px;border:1px solid var(--linha);display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;color:var(--sub)}
+.escala span.on{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.escala small{font-size:12px;color:var(--fraco);margin:0 4px}
+
+/* construção */
+.fluxo{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:16px;align-items:center;margin-top:34px}
+.ent{display:flex;flex-direction:column;gap:10px}
+.ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
+.seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+.caixa-preta{background:#18181B;border:1px solid var(--linha);color:#F5F4F0;border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.caixa-preta .rot{color:#9C9B96}
+.caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
+.caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.caixa-preta>*:not(canvas){position:relative}
+.saida{background:var(--papel);border:1px solid var(--texto);border-radius:16px;padding:18px;text-align:center}
+.saida canvas{width:132px;height:157px;display:block;margin:0 auto 10px;background:#0C0C0E;border-radius:14px}
+.saida b{font-family:var(--f-titulo);font-size:18px}
+
+/* teste */
+.duelo{display:flex;flex-direction:column;gap:12px}
+.dq{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
+.dq .rot{display:flex;justify-content:space-between;gap:8px}
+.dq h4{margin:8px 0 0;font-family:var(--f-titulo);font-size:20px;line-height:1.2;font-weight:600;min-height:48px}
+.lados{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lado{border:1px solid var(--linha);border-radius:16px;padding:16px;background:var(--papel);min-height:128px;display:flex;flex-direction:column;gap:8px}
+.lado.g{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.lado.g .rot{color:var(--escurosub)}
+.lado .r{font-family:var(--f-titulo);font-size:19px;line-height:1.2;opacity:0;transition:opacity .4s}
+.lado .r.v{opacity:1}
+.lacre{font-family:var(--f-mono);font-size:12px;color:var(--escurosub);word-break:break-all}
+.ver{align-self:flex-start;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;border:1px solid var(--escurolinha);opacity:0;transition:opacity .3s}
+.ver.v{opacity:1}
+.ver.ok{background:var(--osso);color:var(--preto);border-color:var(--osso)}
+.placar{display:flex;align-items:center;gap:14px}
+.placar .trilha{display:flex;gap:5px}
+.placar .trilha i{width:16px;height:16px;border-radius:4px;border:1px solid var(--linha)}
+.placar .trilha i.s1{background:var(--texto);border-color:var(--texto)}
+.placar .trilha i.s05{background:linear-gradient(135deg,var(--fraco) 50%,transparent 50%);border-color:var(--fraco)}
+.placar .trilha i.s0{background:var(--vazio)}
+
+/* índice */
+.formula{display:flex;align-items:center;gap:16px;flex-wrap:nowrap;font-family:var(--f-titulo);font-size:clamp(26px,3vw,40px);font-weight:700;letter-spacing:-.02em;margin-top:28px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;text-align:center;font-size:.5em;line-height:1.2;font-weight:600}
+.frac span:first-child{border-bottom:2px solid currentColor;padding-bottom:5px;margin-bottom:5px}
+.barras{display:flex;flex-direction:column;gap:18px;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:24px}
+.br{display:grid;grid-template-columns:150px 1fr 56px;gap:12px;align-items:center;font-size:15px}
+.br .trilho{height:14px;border-radius:7px;background:var(--vazio);overflow:hidden}
+.br .trilho b{display:block;height:100%;width:0;background:var(--texto);border-radius:7px;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.br.f .trilho b{background:var(--fraco)}
+.br .v{font-family:var(--f-mono);text-align:right}
+.grande{font-family:var(--f-titulo);font-size:clamp(56px,7vw,96px);font-weight:700;letter-spacing:-.04em;line-height:1}
+
+/* população */
+#povoCanvas{width:100%;max-width:560px;aspect-ratio:1.25;display:block;margin-left:auto}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{border:1px solid var(--texto);border-radius:999px;padding:12px 20px;font-size:15px;text-decoration:none;font-weight:600;background:var(--texto);color:var(--osso)}
+.btn.claro{background:transparent;color:var(--texto);font-weight:500}
+
+@media (max-width:900px){
+  body{overflow:auto}
+  .dupla,.capa{grid-template-columns:1fr;gap:28px}
+  .temas{grid-template-columns:1fr 1fr}
+  .fluxo{grid-template-columns:1fr;gap:10px}
+  .seta{transform:rotate(90deg);justify-self:center}
+  #cabeca,#povoCanvas{margin:0 auto;max-width:320px}
+  .cel{width:250px}
+  .tela{padding-top:76px;align-items:flex-start}
+}
+@media (max-width:520px){ .temas{grid-template-columns:1fr} .lados{grid-template-columns:1fr} .br{grid-template-columns:110px 1fr 48px} .voltar{display:none} }
+@media (prefers-reduced-motion:reduce){ .tela,.aparece,.br .trilho b{transition:none!important} }
+
+
+/* ===== telas próprias da versão automotiva ===== */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.cards4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.cd{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.cd h3{margin:0;font-family:var(--f-titulo);font-size:20px;line-height:1.25;font-weight:600;text-wrap:balance}
+.cd p{margin:0;color:var(--sub);font-size:15px}
+.cd.nossa{border-color:var(--texto)}
+.cd .num{font-family:var(--f-titulo);font-size:clamp(40px,4.4vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.passos3{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.passos3 li{display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:14px 16px}
+.passos3 b{width:40px;height:40px;border-radius:12px;background:#F5F4F0;color:#0C0C0E;display:grid;place-items:center;font-family:var(--f-mono)}
+.passos3 h3{margin:0;font-family:var(--f-titulo);font-size:19px}
+.passos3 p{margin:4px 0 0;color:var(--sub);font-size:15px}
+.br.r .trilho b{background:var(--rec)}
+.br .v{white-space:nowrap}
+.br.dest span:first-child{color:var(--texto);font-weight:600}
+/* abertura: grade de marcas */
+#grade{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;max-width:470px;margin-left:auto}
+#grade i{aspect-ratio:1;border-radius:8px;border:1px solid var(--linha);background:var(--papel);opacity:0;transform:scale(.7);transition:opacity .35s,transform .35s,background .5s,border-color .5s}
+#grade i.v{opacity:1;transform:none}
+#grade i.c{background:#F5F4F0;border-color:#F5F4F0}
+#grade i.f{box-shadow:inset 0 0 0 2px #6B6A65}
+.leg2{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--sub);justify-content:flex-end;max-width:470px;margin-left:auto}
+.leg2 span{display:inline-flex;align-items:center;gap:8px}
+.leg2 i{width:14px;height:14px;border-radius:4px;border:1px solid var(--linha);background:var(--papel)}
+.leg2 i.c{background:#F5F4F0;border-color:#F5F4F0}
+.leg2 i.f{box-shadow:inset 0 0 0 2px #6B6A65}
+/* pilares */
+.pilares{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:26px}
+.pil{background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:14px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.pil b{font-family:var(--f-titulo);font-size:16px;font-weight:600}
+.pil span{font-size:12.5px;color:var(--sub);line-height:1.35}
+.pil em{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--fraco);margin-top:auto}
+.comp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.comp .cd{flex-direction:row;align-items:center;gap:18px}
+.comp .num{min-width:2.2ch}
+/* peças */
+.pecas{position:relative}
+.pecas .linha-ref{position:absolute;top:44px;bottom:38px;width:0;border-left:1.5px dashed #9C9B96;z-index:1}
+.pecas .linha-ref span{position:absolute;bottom:-26px;left:-60px;width:120px;text-align:center;font-family:var(--f-mono);font-size:11px;color:var(--sub)}
+.br.pc{grid-template-columns:110px 1fr 52px}
+/* cenários */
+.dupla2{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+.vozes4{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:22px;max-width:46ch}
+.vozes4 span{border:1px solid var(--linha);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--sub);text-align:center}
+/* cidade */
+.cidade{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:40px;align-items:center}
+#cdCanvas{width:100%;aspect-ratio:920/640;display:block;border-radius:18px;background:#0F0F11;border:1px solid var(--linha)}
+.cd-painel{display:flex;flex-direction:column;gap:12px;min-height:360px}
+.cd-painel.troca>*{animation:cdSobe .45s ease both}
+@keyframes cdSobe{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cd-tit{font-family:var(--f-titulo);font-weight:700;letter-spacing:-.02em;font-size:clamp(26px,2.8vw,38px);line-height:1.08;margin:0;text-wrap:balance}
+.cd-txt{font-size:16px;color:var(--sub);margin:0}
+.cd-lista{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.cd-it{display:grid;grid-template-columns:118px 1fr;gap:10px;border-top:1px solid var(--linha);padding-top:9px;font-size:14px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.cd-it.on{opacity:1;transform:none}
+.cd-it b{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.cd-it span{color:var(--sub)}
+.cd-prob{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.cd-prob .br{grid-template-columns:118px 1fr 46px;font-size:14px}
+.cd-dica{font-family:var(--f-mono);font-size:11px;color:var(--fraco);letter-spacing:.06em;text-transform:uppercase}
+.cd-pontos{display:flex;gap:6px;margin-top:auto}
+.cd-pontos i{width:22px;height:3px;border-radius:2px;background:var(--vazio)}
+.cd-pontos i.at{background:var(--texto)}
+.cd-fecho{background:#F5F4F0;color:#0C0C0E;border-radius:18px;padding:24px 24px}
+.cd-fecho p{margin:0;font-family:var(--f-titulo);font-weight:700;font-size:28px;line-height:1.15;letter-spacing:-.02em}
+.cd-fecho small{display:block;margin-top:10px;font-size:15px;color:#403F45}
+/* literatura */
+.cd .ref{font-family:var(--f-mono);font-size:11.5px;color:var(--fraco);margin-top:auto}
+.cd .papel{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--texto);border:1px solid var(--linha);border-radius:999px;padding:2px 10px;align-self:flex-start}
+/* rotina */
+.fluxo{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:16px;align-items:center;margin-top:34px}
+.ent{display:flex;flex-direction:column;gap:10px}
+.ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
+.seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+.caixa-preta{background:#18181B;border:1px solid var(--linha);color:#F5F4F0;border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.caixa-preta .rot{color:#9C9B96}
+.caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
+.caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.caixa-preta>*:not(canvas){position:relative}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{border:1px solid var(--texto);border-radius:999px;padding:12px 20px;font-size:15px;text-decoration:none;font-weight:600;background:var(--texto);color:var(--osso)}
+.btn.claro{background:transparent;color:var(--texto);font-weight:500}
+@media (max-width:1100px){ .pilares{grid-template-columns:repeat(4,1fr)} }
+@media (max-width:900px){
+  .cards3,.cards4,.comp,.dupla2,.cidade{grid-template-columns:1fr}
+  .pilares{grid-template-columns:repeat(2,1fr)}
+  .fluxo{grid-template-columns:1fr;gap:10px}
+  .seta{transform:rotate(90deg);justify-self:center}
+  #grade{margin:0 auto}.leg2{margin:14px auto 0;justify-content:center}
+  .cd-painel{min-height:0}
+}
+@media (max-width:520px){ .br.pc{grid-template-columns:86px 1fr 46px} .cd-it{grid-template-columns:96px 1fr} .voltar{display:none} .vozes4{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){ .tela,.aparece,.br .trilho b,#grade i{transition:none!important} .cd-painel.troca>*{animation:none} }
+</style>
+
+<div class="barra"><b id="barra"></b></div>
+<header class="topo">
+  <img class="logo" src="__LC__" alt="Mimetica">
+  <a class="voltar" href="https://mimetica.institute/apoio/gemeo/">Como nasce um gêmeo</a>
+</header>
+
+<!-- 1. ABERTURA -->
+<section class="tela" data-t="abertura">
+  <div class="miolo capa">
+    <div>
+      <div class="rot aparece">Mimetica · conversa com montadoras</div>
+      <h1 class="aparece d1" style="margin-top:14px">O mercado automotivo brasileiro está sendo reescrito por marca.</h1>
+      <p class="lead aparece d2">Hoje 47 marcas vendem carros leves no Brasil. 19 são chinesas. Gêmeos digitais do comprador brasileiro ajudam a testar como cada decisão de vocês será recebida, antes de ir para a rua.</p>
+    </div>
+    <div class="aparece d2">
+      <div id="grade" aria-label="47 marcas: 19 chinesas"></div>
+      <div class="leg2"><span><i class="c"></i>19 de origem chinesa</span><span><i></i>28 de outras origens</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. O QUE MUDOU -->
+<section class="tela" data-t="mudou">
+  <div class="miolo">
+    <div class="rot aparece">O que mudou</div>
+    <h2 class="aparece d1" style="margin-top:14px">Em poucos anos, a marca chinesa saiu do nicho e entrou na conta de todo mundo.</h2>
+    <div class="cards4 aparece d2">
+      <div class="cd"><span class="num">7,8%</span><h3>A BYD já tem perto de 8% do mercado brasileiro em 2026.</h3><p>Participação de janeiro a setembro, automóveis e comerciais leves.</p></div>
+      <div class="cd"><span class="num">39</span><h3>Marcas anunciadas ou em sondagem, ainda fora do mercado.</h3><p>A maioria de origem chinesa, com chegada prevista entre 2026 e 2028.</p></div>
+      <div class="cd"><span class="num">+59%</span><h3>A importação de autopeças da China cresceu 59% em 2026.</h3><p>Janeiro a setembro, contra o mesmo período de 2025. É a origem que mais cresce.</p></div>
+      <div class="cd"><span class="num">35%</span><h3>O imposto de importação de elétricos e híbridos voltou a 35%.</h3><p>Desde julho de 2026. Quem não produz aqui fica exposto a cada mudança de regra.</p></div>
+    </div>
+    <p class="nota aparece d3">Fontes: Fenabrave, ComexStat/MDIC e imprensa especializada, lidos pelo Radar automotivo da Mimetica.</p>
+  </div>
+</section>
+
+<!-- 3. SAÚDE DA MARCA -->
+<section class="tela" data-t="saude">
+  <div class="miolo">
+    <div class="rot aparece">Onde cada marca é forte</div>
+    <h2 class="aparece d1" style="margin-top:14px">Sete pilares decidem se uma marca se sustenta aqui.</h2>
+    <p class="lead aparece d2" style="max-width:64ch">Medimos cada marca com dados públicos e auditáveis. Cada nota é a posição da marca entre as que foram medidas naquele pilar.</p>
+    <div class="pilares aparece d2">
+      <div class="pil"><b>Cobertura</b><span>População a até 50 km de uma oficina da marca</span><em>peso 15</em></div>
+      <div class="pil"><b>Satisfação</b><span>Reclamações, resolução e quem voltaria a comprar</span><em>peso 20</em></div>
+      <div class="pil"><b>Peças</b><span>Queixas sobre peça em falta e prazo de reparo</span><em>peso 15</em></div>
+      <div class="pil"><b>Revenda</b><span>Quanto o carro perde por ano na tabela FIPE</span><em>peso 15</em></div>
+      <div class="pil"><b>Custo</b><span>As três primeiras revisões sobre o preço do carro</span><em>peso 15</em></div>
+      <div class="pil"><b>Qualidade</b><span>Carros em recall por 10 mil vendidos</span><em>peso 10</em></div>
+      <div class="pil"><b>Ritmo</b><span>Ganho ou perda de participação no ano</span><em>peso 10</em></div>
+    </div>
+    <div class="comp aparece d3">
+      <div class="cd"><span class="num">60</span><div><h3>Média das 4 marcas chinesas com índice</h3><p>De 0 a 100. As outras chinesas ainda não têm dado suficiente em 5 dos 7 pilares.</p></div></div>
+      <div class="cd"><span class="num">50</span><div><h3>Média das 14 marcas incumbentes com índice</h3><p>As que já estavam no Brasil antes da chegada chinesa.</p></div></div>
+    </div>
+    <p class="nota aparece d3">Fontes: Reclame Aqui, consumidor.gov.br, FIPE, Senacon (recalls), Fenabrave, IBGE e localizadores oficiais das marcas. Cálculo de 03/11/2026.</p>
+  </div>
+</section>
+
+<!-- 4. PEÇAS -->
+<section class="tela" data-t="pecas">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">O pilar que separa incumbentes e chinesas</div>
+      <h2 class="aparece d1" style="margin-top:14px">A disputa vai para a oficina.</h2>
+      <p class="lead aparece d2">A chinesa que mais vende é a que mais recebe queixas sobre peça e prazo de reparo. As outras chinesas medidas ficam abaixo da mediana das incumbentes.</p>
+      <p class="nota aparece d3">Parcela das queixas sobre peça em falta, prazo de reparo ou falta de assistência, comparada à mediana de cada fonte (Reclame Aqui, consumidor.gov.br e X). 1,0× é a mediana.</p>
+    </div>
+    <div class="barras pecas aparece d2" id="pecasBox">
+      <span class="rot">Queixas sobre peça, contra a mediana</span>
+    </div>
+  </div>
+</section>
+
+<!-- 5. COMO AS CONCORRENTES PENSAM -->
+<section class="tela" data-t="rivais">
+  <div class="miolo dupla2">
+    <div>
+      <div class="rot aparece">Como as concorrentes pensam</div>
+      <h2 class="aparece d1" style="margin-top:14px">Simulamos o comitê de estratégia de cada uma das 47 marcas.</h2>
+      <p class="lead aparece d2">Cada comitê lê um dossiê público da própria marca, com fontes citadas, e reage a seis cenários até 2030: guerra de preço, mercado encolhendo, imposto sobre combustão, excedente global, a força da rede e o caminho atual.</p>
+      <div class="vozes4 aparece d3"><span>Presidente no Brasil</span><span>CEO global</span><span>Diretor financeiro</span><span>Diretor comercial</span></div>
+    </div>
+    <div class="barras aparece d2" id="rivaisBox">
+      <span class="rot">Quem os rivais apostam que ganha até 2030</span>
+      <div style="font-size:13px;color:var(--fraco)" id="rivaisNota">As três maiores incumbentes aparecem entre as que mais perdem. Somadas, as 47 marcas esperam terminar com 5% menos participação do que têm hoje: cada uma acredita no próprio plano menos do que precisaria.</div>
+    </div>
+  </div>
+  <p class="nota" style="position:absolute;left:0;right:0;bottom:88px;text-align:center;margin:0">Nada aqui é previsão: são reações simuladas a premissas explícitas, a partir de dossiês públicos.</p>
+</section>
+
+<!-- 6. A CIDADE DAS CONCESSIONÁRIAS (passos internos) -->
+<section class="tela" data-t="cidade" data-passos="7">
+  <div class="miolo cidade">
+    <div class="cd-painel" id="cdPainel">
+      <div class="rot" id="cdRot">Como medimos o comprador</div>
+      <h2 class="cd-tit" id="cdTit">Para entender o comprador, os gêmeos digitais se mudam para uma cidade de concessionárias.</h2>
+      <p class="cd-txt" id="cdTxt">Avance para ver a cidade se formar.</p>
+      <div class="cd-lista" id="cdLista"></div>
+      <div class="cd-prob" id="cdProb"></div>
+      <div class="cd-fecho" id="cdFecho" hidden><p>A montadora pergunta. A cidade responde.</p><small>Quanto mais dados a montadora traz, como clínicas de produto e trackings de marca, mais rápido a cidade aprende.</small></div>
+      <div class="cd-pontos" id="cdPontos"></div>
+    </div>
+    <div>
+      <canvas id="cdCanvas" width="1840" height="1280" aria-label="Mapa de uma cidade fictícia de concessionárias com gêmeos digitais de compradores"></canvas>
+      <div class="cd-dica" id="cdLeg" style="margin-top:10px;text-align:right"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. A VOZ DO COMPRADOR -->
+<section class="tela" data-t="comprador">
+  <div class="miolo">
+    <div class="rot aparece">O que ninguém mede ainda</div>
+    <h2 class="aparece d1" style="margin-top:14px">A voz do comprador brasileiro diante da marca chinesa.</h2>
+    <p class="lead aparece d2" style="max-width:64ch">Uma população artificial de compradores, calibrada com estudos que a montadora já tem, responde antes de a decisão ir para a rua. Com números, cortes por perfil e o grau de confiança de cada resultado.</p>
+    <div class="cards4 aparece d3">
+      <div class="cd"><span class="rot">Prestígio e origem</span><h3>O que o comprador de renda média pensa de uma marca chinesa diante da de vocês? E o que muda essa visão?</h3></div>
+      <div class="cd"><span class="rot">Garantia e rede</span><h3>Uma garantia longa compensa não ter uma concessionária perto de casa? Para quem?</h3></div>
+      <div class="cd"><span class="rot">Revenda</span><h3>Quanto o medo de desvalorização pesa na troca, e em qual faixa de renda ele pesa mais?</h3></div>
+      <div class="cd"><span class="rot">Preço</span><h3>Se a concorrente cortar 10% do preço, quem troca, quem espera e quem fica com vocês?</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. LITERATURA -->
+<section class="tela" data-t="ciencia">
+  <div class="miolo">
+    <div class="rot aparece">O que a ciência já mostrou</div>
+    <h2 class="aparece d1" style="margin-top:14px">Simular o comprador de carro é um campo de estudo.</h2>
+    <div class="cards3 aparece d2">
+      <div class="cd"><span class="papel">Explica a cidade</span><h3>Compradores simulados decidem olhando o carro do vizinho.</h3><p>Um modelo de adoção de carros híbridos deu a cada comprador renda, quilometragem e disposição a inovar. A marca nova só entrava na lista quando aparecia na vizinhança. Mostrar o custo de combustível ao longo da vida do carro aumentou a adoção. Desconto temporário quase não deixou efeito.</p><span class="ref">Eppstein e colegas · Energy Policy, 2011</span></div>
+      <div class="cd"><span class="papel">Explica a semente</span><h3>Combinado com dados reais, o modelo economiza de 25% a 80% do campo.</h3><p>Num estudo de escolha de carros esportivos, respostas geradas só por modelos de linguagem trouxeram viés. Combinadas com uma amostra de pessoas reais, reduziram o erro e economizaram de 24,9% a 79,8% de dados e custo.</p><span class="ref">Wang, Zhang e Zhang · Marketing Science, 2025</span></div>
+      <div class="cd"><span class="papel">Explica a calibragem</span><h3>Sem dados reais como âncora, a simulação erra a peça visual.</h3><p>Consumidores simulados testando logos, embalagens e anúncios reproduziram no máximo 2 de 6 efeitos humanos. Com dados reais como âncora, se aproximaram das pessoas, ainda com menos variação do que elas.</p><span class="ref">Tsai e Lai · Universidade de Melbourne, 2026</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. COMO ENTRA NA ROTINA -->
+<section class="tela" data-t="rotina">
+  <div class="miolo">
+    <div class="rot aparece">Como entra na rotina</div>
+    <h2 class="aparece d1" style="margin-top:14px">Uma população artificial de compradores, operada pela Mimetica.</h2>
+    <div class="fluxo aparece d2">
+      <div class="ent"><div>Clínicas, trackings e estudos que vocês já fizeram</div><div>Dados públicos do mercado: FIPE, Fenabrave, recalls, reclamações</div><div>Leitura diária da imprensa automotiva</div></div>
+      <span class="seta">→</span>
+      <div class="caixa-preta"><canvas id="ruido" width="600" height="400"></canvas><span class="rot">Ambiente exclusivo da montadora</span><h3>A cidade de vocês</h3><span style="font-size:14px;color:#9C9B96">Operada e acompanhada pela equipe da Mimetica</span></div>
+      <span class="seta">→</span>
+      <div class="ent"><div>Respostas em dias, com cortes por perfil</div><div>Alertas quando o mercado muda</div><div>Cenários até 2030, atualizados</div></div>
+    </div>
+    <p class="lead aparece d3" style="max-width:70ch;margin-top:26px;font-size:16px;color:var(--texto)">Antes do primeiro estudo, a população passa por um período de calibragem e testes que mede a acurácia. A partir daí, as respostas vêm em dias.</p>
+    <p class="nota aparece d3">Trabalhamos com dados agregados e anonimizados. Nenhum dado pessoal de cliente é necessário.</p>
+  </div>
+</section>
+
+<!-- 10. PROPOSTA -->
+<section class="tela" data-t="proposta">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Como começamos</div>
+      <h2 class="aparece d1" style="margin-top:14px">Um teste com um estudo que vocês já têm.</h2>
+      <p class="lead aparece d2">Uma primeira versão da cidade de vocês, medida contra um resultado que vocês já conhecem, como uma clínica de produto ou uma onda de tracking.</p>
+      <div class="cta aparece d3"><a class="btn" href="mailto:fernando@mimetica.net">fernando@mimetica.net</a><a class="btn claro" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
+    </div>
+    <ol class="passos3 aparece d2">
+      <li><b>1</b><div><h3>Formalizamos a parceria</h3><p>Confidencialidade, compliance e cadastro da Mimetica como fornecedor.</p></div></li>
+      <li><b>2</b><div><h3>Escolhemos a pergunta</h3><p>A que mais importa para vocês agora, e um estudo de referência com resultado conhecido.</p></div></li>
+      <li><b>3</b><div><h3>Montamos a cidade e a população</h3><p>Calibrada com a parte do estudo que vocês entregarem.</p></div></li>
+      <li><b>4</b><div><h3>Combinamos o critério de acerto</h3><p>Antes de qualquer comparação.</p></div></li>
+      <li><b>5</b><div><h3>Medimos a acurácia na parte guardada</h3><p>Número por número e por perfil. Atingido o critério, a cidade passa a ser permanente.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<footer class="rodape">
+  <span class="cont" id="cont">01 / 10</span>
+  <div class="nav">
+    <button type="button" id="ant" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.5 4 7.5 12l8 8 1.4-1.4L10.3 12l6.6-6.6z"/></svg></button>
+    <button type="button" id="prox" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.5 4 7.1 5.4 13.7 12l-6.6 6.6L8.5 20l8-8z"/></svg></button>
+  </div>
+</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const TELAS=[...document.querySelectorAll(".tela")];
+const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let atual=0, passo=0, timers=[], rafs={};
+const limpa=()=>{ timers.forEach(clearTimeout); timers=[]; Object.values(rafs).forEach(cancelAnimationFrame); rafs={} };
+const depois=(ms,f)=>timers.push(setTimeout(f,reduz?0:ms));
+function rnd(s){ return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646 } }
+const clamp=v=>Math.max(0,Math.min(1,v)), lerp=(a,b,t)=>a+(b-a)*t, ease=t=>1-Math.pow(1-t,3);
+
+/* 1. grade de 47 marcas: 19 chinesas */
+(function(){ const g=$("#grade"); const tipos=[]; for(let k=0;k<47;k++) tipos.push(k<19?"c":"");
+  const R=rnd(7); for(let k=tipos.length-1;k>0;k--){ const j=Math.floor(R()*(k+1)); [tipos[k],tipos[j]]=[tipos[j],tipos[k]] }
+  g.innerHTML=tipos.map(t=>`<i data-k="${t}"></i>`).join("") })();
+function grade(){ const cs=[...document.querySelectorAll("#grade i")]; cs.forEach(c=>{ c.className="" });
+  cs.forEach((c,k)=>depois(300+k*28,()=>c.classList.add("v")));
+  depois(300+47*28+300,()=>cs.forEach(c=>{ if(c.dataset.k) c.classList.add(c.dataset.k) })) }
+
+function barras(sel){ document.querySelectorAll(sel+" .trilho b").forEach(b=>b.style.width="0"); depois(450,()=>document.querySelectorAll(sel+" .trilho b").forEach(b=>b.style.width=b.dataset.w+"%")) }
+
+/* 4. peças: chinesas contra a mediana das incumbentes */
+const PECAS=[["BYD",2.2],["Caoa Chery",1.0],["Changan",0.7],["GAC",0.5],["Geely",0.4],["Leapmotor",0.4],["GWM",0.2]], MAXP=2.5, MED_INC=1.1;
+(function(){ const b=$("#pecasBox");
+  b.insertAdjacentHTML("beforeend",PECAS.map(([n,v],i)=>`<div class="br pc ${i===0?'dest r':''}"><span>${n}</span><span class="trilho"><b data-w="${(v/MAXP*100).toFixed(1)}"></b></span><span class="v">${v.toFixed(1).replace('.',',')}×</span></div>`).join(""));
+  b.insertAdjacentHTML("beforeend",`<div style="font-size:13px;color:var(--fraco)">Linha tracejada: mediana das incumbentes, 1,1×.</div>`) })();
+function pecas(){ barras("#pecasBox");
+  const box=$("#pecasBox"), tr=box.querySelector(".trilho"); let l=box.querySelector(".linha-ref");
+  if(!l){ l=document.createElement("i"); l.className="linha-ref"; box.appendChild(l) }
+  const r=tr.getBoundingClientRect(), rb=box.getBoundingClientRect(); l.style.left=(r.left-rb.left+r.width*MED_INC/MAXP)+"px";
+  const pc=box.querySelectorAll(".br.pc"); l.style.top=(pc[0].getBoundingClientRect().top-rb.top)+"px"; l.style.bottom=(rb.bottom-pc[pc.length-1].getBoundingClientRect().bottom)+"px" }
+
+/* 5. rivais */
+const RIV=[["BYD",99],["GWM",76],["Caoa Chery",51],["Geely",25],["Denza",11]];
+(function(){ $("#rivaisNota").insertAdjacentHTML("beforebegin",RIV.map(([n,v],i)=>`<div class="br ${i===0?'dest':''}"><span>${n}</span><span class="trilho"><b data-w="${v}"></b></span><span class="v">${v}%</span></div>`).join("")) })();
+
+/* 9. ruído */
+function ruido(){ const c=$("#ruido"), x=c.getContext("2d"); const R=rnd(5); const ps=Array.from({length:70},()=>({x:R()*c.width,y:R()*c.height,v:.3+R()*.9}));
+  const f=()=>{ x.clearRect(0,0,c.width,c.height); x.fillStyle="#F5F4F0"; for(const p of ps){ p.x+=p.v; if(p.x>c.width) p.x=0; x.beginPath(); x.arc(p.x,p.y,1.6,0,7); x.fill() } rafs.ruido=requestAnimationFrame(f) }; f() }
+
+/* ================= 6. A CIDADE DAS CONCESSIONÁRIAS ================= */
+const cidade=(()=>{
+  const PASSOS=[
+    null,
+    {rot:"A cidade da montadora",tit:"Cada montadora ganha uma cidade.",txt:"Ela é montada em torno da decisão de trocar de carro: as lojas, a oficina, a revenda e o crédito."},
+    {rot:"Os moradores",tit:"Uma população artificial de compradores se muda para lá.",txt:"Milhares de gêmeos digitais, com a composição de quem compra carro no Brasil: renda, idade, região, uso e o carro que têm hoje."},
+    {rot:"O que circula na cidade",tit:"Tudo o que pesa na compra chega à cidade.",lista:[["Lojas","as concessionárias: preço, condições, test-drive e rede"],["Oficina","peça em falta e prazo de reparo"],["Feirão","quanto o carro vale na revenda"],["Banca","a imprensa automotiva"],["Praça","redes sociais e reclamações"],["Financeira","juros e crédito"]]},
+    {rot:"A rua conta",tit:"Quem vê o carro do vizinho passa a considerar.",txt:"Cada gêmeo nota os carros que os vizinhos compraram. Uma marca nova só entra na lista quando já aparece na rua, como nos modelos clássicos de adoção de carro elétrico."},
+    {rot:"A jornada de um gêmeo",tit:"38 anos, classe C, carro de oito anos, pensando em trocar.",txt:"Lê na banca sobre falta de peça. Vê o vizinho com um SUV chinês. Visita duas lojas, consulta a revenda e simula o financiamento.",prob:[["Troca por um carro da marca A",41],["Adia a troca",37],["Troca por uma marca chinesa",22]]},
+    {rot:"Chega uma novidade",tit:"Uma marca corta o preço em 10%, e a cidade reage.",txt:"A notícia sai da banca, passa pela praça e muda quem considera trocar. A montadora vê, por perfil, quem mudou de ideia e por quê."},
+    {fecho:true}
+  ];
+  const cv=$("#cdCanvas"), c=cv.getContext("2d"), W=920, H=640;
+  const XS=[],YS=[]; for(let i=0;i<11;i++) XS.push(40+i*84); for(let j=0;j<8;j++) YS.push(36+j*80);
+  const NX=XS.length, NY=YS.length, R=rnd(23);
+  const blk=(i,j)=>({x:XS[i]+9,y:YS[j]+9,w:XS[i+1]-XS[i]-18,h:YS[j+1]-YS[j]-18});
+  const centro=(i,j)=>({x:(XS[i]+XS[i+1])/2,y:(YS[j]+YS[j+1])/2});
+  const COR={rua:"#1C1C1F",estrada:"#26262A",quadra:"#151518",borda:"rgba(245,244,240,.05)",icone:"#55545A",rot:"#6B6A65",forte:"#F5F4F0",meio:"#9C9B96"};
+  function ic(t,x,y,s,cor,cheio){ c.save(); c.translate(x,y); c.strokeStyle=cor; c.fillStyle=cor; c.lineWidth=1.6; c.lineJoin="round"; c.lineCap="round"; const r=s/2, P=()=>c.beginPath();
+    if(t==="casa"){ P(); c.moveTo(-r*.8,-r*.05); c.lineTo(0,-r*.8); c.lineTo(r*.8,-r*.05); c.moveTo(-r*.6,-r*.2); c.lineTo(-r*.6,r*.75); c.lineTo(r*.6,r*.75); c.lineTo(r*.6,-r*.2); c.stroke(); P(); c.rect(-r*.16,r*.3,r*.32,r*.45); cheio?c.fill():c.stroke() }
+    else if(t==="predio"){ P(); c.rect(-r*.5,-r*.85,r,r*1.7); c.stroke(); for(let a=0;a<3;a++) for(let b=0;b<2;b++) c.fillRect(-r*.3+b*r*.38,-r*.6+a*r*.48,r*.2,r*.22) }
+    else if(t==="loja"){ P(); c.rect(-r*.85,-r*.25,r*1.7,r*1); c.stroke(); P(); c.moveTo(-r*.95,-r*.25); c.lineTo(-r*.7,-r*.7); c.lineTo(r*.7,-r*.7); c.lineTo(r*.95,-r*.25); c.closePath(); cheio?c.fill():c.stroke(); P(); c.rect(-r*.6,r*.05,r*.7,r*.45); c.stroke() }
+    else if(t==="carro"){ P(); c.moveTo(-r*.9,r*.2); c.lineTo(-r*.9,-r*.05); c.lineTo(-r*.55,-r*.1); c.lineTo(-r*.3,-r*.45); c.lineTo(r*.35,-r*.45); c.lineTo(r*.6,-r*.1); c.lineTo(r*.9,-r*.02); c.lineTo(r*.9,r*.2); c.closePath(); cheio?c.fill():c.stroke(); P(); c.arc(-r*.5,r*.28,r*.17,0,7); c.arc(r*.5,r*.28,r*.17,0,7); c.fillStyle=cheio?"#0F0F11":cor; c.fill() }
+    else if(t==="oficina"){ c.rotate(-Math.PI/4); P(); c.moveTo(0,-r*.2); c.lineTo(0,r*.85); c.lineWidth=3; c.stroke(); c.lineWidth=1.6; P(); c.arc(0,-r*.45,r*.32,Math.PI*.2,Math.PI*1.8); c.stroke() }
+    else if(t==="banca"){ P(); c.rect(-r*.75,-r*.65,r*1.5,r*1.3); cheio?c.fill():c.stroke(); c.strokeStyle=cheio?"#0F0F11":cor; P(); c.moveTo(-r*.5,-r*.35); c.lineTo(r*.5,-r*.35); c.moveTo(-r*.5,-r*.05); c.lineTo(r*.5,-r*.05); c.moveTo(-r*.5,r*.25); c.lineTo(r*.15,r*.25); c.stroke() }
+    else if(t==="praca"){ P(); c.arc(0,-r*.2,r*.55,0,7); cheio?c.fill():c.stroke(); P(); c.moveTo(0,r*.3); c.lineTo(0,r*.85); c.stroke() }
+    else if(t==="financeira"){ P(); c.moveTo(-r*.85,-r*.35); c.lineTo(0,-r*.85); c.lineTo(r*.85,-r*.35); c.closePath(); cheio?c.fill():c.stroke(); for(let k=-1;k<=1;k++){ P(); c.moveTo(k*r*.5,-r*.25); c.lineTo(k*r*.5,r*.55); c.stroke() } P(); c.moveTo(-r*.85,r*.7); c.lineTo(r*.85,r*.7); c.stroke() }
+    else if(t==="raio"){ P(); c.moveTo(r*.15,-r*.85); c.lineTo(-r*.45,r*.1); c.lineTo(0,r*.1); c.lineTo(-r*.15,r*.85); c.lineTo(r*.45,-r*.1); c.lineTo(0,-r*.1); c.closePath(); c.stroke() }
+    c.restore() }
+  /* lugares */
+  const LUG=[ {n:"MARCA A",t:"loja",b:[3,3],grupo:0},{n:"MARCA B",t:"loja",b:[4,3],grupo:0},{n:"MARCA C",t:"loja",b:[5,3],grupo:0,chi:1},{n:"MARCA D",t:"loja",b:[6,3],grupo:0,chi:1},
+    {n:"OFICINA",t:"oficina",b:[8,4],grupo:1},{n:"FEIRÃO",t:"carro",b:[8,1],grupo:2},{n:"BANCA",t:"banca",b:[1,1],grupo:3},{n:"PRAÇA",t:"praca",b:[4,5],grupo:4},{n:"FINANCEIRA",t:"financeira",b:[1,5],grupo:5}];
+  const EXTRA=[["ELETROPOSTO","raio",6,6],["OFICINA","oficina",2,2],["PRÉDIOS","predio",5,1],["PRÉDIOS","predio",9,5],["PRÉDIOS","predio",0,3]];
+  const Q={}; for(let i=0;i<NX-1;i++) for(let j=0;j<NY-1;j++) Q[i+","+j]=R()<.35?"predio":"casa";
+  EXTRA.forEach(([n,t,i,j])=>Q[i+","+j]={n,t}); LUG.forEach((L,k)=>Q[L.b[0]+","+L.b[1]]={lug:k});
+  /* moradores */
+  const N=170, gente=[]; for(let k=0;k<N;k++) gente.push({i:Math.floor(R()*NX),j:Math.floor(R()*NY),ni:0,nj:0,p:R(),v:.006+R()*.008,x:0,y:0,chi:R()<.13,cons:0,novo:0,atraso:R()*1800});
+  gente.forEach(g=>{ [g.ni,g.nj]=viz(g) });
+  function viz(g){ const op=[[1,0],[-1,0],[0,1],[0,-1]].map(([a,b])=>[g.i+a,g.j+b]).filter(([a,b])=>a>=0&&a<NX&&b>=0&&b<NY); return op[Math.floor(R()*op.length)] }
+  /* jornada do gêmeo destacado: casa → banca → loja A → loja C → feirão → financeira → casa */
+  const CASA=[2,6];
+  const paradas=[CASA,[1,1],[3,3],[5,3],[8,1],[1,5],CASA];
+  const rotuloParada=["CASA","BANCA","MARCA A","MARCA C","FEIRÃO","FINANCEIRA","DECISÃO"];
+  function rotaEntre(a,b){ const A=centro(a[0],a[1]), B=centro(b[0],b[1]); const ax=XS[a[0]+1], ay=YS[a[1]+1], bx=XS[b[0]+1], by=YS[b[1]+1];
+    return [[A.x,A.y],[A.x,ay],[ax,ay],[bx,ay],[bx,by],[B.x,by],[B.x,B.y]] }
+  const ROTA=[]; for(let k=0;k<paradas.length-1;k++){ const r=rotaEntre(paradas[k],paradas[k+1]); if(k>0) r.shift(); ROTA.push(...r) }
+  const PARADA_IDX=[0]; { let acc=0; for(let k=0;k<paradas.length-1;k++){ acc+= (k===0?7:6); PARADA_IDX.push(acc-1) } }
+  const segs=[]; let tot=0; for(let k=1;k<ROTA.length;k++){ const d=Math.hypot(ROTA[k][0]-ROTA[k-1][0],ROTA[k][1]-ROTA[k-1][1]); segs.push(d); tot+=d }
+  const cum=[0]; segs.forEach(d=>cum.push(cum[cum.length-1]+d));
+  function noPonto(u){ let alvo=u*tot; for(let k=0;k<segs.length;k++){ if(alvo<=segs[k]&&segs[k]>0){ const t=alvo/segs[k]; return [lerp(ROTA[k][0],ROTA[k+1][0],t),lerp(ROTA[k][1],ROTA[k+1][1],t)] } alvo-=segs[k] } return ROTA[ROTA.length-1] }
+  const BANCA=centro(1,1), LOJAC=centro(5,3), PRACA=centro(4,5);
+  let p=0, t0=performance.now(), on=false;
+  function desenha(now){ const e=Math.max(0,now-t0);
+    c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,W,H);
+    c.strokeStyle=COR.rua; c.lineWidth=7; XS.forEach(x=>{ c.beginPath(); c.moveTo(x,YS[0]); c.lineTo(x,YS[NY-1]); c.stroke() }); YS.forEach(y=>{ c.beginPath(); c.moveTo(XS[0],y); c.lineTo(XS[NX-1],y); c.stroke() });
+    /* avenida das concessionárias */
+    c.strokeStyle=COR.estrada; c.lineWidth=11; c.beginPath(); c.moveTo(XS[2],YS[4]); c.lineTo(XS[8],YS[4]); c.stroke();
+    const aLug=LUG.map(L=>p>=3?clamp(((p===3?e:1e9)-L.grupo*600)/500):0);
+    for(let i=0;i<NX-1;i++) for(let j=0;j<NY-1;j++){ const b=blk(i,j), ct=centro(i,j), q=Q[i+","+j];
+      c.fillStyle=COR.quadra; c.fillRect(b.x,b.y,b.w,b.h); c.strokeStyle=COR.borda; c.lineWidth=1; c.strokeRect(b.x+.5,b.y+.5,b.w-1,b.h-1);
+      if(q&&q.lug!==undefined){ const L=LUG[q.lug], a=Math.max(aLug[q.lug],p>=1&&L.grupo===0?clamp(p===1?e/700:1)*.7:0), cor=a>0?COR.forte:COR.icone;
+        if(L.chi&&p>=4){ c.fillStyle="rgba(245,244,240,.06)"; c.fillRect(b.x,b.y,b.w,b.h) }
+        ic(L.t,ct.x,ct.y-6,28,cor,a>.6&&L.t!=="oficina");
+        c.globalAlpha=.45+.55*a; c.font="700 9.5px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillStyle=cor; c.fillText(L.n,ct.x,b.y+b.h-7); c.globalAlpha=1;
+        if(p===6&&q.lug===2){ const pul=.5+.5*Math.sin(now/260); c.globalAlpha=.75+.25*pul; c.fillStyle=COR.forte; c.fillRect(ct.x-34,b.y-24,68,18); c.fillStyle="#0F0F11"; c.font="700 11px 'JetBrains Mono',monospace"; c.fillText("−10%",ct.x,b.y-15); c.globalAlpha=1 }
+      } else if(q&&q.t){ ic(q.t,ct.x,ct.y-6,24,COR.icone,false); c.font="500 8px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillStyle=COR.rot; c.fillText(q.n,ct.x,b.y+b.h-7) }
+      else if(q==="predio") ic("predio",ct.x,ct.y,20,"#3A3A3F",false);
+      else { ic("casa",ct.x-11,ct.y-2,14,"#3A3A3F",false); ic("casa",ct.x+11,ct.y+6,14,"#3A3A3F",false) }
+    }
+    if(p>=1){ c.globalAlpha=clamp(p===1?e/700:1); c.font="600 8.5px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; const tx="AVENIDA DAS CONCESSIONÁRIAS", w=c.measureText(tx).width+12, cx=(XS[3]+XS[7])/2;
+      c.fillStyle=COR.estrada; c.fillRect(cx-w/2,YS[4]-6,w,12); c.fillStyle=COR.meio; c.fillText(tx,cx,YS[4]+.5); c.globalAlpha=1 }
+    /* onda da novidade */
+    let r=-1; if(p>=6){ r=(p===6?e:1e9)/1.6; if(r>0&&r<1100){ c.strokeStyle="rgba(245,244,240,"+Math.max(0,.45-r/2400)+")"; c.lineWidth=2; c.beginPath(); c.arc(LOJAC.x,LOJAC.y,r,0,7); c.stroke() } }
+    /* moradores */
+    if(p>=2){ const foco=p===5;
+      gente.forEach((g,k)=>{ if(p===2&&e<g.atraso) return;
+        g.p+=g.v; if(g.p>=1){ g.i=g.ni; g.j=g.nj; [g.ni,g.nj]=viz(g); g.p=0 }
+        const lado=((k%5)-2)*1.4; g.x=lerp(XS[g.i],XS[g.ni],g.p)+(g.j===g.nj?0:lado); g.y=lerp(YS[g.j],YS[g.nj],g.p)+(g.i===g.ni?0:lado);
+        if(p>=4&&!g.chi){ let viu=0; for(const h of gente){ if(h.chi&&Math.hypot(h.x-g.x,h.y-g.y)<22) viu=1 } if(viu) g.cons=Math.min(1,g.cons+.01) }
+        if(p>=6&&r>=0&&!g.novo&&Math.hypot(g.x-LOJAC.x,g.y-LOJAC.y)<r){ g.novo=now; if(!g.chi) g.cons=Math.min(1,g.cons+.35) }
+        const al=foco?.28:1; c.globalAlpha=al;
+        if(g.chi&&p>=4){ c.strokeStyle=COR.forte; c.lineWidth=1.6; c.beginPath(); c.arc(g.x,g.y,4,0,7); c.stroke() }
+        else { const v=Math.round(lerp(85,240,p>=4?g.cons:0)); c.fillStyle=`rgb(${v},${v},${v})`; c.beginPath(); c.arc(g.x,g.y,3.6,0,7); c.fill() }
+        if(g.novo){ const u=clamp((now-g.novo)/500), f=1-clamp((now-g.novo-500)/1400); if(f>0){ c.strokeStyle=COR.forte; c.lineWidth=1; c.globalAlpha=al*u*f*.7; c.beginPath(); c.arc(g.x,g.y,4+4*u,0,7); c.stroke() } }
+        c.globalAlpha=1 });
+    }
+    /* jornada */
+    if(p===5){ const dur=9000, u=clamp(e/dur), [x,y]=noPonto(ease(u)*.999+u*.001);
+      c.strokeStyle="rgba(245,244,240,.5)"; c.lineWidth=2; c.setLineDash([4,4]); c.beginPath(); c.moveTo(ROTA[0][0],ROTA[0][1]);
+      const lim=u*tot; for(let k=1;k<ROTA.length;k++){ if(cum[k]<=lim) c.lineTo(ROTA[k][0],ROTA[k][1]); else { c.lineTo(x,y); break } } c.stroke(); c.setLineDash([]);
+      paradas.forEach((pa,k)=>{ const at=cum[PARADA_IDX[k]]/tot; if(u+0.0001<at) return; const ct=centro(pa[0],pa[1]); c.fillStyle=COR.forte; c.font="700 9px 'JetBrains Mono',monospace"; c.textAlign="center";
+        const lab=String(k+1)+" · "+rotuloParada[k]; const w=c.measureText(lab).width+10; c.fillRect(ct.x-w/2,ct.y-36,w,15); c.fillStyle="#0F0F11"; c.fillText(lab,ct.x,ct.y-28) });
+      c.fillStyle=COR.forte; c.beginPath(); c.arc(x,y,6.5,0,7); c.fill(); c.strokeStyle="#0F0F11"; c.lineWidth=2; c.beginPath(); c.arc(x,y,3,0,7); c.stroke() }
+  }
+  (function loop(now){ if(on) desenha(now); requestAnimationFrame(loop) })(performance.now());
+  const pontos=$("#cdPontos"); pontos.innerHTML=PASSOS.map(()=>"<i></i>").join("");
+  function set(n,instant){ p=n; t0=instant?performance.now()-1e6:performance.now();
+    const P=PASSOS[n], pn=$("#cdPainel");
+    [...pontos.children].forEach((el,k)=>el.classList.toggle("at",k<=n));
+    $("#cdFecho").hidden=!(P&&P.fecho);
+    if(n===0){ $("#cdRot").textContent="Como medimos o comprador"; $("#cdTit").textContent="Para entender o comprador, os gêmeos digitais se mudam para uma cidade de concessionárias."; $("#cdTxt").textContent="Avance para ver a cidade se formar."; $("#cdTxt").hidden=false; $("#cdLista").innerHTML=""; $("#cdProb").innerHTML=""; $("#cdTit").hidden=false; $("#cdRot").hidden=false }
+    else if(P.fecho){ $("#cdRot").hidden=true; $("#cdTit").hidden=true; $("#cdTxt").hidden=true; $("#cdLista").innerHTML=""; $("#cdProb").innerHTML="" }
+    else { $("#cdRot").hidden=false; $("#cdTit").hidden=false; $("#cdRot").textContent=P.rot; $("#cdTit").textContent=P.tit; $("#cdTxt").hidden=!P.txt; $("#cdTxt").textContent=P.txt||"";
+      $("#cdLista").innerHTML=(P.lista||[]).map(([a,b])=>`<div class="cd-it"><b>${a}</b><span>${b}</span></div>`).join("");
+      [...$("#cdLista").children].forEach((el,k)=>depois(instant?0:250+k*450,()=>el.classList.add("on")));
+      $("#cdProb").innerHTML=P.prob?`<span class="rot">Resposta do gêmeo · exemplo ilustrativo</span>`+P.prob.map(([a,v])=>`<div class="br"><span>${a}</span><span class="trilho"><b data-w="${v}"></b></span><span class="v">${v}%</span></div>`).join(""):"";
+      if(P.prob) depois(instant?0:7800,()=>document.querySelectorAll("#cdProb .trilho b").forEach(b=>b.style.width=b.dataset.w+"%")) }
+    pn.classList.remove("troca"); void pn.offsetWidth; pn.classList.add("troca");
+    $("#cdLeg").textContent=n>=4?"cada ponto, um gêmeo digital · anel: já tem carro chinês · mais claro: mais propenso a considerar":(n>=2?"cada ponto, um gêmeo digital":"");
+    if(n<4) gente.forEach(g=>{ g.cons=0; g.novo=0 }); if(n<6) gente.forEach(g=>g.novo=0);
+  }
+  return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
+})();
+
+const ENTRA={abertura:grade,mudou:()=>{},pecas,rivais:()=>barras("#rivaisBox"),rotina:ruido};
+
+function render(){ const t=TELAS[atual];
+  $("#cont").textContent=String(atual+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
+  $("#barra").style.width=((atual+1)/TELAS.length*100)+"%"; $("#ant").disabled=atual===0&&passo===0; $("#prox").disabled=atual===TELAS.length-1 }
+function vai(i,fim){ if(i<0||i>=TELAS.length) return; limpa();
+  TELAS.forEach((t,k)=>{ t.classList.toggle("on",k===i); t.classList.toggle("antes",k<i); t.setAttribute("aria-hidden",k===i?"false":"true") });
+  TELAS[i].scrollTop=0; atual=i;
+  const eCid=TELAS[i].dataset.t==="cidade"; cidade.ativar(eCid);
+  if(eCid){ passo=fim?cidade.total:0; cidade.passo(passo,!!fim) } else passo=0;
+  try{ history.replaceState(null,"","#"+TELAS[i].dataset.t) }catch(e){}
+  render(); (ENTRA[TELAS[i].dataset.t]||(()=>{}))() }
+function prox(){ if(TELAS[atual].dataset.t==="cidade"&&passo<cidade.total){ limpa(); passo++; cidade.passo(passo,reduz); render(); return } vai(atual+1) }
+function ant(){ if(TELAS[atual].dataset.t==="cidade"&&passo>0){ limpa(); passo--; cidade.passo(passo,true); render(); return } vai(atual-1,true) }
+$("#prox").onclick=e=>{ e.stopPropagation(); prox() };
+$("#ant").onclick=e=>{ e.stopPropagation(); ant() };
+document.addEventListener("keydown",e=>{ if(["ArrowRight","PageDown"," ","Enter"].includes(e.key)){ e.preventDefault(); prox() } else if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); ant() } });
+document.addEventListener("click",e=>{ if(e.target.closest("a,button")) return; if(matchMedia("(max-width:900px)").matches) return; (e.clientX>innerWidth*.35)?prox():ant() });
+let sx=null; document.addEventListener("touchstart",e=>{ sx=e.touches[0].clientX },{passive:true});
+document.addEventListener("touchend",e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) (dx<0?prox():ant()); sx=null });
+addEventListener("resize",()=>{ if(TELAS[atual].dataset.t==="pecas") pecas() });
+const ini=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); vai(ini>=0?ini:0);
+addEventListener("hashchange",()=>{ const i=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); if(i>=0&&i!==atual) vai(i) });
+</script>
