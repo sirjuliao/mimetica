@@ -17,6 +17,8 @@ OG={
  'financeiro/index.html':('Mimetica · gêmeos digitais para o setor financeiro','Como testar ofertas, mensagens e cenários com gêmeos digitais do brasileiro antes de decidir.'),
  'autos/index.html':('Mimetica · gêmeos digitais para montadoras','Como o comprador brasileiro reage à sua marca e às chinesas, testado com gêmeos digitais antes de decidir.'),
  'interno/simbolo/index.html':('Mimetica · o símbolo em formação','Animação do novo símbolo da Mimetica, para apresentação interna.'),
+ 'interno/simbolo-m/index.html':('Mimetica · estudo anterior do símbolo','Animação do estudo anterior, o M em formação.'),
+ 'interno/marca/index.html':('Mimetica · a marca aplicada','O símbolo novo da Mimetica aplicado em assinatura, avatar, cartão, capa, proposta e e-mail.'),
  'apoio/gemeo/index.html':('Como nasce o gêmeo de uma pessoa · Mimetica','O passo a passo de como a Mimetica constrói e testa o gêmeo digital de uma pessoa.'),
  'experimento/convites/index.html':('Convites do experimento','Página interna de convites.'),
 }
@@ -27,7 +29,7 @@ def og(dst):
             f'<meta property="og:title" content="{t}"><meta property="og:description" content="{d}">'
             f'<meta property="og:image" content="{img}">'
             f'<meta name="twitter:card" content="summary_large_image"><meta name="description" content="{d}">')
-PAGINAS={'inicio-src.html':'experimento/index.html','gravar-src.html':'experimento/gravar/index.html','sessao.html':'experimento/sessao/index.html','convites-src.html':'experimento/convites/index.html','demo-src.html':'apoio/gemeo/index.html','financeiro-src.html':'financeiro/index.html','autos-src.html':'autos/index.html','simbolo-src.html':'interno/simbolo/index.html'}
+PAGINAS={'inicio-src.html':'experimento/index.html','gravar-src.html':'experimento/gravar/index.html','sessao.html':'experimento/sessao/index.html','convites-src.html':'experimento/convites/index.html','demo-src.html':'apoio/gemeo/index.html','financeiro-src.html':'financeiro/index.html','autos-src.html':'autos/index.html','simbolo-src.html':'interno/simbolo/index.html','simbolo-m-src.html':'interno/simbolo-m/index.html','marca-src.html':'interno/marca/index.html'}
 for src,dst in PAGINAS.items():
     s=open(os.path.join(aqui,src)).read().replace('__LC__',LC).replace('__LE__',LE)
     s=s.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')

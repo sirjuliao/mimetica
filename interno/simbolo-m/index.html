@@ -1,0 +1,121 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><meta property="og:type" content="website"><meta property="og:site_name" content="Mimetica"><meta property="og:title" content="Mimetica · estudo anterior do símbolo"><meta property="og:description" content="Animação do estudo anterior, o M em formação."><meta property="og:image" content="https://mimetica.institute/apoio/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="description" content="Animação do estudo anterior, o M em formação."><title>Mimetica em formação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500&display=swap"></head><body><style>
+/* Palco único: o símbolo no centro, controles discretos embaixo. Cores do manual Mimetica. */
+:root{
+ --preto:#0C0C0E; --osso:#F5F4F0; --chumbo:#403F45; --contorno:#8A8990; --ponto:#55545B; --linha:#26262B;
+ --f-tit:'Space Grotesk',system-ui,sans-serif; --f-corpo:'Inter',system-ui,sans-serif; --f-mono:'JetBrains Mono',ui-monospace,monospace;
+ color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--preto);color:var(--osso);font-family:var(--f-corpo)}
+.palco{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 32px;transition:background .5s}
+body.claro{background:var(--osso)} body.claro .palco{color:var(--preto)}
+canvas{width:min(92vw,1100px,calc(70vh * 16 / 9));height:auto;aspect-ratio:16/9;display:block;max-width:100%}
+.barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center}
+.rot{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--contorno);margin-right:6px}
+button{font:500 13px var(--f-corpo);padding:8px 14px;border:1px solid var(--chumbo);background:transparent;color:inherit;cursor:pointer}
+button:hover{border-color:var(--contorno)}
+button:focus-visible{outline:2px solid var(--contorno);outline-offset:2px}
+body.claro button{border-color:#C9C7C0} body.claro button:hover{border-color:var(--chumbo)}
+.fase{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--contorno);min-width:15ch;text-align:center;font-variant-numeric:tabular-nums}
+</style>
+<div class="palco">
+<canvas id="cv" width="1600" height="900" aria-label="Animação do logo Mimetica: a metade digital do símbolo se monta em blocos e o logotipo completa a marca"></canvas>
+<div class="fase" id="fase" aria-live="off">Montando</div>
+<div class="barra"><span class="rot">Mimetica · símbolo em formação</span>
+<button type="button" id="bPlay">Pausar</button>
+<button type="button" id="bRe">Recomeçar</button>
+<button type="button" id="bLogo" aria-pressed="false">Com logotipo</button>
+<button type="button" id="bLoop" aria-pressed="false">Repetir em loop</button>
+<button type="button" id="bFundo">Fundo osso</button></div>
+</div>
+<script>
+const RAW={"real":[[490.91,928.85],[295.63,838.21],[295.0,837.2],[295.0,115.0],[490.91,205.26]],"B":[{"k":"f","p":[[490.9,205.28],[534.84,225.49],[534.84,309.26],[490.9,289.06]],"c":[512.9,257.3]},{"k":"f","p":[[490.9,254.52],[534.84,274.72],[534.84,318.68],[490.9,298.46]],"c":[512.9,286.6]},{"k":"f","p":[[539.19,325.32],[583.13,345.54],[583.13,389.48],[539.19,369.26]],"c":[561.2,357.4]},{"k":"f","p":[[539.19,374.56],[583.13,394.78],[583.13,438.72],[539.19,418.5]],"c":[561.2,406.6]},{"k":"f","p":[[582.54,444.54],[626.48,464.76],[626.48,508.7],[582.54,488.48]],"c":[604.5,476.6]},{"k":"f","p":[[582.54,493.78],[626.48,514.0],[626.48,557.94],[582.54,537.72]],"c":[604.5,525.9]},{"k":"f","p":[[627.77,365.94],[671.72,386.15],[671.72,430.1],[627.77,409.88]],"c":[649.7,398.0]},{"k":"f","p":[[627.77,415.18],[671.72,435.4],[671.72,479.34],[627.77,459.12]],"c":[649.7,447.3]},{"k":"f","p":[[672.68,287.97],[716.62,308.18],[716.62,352.13],[672.68,331.91]],"c":[694.6,320.0]},{"k":"f","p":[[672.68,337.21],[716.62,357.42],[716.62,401.37],[672.68,381.15]],"c":[694.6,369.3]},{"k":"f","p":[[769.26,331.53],[813.21,351.75],[813.21,395.69],[769.26,375.48]],"c":[791.2,363.6]},{"k":"f","p":[[769.26,380.76],[813.21,400.98],[813.21,444.92],[769.26,424.72]],"c":[791.2,412.8]},{"k":"f","p":[[769.26,430.0],[813.21,450.22],[813.21,494.16],[769.26,473.94]],"c":[791.2,462.1]},{"k":"f","p":[[769.26,479.24],[813.21,499.46],[813.21,543.4],[769.26,523.18]],"c":[791.2,511.3]},{"k":"f","p":[[769.26,528.47],[813.21,548.7],[813.21,592.64],[769.26,572.43]],"c":[791.2,560.6]},{"k":"f","p":[[769.26,577.71],[813.21,597.93],[813.21,641.87],[769.26,621.67]],"c":[791.2,609.8]},{"k":"f","p":[[769.26,626.95],[813.21,647.17],[813.21,691.11],[769.26,670.89]],"c":[791.2,659.0]},{"k":"f","p":[[769.26,676.19],[813.21,696.41],[813.21,740.35],[769.26,720.13]],"c":[791.2,708.3]},{"k":"f","p":[[769.26,725.43],[813.21,745.65],[813.21,789.58],[769.26,769.38]],"c":[791.2,757.5]},{"k":"f","p":[[769.26,774.66],[813.21,794.88],[813.21,838.82],[769.26,818.6]],"c":[791.2,806.7]},{"k":"f","p":[[769.26,823.9],[813.21,844.12],[813.21,888.06],[769.26,867.84]],"c":[791.2,856.0]},{"k":"f","p":[[769.26,873.14],[813.21,893.36],[813.21,937.3],[769.26,917.08]],"c":[791.2,905.2]},{"k":"f","p":[[769.26,922.38],[813.21,942.59],[813.21,986.54],[769.26,966.33]],"c":[791.2,954.5]},{"k":"f","p":[[769.26,971.61],[813.21,991.83],[813.21,1035.77],[769.26,1015.55]],"c":[791.2,1003.7]},{"k":"f","p":[[769.26,1020.85],[813.21,1041.07],[813.21,1085.01],[769.26,1064.79]],"c":[791.2,1052.9]},{"k":"f","p":[[818.51,354.18],[862.45,374.4],[862.45,418.33],[818.51,398.13]],"c":[840.5,386.3]},{"k":"f","p":[[818.51,551.13],[862.45,571.35],[862.45,615.29],[818.51,595.08]],"c":[840.5,583.2]},{"k":"f","p":[[818.51,600.36],[862.45,620.58],[862.45,664.52],[818.51,644.3]],"c":[840.5,632.4]},{"k":"f","p":[[818.51,649.6],[862.45,669.82],[862.45,713.76],[818.51,693.54]],"c":[840.5,681.7]},{"k":"f","p":[[818.51,698.84],[862.45,719.06],[862.45,763.0],[818.51,742.78]],"c":[840.5,730.9]},{"k":"f","p":[[818.51,748.08],[862.45,768.29],[862.45,812.24],[818.51,792.01]],"c":[840.5,780.2]},{"k":"f","p":[[818.51,895.79],[862.45,916.01],[862.45,959.95],[818.51,939.73]],"c":[840.5,927.9]},{"k":"f","p":[[818.51,945.03],[862.45,965.24],[862.45,1009.19],[818.51,988.98]],"c":[840.5,977.1]},{"k":"f","p":[[818.51,994.26],[862.45,1014.48],[862.45,1058.42],[818.51,1038.2]],"c":[840.5,1026.3]},{"k":"f","p":[[818.51,1043.5],[862.45,1063.72],[862.45,1107.66],[818.51,1087.44]],"c":[840.5,1075.6]},{"k":"f","p":[[867.73,623.01],[911.67,643.23],[911.67,687.17],[867.73,666.95]],"c":[889.7,655.1]},{"k":"f","p":[[867.73,819.96],[911.67,840.18],[911.67,884.12],[867.73,863.9]],"c":[889.7,852.0]},{"k":"o","p":[[822.59,409.38],[858.34,425.83],[858.34,461.6],[822.59,445.15]],"c":[840.5,435.5]},{"k":"o","p":[[822.59,507.86],[858.34,524.31],[858.34,560.08],[822.59,543.63]],"c":[840.5,534.0]},{"k":"o","p":[[822.59,803.28],[858.34,819.75],[858.34,855.5],[822.59,839.05]],"c":[840.5,829.4]},{"k":"o","p":[[822.59,852.52],[858.34,868.97],[858.34,904.74],[822.59,888.29]],"c":[840.5,878.6]},{"k":"o","p":[[871.82,382.81],[907.59,399.25],[907.59,435.02],[871.82,418.56]],"c":[889.7,408.9]},{"k":"o","p":[[871.82,432.03],[907.59,448.5],[907.59,484.25],[871.82,467.8]],"c":[889.7,458.1]},{"k":"o","p":[[871.82,530.51],[907.59,546.96],[907.59,582.73],[871.82,566.28]],"c":[889.7,556.6]},{"k":"o","p":[[871.82,579.76],[907.59,596.21],[907.59,631.97],[871.82,615.52]],"c":[889.7,605.9]},{"k":"o","p":[[871.82,678.22],[907.59,694.67],[907.59,730.44],[871.82,713.99]],"c":[889.7,704.3]},{"k":"o","p":[[871.82,727.46],[907.59,743.91],[907.59,779.68],[871.82,763.23]],"c":[889.7,753.6]},{"k":"o","p":[[871.82,875.17],[907.59,891.62],[907.59,927.39],[871.82,910.94]],"c":[889.7,901.3]},{"k":"o","p":[[871.82,973.64],[907.59,990.09],[907.59,1025.86],[871.82,1009.41]],"c":[889.7,999.8]},{"k":"o","p":[[871.82,1022.88],[907.59,1039.33],[907.59,1075.1],[871.82,1058.65]],"c":[889.7,1049.0]},{"k":"f","p":[[721.02,309.74],[764.96,329.96],[764.96,373.9],[721.02,353.7]],"c":[743.0,341.8]},{"k":"f","p":[[721.02,358.99],[764.96,379.2],[764.96,423.14],[721.02,402.93]],"c":[743.0,391.1]},{"k":"f","p":[[721.02,408.23],[764.96,428.44],[764.96,472.38],[721.02,452.17]],"c":[743.0,440.3]},{"k":"f","p":[[721.02,457.47],[764.96,477.68],[764.96,521.62],[721.02,501.41]],"c":[743.0,489.5]},{"k":"f","p":[[721.02,506.69],[764.96,526.91],[764.96,570.85],[721.02,550.64]],"c":[743.0,538.8]},{"k":"f","p":[[721.02,555.94],[764.96,576.15],[764.96,620.09],[721.02,599.88]],"c":[743.0,588.0]},{"k":"f","p":[[721.02,605.18],[764.96,625.39],[764.96,669.33],[721.02,649.12]],"c":[743.0,637.3]},{"k":"f","p":[[721.02,654.42],[764.96,674.62],[764.96,718.57],[721.02,698.36]],"c":[743.0,686.5]},{"k":"f","p":[[721.02,703.64],[764.96,723.86],[764.96,767.8],[721.02,747.59]],"c":[743.0,735.7]},{"k":"f","p":[[721.02,752.89],[764.96,773.1],[764.96,817.04],[721.02,796.83]],"c":[743.0,785.0]},{"k":"f","p":[[721.02,802.13],[764.96,822.34],[764.96,866.28],[721.02,846.07]],"c":[743.0,834.2]},{"k":"f","p":[[721.02,851.37],[764.96,871.57],[764.96,915.52],[721.02,895.31]],"c":[743.0,883.4]},{"k":"f","p":[[721.02,900.59],[764.96,920.81],[764.96,964.75],[721.02,944.54]],"c":[743.0,932.7]},{"k":"f","p":[[721.02,949.84],[764.96,970.05],[764.96,1013.99],[721.02,993.78]],"c":[743.0,981.9]},{"k":"f","p":[[721.02,999.08],[764.96,1019.28],[764.96,1063.23],[721.02,1043.02]],"c":[743.0,1031.2]},{"k":"f","p":[[867.4,1065.84],[911.34,1086.05],[911.34,1130.0],[867.4,1109.78]],"c":[889.4,1097.9]},{"k":"o","p":[[822.65,458.83],[858.41,475.29],[858.41,511.04],[822.65,494.59]],"c":[840.5,484.9]},{"k":"o","p":[[871.96,481.61],[907.71,498.06],[907.71,533.82],[871.96,517.37]],"c":[889.8,507.7]},{"k":"o","p":[[871.49,776.17],[907.25,792.62],[907.25,828.38],[871.49,811.93]],"c":[889.4,802.3]},{"k":"o","p":[[871.67,924.25],[907.44,940.7],[907.44,976.47],[871.67,960.02]],"c":[889.6,950.4]}]};
+const WM=["M304.14,281.93h26.54v9.38c5.11-4.72,9.47-7.92,13.09-9.58,3.85-1.74,8.69-2.6,14.51-2.6,12.97,0,23.24,5,30.78,15,8.33-10,19.62-15,33.85-15,25.87,0,38.81,13.86,38.81,41.56v62.71h-26.66v-56.36c0-9.72-1.34-16.6-4.01-20.63-2.75-4.1-7.27-6.15-13.56-6.15-7.31,0-12.64,2.43-15.98,7.29-3.34,4.86-5.01,12.67-5.01,23.44v52.4h-26.66v-56.04c0-18.06-5.9-27.09-17.69-27.09-7.47,0-12.91,2.47-16.34,7.4-3.42,4.93-5.13,12.71-5.13,23.33v52.4h-26.54v-101.46Z", "M498.78,281.93v101.46h-26.54v-101.46h26.54Z", "M509.31,281.93h26.54v9.38c5.11-4.72,9.47-7.92,13.09-9.58,3.85-1.74,8.69-2.6,14.51-2.6,12.98,0,23.24,5,30.78,15,8.33-10,19.62-15,33.85-15,25.87,0,38.8,13.86,38.8,41.56v62.71h-26.66v-56.36c0-9.72-1.34-16.6-4.01-20.63-2.75-4.1-7.27-6.15-13.56-6.15-7.31,0-12.64,2.43-15.98,7.29-3.34,4.86-5.01,12.67-5.01,23.44v52.4h-26.66v-56.04c0-18.06-5.9-27.09-17.69-27.09-7.47,0-12.91,2.47-16.34,7.4-3.42,4.93-5.13,12.71-5.13,23.33v52.4h-26.54v-101.46Z", "M784.28,338.18h-82.33c.71,8.33,3.77,14.97,9.2,19.9,5.43,4.86,12.39,7.29,20.88,7.29,6.61,0,12.07-1.39,16.4-4.17,4.25-2.78,9.08-7.92,14.51-15.42l22.41,11.04c-3.46,5.21-7.12,9.67-10.97,13.39-3.86,3.72-7.98,6.77-12.39,9.17-4.4,2.4-9.16,4.15-14.27,5.26-5.11,1.11-10.66,1.67-16.63,1.67-17.14,0-30.9-4.86-41.28-14.58-10.38-9.79-15.57-22.78-15.57-38.96s5.03-29.03,15.1-38.96c10.14-9.79,23.59-14.69,40.34-14.69s30.27,4.76,40.1,14.27c9.75,9.45,14.63,22.54,14.63,39.27l-.12,5.52ZM757.03,319.01c-3.7-12.5-12.62-18.75-26.77-18.75-3.23,0-6.25.44-9.08,1.3-2.83.87-5.41,2.12-7.73,3.75-2.32,1.63-4.3,3.59-5.96,5.89-1.65,2.29-2.91,4.9-3.77,7.81h53.31Z", "M822.05,303.8v79.59h-26.54v-79.59h-11.32v-21.88h11.32v-40.35h26.54v40.35h20.64v21.88h-20.64Z", "M875.77,281.93v101.46h-26.54v-101.46h26.54Z", "M978.05,286.3v31.15c-6.06-6.53-11.48-11.01-16.28-13.44-4.72-2.5-10.26-3.75-16.63-3.75-9.99,0-18.28,3.09-24.89,9.27-6.61,6.18-9.91,13.92-9.91,23.23s3.18,17.33,9.55,23.44c6.45,6.11,14.66,9.17,24.65,9.17,6.37,0,11.99-1.21,16.87-3.65,4.72-2.36,10.26-6.94,16.63-13.75v30.94c-10.77,4.93-21.55,7.4-32.32,7.4-17.77,0-32.63-5.07-44.59-15.21-11.95-10.21-17.93-22.88-17.93-38.02s6.05-27.92,18.16-38.33c12.11-10.42,26.97-15.63,44.59-15.63,11.32,0,22.02,2.4,32.08,7.19Z", "M1074.63,281.93h26.66v101.46h-26.66v-10.63c-10.93,9.03-22.69,13.54-35.27,13.54-15.88,0-29.01-5.07-39.39-15.21-10.3-10.35-15.45-23.26-15.45-38.75s5.15-27.88,15.45-38.02c10.3-10.14,23.2-15.21,38.69-15.21,13.37,0,25.36,4.86,35.97,14.58v-11.77ZM1011.65,332.35c0,9.72,2.95,17.64,8.85,23.75,6.05,6.18,13.68,9.27,22.88,9.27,9.83,0,17.77-2.98,23.83-8.96,6.05-6.18,9.08-14.03,9.08-23.54s-3.03-17.36-9.08-23.54c-6.05-6.04-13.92-9.06-23.59-9.06-9.12,0-16.75,3.06-22.88,9.17-6.06,6.18-9.08,13.82-9.08,22.92Z", "M468.23,258.62c0-4.64,1.69-8.65,5.07-12.03,3.38-3.38,7.43-5.07,12.15-5.07s8.88,1.69,12.27,5.07c3.38,3.3,5.07,7.35,5.07,12.15s-1.69,8.89-5.07,12.27c-3.3,3.38-7.35,5.07-12.15,5.07s-8.89-1.69-12.26-5.07c-3.38-3.38-5.07-7.51-5.07-12.38Z", "M845.22,258.62c0-4.64,1.69-8.65,5.07-12.03,3.38-3.38,7.43-5.07,12.15-5.07s8.88,1.69,12.27,5.07c3.38,3.3,5.07,7.35,5.07,12.15s-1.69,8.89-5.07,12.27c-3.3,3.38-7.35,5.07-12.15,5.07s-8.89-1.69-12.26-5.07c-3.38-3.38-5.07-7.51-5.07-12.38Z"].map(d=>({p:new Path2D(d),x:parseFloat(d.slice(1))})).sort((a,b)=>a.x-b.x);
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const W=1600,H=900,DPR=Math.min(2,window.devicePixelRatio||1);cv.width=W*DPR;cv.height=H*DPR;
+let claro=false,loop=false;
+const COL=()=>claro?{bg:'#F5F4F0',fg:'#0C0C0E',wm:'#1D1D1B',o:'#8A8990',d:'#B9B7B0'}:{bg:'#0C0C0E',fg:'#F5F4F0',wm:'#F5F4F0',o:'#8A8990',d:'#55545B'};
+function rng(s){return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+const R=rng(17),SL=0.46,DX=49.2,DY=49.2,SYM_R=911.7,BR=491;
+const B=RAW.B.map(b=>{const dc=3+Math.floor(R()*7),dr=Math.round((R()-.5)*8);const ord=Math.max(0,(b.c[0]-BR))/(SYM_R-BR);
+ return{...b,ox:dc*DX,oy:dc*DX*SL+dr*DY,t0:.06+ord*.5+R()*.18,dur:.55+R()*.25}});
+const ease=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+function path(p,dx=0,dy=0,s=1,c=null){const[cx,cy]=c||[0,0];ctx.moveTo(cx+(p[0][0]-cx)*s+dx,cy+(p[0][1]-cy)*s+dy);for(let i=1;i<p.length;i++)ctx.lineTo(cx+(p[i][0]-cx)*s+dx,cy+(p[i][1]-cy)*s+dy);ctx.closePath()}
+function path2(P,p){P.moveTo(p[0][0],p[0][1]);for(let i=1;i<p.length;i++)P.lineTo(p[i][0],p[i][1]);P.closePath()}
+function drawBlock(b,st,dx,dy,a,C){ctx.globalAlpha=a;const cp=cellPoly(b);
+ if(st==='f'){ctx.fillStyle=C.fg;ctx.beginPath();path(cp,dx,dy);ctx.fill()}
+ else if(st==='o'){ctx.strokeStyle=C.o;ctx.lineWidth=7.6;ctx.lineJoin='miter';ctx.beginPath();path(cp,dx,dy,.81,b.c);ctx.stroke()}
+ else{ctx.fillStyle=C.d;ctx.beginPath();path(cp,dx,dy,.28,b.c);ctx.fill()}
+ ctx.globalAlpha=1}
+// câmera: do símbolo para o logo completo
+const K=206.44/1015, LX=SYM_R-273.14/K, LY=115-210.69/K;
+const V1={x:(295+SYM_R)/2,y:622,s:600/1015}, xEnd=SYM_R+(1101.3-273.14)/K, V2={x:(295+xEnd)/2,y:622,s:1300/(xEnd-295)};
+let comLogo=false;
+const T_MONTA=4200,T_APRENDE=1800,T_FECHA=2000,T_CAM=1500,T_WM=1300,T_FIM=3400,T_SAI=900;
+const T_SOLIDO=T_MONTA+T_APRENDE+T_FECHA;
+const T_LOGO=()=>T_SOLIDO+(comLogo?T_CAM+T_WM:0), TOTAL=()=>T_LOGO()+T_FIM+T_SAI;
+const fase=document.getElementById('fase');let faseTxt='';function setFase(t){if(t!==faseTxt){fase.textContent=t;faseTxt=t}}
+const borda=B.filter(b=>b.c[0]>830);
+B.forEach(b=>{b.fo=Math.max(0,(b.c[0]-BR))/(SYM_R-BR)*.55+((b.c[1]*7919)%97)/97*.15});
+function learnState(b,ms,seed,count,gap){const r=rng(seed);for(let i=0;i<count;i++){const x=borda[Math.floor(r()*borda.length)];const at=i*gap+r()*gap*.4;if(x===b&&ms>at&&ms<at+520)return b.k==='f'?'o':b.k==='o'?'f':'o'}return b.k}
+const REF=RAW.B.find(b=>b.k==='f'&&b.c[0]>800);const REL=REF.p.map(([x,y])=>[x-REF.c[0],y-REF.c[1]]);
+function cellPoly(b){return b.k==='f'?b.p:REL.map(([x,y])=>[x+b.c[0],y+b.c[1]])}
+// polígono "fechado": cada bloco cresce só na direção de um vizinho, para a silhueta externa não mudar
+const S0=1015/(810.43-55.79),PR=[36.61*S0,16.84*S0],PD=[0,36.61*S0],GX=3.94*S0+.8,GY=3.94*S0+.8;
+const has=(x,y)=>B.some(o=>Math.abs(o.c[0]-x)<8&&Math.abs(o.c[1]-y)<8);
+B.forEach(b=>{const p=cellPoly(b).map(q=>q.slice());const r=has(b.c[0]+PR[0],b.c[1]+PR[1]),d=has(b.c[0],b.c[1]+PD[1]);
+ if(r){p[1][0]+=GX;p[1][1]+=GX*SL;p[2][0]+=GX;p[2][1]+=GX*SL}
+ if(d){p[2][1]+=GY;p[3][1]+=GY}
+ b.ext=p});
+function frame(ms){
+ const C=COL();
+ let cam=V1;const tc=T_SOLIDO;
+ if(comLogo&&ms>tc){const p=ease(Math.min(1,(ms-tc)/T_CAM));cam={x:V1.x+(V2.x-V1.x)*p,y:V1.y+(V2.y-V1.y)*p,s:Math.exp(Math.log(V1.s)+(Math.log(V2.s)-Math.log(V1.s))*p)}}
+ ctx.setTransform(DPR,0,0,DPR,0,0);ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
+ let fadeAll=1;if(ms>T_LOGO()+T_FIM)fadeAll=1-Math.min(1,(ms-T_LOGO()-T_FIM)/T_SAI);
+ ctx.setTransform(DPR*cam.s,0,0,DPR*cam.s,DPR*(W/2-cam.x*cam.s),DPR*(H/2-cam.y*cam.s));
+ ctx.fillStyle=C.fg;ctx.beginPath();path(RAW.real);ctx.fill();
+ if(ms<T_MONTA){setFase('Montando');const t=ms/T_MONTA;
+  for(const b of B){const p=Math.max(0,Math.min(1,(t-b.t0)/(b.dur*.62)));if(p<=0)continue;const e=ease(p);
+   const st=p>=1?b.k:(p<.4?'d':'o');drawBlock(b,st,b.ox*(1-e),b.oy*(1-e),p<.15?p/.15:1,C)}}
+ else if(ms<T_MONTA+T_APRENDE){setFase('Aprendendo');const h=ms-T_MONTA;
+  for(const b of B)drawBlock(b,learnState(b,h,91,4,420),0,0,1,C)}
+ else{
+  const t=Math.min(1,(ms-T_MONTA-T_APRENDE)/T_FECHA);
+  setFase(t<1?'Completando':(comLogo&&ms<T_LOGO()?'Completando o logo':'Mimetica'));
+  // 1) cada bloco vira cheio, da ponte para fora  2) as frestas se fecham
+  const close=ease(Math.max(0,Math.min(1,(t-.62)/.38)));
+  const solid=new Path2D();path2(solid,RAW.real);
+  for(const b of B){
+   const p=ease(Math.max(0,Math.min(1,(t-b.fo)/.32)));
+   const poly=cellPoly(b),sc=1+.14*close;
+   if(b.k!=='f'&&p<1){ // estado antigo sumindo
+     drawBlock(b,b.k,0,0,1-p,C);
+     ctx.globalAlpha=p;ctx.fillStyle=C.fg;ctx.beginPath();path(poly,0,0,b.k==='d'?.28+.72*p:1,b.c);ctx.fill();ctx.globalAlpha=1}
+   else{path2(solid,poly.map((q,i)=>[q[0]+(b.ext[i][0]-q[0])*close,q[1]+(b.ext[i][1]-q[1])*close]))}
+  }
+  ctx.fillStyle=C.fg;ctx.fill(solid,'nonzero');
+ }
+ if(comLogo&&ms>T_SOLIDO+T_CAM*.55){const t=(ms-(T_SOLIDO+T_CAM*.55))/(T_WM+T_CAM*.45);
+  ctx.save();ctx.transform(1/K,0,0,1/K,LX,LY);ctx.fillStyle=C.wm;
+  WM.forEach((w,i)=>{const p=Math.max(0,Math.min(1,(t-i*.07)/.4));if(p<=0)return;ctx.globalAlpha=ease(p);ctx.save();ctx.translate(0,(1-ease(p))*14);ctx.fill(w.p);ctx.restore()});
+  ctx.restore();ctx.globalAlpha=1}
+ if(fadeAll<1){ctx.setTransform(DPR,0,0,DPR,0,0);ctx.globalAlpha=1-fadeAll;ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1}
+}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let playing=!reduce,start=performance.now(),pausedAt=0,last=0;
+const bP=document.getElementById('bPlay'),bL=document.getElementById('bLoop');
+function clock(now){let ms=now-start;if(loop)ms=ms%TOTAL();else if(ms>T_LOGO()+T_FIM-1){ms=T_LOGO()+T_FIM-1}return ms}
+function tick(now){if(playing){last=clock(now);frame(last)}requestAnimationFrame(tick)}
+if(reduce){last=T_LOGO()+10;frame(last);bP.textContent='Tocar'}
+requestAnimationFrame(tick);
+bP.onclick=()=>{playing=!playing;if(playing){start=performance.now()-pausedAt;bP.textContent='Pausar'}else{pausedAt=performance.now()-start;bP.textContent='Tocar'}};
+document.getElementById('bRe').onclick=()=>{start=performance.now();pausedAt=0;if(!playing){playing=true;bP.textContent='Pausar'}};
+bL.onclick=()=>{loop=!loop;bL.setAttribute('aria-pressed',loop);bL.textContent=loop?'Parar no logo':'Repetir em loop';start=performance.now()-last};
+document.getElementById('bLogo').onclick=e=>{comLogo=!comLogo;e.target.setAttribute('aria-pressed',comLogo);e.target.textContent=comLogo?'Só o símbolo':'Com logotipo';start=performance.now();if(!playing){playing=true;bP.textContent='Pausar'}};
+document.getElementById('bFundo').onclick=e=>{claro=!claro;document.body.classList.toggle('claro',claro);e.target.textContent=claro?'Fundo preto':'Fundo osso';if(!playing)frame(last)};
+</script>
+</body></html>
