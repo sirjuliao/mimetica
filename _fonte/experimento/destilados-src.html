@@ -295,7 +295,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 <div class="barra"><b id="barra"></b></div>
 <header class="topo">
   <img class="logo" src="__LC__" alt="Mimetica">
-  <a class="voltar" href="https://mimetica.institute/apoio/gemeo/">Como nasce um gêmeo</a>
+  <div style="display:flex;gap:10px;align-items:center"><span data-lang-slot></span><a class="voltar" href="https://mimetica.institute/apoio/gemeo/">Como nasce um gêmeo</a></div>
 </header>
 
 <!-- 1. ABERTURA -->
@@ -470,6 +470,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     <button type="button" id="prox" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.5 4 7.1 5.4 13.7 12l-6.6 6.6L8.5 20l8-8z"/></svg></button>
   </div>
 </footer>
+<!--I18N:destilados-->
 
 <script>
 const $=s=>document.querySelector(s);
@@ -559,7 +560,7 @@ const churrasco=(()=>{
     c.globalAlpha=1 }
   function pessoa(g,a){ c.globalAlpha=a; c.fillStyle="#C9C7C0"; c.beginPath(); c.arc(g.x,g.y,11,0,7); c.fill();
     c.beginPath(); if(g.cima){ c.arc(g.x,g.y+30,18,Math.PI*1.08,Math.PI*1.92) } else { c.arc(g.x,g.y+30,18,Math.PI*1.08,Math.PI*1.92) } c.lineWidth=7; c.strokeStyle="#C9C7C0"; c.stroke(); c.globalAlpha=1 }
-  function balao(g,txt,a){ const w=196; c.font="500 11px Inter,system-ui,sans-serif"; const ps=txt.split(" "), ls=[]; let l=""; ps.forEach(w2=>{ const t=l?l+" "+w2:w2; if(c.measureText(t).width>w-20){ ls.push(l); l=w2 } else l=t }); ls.push(l);
+  function balao(g,txt,a){ txt=T(txt); const w=196; c.font="500 11px Inter,system-ui,sans-serif"; const ps=txt.split(" "), ls=[]; let l=""; ps.forEach(w2=>{ const t=l?l+" "+w2:w2; if(c.measureText(t).width>w-20){ ls.push(l); l=w2 } else l=t }); ls.push(l);
     const h=16+ls.length*15, x=Math.min(W-w-10,Math.max(10,g.x-w/2)), y=g.cima?g.y-70-h-10:g.y+30;
     c.globalAlpha=a; c.fillStyle=COR.forte; c.beginPath(); c.roundRect?c.roundRect(x,y,w,h,10):c.rect(x,y,w,h); c.fill();
     c.beginPath(); if(g.cima){ c.moveTo(g.x-7,y+h); c.lineTo(g.x,y+h+8); c.lineTo(g.x+7,y+h) } else { c.moveTo(g.x-7,y); c.lineTo(g.x,y-8); c.lineTo(g.x+7,y) } c.fill();

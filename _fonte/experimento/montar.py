@@ -31,8 +31,14 @@ def og(dst):
             f'<meta property="og:image" content="{img}">'
             f'<meta name="twitter:card" content="summary_large_image"><meta name="description" content="{d}">')
 PAGINAS={'inicio-src.html':'experimento/index.html','gravar-src.html':'experimento/gravar/index.html','sessao.html':'experimento/sessao/index.html','convites-src.html':'experimento/convites/index.html','demo-src.html':'apoio/gemeo/index.html','financeiro-src.html':'financeiro/index.html','autos-src.html':'autos/index.html','destilados-src.html':'destilados/index.html','simbolo-src.html':'interno/simbolo/index.html','simbolo-m-src.html':'interno/simbolo-m/index.html','marca-src.html':'interno/marca/index.html'}
+import re,json
+def i18n(s):
+    # Troca <!--I18N:nome--> pelo seletor PT/EN com o dicionário _fonte/i18n/nome.json
+    base=os.path.join(raiz,'_fonte','i18n'); t=open(os.path.join(base,'i18n.html')).read()
+    return re.sub(r'<!--I18N:([a-z0-9-]+)-->',lambda m:t.replace('__DICT__',json.dumps(json.load(open(os.path.join(base,m.group(1)+'.json'))),ensure_ascii=False)),s)
 for src,dst in PAGINAS.items():
     s=open(os.path.join(aqui,src)).read().replace('__LC__',LC).replace('__LE__',LE)
+    s=i18n(s)
     s=s.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')
     d=os.path.join(raiz,dst); os.makedirs(os.path.dirname(d),exist_ok=True)
     cab,corpo=s.split('<style>',1)

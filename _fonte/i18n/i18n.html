@@ -1,0 +1,54 @@
+<!-- Idioma PT/EN: gerado a partir de _fonte/i18n/i18n.html na montagem -->
+<style>
+.lang{display:inline-flex;border:1px solid rgba(245,244,240,.18);border-radius:999px;padding:2px;background:rgba(12,12,14,.7);gap:2px;font:500 12px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em}
+.lang button{border:0;background:transparent;color:#9C9B96;border-radius:999px;padding:6px 10px;cursor:pointer;font:inherit;letter-spacing:inherit}
+.lang button[aria-pressed="true"]{background:#F5F4F0;color:#0C0C0E}
+.lang button:focus-visible{outline:2px solid #F5F4F0;outline-offset:2px}
+.lang-flutua{position:fixed;z-index:60;top:calc(env(safe-area-inset-top,0px) + 16px);right:max(16px,env(safe-area-inset-right,0px))}
+</style>
+<script>
+/* Idioma: PT (padrão) ou EN. A escolha fica no endereço (?lang=en) e no navegador.
+   O dicionário traduz frases inteiras; textos montados pelo código passam pelo mesmo dicionário. */
+const I18N_OFF=typeof VERSAO!=="undefined"&&VERSAO!=="apoio";
+const LANG=(()=>{ if(I18N_OFF) return "pt"; let l="pt"; try{ const q=new URLSearchParams(location.search).get("lang"); if(q==="en"||q==="pt"){ l=q; localStorage.setItem("mim-lang",q) } else l=localStorage.getItem("mim-lang")||"pt" }catch(e){} return l==="en"?"en":"pt" })();
+const I18N_EN=__DICT__;
+const I18N_RX=[
+  [/^(\d+) anos · ([ABC])$/,"$1 yrs · $2"],
+  [/^(\d+) de (\d+)$/,"$1 of $2"],
+  [/^(\d{1,2})h(\d{2})$/,"$1:$2"],
+  [/^(\d{1,2})h$/,"$1:00"],
+  [/^método: (.+)$/,"method: $1"],
+  [/^fonte: (.+)$/,"source: $1"],
+  [/^amostra (\d+)%(\s+)·(\s+)Brasil (\d+)%$/,"sample $1%$2·$3Brazil $4%"],
+  [/^([−+~±<>]?\s?)(\d+),(\d+)(\s?(%|pp|×)?)$/,"$1$2.$3$4"]
+];
+function T(s){ if(LANG!=="en"||typeof s!=="string") return s; const k=s.replace(/\s+/g," ").trim(); if(!k) return s;
+  let r=I18N_EN[k]; if(r===undefined){ for(const [re,f] of I18N_RX){ if(re.test(k)){ r=k.replace(re,f); break } } }
+  if(r===undefined) return s; const m=s.match(/^\s*/)[0], n=s.match(/\s*$/)[0]; return m+r+n }
+function T_obj(o){ if(LANG!=="en") return o; const v=x=>{ if(typeof x==="string") return T(x); if(Array.isArray(x)){ for(let i=0;i<x.length;i++) x[i]=v(x[i]); return x } if(x&&typeof x==="object"){ for(const k of Object.keys(x)) x[k]=v(x[k]); return x } return x }; return v(o) }
+(function(){
+  const ATR=["aria-label","alt","title","placeholder"];
+  const faz=raiz=>{ if(LANG!=="en") return; const w=document.createTreeWalker(raiz,NodeFilter.SHOW_TEXT); let n; while(n=w.nextNode()){ const p=n.parentNode&&n.parentNode.nodeName; if(p==="SCRIPT"||p==="STYLE") continue; const t=T(n.nodeValue); if(t!==n.nodeValue) n.nodeValue=t }
+    if(raiz.querySelectorAll) [raiz,...raiz.querySelectorAll("*")].forEach(el=>{ if(!el.getAttribute) return; ATR.forEach(a=>{ const v=el.getAttribute(a); if(v){ const t=T(v); if(t!==v) el.setAttribute(a,t) } }) }) };
+  if(LANG==="en"){
+    document.documentElement.lang="en"; document.title=T(document.title);
+    faz(document.body);
+    new MutationObserver(ms=>{ for(const m of ms){ if(m.type==="characterData"){ const t=T(m.target.nodeValue); if(t!==m.target.nodeValue) m.target.nodeValue=t }
+      else if(m.type==="attributes"){ const v=m.target.getAttribute(m.attributeName); if(v){ const t=T(v); if(t!==v) m.target.setAttribute(m.attributeName,t) } }
+      else m.addedNodes.forEach(nd=>{ if(nd.nodeType===3){ const t=T(nd.nodeValue); if(t!==nd.nodeValue) nd.nodeValue=t } else if(nd.nodeType===1) faz(nd) }) } })
+      .observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:ATR});
+    const P=CanvasRenderingContext2D.prototype; ["fillText","strokeText","measureText"].forEach(m=>{ const o=P[m]; P[m]=function(t,...a){ return o.call(this,T(String(t)),...a) } });
+  }
+  if(typeof CONFIG!=="undefined") T_obj(CONFIG);
+  if(I18N_OFF) return;
+  /* botões */
+  const caixa=document.createElement("div"); caixa.className="lang"; caixa.setAttribute("role","group"); caixa.setAttribute("aria-label",LANG==="en"?"Language":"Idioma");
+  caixa.innerHTML='<button type="button" data-l="pt">PT</button><button type="button" data-l="en">EN</button>';
+  caixa.querySelectorAll("button").forEach(b=>{ b.setAttribute("aria-pressed",b.dataset.l===LANG?"true":"false");
+    b.addEventListener("click",e=>{ e.stopPropagation(); if(b.dataset.l===LANG) return; try{ localStorage.setItem("mim-lang",b.dataset.l) }catch(x){}
+      const u=new URL(location.href); u.searchParams.set("lang",b.dataset.l); location.href=u.toString() }) });
+  ["click","touchstart","touchend","mousedown","pointerdown"].forEach(ev=>caixa.addEventListener(ev,e=>e.stopPropagation()));
+  const alvo=document.querySelector("[data-lang-slot]");
+  if(alvo) alvo.appendChild(caixa); else { caixa.classList.add("lang-flutua"); document.body.appendChild(caixa) }
+})();
+</script>

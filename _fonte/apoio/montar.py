@@ -6,6 +6,9 @@ L = 'data:image/png;base64,'
 s = open(os.path.join(aqui, 'fonte.html'), encoding='utf8').read()
 s = s.replace('__LOGO_CLARO__', L + open(os.path.join(aqui, 'logo-claro.b64')).read().strip())
 s = s.replace('__LOGO_ESCURO__', L + open(os.path.join(aqui, 'logo-escuro.b64')).read().strip())
+import re, json
+_b = os.path.join(aqui, '..', 'i18n'); _t = open(os.path.join(_b, 'i18n.html'), encoding='utf8').read()
+s = re.sub(r'<!--I18N:([a-z0-9-]+)-->', lambda m: _t.replace('__DICT__', json.dumps(json.load(open(os.path.join(_b, m.group(1) + '.json'), encoding='utf8')), ensure_ascii=False)), s)
 open(os.path.join(aqui, 'apresentacao.html'), 'w', encoding='utf8').write(s)
 # Página do site: mesmo conteúdo com o cabeçalho do site (OG, favicon, Google Fonts)
 site = os.path.join(aqui, '..', '..', 'apoio', 'index.html')
