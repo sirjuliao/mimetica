@@ -155,6 +155,13 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .btn{border:1px solid var(--texto);border-radius:999px;padding:12px 20px;font-size:15px;text-decoration:none;font-weight:600;background:var(--texto);color:var(--osso)}
 .btn.claro{background:transparent;color:var(--texto);font-weight:500}
 
+
+/* 4P e jornada */
+.quatrop .cd .tipo{font-size:12px;color:var(--texto)}
+.quatrop .cd h3{font-size:19px}
+.jornada{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:22px}
+.jornada span{font-size:14px;border:1px solid var(--linha);background:var(--papel);border-radius:999px;padding:6px 14px;color:var(--texto)}
+.jornada i{font-style:normal;font-family:var(--f-mono);color:var(--fraco)}
 @media (max-width:900px){
   body{overflow:auto}
   .dupla,.capa{grid-template-columns:1fr;gap:28px}
@@ -412,34 +419,29 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   </div>
 </section>
 
-<!-- 8. O TESTE DO OLD PARR -->
-<section class="tela" data-t="oldparr">
-  <div class="miolo">
+<!-- 8. O QUE O PAINEL RESPONDE -->
+<section class="tela" data-t="quatrop">
+  <div class="miolo quatrop">
     <div class="rot aparece"><span class="camada">Para a Diageo</span></div>
-    <h2 class="aparece d1" style="margin-top:16px">O teste do Old Parr, em duas etapas.</h2>
-    <p class="lead aparece d2" style="max-width:64ch">Primeiro o painel reproduz uma liderança que vocês já conhecem. Só depois ele olha para onde a marca quer crescer.</p>
-    <div class="etapas aparece d3">
-      <div class="etapa um"><span class="rot">Etapa 1 · resposta conhecida</span><h3>Nordeste e Centro-Oeste</h3><p>O Old Parr é líder dos 12 anos no Brasil, com vendas concentradas nessas regiões. Com os estudos da Diageo como base, o painel precisa reproduzir essa força regional sem ver o resultado.</p><div class="reg"><span>teste às cegas</span><span>critério combinado antes</span></div></div>
-      <div class="portao"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg><span>só segue se acertar</span></div>
-      <div class="etapa"><span class="rot">Etapa 2 · a pergunta nova</span><h3>Interior paulista</h3><p>Onde a expansão começa. Quem leva a garrafa ao churrasco, em que faixa de preço, contra quais rótulos e em quais ocasiões.</p><div class="reg"><span>ocasiões</span><span>preço</span><span>concorrência</span></div></div>
-    </div>
+    <h2 class="aparece d1" style="margin-top:16px">O painel responde as perguntas dos 4P, ocasião por ocasião.</h2>
+    <p class="lead aparece d2" style="max-width:66ch">Produto, preço, praça e promoção. Cada resposta vem com a jornada por trás: o que a pessoa bebe, em que ocasião, quando troca e o que a faz trocar.</p>
+    <div class="cards4 aparece d2"><div class="cd"><span class="tipo">Produto</span><h3>Qual lançamento tem espaço? Uma garrafa menor de 12 anos conquista quem só compra em ocasião especial?</h3></div><div class="cd"><span class="tipo">Preço</span><h3>Até quanto o interior paga num 12 anos, e a partir de que preço troca de rótulo?</h3></div><div class="cd"><span class="tipo">Praça</span><h3>Onde o gin perde espaço para o whisky, e por quê? Em qual canal cada perfil compra?</h3></div><div class="cd"><span class="tipo">Promoção</span><h3>Qual mensagem funciona no churrasco, no São João e no fim de ano? Falar de moderação ajuda ou atrapalha?</h3></div></div>
+    <div class="jornada aparece d3"><span>primeira dose</span><i>→</i><span>ocasião</span><i>→</i><span>rótulo de costume</span><i>→</i><span>troca de marca</span><i>→</i><span>moderação</span></div>
+    <p class="nota aparece d3">As perguntas são exemplos. Trabalhamos em ambiente exclusivo da Diageo, com dados agregados e anonimizados. A Diageo é a única empresa de destilados com quem desenvolvemos este painel.</p>
   </div>
 </section>
 
-<!-- 9. O PAINEL -->
-<section class="tela" data-t="painel">
+<!-- 9. COMO SABEMOS QUE ELE ACERTA -->
+<section class="tela" data-t="acerto">
   <div class="miolo">
     <div class="rot aparece"><span class="camada">Para a Diageo</span></div>
-    <h2 class="aparece d1" style="margin-top:16px">O Painel Destilados Brasil, construído junto com a Diageo.</h2>
-    <div class="fluxo aparece d2">
-      <div class="ent"><div>Estudos e trackings que a Diageo já tem</div><div>Comunidades públicas de quem bebe destilado</div><div>Dados oficiais de consumo e de varejo</div></div>
-      <span class="seta">→</span>
-      <div class="caixa-preta"><canvas id="ruido" width="600" height="400"></canvas><span class="rot">Ambiente exclusivo da Diageo</span><h3>Uma população artificial de quem bebe destilado</h3><span style="font-size:14px;color:#9C9B96">Operada e acompanhada pela equipe da Mimetica</span></div>
-      <span class="seta">→</span>
-      <div class="ent"><div>Respostas em dias, com cortes por região e perfil</div><div>Ocasiões simuladas: churrasco, jogo, festas</div><div>Alertas quando o consumo muda</div></div>
+    <h2 class="aparece d1" style="margin-top:16px">Como sabemos que ele acerta.</h2>
+    <p class="lead aparece d2" style="max-width:64ch">Antes de responder perguntas novas, o painel reproduz um resultado que a Diageo já conhece. Pode ser uma onda de tracking, um lançamento ou a força regional de uma marca.</p>
+    <div class="etapas aparece d3">
+      <div class="etapa um"><span class="rot">Etapa 1 · resposta conhecida</span><h3>Um resultado da Diageo</h3><p>Exemplo: a força do Old Parr no Nordeste e no Centro-Oeste, onde ele concentra as vendas dos 12 anos. O painel precisa chegar a esse resultado sem ver o número.</p><div class="reg"><span>teste às cegas</span><span>critério combinado antes</span></div></div>
+      <div class="portao"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg><span>só segue se acertar</span></div>
+      <div class="etapa"><span class="rot">Etapa 2 · as perguntas novas</span><h3>As perguntas dos 4P</h3><p>Começando pela que mais importa agora, como a expansão para o interior paulista: quem compra, em qual ocasião, a que preço e contra quais rótulos.</p><div class="reg"><span>produto</span><span>preço</span><span>praça</span><span>promoção</span></div></div>
     </div>
-    <p class="lead aparece d3" style="max-width:70ch;margin-top:26px;font-size:16px;color:var(--texto)">Antes do primeiro estudo, o painel passa por uma calibragem que mede a acurácia contra os fatos públicos e contra os estudos da Diageo. A partir daí, as respostas vêm em dias.</p>
-    <p class="nota aparece d3">Trabalhamos com dados agregados e anonimizados. Nenhum dado pessoal de consumidor é necessário.</p>
   </div>
 </section>
 
@@ -449,15 +451,15 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     <div>
       <div class="rot aparece">Como começamos</div>
       <h2 class="aparece d1" style="margin-top:14px">Começamos pelo que vocês já sabem.</h2>
-      <p class="lead aparece d2">Uma primeira versão do painel, medida contra um resultado que a Diageo já conhece, como a força do Old Parr no Nordeste ou uma onda de tracking.</p>
+      <p class="lead aparece d2">Uma primeira versão do painel, medida contra um resultado que a Diageo já conhece. Depois, a pergunta de 4P que mais importa para vocês agora.</p>
       <div class="cta aparece d3"><a class="btn" href="mailto:fernando@mimetica.net">fernando@mimetica.net</a><a class="btn claro" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
     </div>
     <ol class="passos3 aparece d2">
       <li><b>1</b><div><h3>Formalizamos a parceria</h3><p>Confidencialidade, compliance e cadastro da Mimetica como fornecedor.</p></div></li>
-      <li><b>2</b><div><h3>Escolhemos a pergunta</h3><p>A que mais importa agora, e um estudo de referência com resultado conhecido.</p></div></li>
+      <li><b>2</b><div><h3>Escolhemos a pergunta</h3><p>A pergunta de 4P que mais importa agora, e um estudo de referência com resultado conhecido.</p></div></li>
       <li><b>3</b><div><h3>Montamos o painel</h3><p>Calibrado com as comunidades públicas e com a parte do estudo que vocês entregarem.</p></div></li>
       <li><b>4</b><div><h3>Combinamos o critério de acerto</h3><p>Antes de qualquer comparação.</p></div></li>
-      <li><b>5</b><div><h3>Medimos e abrimos a pergunta nova</h3><p>Atingido o critério na parte guardada, o painel passa a responder o interior paulista.</p></div></li>
+      <li><b>5</b><div><h3>Medimos e abrimos a pergunta nova</h3><p>Atingido o critério na parte guardada, o painel passa a responder a pergunta escolhida.</p></div></li>
     </ol>
   </div>
 </section>
@@ -645,7 +647,7 @@ const churrasco=(()=>{
   return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
 })();
 
-const ENTRA={abertura:grade,whisky:()=>barras("#whiskyBox"),painel:ruido};
+const ENTRA={abertura:grade,whisky:()=>barras("#whiskyBox")};
 
 function render(){ $("#cont").textContent=String(atual+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
   $("#barra").style.width=((atual+1)/TELAS.length*100)+"%"; $("#ant").disabled=atual===0&&passo===0; $("#prox").disabled=atual===TELAS.length-1 }
