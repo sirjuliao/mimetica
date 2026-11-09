@@ -327,6 +327,22 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .cards3 .cd .tipo{color:var(--sub)}
 .h2m{font-size:clamp(28px,3.3vw,44px)}
 .compacto{gap:12px;margin-top:22px}.compacto .cd{padding:18px 20px;gap:8px}.compacto .cd h3{font-size:17px}.compacto .cd p{font-size:14px}
+.pares{display:flex;flex-direction:column;gap:10px;margin-top:26px}
+.ph,.par{display:grid;grid-template-columns:150px 70px 1fr;align-items:center;gap:0}
+.ph .rot{font-size:10.5px}
+.par .pp{font-family:var(--f-titulo);font-weight:600;font-size:17px;color:var(--sub);background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:14px 16px;transition:color .4s,border-color .4s}
+.par .seta{position:relative;height:2px;margin:0 10px;background:var(--linha);overflow:visible}
+.par .seta::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--texto);transition:width .5s ease}
+.par .seta::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:7px solid var(--linha);border-right:0;transition:border-left-color .3s .4s}
+.par .pa{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 18px;display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;opacity:.35;transition:opacity .5s .35s,border-color .5s .35s}
+.par .pa b{font-family:var(--f-titulo);font-weight:700;font-size:18px}
+.par .pa p{margin:0;font-size:15px;color:var(--sub);line-height:1.45}
+.par.v .pp{color:var(--texto);border-color:#3A3A3F}
+.par.v .seta::before{width:100%}
+.par.v .seta::after{border-left-color:var(--texto)}
+.par.v .pa{opacity:1;border-color:#3A3A3F}
+.cenas button small{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.06em;opacity:.65;margin-top:3px;font-weight:500}
+@media (max-width:700px){ .ph{display:none} .par{grid-template-columns:1fr} .par .seta{display:none} .par{gap:6px} .pares{gap:14px} .par .pa{grid-template-columns:1fr;gap:6px} }
 #cicloCanvas{width:100%;max-width:500px;aspect-ratio:1;display:block;margin-left:auto}
 .pontos li strong{color:var(--texto);font-weight:600}
 @media (max-width:900px){ .jtab,#cicloCanvas{margin:0 auto} }
@@ -464,11 +480,17 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 <section class="tela" data-t="quatrop">
   <div class="miolo quatrop">
     <div class="rot aparece"><span class="camada">Para a indústria</span></div>
-    <h2 class="aparece d1" style="margin-top:16px">O que a indústria farmacêutica poderá perguntar à RD.</h2>
-    <p class="lead aparece d2" style="max-width:66ch">Produto, preço, praça e promoção, com a jornada por trás: a receita, a conversa no balcão, a gôndola, o caixa, o app e a recompra.</p>
-    <div class="cards4 aparece d2"><div class="cd"><span class="tipo">Produto</span><h3>Uma embalagem para 90 dias aumenta a adesão de quem hoje compra todo mês?</h3></div><div class="cd"><span class="tipo">Preço</span><h3>Quando chega o genérico, quem troca, em quanto tempo, e o que segura quem fica na marca?</h3></div><div class="cd"><span class="tipo">Praça</span><h3>Quem migra da loja para o app, e o que traz essa pessoa de volta ao balcão?</h3></div><div class="cd"><span class="tipo">Promoção</span><h3>Qual conversa do farmacêutico faz o paciente voltar para a recompra?</h3></div></div>
+    <h2 class="aparece d1" style="margin-top:16px">A indústria mexe no P. O paciente responde no A.</h2>
+    <p class="lead aparece d2" style="max-width:70ch">Os 4P são as decisões da empresa. Os 4A são como o paciente recebe cada uma. Os gêmeos digitais medem o lado do A antes do lançamento.</p>
+    <div class="pares aparece d2" id="pares">
+      <div class="ph"><span class="rot">P · a indústria decide</span><span></span><span class="rot">A · o paciente responde</span></div>
+      <div class="par"><div class="pp">Produto</div><i class="seta"></i><div class="pa"><b>Acceptability</b><p>Uma embalagem para 90 dias faz sentido para quem compra todo mês?</p></div></div>
+      <div class="par"><div class="pp">Preço</div><i class="seta"></i><div class="pa"><b>Affordability</b><p>Se a caixa sobe 10%, quem troca pelo genérico e quem para o tratamento?</p></div></div>
+      <div class="par"><div class="pp">Praça</div><i class="seta"></i><div class="pa"><b>Accessibility</b><p>Se falta na loja, quem espera, quem pede pelo app e quem desiste?</p></div></div>
+      <div class="par"><div class="pp">Promoção</div><i class="seta"></i><div class="pa"><b>Awareness</b><p>O paciente sabe que existe o programa do laboratório? Que conversa no balcão faz ele voltar?</p></div></div>
+    </div>
     <div class="jornada aparece d3"><span>receita</span><i>→</i><span>farmacêutico</span><i>→</i><span>gôndola</span><i>→</i><span>caixa</span><i>→</i><span>app e entrega</span><i>→</i><span>recompra</span></div>
-    <p class="nota aparece d3">As perguntas são exemplos. Os gêmeos usam dados agregados e anonimizados, dentro do ambiente da RD e conforme a LGPD. A RD é a única rede de farmácias com quem desenvolvemos este painel.</p>
+    <p class="nota aparece d3">Os 4A são de Jagdish Sheth e Rajendra Sisodia, The 4 A's of Marketing, 2012. As perguntas são exemplos. Os gêmeos usam dados agregados e anonimizados, dentro do ambiente da RD e conforme a LGPD. A RD é a única rede de farmácias com quem desenvolvemos este painel.</p>
   </div>
 </section>
 
@@ -481,7 +503,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     <div class="etapas aparece d3">
       <div class="etapa um"><span class="rot">Etapa 1 · resposta conhecida</span><h3>Um resultado que a RD já mediu</h3><p>Exemplo: com a nova política comercial, a fatia das lojas físicas nas vendas de GLP-1 passou de 25% para 40% em poucos meses. O painel precisa chegar a esse movimento sem ver os números.</p><div class="reg"><span>teste às cegas</span><span>critério combinado antes</span></div></div>
       <div class="portao"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg><span>só segue se acertar</span></div>
-      <div class="etapa"><span class="rot">Etapa 2 · as perguntas novas</span><h3>As perguntas da indústria</h3><p>Lançamento, chegada do genérico, preço e adesão, cada resposta com a margem de erro declarada.</p><div class="reg"><span>produto</span><span>preço</span><span>praça</span><span>promoção</span></div></div>
+      <div class="etapa"><span class="rot">Etapa 2 · as perguntas novas</span><h3>As perguntas da indústria</h3><p>Lançamento, chegada do genérico, preço e adesão, medidos do lado do paciente, cada resposta com a margem de erro declarada.</p><div class="reg"><span>acceptability</span><span>affordability</span><span>accessibility</span><span>awareness</span></div></div>
     </div>
     <p class="nota aparece d3">Fonte do exemplo: RD Saúde, resultados do 3T26. Sem dados de referência, o painel não lê participação de marca. Cada resultado diz o que mede e com que margem.</p>
   </div>
@@ -577,12 +599,12 @@ const cena=(()=>{
   const ROT={marca:"Marca",generico:"Genérico",app:"App e entrega",nao:"Sem compra"};
   const ZROT={marca:"MARCA",generico:"GENÉRICO",app:"APP E ENTREGA",nao:"SEM COMPRA"};
   const CEN={
-    hoje:{nome:"Hoje",txt:"Uma semana comum, receita na mão. A maioria compra na loja; uma parte já resolve tudo pelo app.",b:["marca","generico","marca","app","generico","marca","generico","app","marca","generico","app","nao"]},
-    generico:{nome:"Chega o genérico",txt:"O genérico chega à gôndola com preço menor. Quem troca, quem pergunta ao farmacêutico e quem fica na marca?",b:["generico","generico","marca","app","generico","generico","generico","app","marca","generico","app","nao"]},
-    preco:{nome:"Preço sobe 10%",txt:"A caixa fica 10% mais cara. Parte troca pelo genérico, e parte adia a compra.",b:["generico","generico","marca","app","generico","nao","generico","app","marca","nao","app","nao"]},
-    falta:{nome:"Falta no estoque",txt:"A apresentação da receita acabou na loja. Quem espera, quem pede pelo app e quem desiste?",b:["app","generico","marca","app","generico","marca","nao","app","app","generico","app","nao"]},
-    programa:{nome:"Programa do laboratório",txt:"O laboratório oferece desconto a partir da terceira caixa, aplicado no caixa e no app.",b:["marca","marca","marca","app","generico","marca","generico","app","marca","marca","app","nao"]},
-    receita:{nome:"Receita digital no app",txt:"A receita digital entra direto no app, com entrega em casa. O balcão perde ou ganha papel?",b:["app","generico","marca","app","generico","app","generico","app","marca","generico","app","app"]}
+    hoje:{nome:"Hoje",a:"",txt:"Uma semana comum, receita na mão. A maioria compra na loja; uma parte já resolve tudo pelo app.",b:["marca","generico","marca","app","generico","marca","generico","app","marca","generico","app","nao"]},
+    generico:{nome:"Chega o genérico",a:"Acceptability",txt:"O genérico chega à gôndola com preço menor. Quem troca, quem pergunta ao farmacêutico e quem fica na marca?",b:["generico","generico","marca","app","generico","generico","generico","app","marca","generico","app","nao"]},
+    preco:{nome:"Preço sobe 10%",a:"Affordability",txt:"A caixa fica 10% mais cara. Parte troca pelo genérico, e parte adia a compra.",b:["generico","generico","marca","app","generico","nao","generico","app","marca","nao","app","nao"]},
+    falta:{nome:"Falta no estoque",a:"Accessibility",txt:"A apresentação da receita acabou na loja. Quem espera, quem pede pelo app e quem desiste?",b:["app","generico","marca","app","generico","marca","nao","app","app","generico","app","nao"]},
+    programa:{nome:"Programa do laboratório",a:"Awareness",txt:"O laboratório oferece desconto a partir da terceira caixa, aplicado no caixa e no app.",b:["marca","marca","marca","app","generico","marca","generico","app","marca","marca","app","nao"]},
+    receita:{nome:"Receita digital no app",a:"Accessibility",txt:"A receita digital entra direto no app, com entrega em casa. O balcão perde ou ganha papel?",b:["app","generico","marca","app","generico","app","generico","app","marca","generico","app","app"]}
   };
   const FALAS={2:"Pergunto pro farmacêutico antes de trocar de marca.",3:"No app sai mais barato e chega em casa.",9:"Troquei pelo genérico. Se subir de novo, paro um mês."};
   /* adesão: mês em que cada um para de comprar */
@@ -676,7 +698,7 @@ const cena=(()=>{
     if(PASSOS[p]&&PASSOS[p].conta) $("#chProb").innerHTML=contagem();
     [...$("#chCenas").children].forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===nome?"true":"false"));
     $("#chCenTxt").textContent=C.txt }
-  $("#chCenas").innerHTML=Object.entries(CEN).map(([k,v])=>`<button type="button" data-c="${k}" aria-pressed="false">${v.nome}</button>`).join("");
+  $("#chCenas").innerHTML=Object.entries(CEN).map(([k,v])=>`<button type="button" data-c="${k}" aria-pressed="false">${v.nome}${v.a?`<small>${v.a}</small>`:""}</button>`).join("");
   $("#chCenas").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b) return; ev.stopPropagation(); aplica(b.dataset.c,false) });
   function set(n,instant){ const ant=p; p=n; t0=instant?performance.now()-1e6:performance.now();
     const P=PASSOS[n], pn=$("#chPainel");
@@ -704,7 +726,8 @@ const cena=(()=>{
   return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
 })();
 
-const ENTRA={abertura:jornada,uniao:ciclo};
+function pares(){ const L=[...document.querySelectorAll("#pares .par")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(500+k*650,()=>l.classList.add("v"))) }
+const ENTRA={abertura:jornada,uniao:ciclo,quatrop:pares};
 
 function render(){ $("#cont").textContent=String(atual+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
   $("#barra").style.width=((atual+1)/TELAS.length*100)+"%"; $("#ant").disabled=atual===0&&passo===0; $("#prox").disabled=atual===TELAS.length-1 }
