@@ -1,0 +1,715 @@
+<title>Gêmeos digitais para institutos de pesquisa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: uma tela por vez, avanço por clique, identidade da apresentação institucional.
+   Visual único e deliberado, todo em fundo preto. */
+:root{
+  --osso:#0C0C0E; --papel:#141416; --preto:#F5F4F0; --texto:#F5F4F0; --sub:#9C9B96; --fraco:#6B6A65; --linha:#2A2A2D; --vazio:#232326;
+  --rec:#FF453A; --escuro2:#18181B; --escurolinha:#C9C7C0; --escurosub:#6B6A65;
+  --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--osso);color:var(--texto);font-family:var(--f-corpo);font-size:16px;line-height:1.5;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--texto);outline-offset:3px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+
+/* moldura */
+.topo{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:calc(env(safe-area-inset-top,0px) + 18px) max(22px,env(safe-area-inset-right,0px)) 0 max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.topo>*{pointer-events:auto}
+.logo{height:26px;width:auto;display:block;flex:none;align-self:center;object-fit:contain}
+.cel-tela .logo{height:16px;width:auto;align-self:flex-start}
+.voltar{font-size:13px;color:var(--sub);text-decoration:none;border:1px solid var(--linha);border-radius:999px;padding:6px 14px;background:rgba(12,12,14,.7)}
+.voltar:hover{color:var(--texto);border-color:var(--texto)}
+.barra{position:fixed;left:0;right:0;top:0;height:3px;z-index:11;background:transparent}
+.barra b{display:block;height:100%;background:var(--texto);width:0;transition:width .4s ease}
+.rodape{position:fixed;inset:auto 0 0 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:0 max(22px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.rodape>*{pointer-events:auto}
+.nav{display:flex;gap:8px}
+.nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--linha);background:var(--papel);display:grid;place-items:center}
+.nav button:hover:not(:disabled){border-color:var(--texto)}
+.nav button:disabled{opacity:.3;cursor:default}
+.nav svg{width:16px;height:16px;fill:var(--texto)}
+.cont{font-family:var(--f-mono);font-size:13px;color:var(--sub)}
+
+/* telas */
+.tela{position:fixed;inset:0;display:flex;align-items:flex-start;justify-content:center;
+  padding:88px max(28px,env(safe-area-inset-right,0px)) 84px max(28px,env(safe-area-inset-left,0px));
+  opacity:0;visibility:hidden;transform:translateX(24px);transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s;overflow-y:auto}
+.tela.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease,visibility 0s}
+.tela.antes{transform:translateX(-24px)}
+.miolo{width:100%;max-width:1180px;margin:auto 0}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+h1,h2{font-family:var(--f-titulo);font-weight:700;letter-spacing:-.03em;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6.2vw,84px);line-height:1}
+h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
+.lead{font-size:clamp(17px,1.6vw,21px);color:var(--sub);max-width:46ch;margin:22px 0 0}
+.pontos{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;max-width:46ch}
+.pontos li{display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:16px}
+.pontos li b{font-family:var(--f-mono);font-weight:500;color:var(--texto)}
+.pontos li span{color:var(--sub)}
+.nota{font-size:12px;color:var(--fraco);margin-top:18px}
+.aparece{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+.tela.on .aparece{opacity:1;transform:none}
+.tela.on .aparece.d1{transition-delay:.15s}.tela.on .aparece.d2{transition-delay:.3s}.tela.on .aparece.d3{transition-delay:.45s}.tela.on .aparece.d4{transition-delay:.6s}
+
+/* capa */
+.capa{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+#cabeca{width:100%;max-width:470px;aspect-ratio:840/1000;display:block;margin-left:auto}
+
+/* celular */
+.cel{width:300px;max-width:100%;aspect-ratio:9/18.5;background:#2A2A2D;border-radius:44px;padding:14px;margin:0 auto;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.cel-tela{width:100%;height:100%;background:var(--osso);border-radius:32px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:12px;overflow:hidden;position:relative}
+.cel-prog{display:flex;gap:3px}.cel-prog i{flex:1;height:3px;border-radius:2px;background:var(--vazio)}.cel-prog i.at{background:var(--rec)}
+.cel h4{margin:0;font-family:var(--f-titulo);font-size:16px;line-height:1.25;font-weight:600}
+.cel .grav{margin-top:auto;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:12px 10px 16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cel canvas{width:100%;height:70px;display:block}
+.cel .rel{font-family:var(--f-mono);font-size:24px}
+.cel .est{font-size:11px;color:var(--sub);min-height:16px}
+.cel .est.r{color:var(--rec)}
+.recb{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--texto);display:grid;place-items:center}
+.recb span{width:44px;height:44px;border-radius:50%;background:var(--rec);transition:all .25s}
+.recb.on span{width:22px;height:22px;border-radius:5px}
+.toque{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(245,244,240,.25);pointer-events:none;opacity:0;transform:scale(.6)}
+.toque.v{animation:toque .6s ease}
+@keyframes toque{30%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
+
+/* temas */
+.temas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.tema{text-align:left;border:1px solid var(--linha);background:var(--papel);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;opacity:.15;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.tema.v{opacity:1;transform:none}
+.tema .n{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
+.tema .q{font-family:var(--f-titulo);font-size:15px;line-height:1.3;font-weight:500;color:var(--texto)}
+.tema .chip{align-self:flex-start;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:1px 8px;color:var(--sub);margin-top:auto}
+
+/* camadas */
+.camadas{display:flex;flex-direction:column;gap:12px}
+.cam{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.cam .i{font-family:var(--f-mono);font-size:13px;width:44px;height:44px;border-radius:12px;background:var(--preto);color:var(--osso);display:grid;place-items:center}
+.cam h3{margin:0;font-family:var(--f-titulo);font-size:20px}
+.cam p{margin:4px 0 0;color:var(--sub);font-size:15px}
+.escala{display:flex;gap:6px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.escala span{width:30px;height:30px;border-radius:8px;border:1px solid var(--linha);display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;color:var(--sub)}
+.escala span.on{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.escala small{font-size:12px;color:var(--fraco);margin:0 4px}
+
+/* construção */
+.fluxo{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:16px;align-items:center;margin-top:34px}
+.ent{display:flex;flex-direction:column;gap:10px}
+.ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
+.seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+.caixa-preta{background:#18181B;border:1px solid var(--linha);color:#F5F4F0;border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.caixa-preta .rot{color:#9C9B96}
+.caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
+.caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.caixa-preta>*:not(canvas){position:relative}
+.saida{background:var(--papel);border:1px solid var(--texto);border-radius:16px;padding:18px;text-align:center}
+.saida canvas{width:132px;height:157px;display:block;margin:0 auto 10px;background:#0C0C0E;border-radius:14px}
+.saida b{font-family:var(--f-titulo);font-size:18px}
+
+/* teste */
+.duelo{display:flex;flex-direction:column;gap:12px}
+.dq{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
+.dq .rot{display:flex;justify-content:space-between;gap:8px}
+.dq h4{margin:8px 0 0;font-family:var(--f-titulo);font-size:20px;line-height:1.2;font-weight:600;min-height:48px}
+.lados{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lado{border:1px solid var(--linha);border-radius:16px;padding:16px;background:var(--papel);min-height:128px;display:flex;flex-direction:column;gap:8px}
+.lado.g{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.lado.g .rot{color:var(--escurosub)}
+.lado .r{font-family:var(--f-titulo);font-size:19px;line-height:1.2;opacity:0;transition:opacity .4s}
+.lado .r.v{opacity:1}
+.lacre{font-family:var(--f-mono);font-size:12px;color:var(--escurosub);word-break:break-all}
+.ver{align-self:flex-start;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;border:1px solid var(--escurolinha);opacity:0;transition:opacity .3s}
+.ver.v{opacity:1}
+.ver.ok{background:var(--osso);color:var(--preto);border-color:var(--osso)}
+.placar{display:flex;align-items:center;gap:14px}
+.placar .trilha{display:flex;gap:5px}
+.placar .trilha i{width:16px;height:16px;border-radius:4px;border:1px solid var(--linha)}
+.placar .trilha i.s1{background:var(--texto);border-color:var(--texto)}
+.placar .trilha i.s05{background:linear-gradient(135deg,var(--fraco) 50%,transparent 50%);border-color:var(--fraco)}
+.placar .trilha i.s0{background:var(--vazio)}
+
+/* índice */
+.formula{display:flex;align-items:center;gap:16px;flex-wrap:nowrap;font-family:var(--f-titulo);font-size:clamp(26px,3vw,40px);font-weight:700;letter-spacing:-.02em;margin-top:28px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;text-align:center;font-size:.5em;line-height:1.2;font-weight:600}
+.frac span:first-child{border-bottom:2px solid currentColor;padding-bottom:5px;margin-bottom:5px}
+.barras{display:flex;flex-direction:column;gap:18px;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:24px}
+.br{display:grid;grid-template-columns:150px 1fr 56px;gap:12px;align-items:center;font-size:15px}
+.br .trilho{height:14px;border-radius:7px;background:var(--vazio);overflow:hidden}
+.br .trilho b{display:block;height:100%;width:0;background:var(--texto);border-radius:7px;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.br.f .trilho b{background:var(--fraco)}
+.br .v{font-family:var(--f-mono);text-align:right}
+.grande{font-family:var(--f-titulo);font-size:clamp(56px,7vw,96px);font-weight:700;letter-spacing:-.04em;line-height:1}
+
+/* população */
+#povoCanvas{width:100%;max-width:560px;aspect-ratio:1.25;display:block;margin-left:auto}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{border:1px solid var(--texto);border-radius:999px;padding:12px 20px;font-size:15px;text-decoration:none;font-weight:600;background:var(--texto);color:var(--osso)}
+.btn.claro{background:transparent;color:var(--texto);font-weight:500}
+
+
+/* 4P e jornada */
+.quatrop .cd .tipo{font-size:12px;color:var(--texto)}
+.quatrop .cd h3{font-size:19px}
+.jornada{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:22px}
+.jornada span{font-size:14px;border:1px solid var(--linha);background:var(--papel);border-radius:999px;padding:6px 14px;color:var(--texto)}
+.jornada i{font-style:normal;font-family:var(--f-mono);color:var(--fraco)}
+
+/* fatos com número à esquerda */
+.fatos{display:flex;flex-direction:column;gap:12px}
+.fato{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
+.fato .n{font-family:var(--f-titulo);font-weight:700;font-size:34px;letter-spacing:-.02em;line-height:1}
+.fato h3{margin:0;font-family:var(--f-titulo);font-size:17px;font-weight:600;line-height:1.3}
+.fato p{margin:4px 0 0;font-family:var(--f-mono);font-size:11.5px;color:var(--fraco)}
+@media (max-width:520px){.fato{grid-template-columns:1fr;gap:8px}}
+@media (max-width:900px){
+  body{overflow:auto}
+  .dupla,.capa{grid-template-columns:1fr;gap:28px}
+  .temas{grid-template-columns:1fr 1fr}
+  .fluxo{grid-template-columns:1fr;gap:10px}
+  .seta{transform:rotate(90deg);justify-self:center}
+  #cabeca,#povoCanvas{margin:0 auto;max-width:320px}
+  .cel{width:250px}
+  .tela{padding-top:76px;align-items:flex-start}
+}
+@media (max-width:520px){ .temas{grid-template-columns:1fr} .lados{grid-template-columns:1fr} .br{grid-template-columns:110px 1fr 48px} .voltar{display:none} }
+@media (prefers-reduced-motion:reduce){ .tela,.aparece,.br .trilho b{transition:none!important} }
+
+/* ===== telas próprias da versão destilados ===== */
+[hidden]{display:none!important}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.cards4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.cd{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.cd h3{margin:0;font-family:var(--f-titulo);font-size:20px;line-height:1.25;font-weight:600;text-wrap:balance}
+.cd p{margin:0;color:var(--sub);font-size:15px}
+.cd .num{font-family:var(--f-titulo);font-size:clamp(40px,4.4vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.cd .ref{font-family:var(--f-mono);font-size:11.5px;color:var(--fraco);margin-top:auto}
+.cd .papel{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--texto);border:1px solid var(--linha);border-radius:999px;padding:2px 10px;align-self:flex-start}
+.passos3{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.passos3 li{display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:14px 16px}
+.passos3 b{width:40px;height:40px;border-radius:12px;background:#F5F4F0;color:#0C0C0E;display:grid;place-items:center;font-family:var(--f-mono)}
+.passos3 h3{margin:0;font-family:var(--f-titulo);font-size:19px}
+.passos3 p{margin:4px 0 0;color:var(--sub);font-size:15px}
+.br .v{white-space:nowrap}
+.br.dest span:first-child{color:var(--texto);font-weight:600}
+.br.dest .trilho b{background:var(--texto)}
+.br .trilho b{background:var(--fraco)}
+.br .ant{font-size:11.5px;color:var(--fraco);font-family:var(--f-mono);display:block;font-weight:400}
+
+
+/* abertura: consumidores e doses */
+.povo{max-width:500px;margin-left:auto;display:flex;flex-direction:column;gap:22px}
+.povo .linha{display:flex;flex-direction:column;gap:10px}
+.fila{display:grid;grid-template-columns:repeat(12,1fr);gap:7px}
+.fila .p{display:flex;flex-direction:column;align-items:center;gap:5px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.fila .p.v{opacity:1;transform:none}
+.fila .p i{width:100%;aspect-ratio:1;border-radius:7px;background:#9C9B96;transition:background .5s}
+.fila .p.novo.v i{background:#F5F4F0}
+.fila .p u{display:flex;flex-direction:column;gap:3px;text-decoration:none}
+.fila .p u b,.leg2 b.dose{display:block;width:12px;height:4px;border-radius:2px;background:#6B6A65;opacity:0;transition:opacity .3s}
+.fila .p u b.v{opacity:1}
+.leg2 b.dose{opacity:1;width:14px}
+/* abertura antiga */
+#grade{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;max-width:470px;margin-left:auto}
+#grade i{aspect-ratio:1;border-radius:8px;border:1px solid var(--linha);background:var(--papel);opacity:0;transform:scale(.7);transition:opacity .35s,transform .35s,background .6s,border-color .6s,box-shadow .6s}
+#grade i.v{opacity:1;transform:none;background:#9C9B96;border-color:#9C9B96}
+#grade i.v.x{background:transparent;border-color:#2A2A2D}
+#grade i.v.s{background:#F5F4F0;border-color:#F5F4F0;box-shadow:0 0 0 3px #0C0C0E,0 0 0 4.5px #F5F4F0}
+.leg2{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--sub);justify-content:flex-end;max-width:470px;margin-left:auto}
+.leg2 span{display:inline-flex;align-items:center;gap:8px}
+.leg2 i{width:14px;height:14px;border-radius:4px;border:1px solid #9C9B96;background:#9C9B96}
+.leg2 i.x{background:transparent;border-color:#3A3A3F}
+.leg2 i.s{background:#F5F4F0;border-color:#F5F4F0}
+
+/* whisky */
+.dupla2{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+.sobe{display:flex;align-items:baseline;gap:14px;margin-top:22px}
+.sobe .de{font-family:var(--f-titulo);font-size:clamp(28px,3vw,40px);font-weight:700;color:var(--fraco)}
+.sobe .para{font-family:var(--f-titulo);font-size:clamp(44px,5vw,68px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.sobe .seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+
+/* comunidades */
+.cd .tipo{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.cd ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.cd ul li{font-size:12.5px;color:var(--sub);border:1px solid var(--linha);border-radius:999px;padding:3px 10px}
+
+/* bar */
+.churras{display:grid;grid-template-columns:minmax(0,390px) minmax(0,1fr);gap:36px;align-items:center}
+#chCanvas{width:100%;aspect-ratio:920/640;display:block;border-radius:18px;background:#0F0F11;border:1px solid var(--linha)}
+.cd-painel{display:flex;flex-direction:column;gap:12px;min-height:400px}
+.cd-painel.troca>*{animation:cdSobe .45s ease both}
+@keyframes cdSobe{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cd-tit{font-family:var(--f-titulo);font-weight:700;letter-spacing:-.02em;font-size:clamp(26px,2.8vw,38px);line-height:1.08;margin:0;text-wrap:balance}
+.cd-txt{font-size:16px;color:var(--sub);margin:0}
+.cd-prob{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.cd-prob .br{grid-template-columns:96px 1fr 58px;font-size:14px}
+.cd-dica{font-family:var(--f-mono);font-size:11px;color:var(--fraco);letter-spacing:.06em;text-transform:uppercase}
+.cd-pontos{display:flex;gap:6px;margin-top:auto}
+.cd-pontos i{width:22px;height:3px;border-radius:2px;background:var(--vazio)}
+.cd-pontos i.at{background:var(--texto)}
+.cd-fecho{background:#F5F4F0;color:#0C0C0E;border-radius:18px;padding:24px}
+.cd-fecho p{margin:0;font-family:var(--f-titulo);font-weight:700;font-size:28px;line-height:1.15;letter-spacing:-.02em}
+.cd-fecho small{display:block;margin-top:10px;font-size:15px;color:#403F45}
+.cenas{display:flex;flex-wrap:wrap;gap:8px}
+.cenas button{border:1px solid var(--linha);background:var(--papel);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--sub)}
+.cenas button:hover{border-color:var(--sub);color:var(--texto)}
+.cenas button[aria-pressed="true"]{background:var(--texto);color:var(--osso);border-color:var(--texto);font-weight:600}
+.cen-txt{font-size:15px;color:var(--texto);margin:0;min-height:46px}
+
+/* prova */
+.alvos{display:flex;flex-direction:column;gap:10px}
+.alvo{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:14px 18px}
+.alvo h3{margin:0;font-family:var(--f-titulo);font-size:17px;font-weight:600;line-height:1.3}
+.alvo p{margin:3px 0 0;font-size:12.5px;color:var(--fraco);font-family:var(--f-mono)}
+.alvo .chip{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:3px 10px;color:var(--sub);white-space:nowrap}
+.limite{border-left:2px solid var(--texto);padding:4px 0 4px 18px;margin-top:26px}
+.limite p{margin:6px 0 0;color:var(--sub);font-size:15px;max-width:46ch}
+
+/* teste em duas etapas */
+.etapas{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:32px}
+.etapa{background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.etapa.um{border-color:var(--texto)}
+.etapa h3{margin:0;font-family:var(--f-titulo);font-size:24px;line-height:1.15}
+.etapa p{margin:0;color:var(--sub);font-size:15px}
+.etapa .reg{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.etapa .reg span{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:3px 10px;color:var(--sub)}
+.portao{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-width:120px;text-align:center}
+.portao svg{width:34px;height:34px;fill:none;stroke:var(--texto);stroke-width:1.6}
+.portao span{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);max-width:14ch}
+
+/* rotina */
+.fluxo{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:16px;align-items:center;margin-top:34px}
+.ent{display:flex;flex-direction:column;gap:10px}
+.ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
+.seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+.caixa-preta{background:#18181B;border:1px solid var(--linha);color:#F5F4F0;border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.caixa-preta .rot{color:#9C9B96}
+.caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
+.caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.caixa-preta>*:not(canvas){position:relative}
+.camada{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--osso);background:var(--texto);border-radius:999px;padding:3px 10px}
+
+@media (max-width:900px){
+  .cards3,.cards4,.dupla2,.churras,.etapas{grid-template-columns:1fr}
+  .portao{flex-direction:row;min-width:0}
+  #grade{margin:0 auto}.leg2{margin:14px auto 0;justify-content:center}
+  .cd-painel{min-height:0}
+}
+@media (max-width:520px){ .cd-prob .br{grid-template-columns:84px 1fr 52px} .alvo{grid-template-columns:1fr} .alvo .chip{justify-self:start} }
+@media (prefers-reduced-motion:reduce){ #grade i{transition:none!important} .cd-painel.troca>*{animation:none} }
+
+/* ===== telas próprias da versão farma ===== */
+.jtab{display:flex;flex-direction:column;gap:8px;max-width:500px;margin-left:auto}
+.jh,.jl{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px;align-items:center}
+.jh .rot{font-size:10.5px;text-align:center}
+.jl{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 16px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.jl.v{opacity:1;transform:none}
+.jl b{font-family:var(--f-titulo);font-weight:600;font-size:16px}
+.jl span{display:grid;place-items:center}
+.jl i{width:20px;height:20px;border-radius:6px;border:1px solid #3A3A3F;background:transparent;transform:scale(.6);opacity:.4;transition:all .4s}
+.jl i.v{transform:none;opacity:1}
+.jl i.a.sim.v{background:#9C9B96;border-color:#9C9B96}
+.jl i.b.v{background:#F5F4F0;border-color:#F5F4F0;box-shadow:0 0 0 3px #0C0C0E,0 0 0 4.5px #F5F4F0}
+.comp{display:flex;flex-direction:column;gap:8px}
+.ch,.cl{display:grid;grid-template-columns:110px 1fr 1fr;gap:12px;align-items:start}
+.ch .rot{font-size:10.5px}
+.cl{background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:14px 16px;font-size:14.5px;color:var(--sub)}
+.cl b{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fraco);font-weight:500;padding-top:2px}
+.cl .s{color:var(--texto);font-weight:500}
+.cards3 .cd .tipo{color:var(--sub)}
+.h2m{font-size:clamp(28px,3.3vw,44px)}
+.compacto{gap:12px;margin-top:22px}.compacto .cd{padding:18px 20px;gap:8px}.compacto .cd h3{font-size:17px}.compacto .cd p{font-size:14px}
+.pares{display:flex;flex-direction:column;gap:10px;margin-top:26px}
+.ph,.par{display:grid;grid-template-columns:150px 70px 1fr;align-items:center;gap:0}
+.ph .rot{font-size:10.5px}
+.par .pp{font-family:var(--f-titulo);font-weight:600;font-size:17px;color:var(--sub);background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:14px 16px;transition:color .4s,border-color .4s}
+.par .seta{position:relative;height:2px;margin:0 10px;background:var(--linha);overflow:visible}
+.par .seta::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--texto);transition:width .5s ease}
+.par .seta::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:7px solid var(--linha);border-right:0;transition:border-left-color .3s .4s}
+.par .pa{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 18px;display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;opacity:.35;transition:opacity .5s .35s,border-color .5s .35s}
+.par .pa b{font-family:var(--f-titulo);font-weight:700;font-size:18px}
+.par .pa p{margin:0;font-size:15px;color:var(--sub);line-height:1.45}
+.par.v .pp{color:var(--texto);border-color:#3A3A3F}
+.par.v .seta::before{width:100%}
+.par.v .seta::after{border-left-color:var(--texto)}
+.par.v .pa{opacity:1;border-color:#3A3A3F}
+.cenas button small{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.06em;opacity:.65;margin-top:3px;font-weight:500}
+@media (max-width:700px){ .ph{display:none} .par{grid-template-columns:1fr} .par .seta{display:none} .par{gap:6px} .pares{gap:14px} .par .pa{grid-template-columns:1fr;gap:6px} }
+#cicloCanvas{width:100%;max-width:500px;aspect-ratio:1;display:block;margin-left:auto}
+.pontos li strong{color:var(--texto);font-weight:600}
+@media (max-width:900px){ .jtab,#cicloCanvas{margin:0 auto} }
+@media (max-width:520px){ .ch,.cl{grid-template-columns:1fr 1fr} .ch>span:first-child{display:none} .cl b{grid-column:1/-1} .jh,.jl{grid-template-columns:1.4fr .8fr .8fr;gap:8px} .jl b{font-size:14px} }
+/* ===== telas próprias da versão chocolate ===== */
+.jtab .jh,.jtab .jl{grid-template-columns:1.6fr .9fr .9fr}
+.comp3 .ch,.comp3 .cl{grid-template-columns:110px 1fr 1fr 1fr}
+.comp3{margin-top:30px;max-width:1080px}
+.cl .mc{display:none;font-style:normal;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);margin-bottom:2px}
+#rodaCanvas{width:100%;max-width:500px;aspect-ratio:1;display:block;margin-left:auto}
+@media (max-width:900px){ #rodaCanvas{margin:0 auto} }
+@media (max-width:700px){ .comp3 .ch{display:none} .comp3 .cl{grid-template-columns:1fr;gap:6px} .comp3 .cl .mc{display:block} }
+/* ===== telas próprias da versão institutos ===== */
+#gasCanvas{width:100%;max-width:520px;aspect-ratio:500/330;display:block;margin-left:auto}
+.comp2 .ch,.comp2 .cl{grid-template-columns:120px 1fr 1fr}
+.comp2{margin-top:28px;max-width:1080px}
+.tabexp{display:flex;flex-direction:column;gap:8px;margin-top:26px;max-width:1080px}
+.te{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:14px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:14px 18px}
+.te.h{background:transparent;border:0;padding:0 18px}
+.te.h span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.te b{font-family:var(--f-titulo);font-weight:600;font-size:16px}
+.te b small{display:block;font-family:var(--f-mono);font-weight:400;font-size:11px;color:var(--fraco);margin-top:2px}
+.te span{font-size:15px;color:var(--sub)}
+.te span.g{color:var(--texto);font-family:var(--f-titulo);font-weight:700;font-size:20px}
+.dist{display:flex;flex-direction:column;gap:16px;margin-top:26px;max-width:900px}
+.dm h3{margin:0 0 8px;font-family:var(--f-titulo);font-size:16px;font-weight:600}
+.dm .br{grid-template-columns:170px 1fr 60px;font-size:14px;margin-top:4px}
+.dm .br.dest .trilho b{background:var(--texto)}
+.roteiro{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.roteiro li{list-style:none}
+.roteiro{padding:0}
+.fase{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin:0 0 2px}
+@media (max-width:900px){ .roteiro{grid-template-columns:1fr} #gasCanvas{margin:0 auto} }
+@media (max-width:700px){ .comp2 .ch{display:none} .comp2 .cl{grid-template-columns:1fr;gap:6px} .comp2 .cl .mc{display:block} .te{grid-template-columns:1fr 1fr} .te b{grid-column:1/-1} .te.h{display:none} .dm .br{grid-template-columns:120px 1fr 52px} }
+</style>
+
+<div class="barra"><b id="barra"></b></div>
+<header class="topo">
+  <img class="logo" src="__LC__" alt="Mimetica">
+  <div style="display:flex;gap:10px;align-items:center"><span data-lang-slot></span><a class="voltar" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
+</header>
+
+<!-- 1. ABERTURA -->
+<section class="tela" data-t="abertura">
+  <div class="miolo capa">
+    <div>
+      <div class="rot aparece">Mimetica · para institutos de pesquisa</div>
+      <h1 class="aparece d1" style="margin-top:14px">Quantos, não quem.</h1>
+      <p class="lead aparece d2">Na série Fundação, de Isaac Asimov, a psico-história parte de uma ideia da física. Uma molécula de gás é imprevisível. Um trilhão delas tem pressão e temperatura que se calculam. Os gêmeos digitais da Mimetica seguem a mesma lógica: respondem quantas pessoas reagem e quais grupos reagem mais.</p>
+    </div>
+    <div class="aparece d2">
+      <canvas id="gasCanvas" width="1000" height="660" aria-label="À esquerda, uma molécula se move sem padrão. À direita, centenas de moléculas produzem uma pressão estável"></canvas>
+      <p class="nota" style="text-align:right">Ilustração. O comportamento de cada partícula varia; o do conjunto se mantém.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. COLUMBIA -->
+<section class="tela" data-t="columbia">
+  <div class="miolo">
+    <div class="rot aparece">O que a crítica mais séria mostrou</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">O estudo de Columbia: o gêmeo de hoje erra a pessoa e serve para ordenar o grupo.</h2>
+    <div class="cards3 compacto aparece d2">
+      <div class="cd"><span class="num">0,20</span><h3>É a correlação média entre a resposta de cada gêmeo e a da pessoa real que ele representa.</h3><span class="ref">19 estudos pré-registrados, 1.784 pessoas dos EUA</span></div>
+      <div class="cd"><span class="num">0,748</span><h3>Acerto individual do gêmeo feito com mais de 500 respostas da pessoa. Só com demografia: 0,746.</h3><span class="ref">Sem diferença significativa entre os dois</span></div>
+      <div class="cd"><span class="num">94%</span><h3>Dos resultados em que os gêmeos variam menos que as pessoas reais.</h3><span class="ref">A população de gêmeos fica mais homogênea que a real</span></div>
+      <div class="cd"><span class="num">10</span><h3>Pessoas reais dariam o mesmo erro na média que a população de gêmeos.</h3><span class="ref">Diferença de 0,35 desvio-padrão nas médias</span></div>
+      <div class="cd"><span class="num">~200</span><h3>Pessoas reais num modelo estatístico rendem a mesma correlação que um gêmeo.</h3><span class="ref">Pouca gente real, bem usada, vale muito</span></div>
+      <div class="cd"><span class="papel">A conclusão dos autores</span><h3>Os gêmeos de hoje são perfis comparativos. Servem para ordenar quem reage mais e quem reage menos.</h3><span class="ref">Peng, Toubia e colegas · Columbia, Yale e Yeshiva · arXiv, abr/2026</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. AS CINCO DISTORÇÕES -->
+<section class="tela" data-t="distorcoes">
+  <div class="miolo quatrop">
+    <div class="rot aparece"><span class="camada">As cinco distorções</span></div>
+    <h2 class="aparece d1 h2m" style="margin-top:16px">Cada distorção vira um número que se mede em todo estudo.</h2>
+    <p class="lead aparece d2" style="max-width:72ch">Os próprios autores propõem medir as cinco. Adotamos as cinco medidas e propomos reportá-las junto com cada resultado.</p>
+    <div class="pares aparece d2" id="pares">
+      <div class="ph"><span class="rot">A distorção</span><span></span><span class="rot">O que medimos</span></div>
+      <div class="par"><div class="pp">Pouca individualidade</div><i class="seta"></i><div class="pa"><b>Variação</b><p>A variação dos gêmeos dividida pela das pessoas. Meta: perto de 1.</p></div></div>
+      <div class="par"><div class="pp">Estereótipo</div><i class="seta"></i><div class="pa"><b>Ganho sobre a demografia</b><p>Gêmeo completo contra gêmeo só com demografia e gêmeo vazio. Se o completo não ganha, o perfil não está servindo.</p></div></div>
+      <div class="par"><div class="pp">Viés de representação</div><i class="seta"></i><div class="pa"><b>Acerto por grupo</b><p>Acerto por classe, escolaridade e região. No Brasil, é o ponto mais sensível.</p></div></div>
+      <div class="par"><div class="pp">Viés ideológico</div><i class="seta"></i><div class="pa"><b>Direção dos desvios</b><p>Se as diferenças entre gêmeos e pessoas apontam sempre para o mesmo lado.</p></div></div>
+      <div class="par"><div class="pp">Hiper-racionalidade</div><i class="seta"></i><div class="pa"><b>Erro com resposta certa</b><p>Em perguntas com resposta certa, o gêmeo deve errar na mesma proporção que as pessoas.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. TESTE 1 -->
+<section class="tela" data-t="teste1">
+  <div class="miolo">
+    <div class="rot aparece">Teste 1 · seis experimentos clássicos</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">Os efeitos de Kahneman, Tversky e Thaler aparecem nos gêmeos brasileiros.</h2>
+    <p class="lead aparece d2" style="max-width:72ch">1.000 gêmeos calibrados ao Censo 2022 e à PNAD Contínua 2024. Os experimentos foram reescritos com palavras, valores e cenários novos, porque os originais são famosos e podem estar no treino dos modelos de IA.</p>
+    <div class="tabexp aparece d3">
+      <div class="te h"><span>Experimento</span><span>Estudo original</span><span>Gêmeos</span></div>
+      <div class="te"><b>Cerveja na praia<small>Thaler, 1985</small></b><span>No hotel de luxo, vale 1,85× o preço do mercadinho</span><span class="g">2,1×</span></div>
+      <div class="te"><b>A caneca<small>Kahneman, Knetsch e Thaler, 1990</small></b><span>Quem vende pede cerca de 2× o que quem compra oferece</span><span class="g">1,8×</span></div>
+      <div class="te"><b>O concerto na chuva<small>custo afundado, 1980</small></b><span>De 55% a 65% vão mesmo assim</span><span class="g">60%</span></div>
+      <div class="te"><b>O ganho certo<small>Kahneman e Tversky, 1979</small></b><span>80% preferem R$ 500 certos a 50% de chance de R$ 1.000 (EUA)</span><span class="g">57% a 66%</span></div>
+    </div>
+    <p class="nota aparece d3">Os outros dois, a doença rara (1981) e o ingresso perdido (1985), também aparecem na mesma direção. Cinco dos seis se mantêm em todas as amostras repetidas. O tamanho do efeito varia: o único estudo brasileiro que mediu a aversão à perda em número (PUC-Rio) achou menos da metade do valor internacional. Por isso, o tamanho se calibra com cerca de 100 respostas reais por pergunta. Fonte: Mimetica, Quantos, não quem, nov/2026.</p>
+  </div>
+</section>
+
+<!-- 5. TESTE 2 -->
+<section class="tela" data-t="teste2">
+  <div class="miolo">
+    <div class="rot aparece">Teste 2 · dezesseis estudos com brasileiros</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">Antes de confiar no gêmeo, conferimos se o brasileiro real tem os mesmos vieses.</h2>
+    <div class="cards3 compacto aparece d2">
+      <div class="cd"><span class="num">15 de 16</span><h3>Estudos publicados mostram o viés na mesma direção da literatura clássica.</h3><span class="ref">RAE, RBGN, RAC e PLOS ONE · 2003 a 2024</span></div>
+      <div class="cd"><span class="num">~1.500</span><h3>Brasileiros reais: universitários, bancários, empreendedores do RN, estudantes de PE e compradores online.</h3><span class="ref">Somando os dezesseis estudos</span></div>
+      <div class="cd"><span class="num">+50%</span><h3>Pagaram por morango orgânico os compradores online que viram antes um preço de referência alto.</h3><span class="ref">Ancoragem de preço</span></div>
+      <div class="cd"><span class="num">98,9%</span><h3>Dos estudantes do ensino médio mostraram aversão à perda, em um dos estudos.</h3><span class="ref">Aversão à perda</span></div>
+      <div class="cd"><span class="papel">A exceção</span><h3>Especialistas resistem à ancoragem de preço quando o produto é da área deles.</h3><p>O público geral continua influenciado. Por isso, especialistas e público geral são simulados separados.</p></div>
+      <div class="cd"><span class="papel">O que isso garante</span><h3>Que reproduzir os vieses clássicos faz sentido no Brasil.</h3><p>O gêmeo deve mostrar o viés onde o brasileiro mostra, e deixar de mostrar onde ele resiste.</p><span class="ref">Mimetica, Quantos, não quem, nov/2026</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. TESTE 3 -->
+<section class="tela" data-t="teste3">
+  <div class="miolo dupla2">
+    <div>
+      <div class="rot aparece">Teste 3 · nove modelos de IA comparados</div>
+      <h2 class="aparece d1 h2m" style="margin-top:14px">Na proporção de respostas, a população calibrada chega mais perto do real.</h2>
+      <p class="lead aparece d2">Três bases humanas: um painel de cerca de 2.000 pessoas com 42 perguntas de opinião e decisão, um teste de personalidade de 20 itens e um experimento sobre como a redação da pergunta muda a resposta. Primeiro lugar em 10 de 15 medidas.</p>
+      <p class="nota aparece d3">Distância até as respostas reais: quanto menor, melhor. Fonte: Mimetica, Quantos, não quem, nov/2026.</p>
+    </div>
+    <div class="dist aparece d2" id="dist"></div>
+  </div>
+</section>
+
+<!-- 7. A POPULAÇÃO (passos internos) -->
+<section class="tela" data-t="populacao" data-passos="7">
+  <div class="miolo churras">
+    <div class="cd-painel" id="chPainel">
+      <div class="rot" id="chRot">A cena</div>
+      <h2 class="cd-tit" id="chTit">Para ver por que a população responde e a pessoa não, olhe mil gêmeos de uma vez.</h2>
+      <p class="cd-txt" id="chTxt">Avance para ver a cena se montar.</p>
+      <p class="cen-txt" id="chCenTxt" hidden></p>
+      <div class="cd-prob" id="chProb"></div>
+      <div class="cd-fecho" id="chFecho" hidden><p>Quantos reagem e quais grupos reagem mais: é isso que a população responde com segurança.</p><small>Para prever uma pessoa, o gêmeo precisa da história dela. Para cortes pequenos, precisa de mais casos, e a margem vai junto com o número.</small></div>
+      <div class="cd-pontos" id="chPontos"></div>
+    </div>
+    <div>
+      <canvas id="chCanvas" width="1840" height="1280" aria-label="Cena ilustrativa com mil gêmeos digitais representados por pontos"></canvas>
+      <div class="cd-dica" id="chLeg" style="margin-top:10px;text-align:right"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. ONDE FUNCIONA -->
+<section class="tela" data-t="limites">
+  <div class="miolo">
+    <div class="rot aparece">Sem absolutos</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">Onde a população responde bem, e onde pede cuidado.</h2>
+    <p class="lead aparece d2" style="max-width:72ch">Na Fundação, a psico-história falha com o Mulo: um único indivíduo, fora de qualquer curva, que muda o rumo da galáxia. O nosso Mulo são os cortes pequenos, os temas sem semente e os públicos que fogem da média.</p>
+    <div class="comp comp2 aparece d3">
+      <div class="ch"><span></span><span class="rot">Responde bem</span><span class="rot">Pede cuidado</span></div>
+      <div class="cl"><b>A pergunta</b><span class="s"><i class="mc">Responde bem</i>Proporções, diferença entre grupos, quem reage mais</span><span><i class="mc">Pede cuidado</i>A resposta exata de uma pessoa só com demografia</span></div>
+      <div class="cl"><b>O volume</b><span class="s"><i class="mc">Responde bem</i>Grupos grandes, com a margem declarada</span><span><i class="mc">Pede cuidado</i>Cortes com poucos casos, abaixo do piso mínimo</span></div>
+      <div class="cl"><b>O tema</b><span class="s"><i class="mc">Responde bem</i>Temas com semente humana da categoria</span><span><i class="mc">Pede cuidado</i>Tema novo sem nenhum dado real</span></div>
+      <div class="cl"><b>O público</b><span class="s"><i class="mc">Responde bem</i>Público geral, calibrado por classe e região</span><span><i class="mc">Pede cuidado</i>Especialistas, que pedem simulação à parte</span></div>
+      <div class="cl"><b>O efeito</b><span class="s"><i class="mc">Responde bem</i>Direção e tamanho, com calibragem por pergunta</span><span><i class="mc">Pede cuidado</i>Tamanho de efeito sem nenhuma resposta real para calibrar</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. ROTEIRO -->
+<section class="tela" data-t="roteiro">
+  <div class="miolo">
+    <div class="rot aparece"><span class="camada">Para o instituto</span></div>
+    <h2 class="aparece d1 h2m" style="margin-top:16px">Como um instituto usa a ferramenta, do começo ao fim do estudo.</h2>
+    <ol class="passos3 roteiro aparece d2">
+      <li><b>1</b><div><p class="fase">Antes do campo</p><h3>Testar o questionário</h3><p>Perguntas confusas, ordem e tempo de resposta, antes de ir a campo.</p></div></li>
+      <li><b>2</b><div><p class="fase">Antes do campo</p><h3>Desenhar a amostra</h3><p>Onde vão faltar casos e quanto campo cada corte pede.</p></div></li>
+      <li><b>3</b><div><p class="fase">No campo</p><h3>Ir a campo mais enxuto</h3><p>Uma semente humana do tema, com cotas por classe e região.</p></div></li>
+      <li><b>4</b><div><p class="fase">No campo</p><h3>Conferir a qualidade</h3><p>Respostas em linha reta, efeito teto e incoerências, apontadas antes da análise.</p></div></li>
+      <li><b>5</b><div><p class="fase">Depois do campo</p><h3>Ajustar a amostra à população</h3><p>Corrigir o viés do painel contra o Censo e a PNAD.</p></div></li>
+      <li><b>6</b><div><p class="fase">Depois do campo</p><h3>Expandir e abrir cortes</h3><p>Com piso mínimo de casos por corte e a margem declarada.</p></div></li>
+      <li><b>7</b><div><p class="fase">Depois do campo</p><h3>Simular cenários</h3><p>Preço, marca, mensagem e portfólio, antes do lançamento do cliente.</p></div></li>
+      <li><b>8</b><div><p class="fase">Entre ondas</p><h3>Acompanhar entre um campo e outro</h3><p>A população se atualiza até a próxima onda humana.</p></div></li>
+    </ol>
+    <p class="nota aparece d3">O estudo e o cliente continuam do instituto. A Mimetica entra como infraestrutura.</p>
+  </div>
+</section>
+
+<!-- 10. PRÓXIMOS PASSOS -->
+<section class="tela" data-t="proposta">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Como começamos</div>
+      <h2 class="aparece d1" style="margin-top:14px">Um teste juntos, num estudo que a Skim já conhece.</h2>
+      <p class="lead aparece d2">A Skim escolhe um estudo já feito com pessoas reais, como a relação entre marca e sensibilidade a preço, e guarda o resultado. Refazemos às cegas.</p>
+      <div class="cta aparece d3"><a class="btn" href="mailto:fernando@mimetica.net">fernando@mimetica.net</a><a class="btn claro" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
+    </div>
+    <ol class="passos3 aparece d2">
+      <li><b>1</b><div><h3>A Skim escolhe o estudo</h3><p>E guarda o resultado com ela.</p></div></li>
+      <li><b>2</b><div><h3>Montamos a população</h3><p>Com o questionário, a categoria e o perfil da amostra.</p></div></li>
+      <li><b>3</b><div><h3>Rodamos três versões</h3><p>Gêmeo completo, só com demografia e vazio.</p></div></li>
+      <li><b>4</b><div><h3>Registramos antes de comparar</h3><p>O resultado fica fechado antes de vermos o da Skim.</p></div></li>
+      <li><b>5</b><div><h3>Comparamos e reportamos</h3><p>Contra as pessoas reais, com as cinco medidas.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<footer class="rodape">
+  <span class="cont" id="cont">01 / 10</span>
+  <div class="nav">
+    <button type="button" id="ant" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.5 4 7.5 12l8 8 1.4-1.4L10.3 12l6.6-6.6z"/></svg></button>
+    <button type="button" id="prox" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.5 4 7.1 5.4 13.7 12l-6.6 6.6L8.5 20l8-8z"/></svg></button>
+  </div>
+</footer>
+<!--I18N:institutos-->
+
+<script>
+const $=s=>document.querySelector(s);
+const TELAS=[...document.querySelectorAll(".tela")];
+const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let atual=0, passo=0, timers=[], rafs={};
+const limpa=()=>{ timers.forEach(clearTimeout); timers=[]; Object.values(rafs).forEach(cancelAnimationFrame); rafs={} };
+const depois=(ms,f)=>timers.push(setTimeout(f,reduz?0:ms));
+function rnd(s){ return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646 } }
+const clamp=v=>Math.max(0,Math.min(1,v)), lerp=(a,b,t)=>a+(b-a)*t, ease=t=>1-Math.pow(1-t,3);
+const pct=v=>Math.round(v*100)+"%";
+
+/* 1. as moléculas */
+function gas(){ const cv=$("#gasCanvas"), c=cv.getContext("2d"), R=rnd(7), t0=performance.now();
+  const A={x:120,y:170,vx:2.3,vy:-1.7}, B=[]; for(let i=0;i<320;i++) B.push({x:290+R()*180,y:60+R()*230,vx:(R()-.5)*3,vy:(R()-.5)*3});
+  const hist=[];
+  const f=now=>{ const e=now-t0; c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,500,330);
+    const caixa=(x,y,w,h)=>{ c.strokeStyle="#3A3A3F"; c.lineWidth=1.5; c.strokeRect(x,y,w,h) };
+    caixa(30,50,180,250); caixa(280,50,200,250);
+    /* uma molécula: muda de direção ao acaso */
+    if(R()<.04){ const a=R()*Math.PI*2, s=1.5+R()*2.5; A.vx=Math.cos(a)*s; A.vy=Math.sin(a)*s }
+    A.x+=A.vx; A.y+=A.vy; if(A.x<38||A.x>202){A.vx*=-1;A.x=Math.max(38,Math.min(202,A.x))} if(A.y<58||A.y>292){A.vy*=-1;A.y=Math.max(58,Math.min(292,A.y))}
+    c.fillStyle="#F5F4F0"; c.beginPath(); c.arc(A.x,A.y,5,0,7); c.fill();
+    let bate=0;
+    B.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; if(p.x<284||p.x>476){p.vx*=-1;bate++;p.x=Math.max(284,Math.min(476,p.x))} if(p.y<54||p.y>296){p.vy*=-1;bate++;p.y=Math.max(54,Math.min(296,p.y))} c.fillStyle="#9C9B96"; c.fillRect(p.x-1.5,p.y-1.5,3,3) });
+    hist.push(bate); if(hist.length>240) hist.shift();
+    const media=hist.reduce((a,b)=>a+b,0)/hist.length;
+    c.fillStyle="#9C9B96"; c.font="600 9.5px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle";
+    c.fillText(T("UMA MOLÉCULA"),120,34); c.fillText(T("MUITAS MOLÉCULAS"),380,34);
+    c.fillStyle="#6B6A65"; c.font="500 10.5px Inter,sans-serif"; c.fillText(T("direção imprevisível"),120,318); c.fillText(T("pressão estável"),380,318);
+    if(e>1500){ c.fillStyle="#0C0C0E"; c.fillRect(345,155,70,30); c.strokeStyle="#F5F4F0"; c.lineWidth=1; c.strokeRect(345.5,155.5,69,29); c.fillStyle="#F5F4F0"; c.font="700 15px 'Space Grotesk',sans-serif"; c.fillText(String(Math.round(media*60)),380,171) }
+    rafs.gas=requestAnimationFrame(f) };
+  rafs.gas=requestAnimationFrame(f) }
+
+/* 6. distâncias do teste 3 */
+const DIST=[["Proporção de respostas, teste de personalidade",.051,.379],["Proporção de respostas, painel de 42 perguntas",.097,.254],["Proporção de respostas, experimento de redação",.074,.145],["Estrutura dos cinco grandes traços de personalidade",.135,.379]];
+(function(){ $("#dist").innerHTML=DIST.map(([n,m,o])=>`<div class="dm"><h3>${n}</h3><div class="br dest"><span>Mimetica</span><span class="trilho"><b data-w="${(m/.4*100).toFixed(1)}"></b></span><span class="v">${String(m).replace(".",",")}</span></div><div class="br"><span>Melhor IA publicada</span><span class="trilho"><b data-w="${(o/.4*100).toFixed(1)}"></b></span><span class="v">${String(o).replace(".",",")}</span></div></div>`).join("") })();
+function dist(){ const B=[...document.querySelectorAll("#dist .trilho b")]; B.forEach(b=>b.style.width="0"); depois(400,()=>B.forEach(b=>b.style.width=b.dataset.w+"%")) }
+
+/* ================= 7. A POPULAÇÃO ================= */
+const cena=(()=>{
+  const PASSOS=[
+    null,
+    {rot:"A população",tit:"Mil gêmeos digitais, calibrados à população brasileira.",txt:"Cada ponto é um gêmeo. A população segue as proporções do Censo e da PNAD por classe, região, idade e sexo."},
+    {rot:"Uma pergunta",tit:"Se o preço subir 10%, cada gêmeo troca de marca ou fica?",txt:"A cada rodada, o mesmo gêmeo pode responder diferente, como uma pessoa real num dia diferente. O gêmeo marcado muda de ideia o tempo todo.",conta:"um"},
+    {rot:"O grupo",tit:"A pessoa oscila. A proporção do grupo quase não se move.",txt:"Os erros de cada um se compensam no total. É a mesma lei que deixa estável a pressão do gás.",conta:"total"},
+    {rot:"Os segmentos",tit:"E a ordem entre os grupos também se mantém.",txt:"Quem reage mais, quem reage menos. É o que o estudo de Columbia chama de perfil comparativo, e é o que o cliente usa para decidir.",conta:"seg"},
+    {rot:"Poucos casos",tit:"Num corte de vinte pessoas, a proporção pula de rodada em rodada.",txt:"Com poucos, a estatística perde a força. Por isso cada corte tem piso mínimo de casos e margem declarada.",conta:"corte"},
+    {rot:"A semente humana",tit:"Cerca de cem respostas reais ajustam o nível da população.",txt:"A direção já vinha certa. O tamanho do efeito varia entre amostras e países, e a calibragem com gente real corrige.",conta:"semente"},
+    {rot:"E a pessoa?",tit:"Para chegar perto de uma pessoa, o gêmeo precisa da história dela.",txt:"Só com idade, sexo, escolaridade e região, nenhum dos nove modelos comparados passa de cerca de 3 acertos em 10. Com 14 a 28 respostas anteriores da própria pessoa, o gêmeo fecha de 37% a 50% da distância até ela.",conta:"pessoa"},
+    {fecho:true}
+  ];
+  const cv=$("#chCanvas"), c=cv.getContext("2d"), W=920, H=640, R=rnd(23);
+  const N=1000, COLS=40, SPX=14, X0=180, Y0=50;
+  const SEGN=["A/B","C","D/E"], SEGQ=[220,480,300], P0=[.22,.38,.55], P1=[.18,.33,.49];
+  const ord=[...Array(N).keys()].sort(()=>R()-.5);
+  const gente=[]; let k=0; SEGQ.forEach((q,s)=>{ for(let i=0;i<q;i++){ const id=ord[k++]; gente[id]={s,on:false,cor:.35,x:0,y:0,ap:R()*900} } });
+  gente.forEach((g,i)=>{ g.gx=X0+(i%COLS)*SPX; g.gy=Y0+Math.floor(i/COLS)*SPX; g.x=g.gx; g.y=g.gy });
+  /* posições por segmento */
+  const BL=[10,20,13], BX=[]; let bx=(W-(43*SPX+2*42))/2; BL.forEach((w,s)=>{ BX[s]=bx; bx+=w*SPX+42 });
+  const cont=[0,0,0]; gente.forEach(g=>{ const s=g.s, i=cont[s]++; g.sx=BX[s]+(i%BL[s])*SPX; g.sy=Y0+20+Math.floor(i/BL[s])*SPX });
+  const CORTE=gente.map((g,i)=>i).filter(i=>gente[i].s===2).slice(0,20);
+  const SEM=gente.map((g,i)=>i).filter((i,j)=>j%10===3);
+  const MARC=gente.findIndex(g=>g.s===1);
+  let p=0, t0=performance.now(), on=false, ultimo=0, rodada=0, hT=[], hC=[], hS=[[],[],[]], cal=false;
+  function sorteio(){ rodada++; const PP=cal?P1:P0; let tot=0, cs=0, sg=[0,0,0];
+    gente.forEach(g=>{ g.on=R()<PP[g.s]; if(g.on){ tot++; sg[g.s]++ } });
+    CORTE.forEach(i=>{ if(gente[i].on) cs++ });
+    hT.push(tot/N); hC.push(cs/CORTE.length); sg.forEach((v,s)=>hS[s].push(v/SEGQ[s]));
+    [hT,hC,...hS].forEach(h=>{ if(h.length>40) h.shift() });
+    painel() }
+  function linha(h,x0,x1,y0,y1,cor,lw){ if(h.length<2) return; c.strokeStyle=cor; c.lineWidth=lw; c.beginPath(); h.forEach((v,i)=>{ const x=lerp(x0,x1,i/39), y=lerp(y1,y0,v); i?c.lineTo(x,y):c.moveTo(x,y) }); c.stroke() }
+  function desenha(now){ const e=Math.max(0,now-t0);
+    if(p>=2&&p<=6&&now-ultimo>(reduz?99999:650)){ ultimo=now; sorteio() }
+    c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,W,H);
+    const seg=p>=4&&p<7;
+    gente.forEach((g,i)=>{ const tx=seg?g.sx:g.gx, ty=seg?g.sy:g.gy; g.x+=(tx-g.x)*.08; g.y+=(ty-g.y)*.08;
+      const alvo=p>=2&&p<7&&g.on?1:.0; g.cor+=(alvo-g.cor)*.25;
+      let a=p===1?clamp((e-g.ap)/500):1; if(a<=0) return;
+      if(p===5&&!CORTE.includes(i)) a*=.18;
+      if(p===7) a*=i===MARC?1:.12;
+      c.globalAlpha=a; const v=Math.round(lerp(58,245,g.cor)); c.fillStyle=`rgb(${v},${v-1},${v-5})`;
+      if(p===6&&SEM.includes(i)){ c.strokeStyle="#F5F4F0"; c.lineWidth=1.2; c.strokeRect(g.x-4.5,g.y-4.5,9,9) }
+      else { c.beginPath(); c.arc(g.x,g.y,4.2,0,7); c.fill() } });
+    c.globalAlpha=1;
+    c.font="600 9px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillStyle="#9C9B96";
+    if(p===1) c.fillText(T("1.000 GÊMEOS"),W/2,Y0-26);
+    if(p===2||p===3){ c.fillText(T("CLARO: TROCA DE MARCA · ESCURO: FICA"),W/2,Y0-26) }
+    if(p===2){ const g=gente[MARC]; c.strokeStyle="#F5F4F0"; c.lineWidth=1.5; c.beginPath(); c.arc(g.x,g.y,10,0,7); c.stroke();
+      c.fillStyle="#F5F4F0"; c.font="700 12px 'Space Grotesk',sans-serif"; c.textAlign="left"; c.fillText(T(g.on?"troca":"fica"),g.x+16,g.y) }
+    if(seg){ SEGN.forEach((n,s)=>{ c.fillStyle="#C9C7C0"; c.font="700 12px 'Space Grotesk',sans-serif"; c.textAlign="left"; c.fillText(T("Classe ")+n,BX[s],Y0); }) }
+    /* gráfico das rodadas */
+    if(p>=3&&p<=6){ const x0=180,x1=740,y0=440,y1=600; c.strokeStyle="#2A2A2D"; c.lineWidth=1; c.strokeRect(x0,y0,x1-x0,y1-y0);
+      c.fillStyle="#6B6A65"; c.font="500 9px 'JetBrains Mono',monospace"; c.textAlign="right"; c.fillText("100%",x0-6,y0+4); c.fillText("0%",x0-6,y1); c.textAlign="center"; c.fillText(T("rodadas"),(x0+x1)/2,y1+14);
+      if(p===4) hS.forEach(h=>linha(h,x0,x1,y0,y1,"#C9C7C0",1.6));
+      else linha(hT,x0,x1,y0,y1,"#F5F4F0",2);
+      if(p===5) linha(hC,x0,x1,y0,y1,"#9C9B96",1.6) }
+    if(p===7){ const g=gente[MARC], cx=460, cy=300; c.fillStyle="#F5F4F0"; c.beginPath(); c.arc(cx,cy,14,0,7); c.fill();
+      c.font="600 9px 'JetBrains Mono',monospace"; c.fillStyle="#9C9B96"; c.textAlign="center"; c.fillText(T("RESPOSTAS ANTERIORES DA PESSOA"),cx,cy+100);
+      const n=Math.min(28,Math.floor(e/120)); for(let q=0;q<28;q++){ const a=q*Math.PI*2/28, r=58; c.fillStyle=q<n?"#C9C7C0":"#232326"; c.fillRect(cx+Math.cos(a)*r-3,cy+Math.sin(a)*r-3,6,6) } }
+  }
+  (function loop(now){ if(on) desenha(now); requestAnimationFrame(loop) })(performance.now());
+  const pontos=$("#chPontos"); pontos.innerHTML=PASSOS.map(()=>"<i></i>").join("");
+  const barra=(n,v,d,txt)=>`<div class="br ${d?"dest":""}"><span>${n}</span><span class="trilho"><b style="width:${(v*100).toFixed(1)}%"></b></span><span class="v">${txt||pct(v)}</span></div>`;
+  const ult=h=>h.length?h[h.length-1]:0;
+  function painel(){ const P=PASSOS[p]; if(!P||!P.conta) return; let h="";
+    if(P.conta==="um") h=`<span class="rot"><span>Rodada</span> ${rodada} · <span>cena ilustrativa</span></span>`+barra("O gêmeo marcado",gente[MARC].on?1:0,0,gente[MARC].on?"troca":"fica")+barra("Os mil",ult(hT),1);
+    if(P.conta==="total") h=`<span class="rot"><span>Rodada</span> ${rodada} · <span>cena ilustrativa</span></span>`+barra("Trocam de marca",ult(hT),1);
+    if(P.conta==="seg") h=`<span class="rot">Trocam de marca, por classe · cena ilustrativa</span>`+SEGN.map((n,s)=>barra("Classe "+n,ult(hS[s]),s===2)).join("");
+    if(P.conta==="corte") h=`<span class="rot"><span>Rodada</span> ${rodada} · <span>cena ilustrativa</span></span>`+barra("Os mil",ult(hT),1)+barra("Corte de 20",ult(hC),0);
+    if(P.conta==="semente") h=`<span class="rot">Trocam de marca · cena ilustrativa</span>`+barra("Antes da semente",.396,0)+barra("Depois da semente",ult(hT),1);
+    if(P.conta==="pessoa") h=`<span class="rot">Distância até a resposta da pessoa fechada pelo gêmeo</span>`+barra("Só demografia",0,0,"~0")+barra("14 a 28 respostas",.5,1,"37% a 50%");
+    $("#chProb").innerHTML=h }
+  function set(n,instant){ p=n; t0=instant?performance.now()-1e6:performance.now();
+    const P=PASSOS[n], pn=$("#chPainel");
+    [...pontos.children].forEach((el,k)=>el.classList.toggle("at",k<=n));
+    $("#chFecho").hidden=!(P&&P.fecho);
+    cal=n>=6; if(n===6||n===2){ hT=[];hC=[];hS=[[],[],[]] }
+    const mostra=(id,v)=>{ $(id).hidden=!v };
+    if(n===0){ mostra("#chRot",1); mostra("#chTit",1); mostra("#chTxt",1); $("#chRot").textContent="A cena"; $("#chTit").textContent="Para ver por que a população responde e a pessoa não, olhe mil gêmeos de uma vez."; $("#chTxt").textContent="Avance para ver a cena se montar."; $("#chProb").innerHTML="" }
+    else if(P.fecho){ mostra("#chRot",0); mostra("#chTit",0); mostra("#chTxt",0); $("#chProb").innerHTML="" }
+    else { mostra("#chRot",1); mostra("#chTit",1); mostra("#chTxt",1); $("#chRot").textContent=P.rot; $("#chTit").textContent=P.tit; $("#chTxt").textContent=P.txt; $("#chProb").innerHTML=""; if(n>=2&&n<=6) sorteio(); painel() }
+    pn.classList.remove("troca"); void pn.offsetWidth; pn.classList.add("troca");
+    $("#chLeg").textContent=n>=1&&n<8?"cena ilustrativa · cada ponto, um gêmeo digital":"";
+  }
+  return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
+})();
+
+function pares(){ const L=[...document.querySelectorAll("#pares .par")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(400+k*550,()=>l.classList.add("v"))) }
+const ENTRA={abertura:gas,distorcoes:pares,teste3:dist};
+const CENA="populacao";
+
+function render(){ $("#cont").textContent=String(atual+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
+  $("#barra").style.width=((atual+1)/TELAS.length*100)+"%"; $("#ant").disabled=atual===0&&passo===0; $("#prox").disabled=atual===TELAS.length-1 }
+function vai(i,fim){ if(i<0||i>=TELAS.length) return; limpa();
+  TELAS.forEach((t,k)=>{ t.classList.toggle("on",k===i); t.classList.toggle("antes",k<i); t.setAttribute("aria-hidden",k===i?"false":"true") });
+  TELAS[i].scrollTop=0; atual=i;
+  const eCh=TELAS[i].dataset.t===CENA; cena.ativar(eCh);
+  if(eCh){ passo=fim?cena.total:0; cena.passo(passo,!!fim) } else passo=0;
+  try{ history.replaceState(null,"","#"+TELAS[i].dataset.t) }catch(e){}
+  render(); (ENTRA[TELAS[i].dataset.t]||(()=>{}))() }
+function prox(){ if(TELAS[atual].dataset.t===CENA&&passo<cena.total){ limpa(); passo++; cena.passo(passo,reduz); render(); return } vai(atual+1) }
+function ant(){ if(TELAS[atual].dataset.t===CENA&&passo>0){ limpa(); passo--; cena.passo(passo,true); render(); return } vai(atual-1,true) }
+$("#prox").onclick=e=>{ e.stopPropagation(); prox() };
+$("#ant").onclick=e=>{ e.stopPropagation(); ant() };
+document.addEventListener("keydown",e=>{ if(["ArrowRight","PageDown"," ","Enter"].includes(e.key)){ if(e.target.closest&&e.target.closest("button")&&e.key!=="ArrowRight") return; e.preventDefault(); prox() } else if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); ant() } });
+document.addEventListener("click",e=>{ if(e.target.closest("a,button")) return; if(matchMedia("(max-width:900px)").matches) return; (e.clientX>innerWidth*.35)?prox():ant() });
+let sx=null; document.addEventListener("touchstart",e=>{ sx=e.touches[0].clientX },{passive:true});
+document.addEventListener("touchend",e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) (dx<0?prox():ant()); sx=null });
+const ini=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); vai(ini>=0?ini:0);
+addEventListener("hashchange",()=>{ const i=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); if(i>=0&&i!==atual) vai(i) });
+</script>
