@@ -1,0 +1,758 @@
+<title>Gêmeos digitais no chocolate</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: uma tela por vez, avanço por clique, identidade da apresentação institucional.
+   Visual único e deliberado, todo em fundo preto. */
+:root{
+  --osso:#0C0C0E; --papel:#141416; --preto:#F5F4F0; --texto:#F5F4F0; --sub:#9C9B96; --fraco:#6B6A65; --linha:#2A2A2D; --vazio:#232326;
+  --rec:#FF453A; --escuro2:#18181B; --escurolinha:#C9C7C0; --escurosub:#6B6A65;
+  --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--osso);color:var(--texto);font-family:var(--f-corpo);font-size:16px;line-height:1.5;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--texto);outline-offset:3px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+
+/* moldura */
+.topo{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:calc(env(safe-area-inset-top,0px) + 18px) max(22px,env(safe-area-inset-right,0px)) 0 max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.topo>*{pointer-events:auto}
+.logo{height:26px;width:auto;display:block;flex:none;align-self:center;object-fit:contain}
+.cel-tela .logo{height:16px;width:auto;align-self:flex-start}
+.voltar{font-size:13px;color:var(--sub);text-decoration:none;border:1px solid var(--linha);border-radius:999px;padding:6px 14px;background:rgba(12,12,14,.7)}
+.voltar:hover{color:var(--texto);border-color:var(--texto)}
+.barra{position:fixed;left:0;right:0;top:0;height:3px;z-index:11;background:transparent}
+.barra b{display:block;height:100%;background:var(--texto);width:0;transition:width .4s ease}
+.rodape{position:fixed;inset:auto 0 0 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:0 max(22px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.rodape>*{pointer-events:auto}
+.nav{display:flex;gap:8px}
+.nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--linha);background:var(--papel);display:grid;place-items:center}
+.nav button:hover:not(:disabled){border-color:var(--texto)}
+.nav button:disabled{opacity:.3;cursor:default}
+.nav svg{width:16px;height:16px;fill:var(--texto)}
+.cont{font-family:var(--f-mono);font-size:13px;color:var(--sub)}
+
+/* telas */
+.tela{position:fixed;inset:0;display:flex;align-items:flex-start;justify-content:center;
+  padding:88px max(28px,env(safe-area-inset-right,0px)) 84px max(28px,env(safe-area-inset-left,0px));
+  opacity:0;visibility:hidden;transform:translateX(24px);transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s;overflow-y:auto}
+.tela.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease,visibility 0s}
+.tela.antes{transform:translateX(-24px)}
+.miolo{width:100%;max-width:1180px;margin:auto 0}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+h1,h2{font-family:var(--f-titulo);font-weight:700;letter-spacing:-.03em;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6.2vw,84px);line-height:1}
+h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
+.lead{font-size:clamp(17px,1.6vw,21px);color:var(--sub);max-width:46ch;margin:22px 0 0}
+.pontos{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;max-width:46ch}
+.pontos li{display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:16px}
+.pontos li b{font-family:var(--f-mono);font-weight:500;color:var(--texto)}
+.pontos li span{color:var(--sub)}
+.nota{font-size:12px;color:var(--fraco);margin-top:18px}
+.aparece{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+.tela.on .aparece{opacity:1;transform:none}
+.tela.on .aparece.d1{transition-delay:.15s}.tela.on .aparece.d2{transition-delay:.3s}.tela.on .aparece.d3{transition-delay:.45s}.tela.on .aparece.d4{transition-delay:.6s}
+
+/* capa */
+.capa{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+#cabeca{width:100%;max-width:470px;aspect-ratio:840/1000;display:block;margin-left:auto}
+
+/* celular */
+.cel{width:300px;max-width:100%;aspect-ratio:9/18.5;background:#2A2A2D;border-radius:44px;padding:14px;margin:0 auto;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.cel-tela{width:100%;height:100%;background:var(--osso);border-radius:32px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:12px;overflow:hidden;position:relative}
+.cel-prog{display:flex;gap:3px}.cel-prog i{flex:1;height:3px;border-radius:2px;background:var(--vazio)}.cel-prog i.at{background:var(--rec)}
+.cel h4{margin:0;font-family:var(--f-titulo);font-size:16px;line-height:1.25;font-weight:600}
+.cel .grav{margin-top:auto;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:12px 10px 16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cel canvas{width:100%;height:70px;display:block}
+.cel .rel{font-family:var(--f-mono);font-size:24px}
+.cel .est{font-size:11px;color:var(--sub);min-height:16px}
+.cel .est.r{color:var(--rec)}
+.recb{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--texto);display:grid;place-items:center}
+.recb span{width:44px;height:44px;border-radius:50%;background:var(--rec);transition:all .25s}
+.recb.on span{width:22px;height:22px;border-radius:5px}
+.toque{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(245,244,240,.25);pointer-events:none;opacity:0;transform:scale(.6)}
+.toque.v{animation:toque .6s ease}
+@keyframes toque{30%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
+
+/* temas */
+.temas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.tema{text-align:left;border:1px solid var(--linha);background:var(--papel);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;opacity:.15;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.tema.v{opacity:1;transform:none}
+.tema .n{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
+.tema .q{font-family:var(--f-titulo);font-size:15px;line-height:1.3;font-weight:500;color:var(--texto)}
+.tema .chip{align-self:flex-start;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:1px 8px;color:var(--sub);margin-top:auto}
+
+/* camadas */
+.camadas{display:flex;flex-direction:column;gap:12px}
+.cam{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.cam .i{font-family:var(--f-mono);font-size:13px;width:44px;height:44px;border-radius:12px;background:var(--preto);color:var(--osso);display:grid;place-items:center}
+.cam h3{margin:0;font-family:var(--f-titulo);font-size:20px}
+.cam p{margin:4px 0 0;color:var(--sub);font-size:15px}
+.escala{display:flex;gap:6px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.escala span{width:30px;height:30px;border-radius:8px;border:1px solid var(--linha);display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;color:var(--sub)}
+.escala span.on{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.escala small{font-size:12px;color:var(--fraco);margin:0 4px}
+
+/* construção */
+.fluxo{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:16px;align-items:center;margin-top:34px}
+.ent{display:flex;flex-direction:column;gap:10px}
+.ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
+.seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+.caixa-preta{background:#18181B;border:1px solid var(--linha);color:#F5F4F0;border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.caixa-preta .rot{color:#9C9B96}
+.caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
+.caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.caixa-preta>*:not(canvas){position:relative}
+.saida{background:var(--papel);border:1px solid var(--texto);border-radius:16px;padding:18px;text-align:center}
+.saida canvas{width:132px;height:157px;display:block;margin:0 auto 10px;background:#0C0C0E;border-radius:14px}
+.saida b{font-family:var(--f-titulo);font-size:18px}
+
+/* teste */
+.duelo{display:flex;flex-direction:column;gap:12px}
+.dq{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
+.dq .rot{display:flex;justify-content:space-between;gap:8px}
+.dq h4{margin:8px 0 0;font-family:var(--f-titulo);font-size:20px;line-height:1.2;font-weight:600;min-height:48px}
+.lados{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lado{border:1px solid var(--linha);border-radius:16px;padding:16px;background:var(--papel);min-height:128px;display:flex;flex-direction:column;gap:8px}
+.lado.g{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.lado.g .rot{color:var(--escurosub)}
+.lado .r{font-family:var(--f-titulo);font-size:19px;line-height:1.2;opacity:0;transition:opacity .4s}
+.lado .r.v{opacity:1}
+.lacre{font-family:var(--f-mono);font-size:12px;color:var(--escurosub);word-break:break-all}
+.ver{align-self:flex-start;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;border:1px solid var(--escurolinha);opacity:0;transition:opacity .3s}
+.ver.v{opacity:1}
+.ver.ok{background:var(--osso);color:var(--preto);border-color:var(--osso)}
+.placar{display:flex;align-items:center;gap:14px}
+.placar .trilha{display:flex;gap:5px}
+.placar .trilha i{width:16px;height:16px;border-radius:4px;border:1px solid var(--linha)}
+.placar .trilha i.s1{background:var(--texto);border-color:var(--texto)}
+.placar .trilha i.s05{background:linear-gradient(135deg,var(--fraco) 50%,transparent 50%);border-color:var(--fraco)}
+.placar .trilha i.s0{background:var(--vazio)}
+
+/* índice */
+.formula{display:flex;align-items:center;gap:16px;flex-wrap:nowrap;font-family:var(--f-titulo);font-size:clamp(26px,3vw,40px);font-weight:700;letter-spacing:-.02em;margin-top:28px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;text-align:center;font-size:.5em;line-height:1.2;font-weight:600}
+.frac span:first-child{border-bottom:2px solid currentColor;padding-bottom:5px;margin-bottom:5px}
+.barras{display:flex;flex-direction:column;gap:18px;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:24px}
+.br{display:grid;grid-template-columns:150px 1fr 56px;gap:12px;align-items:center;font-size:15px}
+.br .trilho{height:14px;border-radius:7px;background:var(--vazio);overflow:hidden}
+.br .trilho b{display:block;height:100%;width:0;background:var(--texto);border-radius:7px;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.br.f .trilho b{background:var(--fraco)}
+.br .v{font-family:var(--f-mono);text-align:right}
+.grande{font-family:var(--f-titulo);font-size:clamp(56px,7vw,96px);font-weight:700;letter-spacing:-.04em;line-height:1}
+
+/* população */
+#povoCanvas{width:100%;max-width:560px;aspect-ratio:1.25;display:block;margin-left:auto}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{border:1px solid var(--texto);border-radius:999px;padding:12px 20px;font-size:15px;text-decoration:none;font-weight:600;background:var(--texto);color:var(--osso)}
+.btn.claro{background:transparent;color:var(--texto);font-weight:500}
+
+
+/* 4P e jornada */
+.quatrop .cd .tipo{font-size:12px;color:var(--texto)}
+.quatrop .cd h3{font-size:19px}
+.jornada{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:22px}
+.jornada span{font-size:14px;border:1px solid var(--linha);background:var(--papel);border-radius:999px;padding:6px 14px;color:var(--texto)}
+.jornada i{font-style:normal;font-family:var(--f-mono);color:var(--fraco)}
+
+/* fatos com número à esquerda */
+.fatos{display:flex;flex-direction:column;gap:12px}
+.fato{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
+.fato .n{font-family:var(--f-titulo);font-weight:700;font-size:34px;letter-spacing:-.02em;line-height:1}
+.fato h3{margin:0;font-family:var(--f-titulo);font-size:17px;font-weight:600;line-height:1.3}
+.fato p{margin:4px 0 0;font-family:var(--f-mono);font-size:11.5px;color:var(--fraco)}
+@media (max-width:520px){.fato{grid-template-columns:1fr;gap:8px}}
+@media (max-width:900px){
+  body{overflow:auto}
+  .dupla,.capa{grid-template-columns:1fr;gap:28px}
+  .temas{grid-template-columns:1fr 1fr}
+  .fluxo{grid-template-columns:1fr;gap:10px}
+  .seta{transform:rotate(90deg);justify-self:center}
+  #cabeca,#povoCanvas{margin:0 auto;max-width:320px}
+  .cel{width:250px}
+  .tela{padding-top:76px;align-items:flex-start}
+}
+@media (max-width:520px){ .temas{grid-template-columns:1fr} .lados{grid-template-columns:1fr} .br{grid-template-columns:110px 1fr 48px} .voltar{display:none} }
+@media (prefers-reduced-motion:reduce){ .tela,.aparece,.br .trilho b{transition:none!important} }
+
+/* ===== telas próprias da versão destilados ===== */
+[hidden]{display:none!important}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.cards4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.cd{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.cd h3{margin:0;font-family:var(--f-titulo);font-size:20px;line-height:1.25;font-weight:600;text-wrap:balance}
+.cd p{margin:0;color:var(--sub);font-size:15px}
+.cd .num{font-family:var(--f-titulo);font-size:clamp(40px,4.4vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.cd .ref{font-family:var(--f-mono);font-size:11.5px;color:var(--fraco);margin-top:auto}
+.cd .papel{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--texto);border:1px solid var(--linha);border-radius:999px;padding:2px 10px;align-self:flex-start}
+.passos3{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.passos3 li{display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:14px 16px}
+.passos3 b{width:40px;height:40px;border-radius:12px;background:#F5F4F0;color:#0C0C0E;display:grid;place-items:center;font-family:var(--f-mono)}
+.passos3 h3{margin:0;font-family:var(--f-titulo);font-size:19px}
+.passos3 p{margin:4px 0 0;color:var(--sub);font-size:15px}
+.br .v{white-space:nowrap}
+.br.dest span:first-child{color:var(--texto);font-weight:600}
+.br.dest .trilho b{background:var(--texto)}
+.br .trilho b{background:var(--fraco)}
+.br .ant{font-size:11.5px;color:var(--fraco);font-family:var(--f-mono);display:block;font-weight:400}
+
+
+/* abertura: consumidores e doses */
+.povo{max-width:500px;margin-left:auto;display:flex;flex-direction:column;gap:22px}
+.povo .linha{display:flex;flex-direction:column;gap:10px}
+.fila{display:grid;grid-template-columns:repeat(12,1fr);gap:7px}
+.fila .p{display:flex;flex-direction:column;align-items:center;gap:5px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.fila .p.v{opacity:1;transform:none}
+.fila .p i{width:100%;aspect-ratio:1;border-radius:7px;background:#9C9B96;transition:background .5s}
+.fila .p.novo.v i{background:#F5F4F0}
+.fila .p u{display:flex;flex-direction:column;gap:3px;text-decoration:none}
+.fila .p u b,.leg2 b.dose{display:block;width:12px;height:4px;border-radius:2px;background:#6B6A65;opacity:0;transition:opacity .3s}
+.fila .p u b.v{opacity:1}
+.leg2 b.dose{opacity:1;width:14px}
+/* abertura antiga */
+#grade{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;max-width:470px;margin-left:auto}
+#grade i{aspect-ratio:1;border-radius:8px;border:1px solid var(--linha);background:var(--papel);opacity:0;transform:scale(.7);transition:opacity .35s,transform .35s,background .6s,border-color .6s,box-shadow .6s}
+#grade i.v{opacity:1;transform:none;background:#9C9B96;border-color:#9C9B96}
+#grade i.v.x{background:transparent;border-color:#2A2A2D}
+#grade i.v.s{background:#F5F4F0;border-color:#F5F4F0;box-shadow:0 0 0 3px #0C0C0E,0 0 0 4.5px #F5F4F0}
+.leg2{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--sub);justify-content:flex-end;max-width:470px;margin-left:auto}
+.leg2 span{display:inline-flex;align-items:center;gap:8px}
+.leg2 i{width:14px;height:14px;border-radius:4px;border:1px solid #9C9B96;background:#9C9B96}
+.leg2 i.x{background:transparent;border-color:#3A3A3F}
+.leg2 i.s{background:#F5F4F0;border-color:#F5F4F0}
+
+/* whisky */
+.dupla2{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+.sobe{display:flex;align-items:baseline;gap:14px;margin-top:22px}
+.sobe .de{font-family:var(--f-titulo);font-size:clamp(28px,3vw,40px);font-weight:700;color:var(--fraco)}
+.sobe .para{font-family:var(--f-titulo);font-size:clamp(44px,5vw,68px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.sobe .seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+
+/* comunidades */
+.cd .tipo{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.cd ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.cd ul li{font-size:12.5px;color:var(--sub);border:1px solid var(--linha);border-radius:999px;padding:3px 10px}
+
+/* bar */
+.churras{display:grid;grid-template-columns:minmax(0,390px) minmax(0,1fr);gap:36px;align-items:center}
+#chCanvas{width:100%;aspect-ratio:920/640;display:block;border-radius:18px;background:#0F0F11;border:1px solid var(--linha)}
+.cd-painel{display:flex;flex-direction:column;gap:12px;min-height:400px}
+.cd-painel.troca>*{animation:cdSobe .45s ease both}
+@keyframes cdSobe{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cd-tit{font-family:var(--f-titulo);font-weight:700;letter-spacing:-.02em;font-size:clamp(26px,2.8vw,38px);line-height:1.08;margin:0;text-wrap:balance}
+.cd-txt{font-size:16px;color:var(--sub);margin:0}
+.cd-prob{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.cd-prob .br{grid-template-columns:96px 1fr 58px;font-size:14px}
+.cd-dica{font-family:var(--f-mono);font-size:11px;color:var(--fraco);letter-spacing:.06em;text-transform:uppercase}
+.cd-pontos{display:flex;gap:6px;margin-top:auto}
+.cd-pontos i{width:22px;height:3px;border-radius:2px;background:var(--vazio)}
+.cd-pontos i.at{background:var(--texto)}
+.cd-fecho{background:#F5F4F0;color:#0C0C0E;border-radius:18px;padding:24px}
+.cd-fecho p{margin:0;font-family:var(--f-titulo);font-weight:700;font-size:28px;line-height:1.15;letter-spacing:-.02em}
+.cd-fecho small{display:block;margin-top:10px;font-size:15px;color:#403F45}
+.cenas{display:flex;flex-wrap:wrap;gap:8px}
+.cenas button{border:1px solid var(--linha);background:var(--papel);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--sub)}
+.cenas button:hover{border-color:var(--sub);color:var(--texto)}
+.cenas button[aria-pressed="true"]{background:var(--texto);color:var(--osso);border-color:var(--texto);font-weight:600}
+.cen-txt{font-size:15px;color:var(--texto);margin:0;min-height:46px}
+
+/* prova */
+.alvos{display:flex;flex-direction:column;gap:10px}
+.alvo{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:14px 18px}
+.alvo h3{margin:0;font-family:var(--f-titulo);font-size:17px;font-weight:600;line-height:1.3}
+.alvo p{margin:3px 0 0;font-size:12.5px;color:var(--fraco);font-family:var(--f-mono)}
+.alvo .chip{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:3px 10px;color:var(--sub);white-space:nowrap}
+.limite{border-left:2px solid var(--texto);padding:4px 0 4px 18px;margin-top:26px}
+.limite p{margin:6px 0 0;color:var(--sub);font-size:15px;max-width:46ch}
+
+/* teste em duas etapas */
+.etapas{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:32px}
+.etapa{background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.etapa.um{border-color:var(--texto)}
+.etapa h3{margin:0;font-family:var(--f-titulo);font-size:24px;line-height:1.15}
+.etapa p{margin:0;color:var(--sub);font-size:15px}
+.etapa .reg{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.etapa .reg span{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:3px 10px;color:var(--sub)}
+.portao{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-width:120px;text-align:center}
+.portao svg{width:34px;height:34px;fill:none;stroke:var(--texto);stroke-width:1.6}
+.portao span{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);max-width:14ch}
+
+/* rotina */
+.fluxo{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:16px;align-items:center;margin-top:34px}
+.ent{display:flex;flex-direction:column;gap:10px}
+.ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
+.seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+.caixa-preta{background:#18181B;border:1px solid var(--linha);color:#F5F4F0;border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.caixa-preta .rot{color:#9C9B96}
+.caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
+.caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.caixa-preta>*:not(canvas){position:relative}
+.camada{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--osso);background:var(--texto);border-radius:999px;padding:3px 10px}
+
+@media (max-width:900px){
+  .cards3,.cards4,.dupla2,.churras,.etapas{grid-template-columns:1fr}
+  .portao{flex-direction:row;min-width:0}
+  #grade{margin:0 auto}.leg2{margin:14px auto 0;justify-content:center}
+  .cd-painel{min-height:0}
+}
+@media (max-width:520px){ .cd-prob .br{grid-template-columns:84px 1fr 52px} .alvo{grid-template-columns:1fr} .alvo .chip{justify-self:start} }
+@media (prefers-reduced-motion:reduce){ #grade i{transition:none!important} .cd-painel.troca>*{animation:none} }
+
+/* ===== telas próprias da versão farma ===== */
+.jtab{display:flex;flex-direction:column;gap:8px;max-width:500px;margin-left:auto}
+.jh,.jl{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px;align-items:center}
+.jh .rot{font-size:10.5px;text-align:center}
+.jl{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 16px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.jl.v{opacity:1;transform:none}
+.jl b{font-family:var(--f-titulo);font-weight:600;font-size:16px}
+.jl span{display:grid;place-items:center}
+.jl i{width:20px;height:20px;border-radius:6px;border:1px solid #3A3A3F;background:transparent;transform:scale(.6);opacity:.4;transition:all .4s}
+.jl i.v{transform:none;opacity:1}
+.jl i.a.sim.v{background:#9C9B96;border-color:#9C9B96}
+.jl i.b.v{background:#F5F4F0;border-color:#F5F4F0;box-shadow:0 0 0 3px #0C0C0E,0 0 0 4.5px #F5F4F0}
+.comp{display:flex;flex-direction:column;gap:8px}
+.ch,.cl{display:grid;grid-template-columns:110px 1fr 1fr;gap:12px;align-items:start}
+.ch .rot{font-size:10.5px}
+.cl{background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:14px 16px;font-size:14.5px;color:var(--sub)}
+.cl b{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fraco);font-weight:500;padding-top:2px}
+.cl .s{color:var(--texto);font-weight:500}
+.cards3 .cd .tipo{color:var(--sub)}
+.h2m{font-size:clamp(28px,3.3vw,44px)}
+.compacto{gap:12px;margin-top:22px}.compacto .cd{padding:18px 20px;gap:8px}.compacto .cd h3{font-size:17px}.compacto .cd p{font-size:14px}
+.pares{display:flex;flex-direction:column;gap:10px;margin-top:26px}
+.ph,.par{display:grid;grid-template-columns:150px 70px 1fr;align-items:center;gap:0}
+.ph .rot{font-size:10.5px}
+.par .pp{font-family:var(--f-titulo);font-weight:600;font-size:17px;color:var(--sub);background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:14px 16px;transition:color .4s,border-color .4s}
+.par .seta{position:relative;height:2px;margin:0 10px;background:var(--linha);overflow:visible}
+.par .seta::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--texto);transition:width .5s ease}
+.par .seta::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:7px solid var(--linha);border-right:0;transition:border-left-color .3s .4s}
+.par .pa{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 18px;display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;opacity:.35;transition:opacity .5s .35s,border-color .5s .35s}
+.par .pa b{font-family:var(--f-titulo);font-weight:700;font-size:18px}
+.par .pa p{margin:0;font-size:15px;color:var(--sub);line-height:1.45}
+.par.v .pp{color:var(--texto);border-color:#3A3A3F}
+.par.v .seta::before{width:100%}
+.par.v .seta::after{border-left-color:var(--texto)}
+.par.v .pa{opacity:1;border-color:#3A3A3F}
+.cenas button small{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.06em;opacity:.65;margin-top:3px;font-weight:500}
+@media (max-width:700px){ .ph{display:none} .par{grid-template-columns:1fr} .par .seta{display:none} .par{gap:6px} .pares{gap:14px} .par .pa{grid-template-columns:1fr;gap:6px} }
+#cicloCanvas{width:100%;max-width:500px;aspect-ratio:1;display:block;margin-left:auto}
+.pontos li strong{color:var(--texto);font-weight:600}
+@media (max-width:900px){ .jtab,#cicloCanvas{margin:0 auto} }
+@media (max-width:520px){ .ch,.cl{grid-template-columns:1fr 1fr} .ch>span:first-child{display:none} .cl b{grid-column:1/-1} .jh,.jl{grid-template-columns:1.4fr .8fr .8fr;gap:8px} .jl b{font-size:14px} }
+/* ===== telas próprias da versão chocolate ===== */
+.jtab .jh,.jtab .jl{grid-template-columns:1.6fr .9fr .9fr}
+.comp3 .ch,.comp3 .cl{grid-template-columns:110px 1fr 1fr 1fr}
+.comp3{margin-top:30px;max-width:1080px}
+.comp3 .cl .mc{display:none;font-style:normal;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);margin-bottom:2px}
+#rodaCanvas{width:100%;max-width:500px;aspect-ratio:1;display:block;margin-left:auto}
+@media (max-width:900px){ #rodaCanvas{margin:0 auto} }
+@media (max-width:700px){ .comp3 .ch{display:none} .comp3 .cl{grid-template-columns:1fr;gap:6px} .comp3 .cl .mc{display:block} }
+</style>
+
+<div class="barra"><b id="barra"></b></div>
+<header class="topo">
+  <img class="logo" src="__LC__" alt="Mimetica">
+  <div style="display:flex;gap:10px;align-items:center"><span data-lang-slot></span><a class="voltar" href="https://mimetica.institute/apoio/gemeo/">Como nasce um gêmeo</a></div>
+</header>
+
+<!-- 1. ABERTURA -->
+<section class="tela" data-t="abertura">
+  <div class="miolo capa">
+    <div>
+      <div class="rot aparece">Mimetica · gêmeos digitais no chocolate</div>
+      <h1 class="aparece d1" style="margin-top:14px">Toda Páscoa é uma aposta feita meses antes.</h1>
+      <p class="lead aparece d2">Linha, gramatura, personagem e quantidade saem da fábrica muito antes da data. Na Páscoa, sobra mexer no preço e na mensagem. Com gêmeos digitais dos seus consumidores, a marca testa cada escolha antes de produzir.</p>
+    </div>
+    <div class="aparece d2">
+      <div class="jtab" id="jtab" aria-label="Decisões da Páscoa: o que ainda se corrige durante a temporada e o que os gêmeos digitais testam antes">
+        <div class="jh"><span></span><span class="rot">Corrige na Páscoa</span><span class="rot">Os gêmeos testam antes</span></div>
+      </div>
+      <p class="nota" style="text-align:right">Ilustração do conceito. Quase tudo é decidido antes da temporada; os gêmeos digitais simulam a reação do consumidor a cada decisão.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. O SETOR -->
+<section class="tela" data-t="setor">
+  <div class="miolo">
+    <div class="rot aparece">O ponto de partida</div>
+    <h2 class="aparece d1" style="margin-top:14px">Um mercado grande, que cresce e que ficou caro.</h2>
+    <div class="cards3 aparece d2">
+      <div class="cd"><span class="num">R$ 42,5 bi</span><h3>É o tamanho do mercado de chocolate no Brasil em 2025.</h3><span class="ref">Kantar · via InfoMoney, jul/2026</span></div>
+      <div class="cd"><span class="num">~4 kg</span><h3>De chocolate por pessoa por ano. Nos EUA e na Europa, de 9 a 10 kg.</h3><span class="ref">Abicab · via InfoMoney, jul/2026</span></div>
+      <div class="cd"><span class="num">814 mil t</span><h3>Produzidas no Brasil em 2025, acima das 805 mil de 2024.</h3><span class="ref">Abicab · via InfoMoney, jul/2026</span></div>
+      <div class="cd"><span class="num">+24,77%</span><h3>Foi a alta do chocolate em barra e bombom em 12 meses, contra 4,44% da inflação.</h3><span class="ref">IPCA até jan/2026 · via Consumidor Moderno, abr/2026</span></div>
+      <div class="cd"><span class="num">79%</span><h3>Dos brasileiros acharam que a Páscoa de 2026 ficou mais cara.</h3><span class="ref">Google · via Consumidor Moderno, abr/2026</span></div>
+      <div class="cd"><span class="num">~US$ 12 mil</span><h3>Chegou a tonelada do cacau, ante cerca de US$ 3 mil antes da alta.</h3><span class="ref">Bloomberg Línea, mar/2026</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. A LACUNA -->
+<section class="tela" data-t="lacuna">
+  <div class="miolo">
+    <div class="rot aparece">A lacuna</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">O painel de consumo mostra o que aconteceu. Falta testar o que vem.</h2>
+    <p class="lead aparece d2" style="max-width:70ch">Os institutos medem bem a venda, a marca e o domicílio. Esse dado é o ponto de partida dos gêmeos. Sobram duas perguntas: a do “e se” e a dos choques que ainda não chegaram.</p>
+    <div class="comp comp3 aparece d3">
+      <div class="ch"><span></span><span class="rot">O que aconteceu</span><span class="rot">O que acontece se</span><span class="rot">O que ninguém viu ainda</span></div>
+      <div class="cl"><b>Exemplo</b><span><i class="mc">O que aconteceu</i>Quanto vendeu cada ovo na última Páscoa</span><span class="s"><i class="mc">O que acontece se</i>O que o cliente faz se o ovo ficar 15% mais caro</span><span class="s"><i class="mc">O que ninguém viu ainda</i>O que muda quando mais gente usa canetas de emagrecer</span></div>
+      <div class="cl"><b>Quem responde</b><span><i class="mc">O que aconteceu</i>Painéis de domicílio e de varejo</span><span class="s"><i class="mc">O que acontece se</i>Testes de conceito e de preço, com campo</span><span class="s"><i class="mc">O que ninguém viu ainda</i>Ninguém, até o choque chegar</span></div>
+      <div class="cl"><b>Serve para</b><span><i class="mc">O que aconteceu</i>Medir a temporada que passou</span><span class="s"><i class="mc">O que acontece se</i>Decidir antes de produzir</span><span class="s"><i class="mc">O que ninguém viu ainda</i>Preparar a marca antes do choque</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. O MUNDO -->
+<section class="tela" data-t="mundo">
+  <div class="miolo">
+    <div class="rot aparece">O que já acontece no mundo</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">As grandes marcas já sentem os choques. E já começaram a testar antes de lançar.</h2>
+    <div class="cards3 compacto aparece d2">
+      <div class="cd"><span class="tipo">Estados Unidos · 1º tri de 2026</span><h3>Preço sobe, volume cai</h3><p>A Hershey subiu os preços em cerca de 10%, e o volume caiu cerca de 2%. A conta do cacau chega ao consumidor.</p><span class="ref">ConfectioneryNews, mai/2026</span></div>
+      <div class="cd"><span class="tipo">Europa e EUA · 2026</span><h3>Duas leituras do mesmo consumidor</h3><p>A Lindt diz que quem usa GLP-1 troca para o premium e come em pequenas porções. A Hershey se mostrou menos convencida.</p><span class="ref">Seeking Alpha, mar/2026</span></div>
+      <div class="cd"><span class="tipo">Estados Unidos · 2026</span><h3>Ouvir quem usa a caneta</h3><p>A Hershey entrevistou milhares de usuários de GLP-1. Eles querem um pouco de doce sem ficar cheios. Balas e chicletes da marca cresceram mais de 8%.</p><span class="ref">The Hershey Company, jul/2026 · ConfectioneryNews, jun/2026</span></div>
+      <div class="cd"><span class="tipo">Europa · 2026</span><h3>O rótulo ganhou peso</h3><p>59% dos usuários de GLP-1 leem com mais atenção os ingredientes da embalagem, e continuam lendo depois de parar o remédio.</p><span class="ref">ConfectioneryNews, jun/2026</span></div>
+      <div class="cd"><span class="tipo">Global · 2026</span><h3>Receitas testadas antes da fábrica</h3><p>A Mondelēz, dona de Cadbury e Toblerone, usa uma ferramenta que propõe receitas antes da avaliação humana. Em biscoitos, 60% saíram melhores em nutrição, sustentabilidade e custo.</p><span class="ref">Retail Gazette · AI News, jul/2026</span></div>
+      <div class="cd"><span class="tipo">Brasil e mundo · 2025</span><h3>Consumidores simulados no teste de conceito</h3><p>A NIQ lançou uma triagem de conceitos com consumidores simulados a partir do seu painel, com resposta em minutos. O Brasil está entre os primeiros mercados.</p><span class="ref">NIQ, abr/2025</span></div>
+    </div>
+    <p class="nota aparece d3">Fabricantes e institutos já simulam antes de lançar. O que decide o acerto é o dado da categoria usado para calibrar cada gêmeo.</p>
+  </div>
+</section>
+
+<!-- 5. A CHOCOLATERIA (passos internos) -->
+<section class="tela" data-t="chocolateria" data-passos="7">
+  <div class="miolo churras">
+    <div class="cd-painel" id="chPainel">
+      <div class="rot" id="chRot">A cena</div>
+      <h2 class="cd-tit" id="chTit">Para ver a temporada inteira, os gêmeos digitais entram numa chocolateria.</h2>
+      <p class="cd-txt" id="chTxt">Avance para ver a cena se montar.</p>
+      <div class="cenas" id="chCenas" hidden></div>
+      <p class="cen-txt" id="chCenTxt" hidden></p>
+      <div class="cd-prob" id="chProb"></div>
+      <div class="cd-fecho" id="chFecho" hidden><p>Cada choque é uma pergunta que a marca pode fazer antes de produzir.</p><small>Preço, gramatura, personagem, GLP-1, tendência das redes, canal. A situação muda, e o painel mostra quem muda junto e por quê.</small></div>
+      <div class="cd-pontos" id="chPontos"></div>
+    </div>
+    <div>
+      <canvas id="chCanvas" width="1840" height="1280" aria-label="Cena ilustrativa de uma chocolateria com doze gêmeos digitais, cada um com uma plaquinha de identificação"></canvas>
+      <div class="cd-dica" id="chLeg" style="margin-top:10px;text-align:right"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. PARA QUEM É O PRESENTE -->
+<section class="tela" data-t="presente">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Para quem é o presente</div>
+      <h2 class="aparece d1" style="margin-top:14px">O mesmo cliente compra cinco chocolates diferentes.</h2>
+      <ul class="pontos aparece d2">
+        <li><b>01</b><span><strong>Quem recebe muda o produto.</strong> Para o filho, pesa o personagem. Para a mãe, a caixa. Para o par, o premium.</span></li>
+        <li><b>02</b><span><strong>Quem recebe muda o preço aceito.</strong> O painel mede quanto cada relação aceita pagar, perfil por perfil.</span></li>
+        <li><b>03</b><span><strong>O chocolate para si ganhou espaço.</strong> Com o preço alto, a compra ficou mais racional e abriu lugar para o “eu mereço”.</span></li>
+      </ul>
+      <p class="nota aparece d3">Sobre o “eu mereço”: Mundo do Marketing, Páscoa de 2026. As relações do desenho são ilustrativas.</p>
+    </div>
+    <div class="aparece d2"><canvas id="rodaCanvas" width="1000" height="1000" aria-label="Roda com quem compra no centro e cinco relações de presente em volta: filho, mãe, par, colega e a própria pessoa"></canvas></div>
+  </div>
+</section>
+
+<!-- 7. LITERATURA -->
+<section class="tela" data-t="ciencia">
+  <div class="miolo">
+    <div class="rot aparece">Em que literatura nos apoiamos</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">Simular o consumidor é um campo de estudo, com acertos e limites medidos.</h2>
+    <div class="cards3 compacto aparece d2">
+      <div class="cd"><span class="papel">O gêmeo</span><h3>Gêmeos de 1.052 pessoas reais responderam com 85% da consistência das próprias pessoas.</h3><p>A comparação é com as mesmas pessoas respondendo de novo duas semanas depois.</p><span class="ref">Park e colegas · Stanford, 2024</span></div>
+      <div class="cd"><span class="papel">A intenção de compra</span><h3>Em 57 pesquisas de produtos de consumo, os modelos chegaram a cerca de 90% da confiabilidade das pessoas.</h3><p>Foram 9.300 respostas humanas comparadas.</p><span class="ref">Maier e colegas · arXiv, 2025</span></div>
+      <div class="cd"><span class="papel">O dado próprio</span><h3>Ajustado com pesquisas da mesma categoria, o modelo acerta mais.</h3><p>Sem esse ajuste, erra em categorias novas e nas diferenças entre segmentos. É o papel do dado da marca.</p><span class="ref">Brand, Israeli e Ngwe · Harvard Business School, 2023 a 2026</span></div>
+      <div class="cd"><span class="papel">Os limites</span><h3>Os gêmeos variam menos que as pessoas reais em 94% dos resultados.</h3><p>E erram mais com quem tem menos renda e estudo. Por isso medimos o acerto por classe e declaramos a margem.</p><span class="ref">Peng, Toubia e colegas · Columbia, 2026</span></div>
+      <div class="cd"><span class="papel">A marca</span><h3>Na escolha de marca, a coincidência fica perto de 79%.</h3><p>Os modelos gostam demais de marcas conhecidas. A calibragem corrige parte desse viés.</p><span class="ref">Kaiser e colegas · NIM Marketing Intelligence Review, 2026</span></div>
+      <div class="cd"><span class="papel">O GLP-1</span><h3>Domicílios com GLP-1 cortaram 5,3% das compras de supermercado em seis meses.</h3><p>Doces e salgadinhos estão entre as maiores quedas. O consumo volta quando a pessoa para o remédio.</p><span class="ref">Hristakeva e Liaukonyte · Journal of Marketing Research, 2025</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. 4P E 4A -->
+<section class="tela" data-t="quatrop">
+  <div class="miolo quatrop">
+    <div class="rot aparece"><span class="camada">Para a marca</span></div>
+    <h2 class="aparece d1" style="margin-top:16px">A marca mexe no P. O cliente responde no A.</h2>
+    <p class="lead aparece d2" style="max-width:70ch">Os 4P são as decisões da empresa. Os 4A são como o cliente recebe cada uma. Os gêmeos digitais medem o lado do A antes de produzir.</p>
+    <div class="pares aparece d2" id="pares">
+      <div class="ph"><span class="rot">P · a marca decide</span><span></span><span class="rot">A · o cliente responde</span></div>
+      <div class="par"><div class="pp">Produto</div><i class="seta"></i><div class="pa"><b>Acceptability</b><p>Um ovo menor, ou em fatias, faz sentido para quem come pouco doce?</p></div></div>
+      <div class="par"><div class="pp">Preço</div><i class="seta"></i><div class="pa"><b>Affordability</b><p>Se o ovo sobe 15%, quem troca pela barra e quem deixa de dar presente?</p></div></div>
+      <div class="par"><div class="pp">Praça</div><i class="seta"></i><div class="pa"><b>Accessibility</b><p>Loja, supermercado ou app: onde cada perfil compra na última semana?</p></div></div>
+      <div class="par"><div class="pp">Promoção</div><i class="seta"></i><div class="pa"><b>Awareness</b><p>Qual personagem faz a criança pedir? Que mensagem faz o adulto se dar um presente?</p></div></div>
+    </div>
+    <div class="jornada aparece d3"><span>vitrine</span><i>→</i><span>prateleira</span><i>→</i><span>para quem</span><i>→</i><span>preço</span><i>→</i><span>caixa</span><i>→</i><span>presente</span></div>
+    <p class="nota aparece d3">Os 4A são de Jagdish Sheth e Rajendra Sisodia, The 4 A's of Marketing, 2012. As perguntas são exemplos.</p>
+  </div>
+</section>
+
+<!-- 9. COMO SABEMOS QUE ELE ACERTA -->
+<section class="tela" data-t="acerto">
+  <div class="miolo">
+    <div class="rot aparece"><span class="camada">Antes de confiar</span></div>
+    <h2 class="aparece d1" style="margin-top:16px">Como sabemos que ele acerta.</h2>
+    <p class="lead aparece d2" style="max-width:64ch">Antes de responder perguntas novas, o painel reproduz uma temporada que a marca já conhece, sem ver o resultado.</p>
+    <div class="etapas aparece d3">
+      <div class="etapa um"><span class="rot">Etapa 1 · resposta conhecida</span><h3>Uma Páscoa que já aconteceu</h3><p>O painel recebe o portfólio e os preços da temporada passada. Precisa chegar à ordem de vendas real dos produtos sem ver os números.</p><div class="reg"><span>teste às cegas</span><span>critério combinado antes</span></div></div>
+      <div class="portao"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg><span>só segue se acertar</span></div>
+      <div class="etapa"><span class="rot">Etapa 2 · as perguntas novas</span><h3>As perguntas da marca</h3><p>Preço, gramatura, personagem, GLP-1 e canal, medidos do lado do cliente, cada resposta com a margem de erro declarada.</p><div class="reg"><span>acceptability</span><span>affordability</span><span>accessibility</span><span>awareness</span></div></div>
+    </div>
+    <p class="nota aparece d3">Em estudos anteriores: 92% de acerto em perguntas de comportamento sobre saúde e erro médio abaixo de 5 pontos em vacinação. Sem dados de referência, o painel não lê participação de mercado. Cada resultado diz o que mede e com que margem.</p>
+  </div>
+</section>
+
+<!-- 10. PRÓXIMOS PASSOS -->
+<section class="tela" data-t="proposta">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Como começamos</div>
+      <h2 class="aparece d1" style="margin-top:14px">Uma pergunta, uma temporada e um resultado que a marca já conhece.</h2>
+      <p class="lead aparece d2">A Páscoa de 2027 cai em 28 de março, e a linha já está decidida. O piloto testa o preço e a mensagem de 2027 e abre a conversa sobre a linha de 2028.</p>
+      <div class="cta aparece d3"><a class="btn" href="mailto:fernando@mimetica.net">fernando@mimetica.net</a><a class="btn claro" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
+    </div>
+    <ol class="passos3 aparece d2">
+      <li><b>1</b><div><h3>Escolhemos a pergunta</h3><p>Preço, gramatura, personagem ou GLP-1.</p></div></li>
+      <li><b>2</b><div><h3>Montamos o painel</h3><p>Com o dado da marca e a população brasileira, sem dado individual.</p></div></li>
+      <li><b>3</b><div><h3>Combinamos o critério de acerto</h3><p>Antes de qualquer comparação.</p></div></li>
+      <li><b>4</b><div><h3>Testamos às cegas</h3><p>Contra uma Páscoa que já passou.</p></div></li>
+      <li><b>5</b><div><h3>Respondemos a pergunta de 2027</h3><p>Com a margem declarada, antes da campanha ir ao ar.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<footer class="rodape">
+  <span class="cont" id="cont">01 / 10</span>
+  <div class="nav">
+    <button type="button" id="ant" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.5 4 7.5 12l8 8 1.4-1.4L10.3 12l6.6-6.6z"/></svg></button>
+    <button type="button" id="prox" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.5 4 7.1 5.4 13.7 12l-6.6 6.6L8.5 20l8-8z"/></svg></button>
+  </div>
+</footer>
+<!--I18N:chocolate-->
+
+<script>
+const $=s=>document.querySelector(s);
+const TELAS=[...document.querySelectorAll(".tela")];
+const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let atual=0, passo=0, timers=[], rafs={};
+const limpa=()=>{ timers.forEach(clearTimeout); timers=[]; Object.values(rafs).forEach(cancelAnimationFrame); rafs={} };
+const depois=(ms,f)=>timers.push(setTimeout(f,reduz?0:ms));
+function rnd(s){ return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646 } }
+const clamp=v=>Math.max(0,Math.min(1,v)), lerp=(a,b,t)=>a+(b-a)*t, ease=t=>1-Math.pow(1-t,3);
+
+/* 1. as decisões da Páscoa: o que ainda se corrige e o que os gêmeos testam antes */
+const JORN=[["Linha de ovos e sabores",0],["Gramatura e embalagem",0],["Personagem licenciado",0],["Quantidade produzida",0],["Preço e promoção",1],["Mídia e mensagem",1]];
+(function(){ $("#jtab").insertAdjacentHTML("beforeend",JORN.map(([n,v])=>`<div class="jl"><b>${n}</b><span><i class="a ${v?"sim":""}"></i></span><span><i class="b"></i></span></div>`).join("")) })();
+function jornada(){ const L=[...document.querySelectorAll("#jtab .jl")];
+  L.forEach(l=>{ l.classList.remove("v"); l.querySelectorAll("i").forEach(i=>i.classList.remove("v")) });
+  L.forEach((l,k)=>depois(250+k*140,()=>l.classList.add("v")));
+  depois(1300,()=>L.forEach((l,k)=>depois(k*160,()=>l.querySelector("i.a").classList.add("v"))));
+  depois(2500,()=>L.forEach((l,k)=>depois(k*160,()=>l.querySelector("i.b").classList.add("v")))) }
+
+/* 6. a roda do presente */
+function roda(){ const cv=$("#rodaCanvas"), c=cv.getContext("2d"), t0=performance.now();
+  const N=[["FILHO","ovo com personagem"],["MÃE","caixa de bombons"],["PAR","ovo premium"],["COLEGA","lembrança barata"],["SI MESMO","barra para si"]];
+  const f=now=>{ const e=now-t0; c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,500,500);
+    const cx=250, cy=250, r=122, per=1500, ativo=e>1400?Math.floor((e-1400)/per)%5:-1, fase=e>1400?((e-1400)%per)/per:0;
+    N.forEach(([t,s],k)=>{ const a=-Math.PI/2+k*Math.PI*2/5, ca=Math.cos(a), sa=Math.sin(a), x=cx+ca*r, y=cy+sa*r, al=clamp((e-200-k*220)/400); if(al<=0) return;
+      const on=k===ativo; c.globalAlpha=al;
+      c.strokeStyle=on?"#F5F4F0":"#2A2A2D"; c.lineWidth=on?2:1.5; c.beginPath(); c.moveTo(cx+ca*48,cy+sa*48); c.lineTo(cx+ca*(48+(r-62)*ease(al)),cy+sa*(48+(r-62)*ease(al))); c.stroke();
+      if(on){ const u=ease(clamp(fase*1.6)); c.fillStyle="#F5F4F0"; c.beginPath(); c.arc(cx+ca*(48+(r-62)*u),cy+sa*(48+(r-62)*u),4.5,0,7); c.fill() }
+      c.fillStyle=on?"#F5F4F0":"#141416"; c.strokeStyle=on?"#F5F4F0":"#3A3A3F"; c.lineWidth=1.5; c.beginPath(); c.arc(x,y,14,0,7); c.fill(); c.stroke();
+      c.fillStyle=on?"#0C0C0E":"#9C9B96"; c.font="700 11px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillText(String(k+1),x,y+.5);
+      const lado=ca>0.3?1:ca<-0.3?-1:0, lx=x+lado*24, ly=lado?y-7:y-40;
+      c.textAlign=lado>0?"left":lado<0?"right":"center";
+      c.fillStyle=on?"#F5F4F0":"#C9C7C0"; c.font="700 15px 'Space Grotesk',sans-serif"; c.fillText(T(t),lx,ly);
+      c.fillStyle=on?"#C9C7C0":"#6B6A65"; c.font="500 10.5px Inter,sans-serif"; c.fillText(T(s),lx,ly+17); c.globalAlpha=1 });
+    c.globalAlpha=clamp((e-100)/500); c.fillStyle="#F5F4F0"; c.beginPath(); c.arc(cx,cy,46,0,7); c.fill();
+    c.fillStyle="#0C0C0E"; c.font="700 12px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillText(T("QUEM"),cx,cy-8); c.fillText(T("COMPRA"),cx,cy+8); c.globalAlpha=1;
+    rafs.roda=requestAnimationFrame(f) };
+  rafs.roda=requestAnimationFrame(f) }
+
+/* ================= 5. A CHOCOLATERIA ================= */
+const cena=(()=>{
+  const PASSOS=[
+    null,
+    {rot:"A chocolateria",tit:"Doze gêmeos digitais entram numa chocolateria, na véspera da Páscoa.",txt:"Cada um tem uma plaquinha com idade, classe e cidade. As plaquinhas claras são de quem usa canetas de emagrecer, vindos do nosso painel de GLP-1."},
+    {rot:"A escolha",tit:"Cada gêmeo decide o que leva.",txt:"Ovo, barra, caixa de bombons, linha sem açúcar ou nada. A escolha depende de quem ele é, do preço e de para quem é o presente.",conta:true},
+    {rot:"O porquê",tit:"E cada escolha vem com o motivo.",txt:"O painel guarda a razão de cada gêmeo, na linguagem de quem compra. As falas da cena são ilustrativas.",conta:true},
+    {rot:"Mude a cena",tit:"A mesma loja, diante de choques diferentes.",cenas:true,conta:true},
+    {rot:"As semanas passam",tit:"Metade de quem compra deixa para a última semana.",txt:"Na cena, cada gêmeo entra na loja na semana em que compra. Quem deixa para o fim encontra a loja cheia e o estoque já definido. O painel mostra quem compra quando, e por quê."},
+    {rot:"A pergunta da marca",tit:"O que faz quem ainda não comprou entrar na loja?",txt:"Na última semana, a decisão é rápida. Cupom no app, entrega no mesmo dia ou um ovo menor perto da porta: o painel testa antes de investir.",ultima:true},
+    {fecho:true}
+  ];
+  const cv=$("#chCanvas"), c=cv.getContext("2d"), W=920, H=640, R=rnd(57);
+  const COR={chao:"#131316",bloco:"#2A2A2E",bloco2:"#3A3A3F",forte:"#F5F4F0",meio:"#9C9B96",fraco:"#6B6A65",fundo:"#0F0F11",placa:"#1C1C1F"};
+  /* idade, classe, cidade, usa GLP-1 */
+  const SP=[["38","B","São Paulo",0],["52","A","Curitiba",1],["29","C","Recife",0],["61","B","Belo Horizonte",0],["24","C","Salvador",0],["45","A","Rio de Janeiro",1],["33","B","Goiânia",0],["68","C","Fortaleza",0],["41","B","Porto Alegre",1],["36","C","Campinas",0],["57","B","Brasília",0],["47","C","Manaus",0]];
+  const XS=[205,307,409,511,613,715];
+  const FILA=XS.map(x=>({x,y:260})).concat(XS.map(x=>({x,y:410})));
+  const ZON=["ovo","barra","bombom","zero","nao"], ZX=[112,286,460,634,808];
+  const ROT={ovo:"Ovo",barra:"Barra",bombom:"Bombons",zero:"Sem açúcar",nao:"Sem compra"};
+  const ZROT={ovo:"OVO",barra:"BARRA",bombom:"BOMBONS",zero:"SEM AÇÚCAR",nao:"SEM COMPRA"};
+  const CEN={
+    hoje:{nome:"Hoje",a:"",txt:"A véspera de uma Páscoa comum. O ovo ainda lidera, e uma parte já leva só uma barra.",b:["ovo","zero","ovo","bombom","barra","barra","ovo","bombom","nao","ovo","barra","nao"]},
+    cacau:{nome:"Ovo 15% mais caro",a:"Affordability",txt:"O cacau pesa e o ovo sobe 15%. Quem troca pela barra, quem mantém o presente e quem desiste?",b:["barra","zero","ovo","bombom","barra","nao","barra","bombom","nao","ovo","barra","nao"]},
+    menor:{nome:"Ovo menor",a:"Acceptability",txt:"O ovo encolhe e o preço fica. Quem percebe a troca e quem deixa de levar?",b:["ovo","zero","barra","bombom","barra","barra","nao","bombom","nao","ovo","barra","nao"]},
+    personagem:{nome:"Personagem licenciado",a:"Awareness",txt:"O ovo das crianças ganha o personagem do momento. Quem compra pelo filho muda de ideia?",b:["ovo","zero","ovo","ovo","barra","barra","ovo","bombom","nao","ovo","ovo","nao"]},
+    glp1:{nome:"Mais gente no GLP-1",a:"Acceptability",txt:"Mais clientes passam a usar canetas de emagrecer. Comem menos doce, mas muitos ainda dão presente.",b:["ovo","zero","ovo","bombom","zero","barra","ovo","bombom","zero","ovo","barra","nao"]},
+    viral:{nome:"Sabor das redes",a:"Awareness",txt:"Um sabor viralizou nas redes. Vale virar ovo em 20 dias, e para quem?",b:["ovo","zero","ovo","ovo","ovo","barra","ovo","bombom","nao","ovo","barra","nao"]},
+    app:{nome:"Entrega pelo app",a:"Accessibility",txt:"Entrega no mesmo dia, na última semana. Quem compra sem sair de casa?",b:["ovo","zero","ovo","bombom","barra","barra","ovo","bombom","zero","ovo","barra","ovo"]}
+  };
+  const FALAS={0:"O ovo é pra minha filha. Ela escolhe pelo personagem.",1:"Uso a caneta. Levo o sem açúcar, um pedaço já basta.",11:"Ficou caro. Este ano não vou dar ovo."};
+  /* semana em que cada um compra (0 = seis semanas antes, 6 = domingo de Páscoa) */
+  const COMPRA=[1.5,5.5,0.5,2.5,5.2,4.5,3.5,5.8,99,1,5.6,99];
+  let cen="hoje", p=0, t0=performance.now(), on=false;
+  let gente=FILA.map((f,k)=>({x:f.x,y:700,b:null,pessoa:SP[k],k,tgo:0}));
+  /* blocos do cenário */
+  const blocos=[]; function area(x0,y0,x1,y1,cor,grupo,passo=10){ for(let x=x0;x<x1;x+=passo) for(let y=y0;y<y1;y+=passo) blocos.push({x,y,cor,grupo,dx:(R()-.5)*320,dy:-(60+R()*240),d:R()*500}) }
+  area(40,-60,420,125,"#17171A",0); /* parede de ovos */
+  area(470,-60,880,40,"#17171A",0); /* prateleiras de barras */
+  area(470,62,880,102,COR.bloco,1); /* balcão */
+  const OVOS=[]; [-34,14,62].forEach((y,li)=>{ for(let x=66+(li%2)*20;x<410;x+=40) OVOS.push({x,y:y+(R()-.5)*6,cor:R()<.3?COR.forte:R()<.65?COR.meio:COR.fraco,laco:R()<.5}) });
+  const BARRAS=[]; [-18,22].forEach(y=>{ for(let x=480;x<870;x+=13) BARRAS.push({x,y,h:R()<.5?14:10,cor:R()<.3?COR.forte:R()<.6?COR.meio:COR.fraco}) });
+  const CAIXAS=[[492,20],[530,16],[668,18],[706,22],[744,16]];
+  function ovo(o){ c.strokeStyle="#3A3A3F"; c.lineWidth=1; c.beginPath(); c.moveTo(o.x,o.y-26); c.lineTo(o.x,o.y-15); c.stroke();
+    c.fillStyle=o.cor; c.beginPath(); c.ellipse?c.ellipse(o.x,o.y,11,14,0,0,7):c.arc(o.x,o.y,12,0,7); c.fill();
+    if(o.laco){ c.fillStyle=COR.fundo; c.fillRect(o.x-11,o.y-2,22,3) } }
+  function pessoa(g,a){ c.globalAlpha=a; c.fillStyle="#C9C7C0"; c.beginPath(); c.arc(g.x,g.y,10,0,7); c.fill();
+    c.beginPath(); c.arc(g.x,g.y+28,17,Math.PI*1.08,Math.PI*1.92); c.lineWidth=7; c.strokeStyle="#C9C7C0"; c.stroke(); c.globalAlpha=1 }
+  function placa(g,a){ const [id,cl,ci,glp]=g.pessoa; const w=64,h=28,x=g.x-w/2,y=g.y-48;
+    c.globalAlpha=a; c.strokeStyle=glp?COR.forte:"#3A3A3F"; c.lineWidth=1; c.fillStyle=glp?COR.forte:COR.placa; c.fillRect(x,y,w,h); c.strokeRect(x+.5,y+.5,w-1,h-1);
+    c.textAlign="center"; c.textBaseline="middle"; c.fillStyle=glp?COR.fundo:COR.forte; c.font="600 8.5px 'JetBrains Mono',monospace"; c.fillText(id+" anos · "+cl,g.x,y+9.5);
+    c.fillStyle=glp?"#403F45":COR.meio; c.font="500 7.5px 'JetBrains Mono',monospace"; c.fillText(ci,g.x,y+20); c.globalAlpha=1 }
+  function balao(g,txt,a){ txt=T(txt); const w=196; c.font="500 11px Inter,system-ui,sans-serif"; const ps=txt.split(" "), ls=[]; let l=""; ps.forEach(w2=>{ const t=l?l+" "+w2:w2; if(c.measureText(t).width>w-20){ ls.push(l); l=w2 } else l=t }); ls.push(l);
+    const h=16+ls.length*15, x=Math.min(W-w-10,Math.max(10,g.x-w/2)), y=g.y-58-h-10;
+    c.globalAlpha=a; c.fillStyle=COR.forte; c.beginPath(); c.roundRect?c.roundRect(x,y,w,h,10):c.rect(x,y,w,h); c.fill();
+    c.beginPath(); c.moveTo(g.x-7,y+h); c.lineTo(g.x,y+h+8); c.lineTo(g.x+7,y+h); c.fill();
+    c.fillStyle=COR.fundo; c.textAlign="left"; c.textBaseline="top"; ls.forEach((t,k)=>c.fillText(t,x+10,y+9+k*15)); c.globalAlpha=1 }
+  function celular(x,y,a,now){ c.save(); c.globalAlpha=a; c.translate(x,y); const pul=.85+.15*Math.sin(now/300);
+    c.fillStyle="#0C0C0E"; c.strokeStyle=COR.forte; c.lineWidth=2; c.beginPath(); c.roundRect?c.roundRect(-30,-54,60,108,10):c.rect(-30,-54,60,108); c.fill(); c.stroke();
+    c.fillStyle=COR.forte; c.beginPath(); c.roundRect?c.roundRect(-24,-34,48,34,6):c.rect(-24,-34,48,34); c.fill();
+    c.fillStyle=COR.fundo; c.font="700 6.5px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillText(T("PÁSCOA"),0,-25); c.font="600 7px Inter,sans-serif"; c.fillText(T("Entrega"),0,-15); c.fillText(T("hoje"),0,-7);
+    c.fillStyle=COR.meio; c.fillRect(-20,10,40,4); c.fillRect(-20,20,28,4); c.fillRect(-20,30,34,4);
+    c.globalAlpha=a*.35*pul; c.beginPath(); c.arc(0,0,72,0,7); c.stroke(); c.restore() }
+  function semana(e){ return 6*clamp(e/10000) }
+  /* posição de cada gêmeo: na zona da escolha, ou na porta enquanto não comprou */
+  function alvos(h){ const cont={ovo:0,barra:0,bombom:0,zero:0,nao:0};
+    return gente.map((g,k)=>{ const espera=h!==null&&!(h>=COMPRA[k]); if(espera) return {z:null,x:75+k*70,y:470};
+      const z=g.b, i=cont[z]++, zi=ZON.indexOf(z); return {z,x:ZX[zi]+((i%2)?38:-38),y:250+Math.floor(i/2)*100} }) }
+  function desenha(now){ const e=Math.max(0,now-t0);
+    c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,W,H); c.setTransform(2,0,0,2,0,164);
+    c.fillStyle=COR.chao; for(let x=20;x<W-20;x+=40) for(let y=140;y<H-100;y+=40) c.fillRect(x+1,y+1,38,38);
+    const eM=p===1?e:1e9;
+    blocos.forEach(b=>{ if(p<1) return; const u=ease(clamp((eM-b.grupo*350-b.d)/900)); if(u<=0) return; c.globalAlpha=u; c.fillStyle=b.cor; c.fillRect(b.x+1+b.dx*(1-u),b.y+1+b.dy*(1-u),8,8) }); c.globalAlpha=1;
+    const pronto=p>=1?clamp((eM-1900)/500):0;
+    if(pronto>0){ c.globalAlpha=pronto;
+      c.strokeStyle="#3A3A3F"; c.lineWidth=2; c.beginPath(); c.moveTo(40,-60); c.lineTo(420,-60); c.stroke();
+      OVOS.forEach(ovo);
+      c.strokeStyle=COR.meio; c.lineWidth=2; [-18,22].forEach(y=>{ c.beginPath(); c.moveTo(470,y+1); c.lineTo(880,y+1); c.stroke() });
+      BARRAS.forEach(b=>{ c.fillStyle=b.cor; c.fillRect(b.x,b.y-b.h,9,b.h) });
+      /* caixas de presente no balcão */
+      CAIXAS.forEach(([x,s])=>{ c.fillStyle=COR.meio; c.fillRect(x,62-s,s+6,s); c.fillStyle=COR.fundo; c.fillRect(x+(s+6)/2-1.5,62-s,3,s); c.fillRect(x,62-s/2-1.5,s+6,3) });
+      /* atendente */
+      c.fillStyle=COR.fraco; c.beginPath(); c.arc(610,40,10,0,7); c.fill(); c.strokeStyle=COR.fraco; c.lineWidth=7; c.beginPath(); c.arc(610,68,17,Math.PI*1.08,Math.PI*1.92); c.stroke();
+      /* caixa */
+      c.fillStyle=COR.meio; c.fillRect(812,46,40,16); c.fillStyle=COR.forte; c.fillRect(818,40,28,6);
+      c.fillStyle=COR.fraco; c.font="600 8.5px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle";
+      c.fillText(T("OVOS DE PÁSCOA"),230,-72); c.fillText(T("BARRAS"),675,-72); c.fillText(T("BOMBONS E PRESENTES"),580,118); c.fillText(T("CAIXA"),832,118);
+      c.globalAlpha=1 }
+    /* zonas */
+    if(p>=2&&p<7){ const za=p===2?clamp(e/500):1; c.globalAlpha=za;
+      ZON.forEach((z,i)=>{ c.fillStyle=COR.meio; c.font="600 9px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillText(T(ZROT[z]),ZX[i],170);
+        if(i>0){ c.strokeStyle="#26262A"; c.lineWidth=1; c.setLineDash([3,5]); c.beginPath(); c.moveTo(ZX[i]-87,160); c.lineTo(ZX[i]-87,p===5?395:500); c.stroke(); c.setLineDash([]) } });
+      c.globalAlpha=1 }
+    /* gêmeos */
+    if(p>=1){ const h=p===5?semana(e):null, A=alvos(h);
+      if(p===5){ c.fillStyle=COR.fraco; c.font="600 8.5px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillText(T("AINDA NÃO COMPRARAM"),460,410) }
+      gente.forEach((g,k)=>{ let tx,ty;
+        if(p===1||now<g.tgo){ tx=FILA[k].x; ty=FILA[k].y; if(p===1&&now<g.tgo){ ty=700 } } else { tx=A[k].x; ty=A[k].y }
+        if(g.snap){ g.x=tx; g.y=ty } else { g.x+=(tx-g.x)*.07; g.y+=(ty-g.y)*.07 }
+        const a=p===1?clamp((e-1900-k*120)/500):1; if(a<=0) return;
+        const al=h!==null&&A[k].z===null?a*.4:a;
+        pessoa(g,al); placa(g,al) });
+      gente.forEach(g=>g.snap=false);
+      if(p===3){ Object.entries(FALAS).forEach(([k,t],i)=>{ const a=clamp((e-900-i*900)/400); if(a>0) balao(gente[k],t,a) }) }
+    }
+    /* linha do tempo em semanas */
+    if(p===5){ c.setTransform(2,0,0,2,0,0); const h=semana(e), x0=170, x1=750, y=606;
+      c.strokeStyle="#3A3A3F"; c.lineWidth=2; c.beginPath(); c.moveTo(x0,y); c.lineTo(x1,y); c.stroke();
+      c.font="500 9px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="top";
+      for(let k=0;k<=6;k++){ const x=lerp(x0,x1,k/6); c.fillStyle=k<=h?COR.forte:COR.fraco; c.fillRect(x-1,y-4,2,8); c.fillText(T(k===6?"Páscoa":(6-k)+" sem."),x,y+8) }
+      const xm=lerp(x0,x1,h/6); c.fillStyle=COR.forte; c.beginPath(); c.arc(xm,y,6,0,7); c.fill();
+      const falta=Math.max(0,6-Math.floor(h)); c.font="700 20px 'Space Grotesk',sans-serif"; c.textAlign="left"; c.textBaseline="middle";
+      c.fillText(T(h>=6?"é Páscoa":falta===1?"última semana":"faltam "+falta+" semanas"),24,604) }
+    if(p===6) celular(460,455,clamp(e/600),now);
+  }
+  (function loop(now){ if(on) desenha(now); requestAnimationFrame(loop) })(performance.now());
+  const pontos=$("#chPontos"); pontos.innerHTML=PASSOS.map(()=>"<i></i>").join("");
+  function contagem(){ const cont={ovo:0,barra:0,bombom:0,zero:0,nao:0}; gente.forEach(g=>cont[g.b]++);
+    return `<span class="rot">Na loja agora · cena ilustrativa</span>`+ZON.map(k=>`<div class="br ${k==="ovo"?"dest":""}"><span>${ROT[k]}</span><span class="trilho"><b data-w="${(cont[k]/12*100).toFixed(1)}" style="width:${(cont[k]/12*100).toFixed(1)}%"></b></span><span class="v">${cont[k]} de 12</span></div>`).join("") }
+  function aplica(nome,instant){ cen=nome; const C=CEN[nome], agora=performance.now();
+    gente.forEach((g,k)=>{ const nb=C.b[k]; if(g.b!==nb){ g.b=nb; if(!instant) g.tgo=agora+k*70 } });
+    if(PASSOS[p]&&PASSOS[p].conta) $("#chProb").innerHTML=contagem();
+    [...$("#chCenas").children].forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===nome?"true":"false"));
+    $("#chCenTxt").textContent=C.txt }
+  $("#chCenas").innerHTML=Object.entries(CEN).map(([k,v])=>`<button type="button" data-c="${k}" aria-pressed="false">${v.nome}${v.a?`<small>${v.a}</small>`:""}</button>`).join("");
+  $("#chCenas").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b) return; ev.stopPropagation(); aplica(b.dataset.c,false) });
+  function set(n,instant){ const ant=p; p=n; t0=instant?performance.now()-1e6:performance.now();
+    const P=PASSOS[n], pn=$("#chPainel");
+    [...pontos.children].forEach((el,k)=>el.classList.toggle("at",k<=n));
+    $("#chFecho").hidden=!(P&&P.fecho);
+    if(n!==4){ aplica("hoje",true) }
+    const agora=performance.now();
+    gente.forEach((g,k)=>{ g.tgo=0; g.snap=!!instant;
+      if(n===1&&!instant){ g.x=FILA[k].x; g.y=700; g.tgo=agora+1900+k*120 }
+      if(n===2&&!instant&&ant<2){ g.tgo=agora+500+k*110 } });
+    const mostra=(id,v)=>{ $(id).hidden=!v };
+    if(n===0){ mostra("#chRot",1); mostra("#chTit",1); mostra("#chTxt",1); $("#chRot").textContent="A cena"; $("#chTit").textContent="Para ver a temporada inteira, os gêmeos digitais entram numa chocolateria."; $("#chTxt").textContent="Avance para ver a cena se montar."; mostra("#chCenas",0); mostra("#chCenTxt",0); $("#chProb").innerHTML="" }
+    else if(P.fecho){ mostra("#chRot",0); mostra("#chTit",0); mostra("#chTxt",0); mostra("#chCenas",0); mostra("#chCenTxt",0); $("#chProb").innerHTML="" }
+    else { mostra("#chRot",1); mostra("#chTit",1); $("#chRot").textContent=P.rot; $("#chTit").textContent=P.tit; mostra("#chTxt",!!P.txt); $("#chTxt").textContent=P.txt||"";
+      mostra("#chCenas",!!P.cenas); mostra("#chCenTxt",!!P.cenas);
+      $("#chProb").innerHTML=P.conta?contagem():"";
+      if(P.cenas) aplica(cen,true);
+      if(P.ultima){ $("#chProb").innerHTML=`<span class="rot">Quem compra na última semana · exemplo ilustrativo</span>`+[["sem ação",50],["cupom no app",58],["entrega no dia",63]].map(([a,v],i)=>`<div class="br ${i===2?"dest":""}"><span>${a}</span><span class="trilho"><b data-w="${v}"></b></span><span class="v">${v}%</span></div>`).join("");
+        depois(instant?0:700,()=>document.querySelectorAll("#chProb .trilho b").forEach(b=>b.style.width=b.dataset.w+"%")) }
+      if(P.conta&&!instant&&n===2){ document.querySelectorAll("#chProb .trilho b").forEach(b=>{ const w=b.style.width; b.style.width="0"; depois(1500,()=>b.style.width=w) }) }
+    }
+    pn.classList.remove("troca"); void pn.offsetWidth; pn.classList.add("troca");
+    $("#chLeg").textContent=n>=1&&n<7?"cena ilustrativa · cada figura, um gêmeo digital · plaquinha clara: usa GLP-1":"";
+  }
+  return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
+})();
+
+function pares(){ const L=[...document.querySelectorAll("#pares .par")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(500+k*650,()=>l.classList.add("v"))) }
+const ENTRA={abertura:jornada,presente:roda,quatrop:pares};
+
+function render(){ $("#cont").textContent=String(atual+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
+  $("#barra").style.width=((atual+1)/TELAS.length*100)+"%"; $("#ant").disabled=atual===0&&passo===0; $("#prox").disabled=atual===TELAS.length-1 }
+function vai(i,fim){ if(i<0||i>=TELAS.length) return; limpa();
+  TELAS.forEach((t,k)=>{ t.classList.toggle("on",k===i); t.classList.toggle("antes",k<i); t.setAttribute("aria-hidden",k===i?"false":"true") });
+  TELAS[i].scrollTop=0; atual=i;
+  const eCh=TELAS[i].dataset.t==="chocolateria"; cena.ativar(eCh);
+  if(eCh){ passo=fim?cena.total:0; cena.passo(passo,!!fim) } else passo=0;
+  try{ history.replaceState(null,"","#"+TELAS[i].dataset.t) }catch(e){}
+  render(); (ENTRA[TELAS[i].dataset.t]||(()=>{}))() }
+function prox(){ if(TELAS[atual].dataset.t==="chocolateria"&&passo<cena.total){ limpa(); passo++; cena.passo(passo,reduz); render(); return } vai(atual+1) }
+function ant(){ if(TELAS[atual].dataset.t==="chocolateria"&&passo>0){ limpa(); passo--; cena.passo(passo,true); render(); return } vai(atual-1,true) }
+$("#prox").onclick=e=>{ e.stopPropagation(); prox() };
+$("#ant").onclick=e=>{ e.stopPropagation(); ant() };
+document.addEventListener("keydown",e=>{ if(["ArrowRight","PageDown"," ","Enter"].includes(e.key)){ if(e.target.closest&&e.target.closest("button")&&e.key!=="ArrowRight") return; e.preventDefault(); prox() } else if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); ant() } });
+document.addEventListener("click",e=>{ if(e.target.closest("a,button")) return; if(matchMedia("(max-width:900px)").matches) return; (e.clientX>innerWidth*.35)?prox():ant() });
+let sx=null; document.addEventListener("touchstart",e=>{ sx=e.touches[0].clientX },{passive:true});
+document.addEventListener("touchend",e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) (dx<0?prox():ant()); sx=null });
+const ini=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); vai(ini>=0?ini:0);
+addEventListener("hashchange",()=>{ const i=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); if(i>=0&&i!==atual) vai(i) });
+</script>
