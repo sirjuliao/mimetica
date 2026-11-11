@@ -1,0 +1,715 @@
+<title>Gêmeos digitais para a agenda do premium</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: uma tela por vez, avanço por clique, identidade da apresentação institucional.
+   Visual único e deliberado, todo em fundo preto. */
+:root{
+  --osso:#0C0C0E; --papel:#141416; --preto:#F5F4F0; --texto:#F5F4F0; --sub:#9C9B96; --fraco:#6B6A65; --linha:#2A2A2D; --vazio:#232326;
+  --rec:#FF453A; --escuro2:#18181B; --escurolinha:#C9C7C0; --escurosub:#6B6A65;
+  --f-titulo:"Space Grotesk",system-ui,sans-serif; --f-corpo:"Inter",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--osso);color:var(--texto);font-family:var(--f-corpo);font-size:16px;line-height:1.5;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--texto);outline-offset:3px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+
+/* moldura */
+.topo{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:calc(env(safe-area-inset-top,0px) + 18px) max(22px,env(safe-area-inset-right,0px)) 0 max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.topo>*{pointer-events:auto}
+.logo{height:26px;width:auto;display:block;flex:none;align-self:center;object-fit:contain}
+.cel-tela .logo{height:16px;width:auto;align-self:flex-start}
+.voltar{font-size:13px;color:var(--sub);text-decoration:none;border:1px solid var(--linha);border-radius:999px;padding:6px 14px;background:rgba(12,12,14,.7)}
+.voltar:hover{color:var(--texto);border-color:var(--texto)}
+.barra{position:fixed;left:0;right:0;top:0;height:3px;z-index:11;background:transparent}
+.barra b{display:block;height:100%;background:var(--texto);width:0;transition:width .4s ease}
+.rodape{position:fixed;inset:auto 0 0 0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:0 max(22px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(22px,env(safe-area-inset-left,0px));pointer-events:none}
+.rodape>*{pointer-events:auto}
+.nav{display:flex;gap:8px}
+.nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--linha);background:var(--papel);display:grid;place-items:center}
+.nav button:hover:not(:disabled){border-color:var(--texto)}
+.nav button:disabled{opacity:.3;cursor:default}
+.nav svg{width:16px;height:16px;fill:var(--texto)}
+.cont{font-family:var(--f-mono);font-size:13px;color:var(--sub)}
+
+/* telas */
+.tela{position:fixed;inset:0;display:flex;align-items:flex-start;justify-content:center;
+  padding:88px max(28px,env(safe-area-inset-right,0px)) 84px max(28px,env(safe-area-inset-left,0px));
+  opacity:0;visibility:hidden;transform:translateX(24px);transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s;overflow-y:auto}
+.tela.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease,visibility 0s}
+.tela.antes{transform:translateX(-24px)}
+.miolo{width:100%;max-width:1180px;margin:auto 0}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+h1,h2{font-family:var(--f-titulo);font-weight:700;letter-spacing:-.03em;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6.2vw,84px);line-height:1}
+h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
+.lead{font-size:clamp(17px,1.6vw,21px);color:var(--sub);max-width:46ch;margin:22px 0 0}
+.pontos{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;max-width:46ch}
+.pontos li{display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:16px}
+.pontos li b{font-family:var(--f-mono);font-weight:500;color:var(--texto)}
+.pontos li span{color:var(--sub)}
+.nota{font-size:12px;color:var(--fraco);margin-top:18px}
+.aparece{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+.tela.on .aparece{opacity:1;transform:none}
+.tela.on .aparece.d1{transition-delay:.15s}.tela.on .aparece.d2{transition-delay:.3s}.tela.on .aparece.d3{transition-delay:.45s}.tela.on .aparece.d4{transition-delay:.6s}
+
+/* capa */
+.capa{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+#cabeca{width:100%;max-width:470px;aspect-ratio:840/1000;display:block;margin-left:auto}
+
+/* celular */
+.cel{width:300px;max-width:100%;aspect-ratio:9/18.5;background:#2A2A2D;border-radius:44px;padding:14px;margin:0 auto;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.cel-tela{width:100%;height:100%;background:var(--osso);border-radius:32px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:12px;overflow:hidden;position:relative}
+.cel-prog{display:flex;gap:3px}.cel-prog i{flex:1;height:3px;border-radius:2px;background:var(--vazio)}.cel-prog i.at{background:var(--rec)}
+.cel h4{margin:0;font-family:var(--f-titulo);font-size:16px;line-height:1.25;font-weight:600}
+.cel .grav{margin-top:auto;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:12px 10px 16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cel canvas{width:100%;height:70px;display:block}
+.cel .rel{font-family:var(--f-mono);font-size:24px}
+.cel .est{font-size:11px;color:var(--sub);min-height:16px}
+.cel .est.r{color:var(--rec)}
+.recb{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--texto);display:grid;place-items:center}
+.recb span{width:44px;height:44px;border-radius:50%;background:var(--rec);transition:all .25s}
+.recb.on span{width:22px;height:22px;border-radius:5px}
+.toque{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(245,244,240,.25);pointer-events:none;opacity:0;transform:scale(.6)}
+.toque.v{animation:toque .6s ease}
+@keyframes toque{30%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
+
+/* temas */
+.temas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.tema{text-align:left;border:1px solid var(--linha);background:var(--papel);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;opacity:.15;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.tema.v{opacity:1;transform:none}
+.tema .n{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
+.tema .q{font-family:var(--f-titulo);font-size:15px;line-height:1.3;font-weight:500;color:var(--texto)}
+.tema .chip{align-self:flex-start;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:1px 8px;color:var(--sub);margin-top:auto}
+
+/* camadas */
+.camadas{display:flex;flex-direction:column;gap:12px}
+.cam{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.cam .i{font-family:var(--f-mono);font-size:13px;width:44px;height:44px;border-radius:12px;background:var(--preto);color:var(--osso);display:grid;place-items:center}
+.cam h3{margin:0;font-family:var(--f-titulo);font-size:20px}
+.cam p{margin:4px 0 0;color:var(--sub);font-size:15px}
+.escala{display:flex;gap:6px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.escala span{width:30px;height:30px;border-radius:8px;border:1px solid var(--linha);display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;color:var(--sub)}
+.escala span.on{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.escala small{font-size:12px;color:var(--fraco);margin:0 4px}
+
+/* construção */
+.fluxo{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:16px;align-items:center;margin-top:34px}
+.ent{display:flex;flex-direction:column;gap:10px}
+.ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
+.seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+.caixa-preta{background:#18181B;border:1px solid var(--linha);color:#F5F4F0;border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.caixa-preta .rot{color:#9C9B96}
+.caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
+.caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.caixa-preta>*:not(canvas){position:relative}
+.saida{background:var(--papel);border:1px solid var(--texto);border-radius:16px;padding:18px;text-align:center}
+.saida canvas{width:132px;height:157px;display:block;margin:0 auto 10px;background:#0C0C0E;border-radius:14px}
+.saida b{font-family:var(--f-titulo);font-size:18px}
+
+/* teste */
+.duelo{display:flex;flex-direction:column;gap:12px}
+.dq{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
+.dq .rot{display:flex;justify-content:space-between;gap:8px}
+.dq h4{margin:8px 0 0;font-family:var(--f-titulo);font-size:20px;line-height:1.2;font-weight:600;min-height:48px}
+.lados{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lado{border:1px solid var(--linha);border-radius:16px;padding:16px;background:var(--papel);min-height:128px;display:flex;flex-direction:column;gap:8px}
+.lado.g{background:var(--preto);color:var(--osso);border-color:var(--preto)}
+.lado.g .rot{color:var(--escurosub)}
+.lado .r{font-family:var(--f-titulo);font-size:19px;line-height:1.2;opacity:0;transition:opacity .4s}
+.lado .r.v{opacity:1}
+.lacre{font-family:var(--f-mono);font-size:12px;color:var(--escurosub);word-break:break-all}
+.ver{align-self:flex-start;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;border:1px solid var(--escurolinha);opacity:0;transition:opacity .3s}
+.ver.v{opacity:1}
+.ver.ok{background:var(--osso);color:var(--preto);border-color:var(--osso)}
+.placar{display:flex;align-items:center;gap:14px}
+.placar .trilha{display:flex;gap:5px}
+.placar .trilha i{width:16px;height:16px;border-radius:4px;border:1px solid var(--linha)}
+.placar .trilha i.s1{background:var(--texto);border-color:var(--texto)}
+.placar .trilha i.s05{background:linear-gradient(135deg,var(--fraco) 50%,transparent 50%);border-color:var(--fraco)}
+.placar .trilha i.s0{background:var(--vazio)}
+
+/* índice */
+.formula{display:flex;align-items:center;gap:16px;flex-wrap:nowrap;font-family:var(--f-titulo);font-size:clamp(26px,3vw,40px);font-weight:700;letter-spacing:-.02em;margin-top:28px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;text-align:center;font-size:.5em;line-height:1.2;font-weight:600}
+.frac span:first-child{border-bottom:2px solid currentColor;padding-bottom:5px;margin-bottom:5px}
+.barras{display:flex;flex-direction:column;gap:18px;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:24px}
+.br{display:grid;grid-template-columns:150px 1fr 56px;gap:12px;align-items:center;font-size:15px}
+.br .trilho{height:14px;border-radius:7px;background:var(--vazio);overflow:hidden}
+.br .trilho b{display:block;height:100%;width:0;background:var(--texto);border-radius:7px;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.br.f .trilho b{background:var(--fraco)}
+.br .v{font-family:var(--f-mono);text-align:right}
+.grande{font-family:var(--f-titulo);font-size:clamp(56px,7vw,96px);font-weight:700;letter-spacing:-.04em;line-height:1}
+
+/* população */
+#povoCanvas{width:100%;max-width:560px;aspect-ratio:1.25;display:block;margin-left:auto}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{border:1px solid var(--texto);border-radius:999px;padding:12px 20px;font-size:15px;text-decoration:none;font-weight:600;background:var(--texto);color:var(--osso)}
+.btn.claro{background:transparent;color:var(--texto);font-weight:500}
+
+
+/* 4P e jornada */
+.quatrop .cd .tipo{font-size:12px;color:var(--texto)}
+.quatrop .cd h3{font-size:19px}
+.jornada{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:22px}
+.jornada span{font-size:14px;border:1px solid var(--linha);background:var(--papel);border-radius:999px;padding:6px 14px;color:var(--texto)}
+.jornada i{font-style:normal;font-family:var(--f-mono);color:var(--fraco)}
+
+/* fatos com número à esquerda */
+.fatos{display:flex;flex-direction:column;gap:12px}
+.fato{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
+.fato .n{font-family:var(--f-titulo);font-weight:700;font-size:34px;letter-spacing:-.02em;line-height:1}
+.fato h3{margin:0;font-family:var(--f-titulo);font-size:17px;font-weight:600;line-height:1.3}
+.fato p{margin:4px 0 0;font-family:var(--f-mono);font-size:11.5px;color:var(--fraco)}
+@media (max-width:520px){.fato{grid-template-columns:1fr;gap:8px}}
+@media (max-width:900px){
+  body{overflow:auto}
+  .dupla,.capa{grid-template-columns:1fr;gap:28px}
+  .temas{grid-template-columns:1fr 1fr}
+  .fluxo{grid-template-columns:1fr;gap:10px}
+  .seta{transform:rotate(90deg);justify-self:center}
+  #cabeca,#povoCanvas{margin:0 auto;max-width:320px}
+  .cel{width:250px}
+  .tela{padding-top:76px;align-items:flex-start}
+}
+@media (max-width:520px){ .temas{grid-template-columns:1fr} .lados{grid-template-columns:1fr} .br{grid-template-columns:110px 1fr 48px} .voltar{display:none} }
+@media (prefers-reduced-motion:reduce){ .tela,.aparece,.br .trilho b{transition:none!important} }
+
+/* ===== telas próprias da versão destilados ===== */
+[hidden]{display:none!important}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.cards4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.cd{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.cd h3{margin:0;font-family:var(--f-titulo);font-size:20px;line-height:1.25;font-weight:600;text-wrap:balance}
+.cd p{margin:0;color:var(--sub);font-size:15px}
+.cd .num{font-family:var(--f-titulo);font-size:clamp(40px,4.4vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.cd .ref{font-family:var(--f-mono);font-size:11.5px;color:var(--fraco);margin-top:auto}
+.cd .papel{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--texto);border:1px solid var(--linha);border-radius:999px;padding:2px 10px;align-self:flex-start}
+.passos3{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.passos3 li{display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:14px 16px}
+.passos3 b{width:40px;height:40px;border-radius:12px;background:#F5F4F0;color:#0C0C0E;display:grid;place-items:center;font-family:var(--f-mono)}
+.passos3 h3{margin:0;font-family:var(--f-titulo);font-size:19px}
+.passos3 p{margin:4px 0 0;color:var(--sub);font-size:15px}
+.br .v{white-space:nowrap}
+.br.dest span:first-child{color:var(--texto);font-weight:600}
+.br.dest .trilho b{background:var(--texto)}
+.br .trilho b{background:var(--fraco)}
+.br .ant{font-size:11.5px;color:var(--fraco);font-family:var(--f-mono);display:block;font-weight:400}
+
+
+/* abertura: consumidores e doses */
+.povo{max-width:500px;margin-left:auto;display:flex;flex-direction:column;gap:22px}
+.povo .linha{display:flex;flex-direction:column;gap:10px}
+.fila{display:grid;grid-template-columns:repeat(12,1fr);gap:7px}
+.fila .p{display:flex;flex-direction:column;align-items:center;gap:5px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.fila .p.v{opacity:1;transform:none}
+.fila .p i{width:100%;aspect-ratio:1;border-radius:7px;background:#9C9B96;transition:background .5s}
+.fila .p.novo.v i{background:#F5F4F0}
+.fila .p u{display:flex;flex-direction:column;gap:3px;text-decoration:none}
+.fila .p u b,.leg2 b.dose{display:block;width:12px;height:4px;border-radius:2px;background:#6B6A65;opacity:0;transition:opacity .3s}
+.fila .p u b.v{opacity:1}
+.leg2 b.dose{opacity:1;width:14px}
+/* abertura antiga */
+#grade{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;max-width:470px;margin-left:auto}
+#grade i{aspect-ratio:1;border-radius:8px;border:1px solid var(--linha);background:var(--papel);opacity:0;transform:scale(.7);transition:opacity .35s,transform .35s,background .6s,border-color .6s,box-shadow .6s}
+#grade i.v{opacity:1;transform:none;background:#9C9B96;border-color:#9C9B96}
+#grade i.v.x{background:transparent;border-color:#2A2A2D}
+#grade i.v.s{background:#F5F4F0;border-color:#F5F4F0;box-shadow:0 0 0 3px #0C0C0E,0 0 0 4.5px #F5F4F0}
+.leg2{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--sub);justify-content:flex-end;max-width:470px;margin-left:auto}
+.leg2 span{display:inline-flex;align-items:center;gap:8px}
+.leg2 i{width:14px;height:14px;border-radius:4px;border:1px solid #9C9B96;background:#9C9B96}
+.leg2 i.x{background:transparent;border-color:#3A3A3F}
+.leg2 i.s{background:#F5F4F0;border-color:#F5F4F0}
+
+/* whisky */
+.dupla2{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+.sobe{display:flex;align-items:baseline;gap:14px;margin-top:22px}
+.sobe .de{font-family:var(--f-titulo);font-size:clamp(28px,3vw,40px);font-weight:700;color:var(--fraco)}
+.sobe .para{font-family:var(--f-titulo);font-size:clamp(44px,5vw,68px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.sobe .seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+
+/* comunidades */
+.cd .tipo{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.cd ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.cd ul li{font-size:12.5px;color:var(--sub);border:1px solid var(--linha);border-radius:999px;padding:3px 10px}
+
+/* bar */
+.churras{display:grid;grid-template-columns:minmax(0,390px) minmax(0,1fr);gap:36px;align-items:center}
+#chCanvas{width:100%;aspect-ratio:920/640;display:block;border-radius:18px;background:#0F0F11;border:1px solid var(--linha)}
+.cd-painel{display:flex;flex-direction:column;gap:12px;min-height:400px}
+.cd-painel.troca>*{animation:cdSobe .45s ease both}
+@keyframes cdSobe{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cd-tit{font-family:var(--f-titulo);font-weight:700;letter-spacing:-.02em;font-size:clamp(26px,2.8vw,38px);line-height:1.08;margin:0;text-wrap:balance}
+.cd-txt{font-size:16px;color:var(--sub);margin:0}
+.cd-prob{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.cd-prob .br{grid-template-columns:96px 1fr 58px;font-size:14px}
+.cd-dica{font-family:var(--f-mono);font-size:11px;color:var(--fraco);letter-spacing:.06em;text-transform:uppercase}
+.cd-pontos{display:flex;gap:6px;margin-top:auto}
+.cd-pontos i{width:22px;height:3px;border-radius:2px;background:var(--vazio)}
+.cd-pontos i.at{background:var(--texto)}
+.cd-fecho{background:#F5F4F0;color:#0C0C0E;border-radius:18px;padding:24px}
+.cd-fecho p{margin:0;font-family:var(--f-titulo);font-weight:700;font-size:28px;line-height:1.15;letter-spacing:-.02em}
+.cd-fecho small{display:block;margin-top:10px;font-size:15px;color:#403F45}
+.cenas{display:flex;flex-wrap:wrap;gap:8px}
+.cenas button{border:1px solid var(--linha);background:var(--papel);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--sub)}
+.cenas button:hover{border-color:var(--sub);color:var(--texto)}
+.cenas button[aria-pressed="true"]{background:var(--texto);color:var(--osso);border-color:var(--texto);font-weight:600}
+.cen-txt{font-size:15px;color:var(--texto);margin:0;min-height:46px}
+
+/* prova */
+.alvos{display:flex;flex-direction:column;gap:10px}
+.alvo{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:14px 18px}
+.alvo h3{margin:0;font-family:var(--f-titulo);font-size:17px;font-weight:600;line-height:1.3}
+.alvo p{margin:3px 0 0;font-size:12.5px;color:var(--fraco);font-family:var(--f-mono)}
+.alvo .chip{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:3px 10px;color:var(--sub);white-space:nowrap}
+.limite{border-left:2px solid var(--texto);padding:4px 0 4px 18px;margin-top:26px}
+.limite p{margin:6px 0 0;color:var(--sub);font-size:15px;max-width:46ch}
+
+/* teste em duas etapas */
+.etapas{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:32px}
+.etapa{background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.etapa.um{border-color:var(--texto)}
+.etapa h3{margin:0;font-family:var(--f-titulo);font-size:24px;line-height:1.15}
+.etapa p{margin:0;color:var(--sub);font-size:15px}
+.etapa .reg{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.etapa .reg span{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--linha);border-radius:999px;padding:3px 10px;color:var(--sub)}
+.portao{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-width:120px;text-align:center}
+.portao svg{width:34px;height:34px;fill:none;stroke:var(--texto);stroke-width:1.6}
+.portao span{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);max-width:14ch}
+
+/* rotina */
+.fluxo{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:16px;align-items:center;margin-top:34px}
+.ent{display:flex;flex-direction:column;gap:10px}
+.ent div{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:15px}
+.seta{font-family:var(--f-mono);font-size:22px;color:var(--fraco)}
+.caixa-preta{background:#18181B;border:1px solid var(--linha);color:#F5F4F0;border-radius:20px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.caixa-preta .rot{color:#9C9B96}
+.caixa-preta h3{margin:0;font-family:var(--f-titulo);font-size:22px;line-height:1.15}
+.caixa-preta canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.caixa-preta>*:not(canvas){position:relative}
+.camada{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--osso);background:var(--texto);border-radius:999px;padding:3px 10px}
+
+@media (max-width:900px){
+  .cards3,.cards4,.dupla2,.churras,.etapas{grid-template-columns:1fr}
+  .portao{flex-direction:row;min-width:0}
+  #grade{margin:0 auto}.leg2{margin:14px auto 0;justify-content:center}
+  .cd-painel{min-height:0}
+}
+@media (max-width:520px){ .cd-prob .br{grid-template-columns:84px 1fr 52px} .alvo{grid-template-columns:1fr} .alvo .chip{justify-self:start} }
+@media (prefers-reduced-motion:reduce){ #grade i{transition:none!important} .cd-painel.troca>*{animation:none} }
+
+/* ===== telas próprias da versão farma ===== */
+.jtab{display:flex;flex-direction:column;gap:8px;max-width:500px;margin-left:auto}
+.jh,.jl{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px;align-items:center}
+.jh .rot{font-size:10.5px;text-align:center}
+.jl{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 16px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.jl.v{opacity:1;transform:none}
+.jl b{font-family:var(--f-titulo);font-weight:600;font-size:16px}
+.jl span{display:grid;place-items:center}
+.jl i{width:20px;height:20px;border-radius:6px;border:1px solid #3A3A3F;background:transparent;transform:scale(.6);opacity:.4;transition:all .4s}
+.jl i.v{transform:none;opacity:1}
+.jl i.a.sim.v{background:#9C9B96;border-color:#9C9B96}
+.jl i.b.v{background:#F5F4F0;border-color:#F5F4F0;box-shadow:0 0 0 3px #0C0C0E,0 0 0 4.5px #F5F4F0}
+.comp{display:flex;flex-direction:column;gap:8px}
+.ch,.cl{display:grid;grid-template-columns:110px 1fr 1fr;gap:12px;align-items:start}
+.ch .rot{font-size:10.5px}
+.cl{background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:14px 16px;font-size:14.5px;color:var(--sub)}
+.cl b{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fraco);font-weight:500;padding-top:2px}
+.cl .s{color:var(--texto);font-weight:500}
+.cards3 .cd .tipo{color:var(--sub)}
+.h2m{font-size:clamp(28px,3.3vw,44px)}
+.compacto{gap:12px;margin-top:22px}.compacto .cd{padding:18px 20px;gap:8px}.compacto .cd h3{font-size:17px}.compacto .cd p{font-size:14px}
+.pares{display:flex;flex-direction:column;gap:10px;margin-top:26px}
+.ph,.par{display:grid;grid-template-columns:150px 70px 1fr;align-items:center;gap:0}
+.ph .rot{font-size:10.5px}
+.par .pp{font-family:var(--f-titulo);font-weight:600;font-size:17px;color:var(--sub);background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:14px 16px;transition:color .4s,border-color .4s}
+.par .seta{position:relative;height:2px;margin:0 10px;background:var(--linha);overflow:visible}
+.par .seta::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--texto);transition:width .5s ease}
+.par .seta::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:7px solid var(--linha);border-right:0;transition:border-left-color .3s .4s}
+.par .pa{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:12px 18px;display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;opacity:.35;transition:opacity .5s .35s,border-color .5s .35s}
+.par .pa b{font-family:var(--f-titulo);font-weight:700;font-size:18px}
+.par .pa p{margin:0;font-size:15px;color:var(--sub);line-height:1.45}
+.par.v .pp{color:var(--texto);border-color:#3A3A3F}
+.par.v .seta::before{width:100%}
+.par.v .seta::after{border-left-color:var(--texto)}
+.par.v .pa{opacity:1;border-color:#3A3A3F}
+.cenas button small{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.06em;opacity:.65;margin-top:3px;font-weight:500}
+@media (max-width:700px){ .ph{display:none} .par{grid-template-columns:1fr} .par .seta{display:none} .par{gap:6px} .pares{gap:14px} .par .pa{grid-template-columns:1fr;gap:6px} }
+#cicloCanvas{width:100%;max-width:500px;aspect-ratio:1;display:block;margin-left:auto}
+.pontos li strong{color:var(--texto);font-weight:600}
+@media (max-width:900px){ .jtab,#cicloCanvas{margin:0 auto} }
+@media (max-width:520px){ .ch,.cl{grid-template-columns:1fr 1fr} .ch>span:first-child{display:none} .cl b{grid-column:1/-1} .jh,.jl{grid-template-columns:1.4fr .8fr .8fr;gap:8px} .jl b{font-size:14px} }
+/* ===== telas próprias da versão premium ===== */
+.agenda{display:flex;flex-direction:column;border-top:1px solid var(--linha);margin-top:6px}
+.agenda .ag{display:grid;grid-template-columns:96px 1.1fr 1.4fr;gap:14px;padding:9px 0;border-bottom:1px solid var(--linha);opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s}
+.agenda .ag.v{opacity:1;transform:none}
+.agenda .ag b{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.04em;color:var(--texto)}
+.agenda .ag span{font-size:14.5px;color:var(--texto)}
+.agenda .ag span small{display:block;font-family:var(--f-mono);font-size:10.5px;color:var(--fraco);margin-top:2px;letter-spacing:.04em}
+.agenda .ag i{font-style:normal;font-size:14px;color:var(--sub)}
+.cl .mc{display:none;font-style:normal;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);margin-bottom:2px}
+.heat{margin-top:22px;overflow-x:auto;max-width:1100px}
+.heat table{border-collapse:separate;border-spacing:4px;width:100%;min-width:640px}
+.heat th{font-family:var(--f-mono);font-size:10.5px;font-weight:500;letter-spacing:.08em;color:var(--sub);text-align:center;padding:2px 0}
+.heat th.t{text-align:left;width:220px;font-family:var(--f-corpo,inherit);font-size:13.5px;letter-spacing:0;color:var(--texto);font-weight:500}
+.heat td{text-align:center;font-family:var(--f-mono);font-size:12px;padding:9px 0;border-radius:6px;transition:background .35s,color .35s,outline-color .35s;outline:1.5px dashed transparent;outline-offset:-3px}
+.heat td.c{outline-color:#F5F4F0}
+.regua{display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap}
+.regua input{width:min(420px,100%);accent-color:#F5F4F0}
+.regua b{font-family:var(--f-titulo);font-size:30px;font-weight:700;min-width:84px}
+.regua .rs{font-size:15px;color:var(--sub);max-width:52ch}
+.linha13{margin-top:22px;overflow-x:auto}
+.linha13 .g{display:grid;grid-template-columns:150px repeat(13,minmax(54px,1fr));gap:4px;min-width:860px}
+.linha13 .g>div{font-size:12px;padding:8px 6px;border-radius:6px;min-height:34px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.25}
+.linha13 .h{font-family:var(--f-mono);font-size:10.5px;color:var(--sub);letter-spacing:.06em;min-height:22px!important}
+.linha13 .r{justify-content:flex-start!important;text-align:left!important;font-family:var(--f-mono);font-size:10.5px!important;letter-spacing:.06em;color:var(--sub);text-transform:uppercase}
+.linha13 .m{background:#F5F4F0;color:#0C0C0E;font-weight:600}
+.linha13 .f{border:1.5px dashed #F5F4F0;color:var(--texto)}
+.linha13 .p{background:#2A2A2E;color:var(--texto)}
+.linha13 .x{opacity:0;transform:scale(.9);transition:opacity .4s,transform .4s}
+.linha13 .x.v{opacity:1;transform:none}
+@media (max-width:700px){ section.tela{justify-content:safe center} .agenda .ag{grid-template-columns:78px 1fr;gap:8px} .agenda .ag i{grid-column:2} .comp3 .ch{display:none} .comp3 .cl{grid-template-columns:1fr;gap:6px} .comp3 .cl .mc{display:block} .heat th.t{width:150px;font-size:12px} }
+</style>
+
+<div class="barra"><b id="barra"></b></div>
+<header class="topo">
+  <img class="logo" src="__LC__" alt="Mimetica">
+  <div style="display:flex;gap:10px;align-items:center"><span data-lang-slot></span><a class="voltar" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
+</header>
+
+<!-- 1. A AGENDA -->
+<section class="tela" data-t="agenda">
+  <div class="miolo capa">
+    <div>
+      <div class="rot aparece">Mimetica · para a Ferrero</div>
+      <h1 class="aparece d1" style="margin-top:14px">Um ano de decisões pela frente.</h1>
+      <p class="lead aparece d2">Natal, Páscoa, Dia das Mães, a Qualidade na Essência e a chegada da Bold Snacks. Cada data pede uma decisão antes de chegar à gôndola. Com uma população de consumidores brasileiros sempre calibrada, a Ferrero chega a cada uma delas sabendo como o consumidor vai reagir.</p>
+    </div>
+    <div class="aparece d2">
+      <div class="agenda" id="agLista"></div>
+      <p class="nota" style="text-align:right">Agenda pública da Ferrero no Brasil e calendário do varejo. As perguntas são exemplos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. O QUE MUDOU -->
+<section class="tela" data-t="mudou">
+  <div class="miolo">
+    <div class="rot aparece">O que mudou</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">O premium ficou mais caro de produzir e mais difícil de justificar.</h2>
+    <div class="cards3 compacto aparece d2">
+      <div class="cd"><span class="num">~US$ 12 mil</span><h3>Chegou a tonelada do cacau, ante cerca de US$ 3 mil antes da alta.</h3><span class="ref">Bloomberg Línea, mar/2026</span></div>
+      <div class="cd"><span class="num">+24,77%</span><h3>Foi a alta do chocolate em barra e bombom em 12 meses, contra 4,44% da inflação.</h3><span class="ref">IPCA até jan/2026 · via Consumidor Moderno, abr/2026</span></div>
+      <div class="cd"><span class="num">79%</span><h3>Dos brasileiros acharam que a Páscoa de 2026 ficou mais cara.</h3><span class="ref">Google · via Consumidor Moderno, abr/2026</span></div>
+      <div class="cd"><span class="num">+10% e −2%</span><h3>Preço e volume da Hershey no 1º trimestre de 2026. O aumento chega ao consumidor, e ele responde.</h3><span class="ref">ConfectioneryNews, mai/2026</span></div>
+      <div class="cd"><span class="num">R$ 42,5 bi</span><h3>É o mercado de chocolate no Brasil em 2025, com consumo de quase 4 kg por pessoa por ano.</h3><span class="ref">Kantar e Abicab · via InfoMoney, jul/2026</span></div>
+      <div class="cd"><span class="num">mar/2026</span><h3>A Ferrero anuncia a compra da Bold Snacks, sua primeira entrada em "better-for-you" na América do Sul.</h3><span class="ref">ferrero.com, 18/03/2026</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. A DOR -->
+<section class="tela" data-t="dor">
+  <div class="miolo">
+    <div class="rot aparece">As perguntas da Ferrero</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">Três perguntas atravessam o ano.</h2>
+    <div class="cards3 aparece d2">
+      <div class="cd"><span class="papel">01 · O preço</span><h3>Até onde o premium segura o preço com o cacau caro?</h3><p>Quem mantém a caixa de presente, quem troca pelo tradicional e quem vai para a marca própria do atacarejo.</p></div>
+      <div class="cd"><span class="papel">02 · A mensagem</span><h3>Quanto a Qualidade na Essência sustenta esse preço?</h3><p>Origem, cuidado com os ingredientes e sustentabilidade: qual argumento pesa para cada perfil, e em que estados.</p></div>
+      <div class="cd"><span class="papel">03 · O presente</span><h3>O que cada data pede da gôndola?</h3><p>Natal, Páscoa, Dia das Mães e Namorados. A mesma pessoa compra diferente para si e para presentear.</p></div>
+    </div>
+    <p class="nota aparece d3">Uma parte dos consumidores está em tratamento com canetas de emagrecer. Come menos doce e, quando come, escolhe melhor. Isso também aparece na cena a seguir.</p>
+  </div>
+</section>
+
+<!-- 4. O CORREDOR (passos internos) -->
+<section class="tela" data-t="corredor" data-passos="6">
+  <div class="miolo churras">
+    <div class="cd-painel" id="chPainel">
+      <div class="rot" id="chRot">A cena</div>
+      <h2 class="cd-tit" id="chTit">Para ver as três perguntas de uma vez, os gêmeos digitais entram no corredor do supermercado.</h2>
+      <p class="cd-txt" id="chTxt">Avance para ver a cena se montar.</p>
+      <div class="cenas" id="chCenas" hidden></div>
+      <p class="cen-txt" id="chCenTxt" hidden></p>
+      <div class="cd-prob" id="chProb"></div>
+      <div class="cd-fecho" id="chFecho" hidden><p>Cada data da agenda é uma pergunta que a Ferrero pode fazer antes de ir para a gôndola.</p><small>Preço, mensagem, presente, porção, canal. A situação muda, e a população mostra quem muda junto e por quê.</small></div>
+      <div class="cd-pontos" id="chPontos"></div>
+    </div>
+    <div>
+      <canvas id="chCanvas" width="1840" height="1280" aria-label="Cena ilustrativa de um corredor de supermercado com doze gêmeos digitais, cada um com uma plaquinha de identificação"></canvas>
+      <div class="cd-dica" id="chLeg" style="margin-top:10px;text-align:right"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. DIAGNÓSTICO -->
+<section class="tela" data-t="diagnostico">
+  <div class="miolo">
+    <div class="rot aparece">O diagnóstico</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">Antes de qualquer campo, um índice de confiabilidade para cada tema e cada estado.</h2>
+    <p class="lead aparece d2" style="max-width:74ch">A população recebe a pergunta e mostra quanto já responde com segurança. Onde o índice é alto, ela responde sozinha. Onde é baixo, sabemos exatamente onde colocar gente real.</p>
+    <div class="heat aparece d3" id="heat1"></div>
+    <p class="nota aparece d3">Valores ilustrativos. O índice real sai do diagnóstico com a base de entrevistas que a Ferrero já tem.</p>
+  </div>
+</section>
+
+<!-- 6. A RÉGUA -->
+<section class="tela" data-t="regua">
+  <div class="miolo">
+    <div class="rot aparece">A régua</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">A Ferrero escolhe a régua. O mapa mostra onde ir a campo para alcançá-la.</h2>
+    <div class="regua aparece d2"><b id="rv">85%</b><input type="range" id="rr" min="75" max="97" value="85" aria-label="Régua de confiabilidade"><span class="rs" id="rs"></span></div>
+    <div class="heat aparece d2" id="heat2"></div>
+    <p class="nota aparece d3">A literatura parte de 85% de confiabilidade, medida contra as próprias pessoas respondendo de novo (Park e colegas, Stanford, 2024). Com o modelo híbrido e a recorrência de projetos, a meta é passar de 95%. Células tracejadas pedem campo pontual. Valores ilustrativos.</p>
+  </div>
+</section>
+
+<!-- 7. AGENDA DE CALIBRAÇÃO -->
+<section class="tela" data-t="calibracao">
+  <div class="miolo">
+    <div class="rot aparece">A agenda de calibração</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">Com a agenda à vista, o campo vem antes de cada data.</h2>
+    <p class="lead aparece d2" style="max-width:74ch">O campo com pessoas reais é contínuo e pontual: entra só onde o mapa pede, semanas antes de cada momento. Entre um campo e outro, a população responde.</p>
+    <div class="linha13 aparece d3"><div class="g" id="l13"></div></div>
+    <p class="nota aparece d3">Exemplo de agenda. As datas de campo são definidas com a Ferrero a partir do diagnóstico.</p>
+  </div>
+</section>
+
+<!-- 8. 4P E 4A -->
+<section class="tela" data-t="quatrop">
+  <div class="miolo quatrop">
+    <div class="rot aparece"><span class="camada">O uso em escala</span></div>
+    <h2 class="aparece d1" style="margin-top:16px">A Ferrero mexe no P. O consumidor responde no A.</h2>
+    <p class="lead aparece d2" style="max-width:70ch">Calibrada, a população testa cada decisão do ano, quantas vezes for preciso: as peças da Qualidade na Essência, o presente de cada data e as perguntas da Bold Snacks.</p>
+    <div class="pares aparece d2" id="pares">
+      <div class="ph"><span class="rot">P · a Ferrero decide</span><span></span><span class="rot">A · o consumidor responde</span></div>
+      <div class="par"><div class="pp">Produto</div><i class="seta"></i><div class="pa"><b>Acceptability</b><p>Uma porção menor de Ferrero Rocher faz sentido para quem quer comer menos e melhor?</p></div></div>
+      <div class="par"><div class="pp">Preço</div><i class="seta"></i><div class="pa"><b>Affordability</b><p>Com o cacau caro, até onde a caixa de presente segura o preço no Natal?</p></div></div>
+      <div class="par"><div class="pp">Praça</div><i class="seta"></i><div class="pa"><b>Accessibility</b><p>Supermercado, atacarejo ou app: onde cada perfil compra o presente da data?</p></div></div>
+      <div class="par"><div class="pp">Promoção</div><i class="seta"></i><div class="pa"><b>Awareness</b><p>Qual argumento da Qualidade na Essência faz o consumidor pagar mais?</p></div></div>
+    </div>
+    <div class="jornada aparece d3"><span>gôndola</span><i>→</i><span>embalagem</span><i>→</i><span>para quem</span><i>→</i><span>preço</span><i>→</i><span>caixa</span><i>→</i><span>presente</span></div>
+    <p class="nota aparece d3">Os 4A são de Jagdish Sheth e Rajendra Sisodia, The 4 A's of Marketing, 2012. As perguntas são exemplos.</p>
+  </div>
+</section>
+
+<!-- 9. COMO COMEÇAMOS -->
+<section class="tela" data-t="proposta">
+  <div class="miolo dupla">
+    <div>
+      <div class="rot aparece">Como começamos</div>
+      <h2 class="aparece d1" style="margin-top:14px">Uma data da agenda, uma régua e um campo pontual.</h2>
+      <p class="lead aparece d2">Começamos pela Páscoa de 2027, em 28 de março: preço e mensagem do ovo infantil e do presente premium. A agenda segue para o Dia das Mães.</p>
+      <div class="cta aparece d3"><a class="btn" href="mailto:fernando@mimetica.net">fernando@mimetica.net</a><a class="btn claro" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
+    </div>
+    <ol class="passos3 aparece d2">
+      <li><b>1</b><div><h3>Diagnóstico</h3><p>Com a base de entrevistas que a Ferrero já tem, medimos o índice por tema e por estado.</p></div></li>
+      <li><b>2</b><div><h3>Uma leitura conhecida</h3><p>A população reproduz um resultado que a Ferrero já tem em mãos.</p></div></li>
+      <li><b>3</b><div><h3>A régua</h3><p>Definimos juntos o nível de confiabilidade para a Páscoa.</p></div></li>
+      <li><b>4</b><div><h3>Campo pontual</h3><p>Só onde o mapa pedir, semanas antes da data.</p></div></li>
+      <li><b>5</b><div><h3>As respostas</h3><p>Preço e mensagem testados antes da campanha ir ao ar.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<footer class="rodape">
+  <span class="cont" id="cont">01 / 09</span>
+  <div class="nav">
+    <button type="button" id="ant" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.5 4 7.5 12l8 8 1.4-1.4L10.3 12l6.6-6.6z"/></svg></button>
+    <button type="button" id="prox" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.5 4 7.1 5.4 13.7 12l-6.6 6.6L8.5 20l8-8z"/></svg></button>
+  </div>
+</footer>
+<!--I18N:premium-->
+
+<script>
+const $=s=>document.querySelector(s);
+const TELAS=[...document.querySelectorAll(".tela")];
+const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let atual=0, passo=0, timers=[], rafs={};
+const limpa=()=>{ timers.forEach(clearTimeout); timers=[]; Object.values(rafs).forEach(cancelAnimationFrame); rafs={} };
+const depois=(ms,f)=>timers.push(setTimeout(f,reduz?0:ms));
+function rnd(s){ return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646 } }
+const clamp=v=>Math.max(0,Math.min(1,v)), lerp=(a,b,t)=>a+(b-a)*t, ease=t=>1-Math.pow(1-t,3);
+
+/* 1. a agenda */
+const AG=[["dez/2026","Natal","Ferrero Rocher, caixas","O premium segura o presente com o cacau caro?"],["jan/2027","Volta às aulas","Nutella, Kinder","Café da manhã e lancheira: quem troca por marca própria?"],["28/03/2027","Páscoa","Kinder","Ovo infantil: personagem, tamanho e preço"],["09/05/2027","Dia das Mães","Ferrero Rocher","Presente premium ou presente de entrada?"],["12/06/2027","Namorados","Ferrero Rocher","A mensagem de qualidade no presente a dois"],["2027","Bold Snacks","Bold","Um público novo: proteína e conveniência"],["2027","Qualidade na Essência","Institucional","Qual argumento sustenta o premium, e em que estado?"],["12/10/2027","Dia das Crianças","Kinder","Presente infantil e preço"],["dez/2027","Natal","Ferrero Rocher","Comparar com o Natal de 2026"]];
+(function(){ $("#agLista").innerHTML=AG.map(([d,m,b,q])=>`<div class="ag"><b>${d}</b><span>${m}<small>${b}</small></span><i>${q}</i></div>`).join("") })();
+function agenda(){ const L=[...document.querySelectorAll("#agLista .ag")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(250+k*140,()=>l.classList.add("v"))) }
+
+/* 5 e 6. o mapa de confiabilidade */
+const UF=["SP","RJ","MG","RS","PR","BA","PE","GO","DF","SC"], BASE=[93,91,90,89,89,87,86,86,86,78];
+const TEMAS=[["Premium contra tradicional",0],["Presente de Natal",2],["Ovo infantil na Páscoa",-1],["Mensagem de origem e cuidado",-9],["Embalagem menor",-4],["Consumidor em tratamento",-12]];
+const VAL=TEMAS.map(([t,m],i)=>UF.map((u,j)=>Math.max(62,Math.min(97,BASE[j]+m+((i*7+j*3)%5)-2))));
+function cor(v){ const t=clamp((v-62)/35); const l=Math.round(lerp(38,232,t)); return `rgb(${l},${l-1},${l-5})` }
+function heat(id,regua){ const el=$(id); let h=`<table><tr><th class="t"></th>${UF.map(u=>`<th>${u}</th>`).join("")}</tr>`;
+  TEMAS.forEach(([t],i)=>{ h+=`<tr><th class="t">${t}</th>`+VAL[i].map(v=>`<td class="${regua&&v<regua?"c":""}" style="background:${cor(v)};color:${v>80?"#0C0C0E":"#F5F4F0"}">${v}</td>`).join("")+"</tr>" });
+  el.innerHTML=h+"</table>" }
+heat("#heat1",0);
+function regua(){ const r=+$("#rr").value; $("#rv").textContent=r+"%"; heat("#heat2",r);
+  let n=0, porTema=TEMAS.map(()=>0), sc=0; VAL.forEach((row,i)=>row.forEach((v,j)=>{ if(v<r){ n++; porTema[i]++; if(UF[j]==="SC") sc++ } }));
+  const top=porTema.map((c,i)=>[c,TEMAS[i][0]]).sort((a,b)=>b[0]-a[0]).filter(x=>x[0]>0).slice(0,2).map(x=>{ const s=T(x[1]); return s.charAt(0).toLowerCase()+s.slice(1) });
+  $("#rs").textContent=n===0?T("Com essa régua, a população responde sozinha em todos os temas e estados."):T("células pedem campo pontual")+": "+n+(top.length?". "+T("A maior parte em")+" "+top.join(" "+T("e")+" "):"")+"." }
+$("#rr").addEventListener("input",regua); regua();
+
+/* 7. a linha do ano */
+const MES=["dez/26","jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez/27"];
+const MOM={0:"Natal",1:"Volta às aulas",3:"Páscoa",5:"Mães",6:"Namorados",10:"Crianças",12:"Natal"};
+const CAMPO={0:"Diagnóstico",1:"Campo",3:"Campo",8:"Campo",10:"Campo"};
+(function(){ let h=`<div class="h"></div>`+MES.map(m=>`<div class="h">${m}</div>`).join("");
+  h+=`<div class="r">Momento</div>`+MES.map((m,i)=>MOM[i]?`<div class="m x">${MOM[i]}</div>`:`<div></div>`).join("");
+  h+=`<div class="r">Campo pontual</div>`+MES.map((m,i)=>CAMPO[i]?`<div class="f x">${CAMPO[i]}</div>`:`<div></div>`).join("");
+  h+=`<div class="r">A população responde</div>`+MES.map(()=>`<div class="p x">✓</div>`).join("");
+  $("#l13").innerHTML=h })();
+function linha(){ const X=[...document.querySelectorAll("#l13 .x")]; X.forEach(x=>x.classList.remove("v")); X.forEach((x,k)=>depois(200+(k%13)*90+Math.floor(k/13)*350,()=>x.classList.add("v"))) }
+
+/* ================= 4. O CORREDOR ================= */
+const cena=(()=>{
+  const PASSOS=[
+    null,
+    {rot:"O corredor",tit:"Doze gêmeos digitais entram no corredor do supermercado.",txt:"Cada um tem uma plaquinha com idade, classe e cidade. As plaquinhas claras são de quem está em tratamento com canetas de emagrecer."},
+    {rot:"A escolha",tit:"Cada gêmeo decide o que leva.",txt:"A caixa premium, o creme de avelã, o ovo infantil, o chocolate tradicional, a marca própria ou nada. A escolha depende de quem ele é, do preço e de para quem é.",conta:true},
+    {rot:"O porquê",tit:"E cada escolha vem com o motivo.",txt:"A população guarda a razão de cada gêmeo, na linguagem de quem compra. As falas da cena são ilustrativas.",conta:true},
+    {rot:"Mude a cena",tit:"O mesmo corredor, diante de momentos diferentes do ano.",cenas:true,conta:true},
+    {rot:"A mensagem",tit:"Qual argumento faz pagar mais pelo premium?",txt:"Sabor, cuidado com os ingredientes, origem responsável ou sustentabilidade. Cada perfil responde a um argumento, e o peso muda de estado para estado.",msg:true},
+    {fecho:true}
+  ];
+  const cv=$("#chCanvas"), c=cv.getContext("2d"), W=920, H=640, R=rnd(31);
+  const COR={chao:"#131316",bloco:"#2A2A2E",forte:"#F5F4F0",meio:"#9C9B96",fraco:"#6B6A65",fundo:"#0F0F11",placa:"#1C1C1F"};
+  const SP=[["42","B","São Paulo",0],["35","A","Porto Alegre",0],["29","C","Recife",0],["58","C","Belo Horizonte",0],["47","A","Curitiba",1],["33","C","Salvador",0],["64","B","Goiânia",0],["38","B","Rio de Janeiro",0],["27","C","Fortaleza",0],["51","B","Florianópolis",0],["44","A","Brasília",1],["69","C","Manaus",0]];
+  const XS=[205,307,409,511,613,715];
+  const FILA=XS.map(x=>({x,y:260})).concat(XS.map(x=>({x,y:410})));
+  const ZON=["premium","creme","infantil","tradicional","propria","nao"], ZX=[77,230,383,536,689,842];
+  const ROT={premium:"Premium",creme:"Creme de avelã",infantil:"Infantil",tradicional:"Tradicional",propria:"Marca própria",nao:"Sem compra"};
+  const ZROT={premium:"PREMIUM",creme:"CREME",infantil:"INFANTIL",tradicional:"TRADICIONAL",propria:"MARCA PRÓPRIA",nao:"SEM COMPRA"};
+  const CEN={
+    hoje:{nome:"Um dia comum",a:"",txt:"Uma compra de rotina, sem data especial. O tradicional e o premium dividem o corredor.",b:["premium","creme","infantil","tradicional","premium","propria","tradicional","creme","infantil","nao","premium","tradicional"]},
+    cacau:{nome:"Cacau mais caro",a:"Affordability",txt:"O premium sobe 12%. Quem mantém, quem troca pelo tradicional e quem vai para a marca própria?",b:["tradicional","creme","infantil","propria","premium","propria","propria","creme","infantil","nao","premium","tradicional"]},
+    mensagem:{nome:"Qualidade na Essência",a:"Awareness",txt:"A embalagem e a mídia contam a origem e o cuidado de cada ingrediente. Quem passa a aceitar pagar mais?",b:["premium","creme","infantil","premium","premium","propria","tradicional","premium","infantil","nao","premium","tradicional"]},
+    natal:{nome:"Natal",a:"Acceptability",txt:"Dezembro. A mesma pessoa compra para si e para presentear. A caixa premium ganha espaço?",b:["premium","premium","infantil","premium","premium","tradicional","tradicional","creme","premium","nao","premium","propria"]},
+    pascoa:{nome:"Páscoa",a:"Awareness",txt:"Março. O ovo infantil disputa com o presente premium e com o ovo de marca própria.",b:["infantil","creme","infantil","infantil","premium","propria","infantil","creme","infantil","nao","premium","propria"]},
+    menor:{nome:"Porção menor",a:"Acceptability",txt:"Mesma marca, porção menor e preço menor. Quem entra no premium por esse caminho?",b:["premium","creme","infantil","premium","premium","premium","tradicional","creme","infantil","premium","premium","tradicional"]},
+    atacarejo:{nome:"Marca própria no atacarejo",a:"Accessibility",txt:"O atacarejo põe uma caixa de marca própria pela metade do preço, logo na entrada.",b:["propria","creme","infantil","propria","premium","propria","propria","creme","propria","nao","premium","tradicional"]},
+    tratamento:{nome:"Mais gente em tratamento",a:"Acceptability",txt:"Mais clientes em tratamento com canetas de emagrecer. Comem menos doce, e parte deles troca a barra comum por uma porção premium.",b:["premium","creme","infantil","nao","premium","propria","premium","creme","infantil","nao","premium","tradicional"]}
+  };
+  const FALAS={4:"Estou em tratamento, como pouco doce. Quando como, quero o melhor.",3:"Compro a barra de sempre. Caixa bonita, só no Natal.",9:"Ficou caro. Este ano, só se tiver promoção."};
+  const MSG=[["Sabor e qualidade",41],["Cuidado com os ingredientes",26],["Origem responsável",19],["Sustentável",14]];
+  let cen="hoje", p=0, t0=performance.now(), on=false;
+  let gente=FILA.map((f,k)=>({x:f.x,y:700,b:null,pessoa:SP[k],k,tgo:0}));
+  const blocos=[]; function area(x0,y0,x1,y1,cor,grupo,passo=10){ for(let x=x0;x<x1;x+=passo) for(let y=y0;y<y1;y+=passo) blocos.push({x,y,cor,grupo,dx:(R()-.5)*320,dy:-(60+R()*240),d:R()*500}) }
+  const GON=[[40,300,"PRESENTES E PREMIUM"],[330,590,"CREMES E INFANTIS"],[620,880,"TRADICIONAL E MARCA PRÓPRIA"]];
+  GON.forEach(([a,b],g)=>area(a,-60,b,100,"#17171A",g));
+  const ITENS=[]; const PRAT=[-26,16,58];
+  GON.forEach(([a,b],g)=>PRAT.forEach((y,li)=>{ for(let x=a+8;x<b-14;){ const tipo=g===0?"caixa":g===1?(li===1?"ovo":"pote"):"barra"; const w=tipo==="caixa"?20:tipo==="pote"?13:tipo==="ovo"?15:9; ITENS.push({x,y,tipo,cor:R()<.3?COR.forte:R()<.65?COR.meio:COR.fraco}); x+=w+(tipo==="barra"?4:7) } }));
+  function item(o){ c.fillStyle=o.cor;
+    if(o.tipo==="caixa"){ c.fillRect(o.x,o.y-14,20,14); c.fillStyle=COR.fundo; c.fillRect(o.x+9,o.y-14,2,14); c.fillRect(o.x,o.y-8,20,2) }
+    else if(o.tipo==="pote"){ c.fillRect(o.x,o.y-15,13,15); c.fillStyle=COR.bloco; c.fillRect(o.x-1,o.y-18,15,4) }
+    else if(o.tipo==="ovo"){ c.beginPath(); c.ellipse?c.ellipse(o.x+7,o.y-9,7,9,0,0,7):c.arc(o.x+7,o.y-9,8,0,7); c.fill() }
+    else { c.fillRect(o.x,o.y-15,9,15) } }
+  function pessoa(g,a){ c.globalAlpha=a; c.fillStyle="#C9C7C0"; c.beginPath(); c.arc(g.x,g.y,10,0,7); c.fill();
+    c.beginPath(); c.arc(g.x,g.y+28,17,Math.PI*1.08,Math.PI*1.92); c.lineWidth=7; c.strokeStyle="#C9C7C0"; c.stroke(); c.globalAlpha=1 }
+  function placa(g,a){ const [id,cl,ci,trt]=g.pessoa; const w=64,h=28,x=g.x-w/2,y=g.y-48;
+    c.globalAlpha=a; c.strokeStyle=trt?COR.forte:"#3A3A3F"; c.lineWidth=1; c.fillStyle=trt?COR.forte:COR.placa; c.fillRect(x,y,w,h); c.strokeRect(x+.5,y+.5,w-1,h-1);
+    c.textAlign="center"; c.textBaseline="middle"; c.fillStyle=trt?COR.fundo:COR.forte; c.font="600 8.5px 'JetBrains Mono',monospace"; c.fillText(id+" "+T("anos")+" · "+cl,g.x,y+9.5);
+    c.fillStyle=trt?"#403F45":COR.meio; c.font="500 7.5px 'JetBrains Mono',monospace"; c.fillText(ci,g.x,y+20); c.globalAlpha=1 }
+  function balao(g,txt,a){ txt=T(txt); const w=196; c.font="500 11px Inter,system-ui,sans-serif"; const ps=txt.split(" "), ls=[]; let l=""; ps.forEach(w2=>{ const t=l?l+" "+w2:w2; if(c.measureText(t).width>w-20){ ls.push(l); l=w2 } else l=t }); ls.push(l);
+    const h=16+ls.length*15, x=Math.min(W-w-10,Math.max(10,g.x-w/2)), y=g.y-58-h-10;
+    c.globalAlpha=a; c.fillStyle=COR.forte; c.beginPath(); c.roundRect?c.roundRect(x,y,w,h,10):c.rect(x,y,w,h); c.fill();
+    c.beginPath(); c.moveTo(g.x-7,y+h); c.lineTo(g.x,y+h+8); c.lineTo(g.x+7,y+h); c.fill();
+    c.fillStyle=COR.fundo; c.textAlign="left"; c.textBaseline="top"; ls.forEach((t,k)=>c.fillText(t,x+10,y+9+k*15)); c.globalAlpha=1 }
+  function alvos(){ const cont={}; ZON.forEach(z=>cont[z]=0);
+    return gente.map(g=>{ const z=g.b, i=cont[z]++, zi=ZON.indexOf(z); return {x:ZX[zi]+((i%2)?34:-34),y:250+Math.floor(i/2)*100} }) }
+  function desenha(now){ const e=Math.max(0,now-t0);
+    c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,W,H); c.setTransform(2,0,0,2,0,164);
+    c.fillStyle=COR.chao; for(let x=20;x<W-20;x+=40) for(let y=140;y<H-100;y+=40) c.fillRect(x+1,y+1,38,38);
+    const eM=p===1?e:1e9;
+    blocos.forEach(b=>{ if(p<1) return; const u=ease(clamp((eM-b.grupo*300-b.d)/900)); if(u<=0) return; c.globalAlpha=u; c.fillStyle=b.cor; c.fillRect(b.x+1+b.dx*(1-u),b.y+1+b.dy*(1-u),8,8) }); c.globalAlpha=1;
+    const pronto=p>=1?clamp((eM-1900)/500):0;
+    if(pronto>0){ c.globalAlpha=pronto;
+      c.strokeStyle=COR.meio; c.lineWidth=2; GON.forEach(([a,b])=>PRAT.forEach(y=>{ c.beginPath(); c.moveTo(a,y+1); c.lineTo(b,y+1); c.stroke() }));
+      ITENS.forEach(item);
+      c.fillStyle=COR.fraco; c.font="600 8.5px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle";
+      GON.forEach(([a,b,n])=>c.fillText(T(n),(a+b)/2,-72));
+      c.globalAlpha=1 }
+    if(p>=2&&p<6){ const za=p===2?clamp(e/500):1; c.globalAlpha=za;
+      ZON.forEach((z,i)=>{ c.fillStyle=COR.meio; c.font="600 9px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillText(T(ZROT[z]),ZX[i],170);
+        if(i>0){ c.strokeStyle="#26262A"; c.lineWidth=1; c.setLineDash([3,5]); c.beginPath(); c.moveTo(ZX[i]-76.5,160); c.lineTo(ZX[i]-76.5,500); c.stroke(); c.setLineDash([]) } });
+      c.globalAlpha=1 }
+    if(p>=1){ const A=alvos();
+      gente.forEach((g,k)=>{ let tx,ty;
+        if(p===1||now<g.tgo){ tx=FILA[k].x; ty=FILA[k].y; if(p===1&&now<g.tgo){ ty=700 } } else { tx=A[k].x; ty=A[k].y }
+        if(g.snap){ g.x=tx; g.y=ty } else { g.x+=(tx-g.x)*.07; g.y+=(ty-g.y)*.07 }
+        const a=p===1?clamp((e-1900-k*120)/500):1; if(a<=0) return;
+        pessoa(g,a); placa(g,a) });
+      gente.forEach(g=>g.snap=false);
+      if(p===3){ Object.entries(FALAS).forEach(([k,t],i)=>{ const a=clamp((e-900-i*900)/400); if(a>0) balao(gente[k],t,a) }) }
+    }
+  }
+  (function loop(now){ if(on) desenha(now); requestAnimationFrame(loop) })(performance.now());
+  const pontos=$("#chPontos"); pontos.innerHTML=PASSOS.map(()=>"<i></i>").join("");
+  function contagem(){ const cont={}; ZON.forEach(z=>cont[z]=0); gente.forEach(g=>cont[g.b]++);
+    return `<span class="rot">No corredor agora · cena ilustrativa</span>`+ZON.map(k=>`<div class="br ${k==="premium"?"dest":""}"><span>${ROT[k]}</span><span class="trilho"><b style="width:${(cont[k]/12*100).toFixed(1)}%"></b></span><span class="v">${cont[k]} ${T("de")} 12</span></div>`).join("") }
+  function aplica(nome,instant){ cen=nome; const C=CEN[nome], agora=performance.now();
+    gente.forEach((g,k)=>{ const nb=C.b[k]; if(g.b!==nb){ g.b=nb; if(!instant) g.tgo=agora+k*70 } });
+    if(PASSOS[p]&&PASSOS[p].conta) $("#chProb").innerHTML=contagem();
+    [...$("#chCenas").children].forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===nome?"true":"false"));
+    $("#chCenTxt").textContent=C.txt }
+  $("#chCenas").innerHTML=Object.entries(CEN).map(([k,v])=>`<button type="button" data-c="${k}" aria-pressed="false">${v.nome}${v.a?`<small>${v.a}</small>`:""}</button>`).join("");
+  $("#chCenas").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b) return; ev.stopPropagation(); aplica(b.dataset.c,false) });
+  function set(n,instant){ const ant=p; p=n; t0=instant?performance.now()-1e6:performance.now();
+    const P=PASSOS[n], pn=$("#chPainel");
+    [...pontos.children].forEach((el,k)=>el.classList.toggle("at",k<=n));
+    $("#chFecho").hidden=!(P&&P.fecho);
+    if(n!==4&&n!==5){ aplica("hoje",true) } else if(n===5){ aplica("mensagem",true) }
+    const agora=performance.now();
+    gente.forEach((g,k)=>{ g.tgo=0; g.snap=!!instant;
+      if(n===1&&!instant){ g.x=FILA[k].x; g.y=700; g.tgo=agora+1900+k*120 }
+      if(n===2&&!instant&&ant<2){ g.tgo=agora+500+k*110 } });
+    const mostra=(id,v)=>{ $(id).hidden=!v };
+    if(n===0){ mostra("#chRot",1); mostra("#chTit",1); mostra("#chTxt",1); $("#chRot").textContent="A cena"; $("#chTit").textContent="Para ver as três perguntas de uma vez, os gêmeos digitais entram no corredor do supermercado."; $("#chTxt").textContent="Avance para ver a cena se montar."; mostra("#chCenas",0); mostra("#chCenTxt",0); $("#chProb").innerHTML="" }
+    else if(P.fecho){ mostra("#chRot",0); mostra("#chTit",0); mostra("#chTxt",0); mostra("#chCenas",0); mostra("#chCenTxt",0); $("#chProb").innerHTML="" }
+    else { mostra("#chRot",1); mostra("#chTit",1); $("#chRot").textContent=P.rot; $("#chTit").textContent=P.tit; mostra("#chTxt",!!P.txt); $("#chTxt").textContent=P.txt||"";
+      mostra("#chCenas",!!P.cenas); mostra("#chCenTxt",!!P.cenas);
+      $("#chProb").innerHTML=P.conta?contagem():"";
+      if(P.cenas) aplica(cen,true);
+      if(P.msg){ $("#chProb").innerHTML=`<span class="rot">O argumento que mais pesa · exemplo ilustrativo</span>`+MSG.map(([a,v],i)=>`<div class="br ${i===0?"dest":""}"><span>${a}</span><span class="trilho"><b data-w="${v}"></b></span><span class="v">${v}%</span></div>`).join("");
+        depois(instant?0:600,()=>document.querySelectorAll("#chProb .trilho b").forEach(b=>b.style.width=b.dataset.w+"%")) }
+      if(P.conta&&!instant&&n===2){ document.querySelectorAll("#chProb .trilho b").forEach(b=>{ const w=b.style.width; b.style.width="0"; depois(1500,()=>b.style.width=w) }) }
+    }
+    pn.classList.remove("troca"); void pn.offsetWidth; pn.classList.add("troca");
+    $("#chLeg").textContent=n>=1&&n<6?"cena ilustrativa · cada figura, um gêmeo digital · plaquinha clara: em tratamento com canetas de emagrecer":"";
+  }
+  return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
+})();
+
+function pares(){ const L=[...document.querySelectorAll("#pares .par")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(500+k*650,()=>l.classList.add("v"))) }
+const ENTRA={agenda:agenda,quatrop:pares,calibracao:linha};
+const CENA="corredor";
+
+function render(){ $("#cont").textContent=String(atual+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
+  $("#barra").style.width=((atual+1)/TELAS.length*100)+"%"; $("#ant").disabled=atual===0&&passo===0; $("#prox").disabled=atual===TELAS.length-1 }
+function vai(i,fim){ if(i<0||i>=TELAS.length) return; limpa();
+  TELAS.forEach((t,k)=>{ t.classList.toggle("on",k===i); t.classList.toggle("antes",k<i); t.setAttribute("aria-hidden",k===i?"false":"true") });
+  TELAS[i].scrollTop=0; atual=i;
+  const eCh=TELAS[i].dataset.t===CENA; cena.ativar(eCh);
+  if(eCh){ passo=fim?cena.total:0; cena.passo(passo,!!fim) } else passo=0;
+  try{ history.replaceState(null,"","#"+TELAS[i].dataset.t) }catch(e){}
+  render(); (ENTRA[TELAS[i].dataset.t]||(()=>{}))() }
+function prox(){ if(TELAS[atual].dataset.t===CENA&&passo<cena.total){ limpa(); passo++; cena.passo(passo,reduz); render(); return } vai(atual+1) }
+function ant(){ if(TELAS[atual].dataset.t===CENA&&passo>0){ limpa(); passo--; cena.passo(passo,true); render(); return } vai(atual-1,true) }
+$("#prox").onclick=e=>{ e.stopPropagation(); prox() };
+$("#ant").onclick=e=>{ e.stopPropagation(); ant() };
+document.addEventListener("keydown",e=>{ if(e.target.matches&&e.target.matches("input")) return; if(["ArrowRight","PageDown"," ","Enter"].includes(e.key)){ if(e.target.closest&&e.target.closest("button")&&e.key!=="ArrowRight") return; e.preventDefault(); prox() } else if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); ant() } });
+document.addEventListener("click",e=>{ if(e.target.closest("a,button,input,.heat")) return; if(matchMedia("(max-width:900px)").matches) return; (e.clientX>innerWidth*.35)?prox():ant() });
+let sx=null; document.addEventListener("touchstart",e=>{ if(e.target.closest("input,.heat,.linha13")){ sx=null; return } sx=e.touches[0].clientX },{passive:true});
+document.addEventListener("touchend",e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) (dx<0?prox():ant()); sx=null });
+const ini=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); vai(ini>=0?ini:0);
+addEventListener("hashchange",()=>{ const i=TELAS.findIndex(t=>"#"+t.dataset.t===location.hash); if(i>=0&&i!==atual) vai(i) });
+</script>
