@@ -376,7 +376,30 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .linha13 .p{background:#2A2A2E;color:var(--texto)}
 .linha13 .x{opacity:0;transform:scale(.9);transition:opacity .4s,transform .4s}
 .linha13 .x.v{opacity:1;transform:none}
-@media (max-width:700px){ section.tela{justify-content:safe center} .agenda .ag{grid-template-columns:78px 1fr;gap:8px} .agenda .ag i{grid-column:2} .comp3 .ch{display:none} .comp3 .cl{grid-template-columns:1fr;gap:6px} .comp3 .cl .mc{display:block} .heat th.t{width:150px;font-size:12px} }
+@media (max-width:700px){ .cabq{grid-template-columns:1fr} section.tela{justify-content:safe center} .agenda .ag{grid-template-columns:78px 1fr;gap:8px} .agenda .ag i{grid-column:2} .comp3 .ch{display:none} .comp3 .cl{grid-template-columns:1fr;gap:6px} .comp3 .cl .mc{display:block} .heat th.t{width:150px;font-size:12px} }
+.h1q{font-size:clamp(32px,3.6vw,52px);line-height:1.08}
+.etq{display:flex;flex-direction:column;gap:8px}
+.etq .eq{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:14px 16px;opacity:0;transform:translateX(10px);transition:opacity .45s,transform .45s}
+.etq .eq.v{opacity:1;transform:none}
+.etq .eq b{font-family:var(--f-mono);font-size:12px;color:var(--sub);letter-spacing:.06em}
+.etq .eq span{font-size:15.5px;color:var(--texto);line-height:1.35}
+.assina{margin:18px 0 0;font-family:var(--f-titulo);font-size:clamp(17px,1.5vw,20px);font-weight:600;line-height:1.35;color:var(--texto);border-left:2px solid #F5F4F0;padding-left:14px;text-wrap:balance}
+.cabq{grid-template-columns:.75fr 1.25fr}
+#cbSvg{width:100%;height:auto;max-height:68vh;display:block}
+#cbSvg .ln{stroke:#5A5A60;stroke-width:1;fill:none}
+#cbSvg .lk{stroke:#B8B6B0;stroke-width:1.2;fill:none}
+#cbSvg .pt{fill:#C9C7C0}
+#cbSvg .hub{fill:#F5F4F0}
+#cbSvg .ar{font-family:Inter,system-ui,sans-serif;font-size:14px;font-weight:600;fill:#F5F4F0}
+#cbSvg .aq{font-family:'JetBrains Mono',monospace;font-size:10px;fill:#8A8A90}
+#cbSvg .perfil{fill:none;stroke:#3A3A3F;stroke-width:1.2}
+.seis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.seis .sc{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.seis .nv{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);margin-top:6px}
+.seis h3{margin:0;font-family:var(--f-titulo);font-size:16.5px;line-height:1.28;font-weight:600;text-wrap:balance}
+.seis .si{margin:0;font-size:12.5px;color:var(--sub);line-height:1.4;border-left:1px solid var(--linha);padding-left:10px}
+.seis .sd{color:var(--fraco);font-size:16px;line-height:1;margin:2px 0}
+@media (max-width:700px){ #cbSvg .ar{font-size:24px} #cbSvg .aq{display:none} .seis{grid-template-columns:1fr} .cabq{grid-template-columns:1fr} .etq .eq span{font-size:14.5px} }
 </style>
 
 <div class="barra"><b id="barra"></b></div>
@@ -385,13 +408,45 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   <div style="display:flex;gap:10px;align-items:center"><span data-lang-slot></span><a class="voltar" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
 </header>
 
-<!-- 1. A AGENDA -->
-<section class="tela" data-t="agenda">
+<!-- 1. QUEM SOMOS -->
+<section class="tela" data-t="quem">
   <div class="miolo capa">
     <div>
       <div class="rot aparece">Mimetica · para a Ferrero</div>
-      <h1 class="aparece d1" style="margin-top:14px">Um ano de decisões pela frente.</h1>
-      <p class="lead aparece d2">Natal, Páscoa, Dia das Mães, a Qualidade na Essência e a chegada da Bold Snacks. Cada data pede uma decisão antes de chegar à gôndola. Com uma população de consumidores brasileiros sempre calibrada, a Ferrero chega a cada uma delas sabendo como o consumidor vai reagir.</p>
+      <h1 class="aparece d1 h1q" style="margin-top:14px">Somos uma plataforma de inteligência que constrói gêmeos digitais de consumidores.</h1>
+      <p class="lead aparece d2">Para mercados B2C e B2B. Unimos software próprio e um time especialista para atuar de ponta a ponta.</p>
+    </div>
+    <div class="aparece d2">
+      <div class="etq" id="qmEtapas">
+        <div class="eq"><b>01</b><span>Formulamos as perguntas do negócio.</span></div>
+        <div class="eq"><b>02</b><span>Combinamos os estudos já realizados com novas pesquisas de campo.</span></div>
+        <div class="eq"><b>03</b><span>Calibramos uma população artificial e medimos sua acurácia.</span></div>
+        <div class="eq"><b>04</b><span>Testamos cenários e avaliamos caminhos antes da decisão.</span></div>
+      </div>
+      <p class="assina">O gêmeo nasce do seu histórico de pesquisa, aprende com cada decisão aplicada e evolui com o seu negócio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. A CABEÇA -->
+<section class="tela" data-t="cabeca">
+  <div class="miolo capa cabq">
+    <div>
+      <div class="rot aparece">Um consumidor, várias áreas</div>
+      <h2 class="aparece d1 h2m" style="margin-top:14px">Cada área da Ferrero faz uma pergunta. Todas falam com o mesmo consumidor.</h2>
+      <p class="lead aparece d2">Marketing, preço, inovação, trade e planejamento consultam a mesma população. O que uma área aprende fica disponível para as outras.</p>
+    </div>
+    <div class="aparece d1"><svg id="cbSvg" viewBox="0 0 860 520" role="img" aria-label="Uma cabeça formada por pontos ligada às áreas da Ferrero"></svg></div>
+  </div>
+</section>
+
+<!-- 3. A AGENDA -->
+<section class="tela" data-t="agenda">
+  <div class="miolo capa">
+    <div>
+      <div class="rot aparece">A agenda</div>
+      <h1 class="aparece d1" style="margin-top:14px">2027: decisões pela frente.</h1>
+      <p class="lead aparece d2">A Ferrero chega a cada uma delas sabendo como o consumidor tende a reagir, e com que grau de acerto.</p>
     </div>
     <div class="aparece d2">
       <div class="agenda" id="agLista"></div>
@@ -400,47 +455,56 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   </div>
 </section>
 
-<!-- 2. O QUE MUDOU -->
-<section class="tela" data-t="mudou">
+<!-- 4. O MERCADO -->
+<section class="tela" data-t="mercado">
   <div class="miolo">
-    <div class="rot aparece">O que mudou</div>
-    <h2 class="aparece d1 h2m" style="margin-top:14px">O premium ficou mais caro de produzir e mais difícil de justificar.</h2>
+    <div class="rot aparece">O mercado</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">O cacau segue caro e imprevisível. E o consumidor, atento.</h2>
     <div class="cards3 compacto aparece d2">
-      <div class="cd"><span class="num">~US$ 12 mil</span><h3>Chegou a tonelada do cacau, ante cerca de US$ 3 mil antes da alta.</h3><span class="ref">Bloomberg Línea, mar/2026</span></div>
-      <div class="cd"><span class="num">+24,77%</span><h3>Foi a alta do chocolate em barra e bombom em 12 meses, contra 4,44% da inflação.</h3><span class="ref">IPCA até jan/2026 · via Consumidor Moderno, abr/2026</span></div>
-      <div class="cd"><span class="num">79%</span><h3>Dos brasileiros acharam que a Páscoa de 2026 ficou mais cara.</h3><span class="ref">Google · via Consumidor Moderno, abr/2026</span></div>
-      <div class="cd"><span class="num">+10% e −2%</span><h3>Preço e volume da Hershey no 1º trimestre de 2026. O aumento chega ao consumidor, e ele responde.</h3><span class="ref">ConfectioneryNews, mai/2026</span></div>
-      <div class="cd"><span class="num">R$ 42,5 bi</span><h3>É o mercado de chocolate no Brasil em 2025, com consumo de quase 4 kg por pessoa por ano.</h3><span class="ref">Kantar e Abicab · via InfoMoney, jul/2026</span></div>
-      <div class="cd"><span class="num">mar/2026</span><h3>A Ferrero anuncia a compra da Bold Snacks, sua primeira entrada em "better-for-you" na América do Sul.</h3><span class="ref">ferrero.com, 18/03/2026</span></div>
+      <div class="cd"><span class="num">+80%</span><h3>Foi a alta do cacau em seis meses de 2026: de US$ 3 mil a tonelada em abril para US$ 5,5 mil em outubro. Em novembro, voltou para perto de US$ 5 mil.</h3><span class="ref">The AgriBiz, out/2026 · Trading Economics, nov/2026</span></div>
+      <div class="cd"><span class="num">+12,45%</span><h3>Foi a alta do chocolate em barra e bombom em 12 meses, contra 4,22% da inflação geral.</h3><span class="ref">IBGE, IPCA até ago/2026 · cálculo Rico, out/2026</span></div>
+      <div class="cd"><span class="num">R$ 42,5 bi</span><h3>É o mercado de chocolate no Brasil em 2025, com consumo de quase 4 kg por pessoa por ano.</h3><span class="ref">Kantar Ibope e Abicab · via Agência Brasil, jul/2026</span></div>
+      <div class="cd"><span class="num">79%</span><h3>Dos brasileiros acham que a Páscoa ficou mais cara nos últimos anos. E 77% iam comparar preços antes de comprar.</h3><span class="ref">Google · via Consumidor Moderno, abr/2026</span></div>
+      <div class="cd"><span class="num">57%</span><h3>Pretendiam comprar barras de chocolate na Páscoa de 2026. A barra virou alternativa ao ovo para quem busca preço.</h3><span class="ref">Google · via Consumidor Moderno, abr/2026</span></div>
+      <div class="cd"><span class="num">mar/2026</span><h3>A Ferrero anuncia a compra da Bold Snacks, de barras proteicas e whey, sua primeira entrada em "better-for-you" na América do Sul.</h3><span class="ref">Comunicado Ferrero, 18/03/2026</span></div>
     </div>
   </div>
 </section>
 
-<!-- 3. A DOR -->
-<section class="tela" data-t="dor">
+<!-- 5. AS SEIS PERGUNTAS -->
+<section class="tela" data-t="perguntas">
   <div class="miolo">
-    <div class="rot aparece">As perguntas da Ferrero</div>
-    <h2 class="aparece d1 h2m" style="margin-top:14px">Três perguntas atravessam o ano.</h2>
-    <div class="cards3 aparece d2">
-      <div class="cd"><span class="papel">01 · O preço</span><h3>Até onde o premium segura o preço com o cacau caro?</h3><p>Quem mantém a caixa de presente, quem troca pelo tradicional e quem vai para a marca própria do atacarejo.</p></div>
-      <div class="cd"><span class="papel">02 · A mensagem</span><h3>Quanto a Qualidade na Essência sustenta esse preço?</h3><p>Origem, cuidado com os ingredientes e sustentabilidade: qual argumento pesa para cada perfil, e em que estados.</p></div>
-      <div class="cd"><span class="papel">03 · O presente</span><h3>O que cada data pede da gôndola?</h3><p>Natal, Páscoa, Dia das Mães e Namorados. A mesma pessoa compra diferente para si e para presentear.</p></div>
+    <div class="rot aparece">Do mercado para o carrinho de compras</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">6 perguntas para 2027.</h2>
+    <p class="lead aparece d1" style="max-width:70ch;margin-top:12px">O que muda no segmento premium aparece, cedo ou tarde, na mão do consumidor. O gêmeo lê as duas pontas.</p>
+    <div class="seis aparece d2">
+      <div class="sc"><span class="papel">1 · Preço</span>
+        <span class="nv">Macro · o segmento premium</span><h3>Até onde o premium sustenta o preço com o cacau caro e imprevisível?</h3><p class="si">Chocolate +12,45% em 12 meses, contra 4,22% da inflação geral (IBGE até ago/2026, cálculo Rico).</p>
+        <span class="sd">↓</span>
+        <span class="nv">Micro · o consumo</span><h3>Quando o preço sobe, quem troca, e para onde vai: barra, bombom, marca própria ou artesanal?</h3><p class="si">Na Páscoa de 2026, a intenção de comprar chocolate caseiro (49%) empatou com a de ovo industrializado (50%) (Google, via Consumidor Moderno, abr/2026).</p></div>
+      <div class="sc"><span class="papel">2 · Valor</span>
+        <span class="nv">Macro · o segmento premium</span><h3>Qual argumento justifica pagar mais: sabor, ingredientes, origem ou sustentabilidade?</h3><p class="si">A Qualidade na Essência como plataforma da marca, desde ago/2025.</p>
+        <span class="sd">↓</span>
+        <span class="nv">Micro · o consumo</span><h3>Quem come menos doce, como quem usa canetas emagrecedoras, quer porção menor ou chocolate melhor?</h3><p class="si">7,5% dos lares têm alguém usando essas canetas, contra 2,4% em março. 36% dos usuários dizem que vão comer menos chocolate e doce (Worldpanel by Numerator, nov/2026).</p></div>
+      <div class="sc"><span class="papel">3 · Novos territórios</span>
+        <span class="nv">Macro · o segmento premium</span><h3>Até onde o premium vai além do chocolate, para proteína e "better-for-you"?</h3><p class="si">A Ferrero compra a Bold Snacks, de barras proteicas e whey (mar/2026).</p>
+        <span class="sd">↓</span>
+        <span class="nv">Micro · o consumo</span><h3>Quem já troca o doce do lanche por barra proteica ou whey?</h3><p class="si">O mercado de whey no Brasil foi de US$ 165 milhões em 2021 para US$ 360 milhões em 2025 (Bain &amp; Company, set/2026).</p></div>
     </div>
-    <p class="nota aparece d3">Uma parte dos consumidores está em tratamento com canetas de emagrecer. Come menos doce e, quando come, escolhe melhor. Isso também aparece na cena a seguir.</p>
   </div>
 </section>
 
-<!-- 4. O CORREDOR (passos internos) -->
+<!-- 6. O CORREDOR (passos internos) -->
 <section class="tela" data-t="corredor" data-passos="6">
   <div class="miolo churras">
     <div class="cd-painel" id="chPainel">
       <div class="rot" id="chRot">A cena</div>
-      <h2 class="cd-tit" id="chTit">Para ver as três perguntas de uma vez, os gêmeos digitais entram no corredor do supermercado.</h2>
+      <h2 class="cd-tit" id="chTit">Para responder estas perguntas, os gêmeos digitais entram no corredor do supermercado.</h2>
       <p class="cd-txt" id="chTxt">Avance para ver a cena se montar.</p>
       <div class="cenas" id="chCenas" hidden></div>
       <p class="cen-txt" id="chCenTxt" hidden></p>
       <div class="cd-prob" id="chProb"></div>
-      <div class="cd-fecho" id="chFecho" hidden><p>Cada data da agenda é uma pergunta que a Ferrero pode fazer antes de ir para a gôndola.</p><small>Preço, mensagem, presente, porção, canal. A situação muda, e a população mostra quem muda junto e por quê.</small></div>
+      <div class="cd-fecho" id="chFecho" hidden><p>Cada decisão, co-criada e testada antes da gôndola.</p><small>Preço, mensagem, presente, porção, canal. A situação muda, e a população mostra quem muda junto e por quê.</small></div>
       <div class="cd-pontos" id="chPontos"></div>
     </div>
     <div>
@@ -542,6 +606,36 @@ const clamp=v=>Math.max(0,Math.min(1,v)), lerp=(a,b,t)=>a+(b-a)*t, ease=t=>1-Mat
 /* 1. a agenda */
 const AG=[["dez/2026","Natal","Ferrero Rocher, caixas","O premium segura o presente com o cacau caro?"],["jan/2027","Volta às aulas","Nutella, Kinder","Café da manhã e lancheira: quem troca por marca própria?"],["28/03/2027","Páscoa","Kinder","Ovo infantil: personagem, tamanho e preço"],["09/05/2027","Dia das Mães","Ferrero Rocher","Presente premium ou presente de entrada?"],["12/06/2027","Namorados","Ferrero Rocher","A mensagem de qualidade no presente a dois"],["2027","Bold Snacks","Bold","Um público novo: proteína e conveniência"],["2027","Qualidade na Essência","Institucional","Qual argumento sustenta o premium, e em que estado?"],["12/10/2027","Dia das Crianças","Kinder","Presente infantil e preço"],["dez/2027","Natal","Ferrero Rocher","Comparar com o Natal de 2026"]];
 (function(){ $("#agLista").innerHTML=AG.map(([d,m,b,q])=>`<div class="ag"><b>${d}</b><span>${m}<small>${b}</small></span><i>${q}</i></div>`).join("") })();
+function etapas(){ const L=[...document.querySelectorAll("#qmEtapas .eq")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(500+k*380,()=>l.classList.add("v"))) }
+const cabeca=(()=>{ const NS="http://www.w3.org/2000/svg", svg=$("#cbSvg");
+  const OFF=110, PERFIL="M 262 452 C 214 430 182 378 180 306 C 176 196 248 108 340 106 C 430 104 480 176 480 251 C 480 278 476 294 490 316 C 500 332 504 342 490 348 L 476 352 C 479 368 474 377 468 384 C 474 394 470 403 460 407 C 460 434 448 448 415 446 L 382 444";
+  const AREAS=[["Marketing e marca","Que mensagem sustenta o premium?",0,120],["Preço e revenue","Até onde o preço segura?",0,215],["Trade e vendas","Que canal e que gôndola?",0,310],["Insights do consumidor","Quem é, onde está, o que pensa",0,405],
+               ["Inovação e produto","Que porção, sabor, embalagem?",1,120],["Planejamento","Quanto produzir para cada data?",1,215],["Comunicação","Qual peça vai ao ar?",1,310],["Novos negócios","Proteína e better-for-you",1,405]];
+  const el=(n,a)=>{ const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); return e };
+  const cv=document.createElement("canvas").getContext("2d"), P2=new Path2D(PERFIL+" Z");
+  let r=7; const R=()=>{ r=(r*9301+49297)%233280; return r/233280 };
+  const pts=[]; for(let y=124;y<505;y+=22) for(let x=190;x<500;x+=22){ const px=x+(R()-.5)*12, py=y+(R()-.5)*12; if(cv.isPointInPath(P2,px,py)&&py<440) pts.push([px,py]) }
+  const hubs=AREAS.map(a=>{ const tx=a[2]?440:240, ty=a[3]*0.82+80; let best=pts[0],bd=1e9; pts.forEach(p=>{ const d=(p[0]-tx)**2+(p[1]-ty)**2; if(d<bd){bd=d;best=p} }); return best });
+  function monta(){ svg.innerHTML="";
+    const gh=el("g",{transform:`translate(${OFF},-30)`}); svg.appendChild(gh); gh.appendChild(el("path",{d:PERFIL,class:"perfil"}));
+    const gl=el("g",{}), gp=el("g",{}), ga=el("g",{}); gh.append(gl,gp); svg.appendChild(ga);
+    pts.forEach((p,i)=>pts.forEach((q,j)=>{ if(j>i&&(p[0]-q[0])**2+(p[1]-q[1])**2<26**2&&R()<.45){ const l=el("line",{x1:p[0],y1:p[1],x2:q[0],y2:q[1],class:"ln",opacity:0}); l.style.transition="opacity .8s"; gl.appendChild(l) } }));
+    pts.forEach(p=>{ const c=el("circle",{cx:p[0],cy:p[1],r:2.2,class:"pt",opacity:0}); c.style.transition="opacity .5s"; gp.appendChild(c) });
+    AREAS.forEach((a,k)=>{ const h=[hubs[k][0]+OFF,hubs[k][1]-30], dir=a[2], ax=dir?856:4, lx=dir?660:200, y=a[3]-20;
+      const d=`M ${h[0]} ${h[1]} C ${(h[0]+lx)/2} ${h[1]}, ${(h[0]+lx)/2} ${y}, ${lx} ${y}`;
+      const ln=el("path",{d,class:"lk"}); ln.style.strokeDasharray="600"; ln.style.strokeDashoffset="600"; ln.style.transition="stroke-dashoffset 1s ease"; ga.appendChild(ln);
+      const hb=el("circle",{cx:h[0],cy:h[1],r:4.5,class:"hub",opacity:0}); hb.style.transition="opacity .4s"; ga.appendChild(hb);
+      const t=el("text",{x:ax,y:y-4,class:"ar","text-anchor":dir?"end":"start",opacity:0}); t.textContent=a[0]; t.style.transition="opacity .5s";
+      const q=el("text",{x:ax,y:y+12,class:"aq","text-anchor":dir?"end":"start",opacity:0}); q.textContent=a[1]; q.style.transition="opacity .5s";
+      ga.append(t,q); if(typeof T==="function"){ t.textContent=T(a[0]); q.textContent=T(a[1]) } }) }
+  return function(){ monta();
+    const C=[...svg.querySelectorAll(".pt")], L=[...svg.querySelectorAll(".ln")];
+    C.forEach((c,k)=>depois(200+k*9,()=>c.setAttribute("opacity",1)));
+    depois(800,()=>L.forEach(l=>l.setAttribute("opacity",.55)));
+    const G=svg.lastChild; const kids=[...G.children];
+    for(let k=0;k<AREAS.length;k++){ const [ln,hb,t,q]=kids.slice(k*4,k*4+4);
+      depois(1300+k*260,()=>{ hb.setAttribute("opacity",1); ln.style.strokeDashoffset="0" }); depois(1700+k*260,()=>{ t.setAttribute("opacity",1); q.setAttribute("opacity",1) }) } }
+})();
 function agenda(){ const L=[...document.querySelectorAll("#agLista .ag")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(250+k*140,()=>l.classList.add("v"))) }
 
 /* 5 e 6. o mapa de confiabilidade */
@@ -574,11 +668,11 @@ function linha(){ const X=[...document.querySelectorAll("#l13 .x")]; X.forEach(x
 const cena=(()=>{
   const PASSOS=[
     null,
-    {rot:"O corredor",tit:"Doze gêmeos digitais entram no corredor do supermercado.",txt:"Cada um tem uma plaquinha com idade, classe e cidade. As plaquinhas claras são de quem está em tratamento com canetas de emagrecer."},
-    {rot:"A escolha",tit:"Cada gêmeo decide o que leva.",txt:"A caixa premium, o creme de avelã, o ovo infantil, o chocolate tradicional, a marca própria ou nada. A escolha depende de quem ele é, do preço e de para quem é.",conta:true},
-    {rot:"O porquê",tit:"E cada escolha vem com o motivo.",txt:"A população guarda a razão de cada gêmeo, na linguagem de quem compra. As falas da cena são ilustrativas.",conta:true},
-    {rot:"Mude a cena",tit:"O mesmo corredor, diante de momentos diferentes do ano.",cenas:true,conta:true},
-    {rot:"A mensagem",tit:"Qual argumento faz pagar mais pelo premium?",txt:"Sabor, cuidado com os ingredientes, origem responsável ou sustentabilidade. Cada perfil responde a um argumento, e o peso muda de estado para estado.",msg:true},
+    {rot:"O corredor",tit:"Doze gêmeos digitais, doze perfis de consumidor.",txt:"Cada um tem uma plaquinha com idade, classe e cidade. As plaquinhas claras são de quem está em tratamento com canetas de emagrecer."},
+    {rot:"A escolha",tit:"Cada gêmeo decide o que comprar.",txt:"A caixa premium, o creme de avelã, o ovo infantil, o chocolate tradicional, a marca própria ou nada. A escolha depende de quem ele é, do preço e de para quem é.",conta:true},
+    {rot:"O porquê",tit:"E cada escolha tem um motivo.",txt:"A população guarda a razão de cada gêmeo, na linguagem de quem compra. As falas da cena são ilustrativas.",conta:true},
+    {rot:"Mude a cena",tit:"O mesmo consumidor diante de cenários diferentes.",cenas:true,conta:true},
+    {rot:"A mensagem",tit:"A mensagem é uma. A porta de entrada muda conforme o perfil.",txt:"Sabor, cuidado com os ingredientes, origem responsável ou sustentabilidade. Cada perfil responde a um argumento, e o peso muda de estado para estado.",msg:true},
     {fecho:true}
   ];
   const cv=$("#chCanvas"), c=cv.getContext("2d"), W=920, H=640, R=rnd(31);
@@ -690,7 +784,7 @@ const cena=(()=>{
 })();
 
 function pares(){ const L=[...document.querySelectorAll("#pares .par")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(500+k*650,()=>l.classList.add("v"))) }
-const ENTRA={agenda:agenda,quatrop:pares,calibracao:linha};
+const ENTRA={quem:etapas,cabeca:cabeca,agenda:agenda,quatrop:pares,calibracao:linha};
 const CENA="corredor";
 
 function render(){ $("#cont").textContent=String(atual+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
