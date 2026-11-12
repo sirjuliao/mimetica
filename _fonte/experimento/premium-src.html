@@ -348,6 +348,21 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 @media (max-width:900px){ .jtab,#cicloCanvas{margin:0 auto} }
 @media (max-width:520px){ .ch,.cl{grid-template-columns:1fr 1fr} .ch>span:first-child{display:none} .cl b{grid-column:1/-1} .jh,.jl{grid-template-columns:1.4fr .8fr .8fr;gap:8px} .jl b{font-size:14px} }
 /* ===== telas próprias da versão premium ===== */
+.crono{margin-top:18px;overflow-x:auto}
+.crono .g{display:grid;grid-template-columns:170px repeat(13,minmax(50px,1fr));gap:4px;min-width:880px}
+.crono .g>div{font-size:11.5px;padding:7px 5px;border-radius:6px;min-height:36px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2}
+.crono .h{font-family:var(--f-mono);font-size:10.5px;color:var(--sub);letter-spacing:.06em;min-height:20px!important}
+.crono .r{justify-content:flex-start!important;text-align:left!important;flex-direction:column;align-items:flex-start!important;font-size:12.5px!important;font-weight:600;color:var(--texto)}
+.crono .r small{font-family:var(--f-mono);font-size:9.5px;font-weight:400;color:var(--fraco);letter-spacing:.04em;margin-top:2px}
+.crono .d{background:#F5F4F0;color:#0C0C0E;font-weight:600}
+.crono .c{background:#2A2A2E;color:var(--texto);justify-content:flex-start!important;padding-left:12px!important}
+.crono .q{border:1.5px dashed #6B6A65;color:var(--sub);justify-content:flex-start!important;padding-left:12px!important}
+.crono .x{opacity:0;transform:scale(.94);transition:opacity .4s,transform .4s}
+.crono .x.v{opacity:1;transform:none}
+.padrao{margin:12px 0 0;font-size:14px;font-weight:600;color:var(--texto)}
+.canais{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.canais .rc{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);margin-right:6px}
+.canais .cn{border:1px solid var(--linha);border-radius:99px;padding:6px 12px;font-size:12.5px;color:var(--texto)}
 .agenda{display:flex;flex-direction:column;border-top:1px solid var(--linha);margin-top:6px}
 .agenda .ag{display:grid;grid-template-columns:96px 1.1fr 1.4fr;gap:14px;padding:9px 0;border-bottom:1px solid var(--linha);opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s}
 .agenda .ag.v{opacity:1;transform:none}
@@ -440,18 +455,15 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   </div>
 </section>
 
-<!-- 3. A AGENDA -->
+<!-- 3. A AGENDA (cronograma) -->
 <section class="tela" data-t="agenda">
-  <div class="miolo capa">
-    <div>
-      <div class="rot aparece">A agenda</div>
-      <h1 class="aparece d1" style="margin-top:14px">2027: decisões pela frente.</h1>
-      <p class="lead aparece d2">A Ferrero chega a cada uma delas sabendo como o consumidor tende a reagir, e com que grau de acerto.</p>
-    </div>
-    <div class="aparece d2">
-      <div class="agenda" id="agLista"></div>
-      <p class="nota" style="text-align:right">Agenda pública da Ferrero no Brasil e calendário do varejo. As perguntas são exemplos.</p>
-    </div>
+  <div class="miolo">
+    <div class="rot aparece">O planejamento · um exercício</div>
+    <h2 class="aparece d1 h2m" style="margin-top:14px">2027: um ano de decisões pela frente.</h2>
+    <p class="lead aparece d1" style="max-width:84ch;margin-top:10px">A Ferrero chega a cada uma delas sabendo como o consumidor tende a reagir, e com que grau de acerto.</p>
+    <div class="crono aparece d2"><div class="g" id="crono"></div></div>
+    <div class="canais aparece d3"><span class="rc">Cada data passa por quatro canais</span><span class="cn">Pequeno varejo</span><span class="cn">Supermercado</span><span class="cn">Hipermercado</span><span class="cn">Atacarejo e atacado</span></div>
+    <p class="nota aparece d3">Exercício feito com a agenda pública da Ferrero e o calendário do varejo. A linha tracejada é o que só a Ferrero conhece.</p>
   </div>
 </section>
 
@@ -508,7 +520,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
       <div class="cd-pontos" id="chPontos"></div>
     </div>
     <div>
-      <canvas id="chCanvas" width="1840" height="1280" aria-label="Cena ilustrativa de um corredor de supermercado com doze gêmeos digitais, cada um com uma plaquinha de identificação"></canvas>
+      <canvas id="chCanvas" width="1840" height="1280" aria-label="Cena ilustrativa de um corredor de supermercado com gêmeos digitais, cada um com uma plaquinha de identificação"></canvas>
       <div class="cd-dica" id="chLeg" style="margin-top:10px;text-align:right"></div>
     </div>
   </div>
@@ -532,6 +544,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     <h2 class="aparece d1 h2m" style="margin-top:14px">A Ferrero escolhe a régua. O mapa mostra onde ir a campo para alcançá-la.</h2>
     <div class="regua aparece d2"><b id="rv">85%</b><input type="range" id="rr" min="75" max="97" value="85" aria-label="Régua de confiabilidade"><span class="rs" id="rs"></span></div>
     <div class="heat aparece d2" id="heat2"></div>
+    <p class="padrao aparece d3">* Padrão Mimetica: 85%. É o ponto de partida que recomendamos.</p>
     <p class="nota aparece d3">A literatura parte de 85% de confiabilidade, medida contra as próprias pessoas respondendo de novo (Park e colegas, Stanford, 2024). Com o modelo híbrido e a recorrência de projetos, a meta é passar de 95%. Células tracejadas pedem campo pontual. Valores ilustrativos.</p>
   </div>
 </section>
@@ -541,9 +554,9 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   <div class="miolo">
     <div class="rot aparece">A agenda de calibração</div>
     <h2 class="aparece d1 h2m" style="margin-top:14px">Com a agenda à vista, o campo vem antes de cada data.</h2>
-    <p class="lead aparece d2" style="max-width:74ch">O campo com pessoas reais é contínuo e pontual: entra só onde o mapa pede, semanas antes de cada momento. Entre um campo e outro, a população responde.</p>
+    <p class="lead aparece d2" style="max-width:76ch">O campo com pessoas reais é contínuo e pontual: entra só onde o mapa pede, semanas antes de cada momento. Cada campo é um questionário curto, desenhado pela Mimetica para as células que pedem calibração. Entre um campo e outro, a população responde.</p>
     <div class="linha13 aparece d3"><div class="g" id="l13"></div></div>
-    <p class="nota aparece d3">Exemplo de agenda. As datas de campo são definidas com a Ferrero a partir do diagnóstico.</p>
+    <p class="nota aparece d3">Agenda hipotética. As datas de campo são definidas com a Ferrero a partir do diagnóstico.</p>
   </div>
 </section>
 
@@ -572,7 +585,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
       <div class="rot aparece">Como começamos</div>
       <h2 class="aparece d1" style="margin-top:14px">Uma data da agenda, uma régua e um campo pontual.</h2>
       <p class="lead aparece d2">Começamos pela Páscoa de 2027, em 28 de março: preço e mensagem do ovo infantil e do presente premium. A agenda segue para o Dia das Mães.</p>
-      <div class="cta aparece d3"><a class="btn" href="mailto:fernando@mimetica.net">fernando@mimetica.net</a><a class="btn claro" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
+      <div class="cta aparece d3"><a class="btn" href="mailto:claudia@mimetica.net">claudia@mimetica.net</a><a class="btn" href="mailto:fernando@mimetica.net">fernando@mimetica.net</a><a class="btn claro" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
     </div>
     <ol class="passos3 aparece d2">
       <li><b>1</b><div><h3>Diagnóstico</h3><p>Com a base de entrevistas que a Ferrero já tem, medimos o índice por tema e por estado.</p></div></li>
@@ -604,8 +617,19 @@ function rnd(s){ return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646 } 
 const clamp=v=>Math.max(0,Math.min(1,v)), lerp=(a,b,t)=>a+(b-a)*t, ease=t=>1-Math.pow(1-t,3);
 
 /* 1. a agenda */
-const AG=[["dez/2026","Natal","Ferrero Rocher, caixas","O premium segura o presente com o cacau caro?"],["jan/2027","Volta às aulas","Nutella, Kinder","Café da manhã e lancheira: quem troca por marca própria?"],["28/03/2027","Páscoa","Kinder","Ovo infantil: personagem, tamanho e preço"],["09/05/2027","Dia das Mães","Ferrero Rocher","Presente premium ou presente de entrada?"],["12/06/2027","Namorados","Ferrero Rocher","A mensagem de qualidade no presente a dois"],["2027","Bold Snacks","Bold","Um público novo: proteína e conveniência"],["2027","Qualidade na Essência","Institucional","Qual argumento sustenta o premium, e em que estado?"],["12/10/2027","Dia das Crianças","Kinder","Presente infantil e preço"],["dez/2027","Natal","Ferrero Rocher","Comparar com o Natal de 2026"]];
-(function(){ $("#agLista").innerHTML=AG.map(([d,m,b,q])=>`<div class="ag"><b>${d}</b><span>${m}<small>${b}</small></span><i>${q}</i></div>`).join("") })();
+const CRMES=["dez/26","jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez/27"];
+const CRLIN=[
+  ["Presentes premium","Ferrero Rocher, Raffaello",[[0,1,"d","Natal"],[5,1,"d","Dia das Mães"],[6,1,"d","Namorados"],[10,1,"d","Professores"],[12,1,"d","Natal"]]],
+  ["Infantil","Kinder",[[1,2,"d","Volta às aulas"],[3,1,"d","Páscoa"],[10,1,"d","Crianças · Halloween"]]],
+  ["Cremes","Nutella",[[1,2,"d","Café da manhã e lancheira"],[3,1,"d","Páscoa"]]],
+  ["Better-for-you","Bold Snacks",[[0,13,"c","Proteína e better-for-you, o ano todo"]]],
+  ["Institucional","Qualidade na Essência",[[0,13,"c","Origem, cuidado e sustentabilidade, o ano todo"]]],
+  ["Trade, vendas e marketing","Demandas pontuais",[[0,13,"q","A completar com a Ferrero: promoções, parcerias, contas-chave e pedidos pontuais"]]]];
+(function(){ let h=`<div class="h"></div>`+CRMES.map(m=>`<div class="h">${m}</div>`).join("");
+  CRLIN.forEach(([n,sub,ev])=>{ h+=`<div class="r">${n}<small>${sub}</small></div>`; let col=0;
+    ev.forEach(([i,sp,t,txt])=>{ if(i>col) h+=`<div style="grid-column:span ${i-col}"></div>`; h+=`<div class="${t} x" style="grid-column:span ${sp}">${txt}</div>`; col=i+sp });
+    if(col<13) h+=`<div style="grid-column:span ${13-col}"></div>` });
+  $("#crono").innerHTML=h })();
 function etapas(){ const L=[...document.querySelectorAll("#qmEtapas .eq")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(500+k*380,()=>l.classList.add("v"))) }
 const cabeca=(()=>{ const NS="http://www.w3.org/2000/svg", svg=$("#cbSvg");
   const OFF=110, PERFIL="M 262 452 C 214 430 182 378 180 306 C 176 196 248 108 340 106 C 430 104 480 176 480 251 C 480 278 476 294 490 316 C 500 332 504 342 490 348 L 476 352 C 479 368 474 377 468 384 C 474 394 470 403 460 407 C 460 434 448 448 415 446 L 382 444";
@@ -636,11 +660,11 @@ const cabeca=(()=>{ const NS="http://www.w3.org/2000/svg", svg=$("#cbSvg");
     for(let k=0;k<AREAS.length;k++){ const [ln,hb,t,q]=kids.slice(k*4,k*4+4);
       depois(1300+k*260,()=>{ hb.setAttribute("opacity",1); ln.style.strokeDashoffset="0" }); depois(1700+k*260,()=>{ t.setAttribute("opacity",1); q.setAttribute("opacity",1) }) } }
 })();
-function agenda(){ const L=[...document.querySelectorAll("#agLista .ag")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(250+k*140,()=>l.classList.add("v"))) }
+function agenda(){ const L=[...document.querySelectorAll("#crono .x")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(300+k*120,()=>l.classList.add("v"))) }
 
 /* 5 e 6. o mapa de confiabilidade */
 const UF=["SP","RJ","MG","RS","PR","BA","PE","GO","DF","SC"], BASE=[93,91,90,89,89,87,86,86,86,78];
-const TEMAS=[["Premium contra tradicional",0],["Presente de Natal",2],["Ovo infantil na Páscoa",-1],["Mensagem de origem e cuidado",-9],["Embalagem menor",-4],["Consumidor em tratamento",-12]];
+const TEMAS=[["Premium contra tradicional",0],["Presente de Natal",2],["Ovo infantil na Páscoa",-1],["Mensagem de origem e cuidado",-9],["Embalagem menor",-4],["Consumidor GLP-1",-12]];
 const VAL=TEMAS.map(([t,m],i)=>UF.map((u,j)=>Math.max(62,Math.min(97,BASE[j]+m+((i*7+j*3)%5)-2))));
 function cor(v){ const t=clamp((v-62)/35); const l=Math.round(lerp(38,232,t)); return `rgb(${l},${l-1},${l-5})` }
 function heat(id,regua){ const el=$(id); let h=`<table><tr><th class="t"></th>${UF.map(u=>`<th>${u}</th>`).join("")}</tr>`;
@@ -650,12 +674,12 @@ heat("#heat1",0);
 function regua(){ const r=+$("#rr").value; $("#rv").textContent=r+"%"; heat("#heat2",r);
   let n=0, porTema=TEMAS.map(()=>0), sc=0; VAL.forEach((row,i)=>row.forEach((v,j)=>{ if(v<r){ n++; porTema[i]++; if(UF[j]==="SC") sc++ } }));
   const top=porTema.map((c,i)=>[c,TEMAS[i][0]]).sort((a,b)=>b[0]-a[0]).filter(x=>x[0]>0).slice(0,2).map(x=>{ const s=T(x[1]); return s.charAt(0).toLowerCase()+s.slice(1) });
-  $("#rs").textContent=n===0?T("Com essa régua, a população responde sozinha em todos os temas e estados."):T("células pedem campo pontual")+": "+n+(top.length?". "+T("A maior parte em")+" "+top.join(" "+T("e")+" "):"")+"." }
+  $("#rs").textContent=n===0?T("Com essa régua, a população responde sozinha em todos os temas e estados."):T("Células que pedem campo pontual")+": "+n+(top.length?". "+T("A maior parte em")+" "+top.join(" "+T("e")+" "):"")+"." }
 $("#rr").addEventListener("input",regua); regua();
 
 /* 7. a linha do ano */
 const MES=["dez/26","jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez/27"];
-const MOM={0:"Natal",1:"Volta às aulas",3:"Páscoa",5:"Mães",6:"Namorados",10:"Crianças",12:"Natal"};
+const MOM={0:"Natal",1:"Volta às aulas",3:"Páscoa",5:"Mães",6:"Namorados",10:"Crianças · Halloween",12:"Natal"};
 const CAMPO={0:"Diagnóstico",1:"Campo",3:"Campo",8:"Campo",10:"Campo"};
 (function(){ let h=`<div class="h"></div>`+MES.map(m=>`<div class="h">${m}</div>`).join("");
   h+=`<div class="r">Momento</div>`+MES.map((m,i)=>MOM[i]?`<div class="m x">${MOM[i]}</div>`:`<div></div>`).join("");
@@ -668,7 +692,7 @@ function linha(){ const X=[...document.querySelectorAll("#l13 .x")]; X.forEach(x
 const cena=(()=>{
   const PASSOS=[
     null,
-    {rot:"O corredor",tit:"Doze gêmeos digitais, doze perfis de consumidor.",txt:"Cada um tem uma plaquinha com idade, classe e cidade. As plaquinhas claras são de quem está em tratamento com canetas de emagrecer."},
+    {rot:"O corredor",tit:"Os gêmeos digitais entram, cada um com o seu perfil.",txt:"Cada um tem uma plaquinha com idade, classe e cidade. As plaquinhas claras são de consumidores GLP-1, que usam canetas emagrecedoras."},
     {rot:"A escolha",tit:"Cada gêmeo decide o que comprar.",txt:"A caixa premium, o creme de avelã, o ovo infantil, o chocolate tradicional, a marca própria ou nada. A escolha depende de quem ele é, do preço e de para quem é.",conta:true},
     {rot:"O porquê",tit:"E cada escolha tem um motivo.",txt:"A população guarda a razão de cada gêmeo, na linguagem de quem compra. As falas da cena são ilustrativas.",conta:true},
     {rot:"Mude a cena",tit:"O mesmo consumidor diante de cenários diferentes.",cenas:true,conta:true},
@@ -689,11 +713,13 @@ const cena=(()=>{
     mensagem:{nome:"Qualidade na Essência",a:"Awareness",txt:"A embalagem e a mídia contam a origem e o cuidado de cada ingrediente. Quem passa a aceitar pagar mais?",b:["premium","creme","infantil","premium","premium","propria","tradicional","premium","infantil","nao","premium","tradicional"]},
     natal:{nome:"Natal",a:"Acceptability",txt:"Dezembro. A mesma pessoa compra para si e para presentear. A caixa premium ganha espaço?",b:["premium","premium","infantil","premium","premium","tradicional","tradicional","creme","premium","nao","premium","propria"]},
     pascoa:{nome:"Páscoa",a:"Awareness",txt:"Março. O ovo infantil disputa com o presente premium e com o ovo de marca própria.",b:["infantil","creme","infantil","infantil","premium","propria","infantil","creme","infantil","nao","premium","propria"]},
-    menor:{nome:"Porção menor",a:"Acceptability",txt:"Mesma marca, porção menor e preço menor. Quem entra no premium por esse caminho?",b:["premium","creme","infantil","premium","premium","premium","tradicional","creme","infantil","premium","premium","tradicional"]},
+    menor:{nome:"Porção menor",a:"Acceptability",txt:"Mesmo preço, menos quadradinhos na barra. Quem percebe, quem aceita e quem troca de marca?",b:["premium","creme","infantil","premium","premium","premium","tradicional","creme","infantil","premium","premium","tradicional"]},
     atacarejo:{nome:"Marca própria no atacarejo",a:"Accessibility",txt:"O atacarejo põe uma caixa de marca própria pela metade do preço, logo na entrada.",b:["propria","creme","infantil","propria","premium","propria","propria","creme","propria","nao","premium","tradicional"]},
-    tratamento:{nome:"Mais gente em tratamento",a:"Acceptability",txt:"Mais clientes em tratamento com canetas de emagrecer. Comem menos doce, e parte deles troca a barra comum por uma porção premium.",b:["premium","creme","infantil","nao","premium","propria","premium","creme","infantil","nao","premium","tradicional"]}
+    tratamento:{nome:"Mais consumidores GLP-1",a:"Acceptability",txt:"Mais clientes usando canetas emagrecedoras. Comem menos doce, e parte deles troca a barra comum por uma porção premium.",b:["premium","creme","infantil","nao","premium","propria","premium","creme","infantil","nao","premium","tradicional"]}
   };
-  const FALAS={4:"Estou em tratamento, como pouco doce. Quando como, quero o melhor.",3:"Compro a barra de sempre. Caixa bonita, só no Natal.",9:"Ficou caro. Este ano, só se tiver promoção."};
+  const GD={cacau:{g:0,n:"PREMIUM · PREÇO NOVO NA ETIQUETA"},mensagem:{g:0,n:"PONTA DE GÔNDOLA · QUALIDADE NA ESSÊNCIA"},natal:{g:0,n:"PONTA DE GÔNDOLA · CAIXAS DE NATAL",t:"caixa"},pascoa:{g:1,n:"PARREIRA DE OVOS · NA ALTURA DA CRIANÇA",t:"ovo"},menor:{g:2,n:"CHECKOUT · BARRAS MENORES",t:"barra"},atacarejo:{g:2,n:"MARCA PRÓPRIA NA ENTRADA",t:"caixa"},tratamento:{g:0,n:"PORÇÕES PREMIUM · MENOS AÇÚCAR",t:"barra"}};
+  let tCen=0;
+  const FALAS={4:"Estou usando a caneta, como pouco doce. Quando como, quero o melhor.",3:"Compro a barra de sempre. Caixa bonita, só no Natal.",9:"Ficou caro. Este ano, só se tiver promoção."};
   const MSG=[["Sabor e qualidade",41],["Cuidado com os ingredientes",26],["Origem responsável",19],["Sustentável",14]];
   let cen="hoje", p=0, t0=performance.now(), on=false;
   let gente=FILA.map((f,k)=>({x:f.x,y:700,b:null,pessoa:SP[k],k,tgo:0}));
@@ -701,7 +727,7 @@ const cena=(()=>{
   const GON=[[40,300,"PRESENTES E PREMIUM"],[330,590,"CREMES E INFANTIS"],[620,880,"TRADICIONAL E MARCA PRÓPRIA"]];
   GON.forEach(([a,b],g)=>area(a,-60,b,100,"#17171A",g));
   const ITENS=[]; const PRAT=[-26,16,58];
-  GON.forEach(([a,b],g)=>PRAT.forEach((y,li)=>{ for(let x=a+8;x<b-14;){ const tipo=g===0?"caixa":g===1?(li===1?"ovo":"pote"):"barra"; const w=tipo==="caixa"?20:tipo==="pote"?13:tipo==="ovo"?15:9; ITENS.push({x,y,tipo,cor:R()<.3?COR.forte:R()<.65?COR.meio:COR.fraco}); x+=w+(tipo==="barra"?4:7) } }));
+  GON.forEach(([a,b],g)=>PRAT.forEach((y,li)=>{ for(let x=a+8;x<b-14;){ const tipo=g===0?"caixa":g===1?(li===1?"ovo":"pote"):"barra"; const w=tipo==="caixa"?20:tipo==="pote"?13:tipo==="ovo"?15:9; ITENS.push({x,y,tipo,g,cor:R()<.3?COR.forte:R()<.65?COR.meio:COR.fraco}); x+=w+(tipo==="barra"?4:7) } }));
   function item(o){ c.fillStyle=o.cor;
     if(o.tipo==="caixa"){ c.fillRect(o.x,o.y-14,20,14); c.fillStyle=COR.fundo; c.fillRect(o.x+9,o.y-14,2,14); c.fillRect(o.x,o.y-8,20,2) }
     else if(o.tipo==="pote"){ c.fillRect(o.x,o.y-15,13,15); c.fillStyle=COR.bloco; c.fillRect(o.x-1,o.y-18,15,4) }
@@ -728,9 +754,12 @@ const cena=(()=>{
     const pronto=p>=1?clamp((eM-1900)/500):0;
     if(pronto>0){ c.globalAlpha=pronto;
       c.strokeStyle=COR.meio; c.lineWidth=2; GON.forEach(([a,b])=>PRAT.forEach(y=>{ c.beginPath(); c.moveTo(a,y+1); c.lineTo(b,y+1); c.stroke() }));
-      ITENS.forEach(item);
+      const gd=p===4?GD[cen]:null, ga=gd?clamp((now-tCen)/600):0;
+      ITENS.forEach(o=>{ if(gd&&o.g===gd.g&&gd.t){ item(Object.assign({},o,{tipo:gd.t,cor:ga>.5?(o.cor===COR.fraco?COR.meio:COR.forte):o.cor})) } else item(o) });
       c.fillStyle=COR.fraco; c.font="600 8.5px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle";
-      GON.forEach(([a,b,n])=>c.fillText(T(n),(a+b)/2,-72));
+      GON.forEach(([a,b,n],g)=>{ if(gd&&gd.g===g) return; c.fillText(T(n),(a+b)/2,-72) });
+      if(gd){ const [a,b]=GON[gd.g]; c.globalAlpha=pronto*ga; c.strokeStyle=COR.forte; c.lineWidth=1.5; c.setLineDash([5,4]); c.strokeRect(a-8,-80,b-a+16,154); c.setLineDash([]);
+        c.fillStyle=COR.forte; c.font="700 8.5px 'JetBrains Mono',monospace"; c.fillText(T(gd.n),(a+b)/2,-72); c.globalAlpha=pronto }
       c.globalAlpha=1 }
     if(p>=2&&p<6){ const za=p===2?clamp(e/500):1; c.globalAlpha=za;
       ZON.forEach((z,i)=>{ c.fillStyle=COR.meio; c.font="600 9px 'JetBrains Mono',monospace"; c.textAlign="center"; c.textBaseline="middle"; c.fillText(T(ZROT[z]),ZX[i],170);
@@ -749,12 +778,12 @@ const cena=(()=>{
   (function loop(now){ if(on) desenha(now); requestAnimationFrame(loop) })(performance.now());
   const pontos=$("#chPontos"); pontos.innerHTML=PASSOS.map(()=>"<i></i>").join("");
   function contagem(){ const cont={}; ZON.forEach(z=>cont[z]=0); gente.forEach(g=>cont[g.b]++);
-    return `<span class="rot">No corredor agora · cena ilustrativa</span>`+ZON.map(k=>`<div class="br ${k==="premium"?"dest":""}"><span>${ROT[k]}</span><span class="trilho"><b style="width:${(cont[k]/12*100).toFixed(1)}%"></b></span><span class="v">${cont[k]} ${T("de")} 12</span></div>`).join("") }
-  function aplica(nome,instant){ cen=nome; const C=CEN[nome], agora=performance.now();
+    return `<span class="rot">No corredor agora · cena ilustrativa</span>`+ZON.map(k=>`<div class="br ${k==="premium"?"dest":""}"><span>${ROT[k]}</span><span class="trilho"><b style="width:${(cont[k]/12*100).toFixed(1)}%"></b></span><span class="v">${cont[k]}</span></div>`).join("") }
+  function aplica(nome,instant){ if(cen!==nome||!instant) tCen=performance.now(); cen=nome; const C=CEN[nome], agora=performance.now();
     gente.forEach((g,k)=>{ const nb=C.b[k]; if(g.b!==nb){ g.b=nb; if(!instant) g.tgo=agora+k*70 } });
     if(PASSOS[p]&&PASSOS[p].conta) $("#chProb").innerHTML=contagem();
     [...$("#chCenas").children].forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===nome?"true":"false"));
-    $("#chCenTxt").textContent=C.txt }
+    $("#chCenTxt").textContent=C.txt+(GD[nome]?" "+T("A gôndola também muda.")+"":"") }
   $("#chCenas").innerHTML=Object.entries(CEN).map(([k,v])=>`<button type="button" data-c="${k}" aria-pressed="false">${v.nome}${v.a?`<small>${v.a}</small>`:""}</button>`).join("");
   $("#chCenas").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b) return; ev.stopPropagation(); aplica(b.dataset.c,false) });
   function set(n,instant){ const ant=p; p=n; t0=instant?performance.now()-1e6:performance.now();
@@ -767,7 +796,7 @@ const cena=(()=>{
       if(n===1&&!instant){ g.x=FILA[k].x; g.y=700; g.tgo=agora+1900+k*120 }
       if(n===2&&!instant&&ant<2){ g.tgo=agora+500+k*110 } });
     const mostra=(id,v)=>{ $(id).hidden=!v };
-    if(n===0){ mostra("#chRot",1); mostra("#chTit",1); mostra("#chTxt",1); $("#chRot").textContent="A cena"; $("#chTit").textContent="Para ver as três perguntas de uma vez, os gêmeos digitais entram no corredor do supermercado."; $("#chTxt").textContent="Avance para ver a cena se montar."; mostra("#chCenas",0); mostra("#chCenTxt",0); $("#chProb").innerHTML="" }
+    if(n===0){ mostra("#chRot",1); mostra("#chTit",1); mostra("#chTxt",1); $("#chRot").textContent="A cena"; $("#chTit").textContent="Para responder estas perguntas, os gêmeos digitais entram no corredor do supermercado."; $("#chTxt").textContent="Avance para ver a cena se montar."; mostra("#chCenas",0); mostra("#chCenTxt",0); $("#chProb").innerHTML="" }
     else if(P.fecho){ mostra("#chRot",0); mostra("#chTit",0); mostra("#chTxt",0); mostra("#chCenas",0); mostra("#chCenTxt",0); $("#chProb").innerHTML="" }
     else { mostra("#chRot",1); mostra("#chTit",1); $("#chRot").textContent=P.rot; $("#chTit").textContent=P.tit; mostra("#chTxt",!!P.txt); $("#chTxt").textContent=P.txt||"";
       mostra("#chCenas",!!P.cenas); mostra("#chCenTxt",!!P.cenas);
@@ -778,7 +807,7 @@ const cena=(()=>{
       if(P.conta&&!instant&&n===2){ document.querySelectorAll("#chProb .trilho b").forEach(b=>{ const w=b.style.width; b.style.width="0"; depois(1500,()=>b.style.width=w) }) }
     }
     pn.classList.remove("troca"); void pn.offsetWidth; pn.classList.add("troca");
-    $("#chLeg").textContent=n>=1&&n<6?"cena ilustrativa · cada figura, um gêmeo digital · plaquinha clara: em tratamento com canetas de emagrecer":"";
+    $("#chLeg").textContent=n>=1&&n<6?"cena ilustrativa · cada figura, um gêmeo digital · plaquinha clara: consumidor GLP-1":"";
   }
   return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
 })();
