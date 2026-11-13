@@ -717,21 +717,22 @@ const CRLIN=[
     if(col<13) h+=`<div style="grid-column:span ${13-col}"></div>` });
   $("#crono").innerHTML=h })();
 function etapas(){ const L=[...document.querySelectorAll("#qmEtapas .eq")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(500+k*380,()=>l.classList.add("v"))) }
+const SIL="M730.604,1818.587c-190.833,-114.167 -402.5,55 -593.333,-59.163c36.842,-113.592 56.017,-609.704 62.5,-726.671c-120.904,-93.425 -206.667,-204.871 -197.5,-365c13.517,-324.433 210.646,-473.067 537.5,-497.5c222.119,-4.834 391.724,49.752 480.092,196.266c29.159,48.346 49.472,106.701 59.908,176.234c15.833,44.167 31.667,88.333 47.5,132.504c3.021,16.104 -17.417,27.512 -32.5,39.996c21.458,80.625 63.542,138.125 85,225c-11.462,33.388 -45.029,35.2 -80,35c-7.754,32.392 -8.917,64.279 5,95c-1.35,12.796 -19.296,18.95 -37.5,25.004c15.275,17.471 26.45,37.488 17.5,69.996c-7.842,4.55 -16.321,2.125 -25,-2.5c-4.167,14.167 -8.333,28.337 -12.5,42.5c69.483,41.667 34.938,150.208 -52.5,125c-55.883,-15.871 -122.387,-15.058 -190,-12.5c-12.612,112.388 -71.183,178.817 -117.5,257.5c-3.95,52.517 23.692,195.875 43.333,243.333Z";
 const cabeca=(()=>{ const NS="http://www.w3.org/2000/svg", svg=$("#cbSvg");
-  const OFF=110, PERFIL="M 262 452 C 214 430 182 378 180 306 C 176 196 248 108 340 106 C 430 104 480 176 480 251 C 480 278 476 294 490 316 C 500 332 504 342 490 348 L 476 352 C 479 368 474 377 468 384 C 474 394 470 403 460 407 C 460 434 448 448 415 446 L 382 444";
+  const OFF=0, SS=.25, SX=305, SY=2;
   const AREAS=[["Marketing e marca","Que mensagem sustenta o premium?",0,120],["Preço e revenue","Até onde o preço segura?",0,215],["Trade e vendas","Que canal e que gôndola?",0,310],["Insights do consumidor","Quem é, onde está, o que pensa",0,405],
                ["Inovação e produto","Que porção, sabor, embalagem?",1,120],["Planejamento","Quanto produzir para cada data?",1,215],["Comunicação","Qual peça vai ao ar?",1,310],["Novos negócios","Proteína e better-for-you",1,405]];
   const el=(n,a)=>{ const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); return e };
-  const cv=document.createElement("canvas").getContext("2d"), P2=new Path2D(PERFIL+" Z");
+  const cv=document.createElement("canvas").getContext("2d"), P2=new Path2D(SIL);
   let r=7; const R=()=>{ r=(r*9301+49297)%233280; return r/233280 };
-  const pts=[]; for(let y=124;y<505;y+=22) for(let x=190;x<500;x+=22){ const px=x+(R()-.5)*12, py=y+(R()-.5)*12; if(cv.isPointInPath(P2,px,py)&&py<440) pts.push([px,py]) }
-  const hubs=AREAS.map(a=>{ const tx=a[2]?440:240, ty=a[3]*0.82+80; let best=pts[0],bd=1e9; pts.forEach(p=>{ const d=(p[0]-tx)**2+(p[1]-ty)**2; if(d<bd){bd=d;best=p} }); return best });
+  const pts=[]; for(let y=50;y<345;y+=19) for(let x=300;x<600;x+=19){ const px=x+(R()-.5)*10, py=y+(R()-.5)*10; if(cv.isPointInPath(P2,(px-SX)/SS,(py-SY)/SS)&&cv.isPointInPath(P2,(px-SX)/SS+30,(py-SY)/SS)&&cv.isPointInPath(P2,(px-SX)/SS-30,(py-SY)/SS)) pts.push([px,py]) }
+  const hubs=AREAS.map(a=>{ const tx=a[2]?545:375, ty=Math.min(a[3]-20,320); let best=pts[0],bd=1e9; pts.forEach(p=>{ const d=(p[0]-tx)**2+(p[1]-ty)**2; if(d<bd){bd=d;best=p} }); return best });
   function monta(){ svg.innerHTML="";
-    const gh=el("g",{transform:`translate(${OFF},-30)`}); svg.appendChild(gh); gh.appendChild(el("path",{d:PERFIL,class:"perfil"}));
+    const gh=el("g",{}); svg.appendChild(gh); gh.appendChild(el("path",{d:SIL,class:"perfil",transform:`translate(${SX} ${SY}) scale(${SS})`,"vector-effect":"non-scaling-stroke"}));
     const gl=el("g",{}), gp=el("g",{}), ga=el("g",{}); gh.append(gl,gp); svg.appendChild(ga);
     pts.forEach((p,i)=>pts.forEach((q,j)=>{ if(j>i&&(p[0]-q[0])**2+(p[1]-q[1])**2<26**2&&R()<.45){ const l=el("line",{x1:p[0],y1:p[1],x2:q[0],y2:q[1],class:"ln",opacity:0}); l.style.transition="opacity .8s"; gl.appendChild(l) } }));
     pts.forEach(p=>{ const c=el("circle",{cx:p[0],cy:p[1],r:2.2,class:"pt",opacity:0}); c.style.transition="opacity .5s"; gp.appendChild(c) });
-    AREAS.forEach((a,k)=>{ const h=[hubs[k][0]+OFF,hubs[k][1]-30], dir=a[2], ax=dir?856:4, lx=dir?660:200, y=a[3]-20;
+    AREAS.forEach((a,k)=>{ const h=hubs[k], dir=a[2], ax=dir?856:4, lx=dir?660:200, y=a[3]-20;
       const d=`M ${h[0]} ${h[1]} C ${(h[0]+lx)/2} ${h[1]}, ${(h[0]+lx)/2} ${y}, ${lx} ${y}`;
       const ln=el("path",{d,class:"lk"}); ln.style.strokeDasharray="600"; ln.style.strokeDashoffset="600"; ln.style.transition="stroke-dashoffset 1s ease"; ga.appendChild(ln);
       const hb=el("circle",{cx:h[0],cy:h[1],r:4.5,class:"hub",opacity:0}); hb.style.transition="opacity .4s"; ga.appendChild(hb);
@@ -936,7 +937,8 @@ const genese=(()=>{
   const ESQ=amostra([zz(BIF,[70,462]),zz([70,462],[195,410]),zz([195,410],[60,356]),zz([60,356],[195,302]),zz([195,302],[60,248]),zz([60,248],CHEGA)]);
   const DIR=amostra([[BIF,[300,500],[330,470],[330,430]],[[330,430],[330,360],[330,300],[330,250]],[[330,250],[330,200],[290,168],CHEGA]]);
   const FRAC=[0,.14,.34,.54,.74,.92,1];
-  const HEAD=(()=>{ const R=rnd(9), a=[]; for(let k=0;k<70;k++){ const t=R()*6.283, r=Math.sqrt(R())*52; a.push([230+Math.cos(t)*r*.92,92+Math.sin(t)*r*.78]) } return a })();
+  const GS=.072, GX=230-GS*580, GY=30-GS*150, GP=new Path2D(SIL);
+  const HEAD=(()=>{ const o=document.createElement("canvas").getContext("2d"), R=rnd(9), a=[]; for(let y=180;y<1360;y+=78) for(let x=0;x<1180;x+=78){ const px=x+(R()-.5)*30, py=y+(R()-.5)*30; if(o.isPointInPath(GP,px,py)&&o.isPointInPath(GP,px+40,py)&&o.isPointInPath(GP,px-40,py)) a.push([GX+px*GS,GY+py*GS]) } return a })();
   let on=false,p=0,t0=0,pAnt=0;
   function estrada(r,alpha){ c.globalAlpha=alpha; c.strokeStyle=COR.borda; c.lineWidth=30; c.lineCap="round"; c.lineJoin="round"; c.beginPath(); r.pts.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1])); c.stroke();
     c.strokeStyle=COR.estrada; c.lineWidth=26; c.stroke(); c.strokeStyle="#3A3A3F"; c.lineWidth=1.5; c.setLineDash([7,9]); c.stroke(); c.setLineDash([]); c.globalAlpha=1 }
@@ -954,8 +956,9 @@ const genese=(()=>{
       if(a[0]>130) tx(ET[k],a[0]-14,a[1],{px:11,peso:600,cor:COR.forte,al:"right"}); else tx(ET[k],a[0]+12,a[1]-15,{px:11,peso:600,cor:COR.forte}); tx(ET[k],b[0]+14,b[1],{px:11,peso:600,cor:COR.forte}); c.globalAlpha=1 }
     // chegada
     const ch=p>=6?ease(clamp((t-900)/900)):0;
+    c.save(); c.translate(GX,GY); c.scale(GS,GS); c.globalAlpha=.4+.6*ch; c.strokeStyle=ch>0?COR.meio:COR.fraco; c.lineWidth=1.3/GS; c.stroke(GP); c.restore(); c.globalAlpha=1;
     HEAD.forEach((h,k)=>{ c.globalAlpha=.25+.75*ch; c.fillStyle=ch>0?COR.forte:COR.fraco; c.beginPath(); c.arc(h[0],h[1],1.9+ch*.6,0,7); c.fill() }); c.globalAlpha=1;
-    tx("POPULAÇÃO DA FERRERO",230,24,{px:10,mono:1,al:"center",cor:ch>0?COR.forte:COR.meio});
+    tx("POPULAÇÃO DA FERRERO",330,60,{px:10,mono:1,al:"center",cor:ch>0?COR.forte:COR.meio});
     // viajantes
     const e=ease(clamp(t/1300)), fa=FRAC[Math.min(pAnt,6)], fb=FRAC[Math.min(p,6)];
     const qz=viajante(ESQ,fa,fb,e), qf=viajante(DIR,fa,fb,e);
