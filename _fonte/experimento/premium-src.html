@@ -416,6 +416,30 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .seis .si{margin:0;font-size:12.5px;color:var(--sub);line-height:1.4;border-left:1px solid var(--linha);padding-left:10px}
 .seis .sd{color:var(--fraco);font-size:16px;line-height:1;margin:2px 0}
 @media (max-width:700px){ #cbSvg .ar{font-size:24px} #cbSvg .aq{display:none} .seis{grid-template-columns:1fr} .cabq{grid-template-columns:1fr} .etq .eq span{font-size:14.5px} }
+.fnq{grid-template-columns:minmax(0,360px) minmax(0,1fr)}
+#fnSvg{width:100%;height:auto;max-height:72vh;display:block}
+#fnSvg .nd{opacity:.22;transition:opacity .5s}
+#fnSvg .nd.ac{opacity:1}
+#fnSvg .nd rect{fill:#161619;stroke:#2E2E33;stroke-width:1}
+#fnSvg .nd.ac rect{fill:#1E1E22;stroke:#9C9B96}
+#fnSvg .nt{font-family:Inter,system-ui,sans-serif;font-size:13px;font-weight:600;fill:#F5F4F0}
+#fnSvg .ns{font-family:'JetBrains Mono',monospace;font-size:9.5px;fill:#8A8A90}
+#fnSvg .cab{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;fill:#9C9B96;opacity:0;transition:opacity .5s}
+#fnSvg .cab.ac{opacity:1}
+#fnSvg .lk{stroke:#B8B6B0;stroke-width:1.2;fill:none;opacity:0;transition:opacity .6s}
+#fnSvg .lk.ac{opacity:.75}
+#fnSvg.vivo .lk.ac,#fnSvg .lk.flui{stroke-dasharray:4 6;animation:fnFlui 1.1s linear infinite}
+@keyframes fnFlui{to{stroke-dashoffset:-20}}
+#fnSvg .rg2{fill:#2A2A2E;stroke:#F5F4F0;stroke-opacity:.5;opacity:0;transition:opacity .5s}
+#fnSvg .rg2.ac{opacity:1}
+#fnSvg .perfil{fill:none;stroke:#3A3A3F;stroke-width:1.2;opacity:.5;transition:opacity .5s}
+#fnSvg .perfil.ac{opacity:1;stroke:#6B6A65}
+#fnSvg .hp{fill:#C9C7C0;opacity:0;transition:opacity .4s}
+#fnSvg .hp.ac{opacity:1}
+#fnSvg .ex{opacity:0;transition:opacity .5s}
+#fnSvg .ex.ac{opacity:1}
+#dgCanvas{width:100%;aspect-ratio:920/640;display:block;border-radius:18px;background:#0F0F11;border:1px solid var(--linha)}
+@media (max-width:700px){ #fnSvg .nt{font-size:17px} #fnSvg .ns{display:none} }
 </style>
 
 <div class="barra"><b id="barra"></b></div>
@@ -523,6 +547,37 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     <div>
       <canvas id="chCanvas" width="1840" height="1280" aria-label="Cena ilustrativa de um corredor de supermercado com gêmeos digitais, cada um com uma plaquinha de identificação"></canvas>
       <div class="cd-dica" id="chLeg" style="margin-top:10px;text-align:right"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. COMO FUNCIONA (mapa, passos internos) -->
+<section class="tela" data-t="funciona" data-passos="8">
+  <div class="miolo churras fnq">
+    <div class="cd-painel" id="fnPainel">
+      <div class="rot" id="fnRot">Como funciona</div>
+      <h2 class="cd-tit" id="fnTit">Como funciona, passo a passo.</h2>
+      <p class="cd-txt" id="fnTxt">Escolha o ponto de partida. Depois avance pelos oito passos.</p>
+      <div class="cenas" id="fnCam"><button type="button" data-k="f" aria-pressed="true">A Ferrero já tem dados</button><button type="button" data-k="z" aria-pressed="false">Começando do zero</button></div>
+      <div class="cd-pontos" id="fnPontos"></div>
+    </div>
+    <div><svg id="fnSvg" viewBox="0 0 920 580" role="img" aria-label="Mapa das fontes de dados alimentando a população artificial da Ferrero, que responde às áreas da empresa"></svg></div>
+  </div>
+</section>
+
+<!-- 8. O DEGRAU (cena, passos internos) -->
+<section class="tela" data-t="degrau" data-passos="7">
+  <div class="miolo churras">
+    <div class="cd-painel" id="dgPainel">
+      <div class="rot" id="dgRot">O degrau</div>
+      <h2 class="cd-tit" id="dgTit">Entre o que o consumidor diz e o que ele faz existe um degrau.</h2>
+      <p class="cd-txt" id="dgTxt">Avance para ver como a população aprende a atravessá-lo.</p>
+      <div class="cd-fecho" id="dgFecho" hidden><p>O degrau se mexe.</p><small>Quando chega dado novo, o índice é recalculado. Se a distância entre dizer e fazer muda, o pulso avisa antes do estudo anual.</small></div>
+      <div class="cd-pontos" id="dgPontos"></div>
+    </div>
+    <div>
+      <canvas id="dgCanvas" width="1840" height="1280" aria-label="Cena com dois andares: em cima o que as pessoas dizem, embaixo o que elas fazem"></canvas>
+      <div class="cd-dica" style="margin-top:10px;text-align:right">valores de chocolate ilustrativos · literatura com fonte</div>
     </div>
   </div>
 </section>
@@ -815,21 +870,145 @@ const cena=(()=>{
   return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
 })();
 
+const mapa=(()=>{ const NS="http://www.w3.org/2000/svg", svg=$("#fnSvg");
+  const PASSOS=[
+    {rot:"Como funciona",tit:"Como funciona, passo a passo.",txt:"Escolha o ponto de partida. Depois avance pelos oito passos."},
+    {rot:"Passo 1 · A pergunta",tit:"Tudo começa pelas perguntas das áreas e pela agenda.",txt:"Que decisões vêm pela frente, para quais marcas, perfis e regiões. É isso que define o que a população precisa saber."},
+    {rot:"Passo 2 · O inventário",tit:"Reunimos tudo o que já existe.",f:"Os estudos que a Ferrero já fez, com o banco de respostas de cada um, o tracking de marca, a Nielsen e o painel de lares. Somamos a estrutura da população brasileira, bases externas de consumidores, comunidades e campo.",z:"A estrutura da população brasileira (IBGE e Critério Brasil), bases de consumidores, de preferência brasileiras, o que as pessoas contam em comunidades de chocolate e um campo com pessoas reais, do tamanho que o diagnóstico pedir."},
+    {rot:"Passo 3 · A harmonização",tit:"Fontes diferentes passam para uma régua só.",txt:"Cada estudo tem o seu questionário e o seu fornecedor. Alinhamos variáveis de perfil, pesos e perguntas equivalentes, para que todas as fontes falem a mesma língua."},
+    {rot:"Passo 4 · A população",tit:"Nasce a população artificial da Ferrero.",txt:"Milhares de gêmeos digitais nas proporções do Brasil, por estado, idade e classe. Cada gêmeo nasce de pessoas reais parecidas com ele e combina o que elas têm em comum. Ele não copia ninguém."},
+    {rot:"Passo 5 · O degrau",tit:"A população aprende a distância entre dizer e fazer.",txt:"Com os dados de comportamento, cada perfil aprende quanto da fala vira compra. A próxima tela mostra esse passo de perto."},
+    {rot:"Passo 6 · A validação",tit:"Ela prevê o que não viu, e daí nasce o índice.",txt:"Separamos um resultado que a população não usou para aprender. Ela prevê, comparamos com o real, e o índice de confiabilidade sai por tema e por estado."},
+    {rot:"Passo 7 · O uso",tit:"As áreas perguntam. Cada resposta vem com o seu índice.",txt:"Marketing, preço, trade, inovação e planejamento testam ideias e cenários quantas vezes precisarem. A resposta sempre diz o quanto dá para confiar nela."},
+    {rot:"Passo 8 · A manutenção",tit:"Tudo continua alimentando a população.",txt:"Novos estudos, dados de venda, comunidades e campos pontuais entram ao longo do ano. A população é só da Ferrero, tem versões e não guarda dado pessoal identificável."}];
+  const ENT=[["f","Estudos da Ferrero","Provokers, Ipsos, Toluna, Kantar"],["f","Tracking de marca","mudanças ano a ano"],["f","Nielsen e painel de lares","o que foi comprado de fato"],
+    ["a","IBGE e Critério Brasil","a estrutura da população"],["a","Bases de consumidores","globais, de preferência brasileiras"],["a","Comunidades de chocolate","o que as pessoas contam e avaliam"],["a","Campo com pessoas reais","dimensionado pelo diagnóstico"]];
+  const ARE=["Marketing e marca","Preço e revenue","Trade e vendas","Inovação e produto","Planejamento","Novos negócios"];
+  const PERFIL="M 262 452 C 214 430 182 378 180 306 C 176 196 248 108 340 106 C 430 104 480 176 480 251 C 480 278 476 294 490 316 C 500 332 504 342 490 348 L 476 352 C 479 368 474 377 468 384 C 474 394 470 403 460 407 C 460 434 448 448 415 446 L 382 444";
+  const S=.82, TX=262, TY=34, tr=([x,y])=>[x*S+TX,y*S+TY];
+  const cv=document.createElement("canvas").getContext("2d"), P2=new Path2D(PERFIL+" Z");
+  let r=11; const R=()=>{ r=(r*9301+49297)%233280; return r/233280 };
+  const pts=[]; for(let y=124;y<440;y+=19) for(let x=190;x<500;x+=19){ const px=x+(R()-.5)*10, py=y+(R()-.5)*10; if(cv.isPointInPath(P2,px,py)) pts.push(tr([px,py])) }
+  const perto=(x,y)=>pts.reduce((b,q)=>((q[0]-x)**2+(q[1]-y)**2<(b[0]-x)**2+(b[1]-y)**2)?q:b,pts[0]);
+  const el=(n,a,txt)=>{ const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); if(txt!=null) e.textContent=T(txt); return e };
+  let on=false, p=0, cam="f", L={};
+  function no(x,y,w,t,s,cls){ const g=el("g",{class:"nd "+cls}); g.append(el("rect",{x,y,width:w,height:50,rx:10}),el("text",{x:x+12,y:y+21,class:"nt"},t),el("text",{x:x+12,y:y+38,class:"ns"},s)); return g }
+  function monta(){ svg.innerHTML=""; L={ent:[],are:[],lIn:[],lBar:[],lOut:[],hp:[]};
+    const gl=el("g",{}), gn=el("g",{}); svg.append(gl,gn);
+    L.cabE=el("text",{x:4,y:18,class:"cab"},"O QUE ENTRA"); L.cabA=el("text",{x:916,y:18,class:"cab","text-anchor":"end"},"QUEM PERGUNTA");
+    L.cabP=el("text",{x:540,y:408,class:"cab","text-anchor":"middle"},"POPULAÇÃO ARTIFICIAL DA FERRERO"); gn.append(L.cabE,L.cabA,L.cabP);
+    ENT.forEach(([k,t,s],i)=>{ const y=34+i*72; const g=no(4,y,226,t,s,"ent"); g.dataset.k=k; gn.appendChild(g); L.ent.push(g);
+      const a=el("path",{d:`M 230 ${y+25} L 280 ${y+25}`,class:"lk"}); a.dataset.k=k; gl.appendChild(a); L.lIn.push(a) });
+    L.bar=el("rect",{x:280,y:40,width:22,height:480,rx:8,class:"rg2"}); gn.appendChild(L.bar);
+    const rb=el("text",{x:291,y:280,class:"cab","text-anchor":"middle",transform:"rotate(-90 291 280)"},"UMA RÉGUA SÓ"); L.cabR=rb; gn.appendChild(rb);
+    [130,190,250,310,370].forEach(y=>{ const q=perto(430,y); const a=el("path",{d:`M 302 ${y+40} C 360 ${y+40}, 380 ${q[1]}, ${q[0]} ${q[1]}`,class:"lk"}); gl.appendChild(a); L.lBar.push(a) });
+    L.perfil=el("path",{d:PERFIL,class:"perfil",transform:`translate(${TX} ${TY}) scale(${S})`}); gn.appendChild(L.perfil);
+    pts.forEach(q=>{ const c=el("circle",{cx:q[0],cy:q[1],r:2.1,class:"hp"}); gn.appendChild(c); L.hp.push(c) });
+    ARE.forEach((t,i)=>{ const y=40+i*78; const g=no(714,y,202,t,"",""); gn.appendChild(g); L.are.push(g);
+      const q=perto(600,y+25); const a=el("path",{d:`M ${q[0]} ${q[1]} C 660 ${q[1]}, 660 ${y+25}, 714 ${y+25}`,class:"lk"}); gl.appendChild(a); L.lOut.push(a) });
+    // degrau e índice, embaixo da cabeça
+    const gd=el("g",{class:"ex"}); gd.append(el("path",{d:"M 400 470 L 440 470 L 440 500 L 480 500 L 480 530",stroke:"#F5F4F0","stroke-width":2,fill:"none"}),el("text",{x:440,y:556,class:"ns","text-anchor":"middle"},"o degrau de cada perfil")); gn.appendChild(gd); L.deg=gd;
+    const gi=el("g",{class:"ex"}); const V=[92,88,90,79,85,74,91,86,70,88,83,77];
+    V.forEach((v,k)=>gi.appendChild(el("rect",{x:560+(k%4)*30,y:466+Math.floor(k/4)*22,width:26,height:18,rx:3,fill:`rgba(245,244,240,${((v-65)/32).toFixed(2)})`})));
+    gi.appendChild(el("text",{x:620,y:556,class:"ns","text-anchor":"middle"},"índice por tema e estado")); gn.appendChild(gi); L.ind=gi }
+  function aplica(){ const n=p, ok=k=>k==="a"||cam==="f";
+    const ac=(e,v)=>e&&e.classList.toggle("ac",!!v);
+    ac(L.cabA,n>=1); L.are.forEach(g=>ac(g,n===1||n>=7));
+    ac(L.cabE,n>=2); L.ent.forEach(g=>ac(g,n>=2&&ok(g.dataset.k)));
+    L.lIn.forEach(a=>ac(a,n>=3&&ok(a.dataset.k))); ac(L.bar,n>=3); ac(L.cabR,n>=3);
+    L.lBar.forEach(a=>ac(a,n>=4)); L.hp.forEach(c=>ac(c,n>=4)); ac(L.perfil,n>=4); ac(L.cabP,n>=4);
+    ac(L.deg,n>=5); ac(L.ind,n>=6);
+    L.lOut.forEach(a=>{ ac(a,n>=7); a.classList.toggle("flui",n===7) });
+    svg.classList.toggle("vivo",n>=8);
+  }
+  const pontos=$("#fnPontos"); pontos.innerHTML=PASSOS.map(()=>"<i></i>").join("");
+  function texto(){ const P=PASSOS[p]; $("#fnRot").textContent=P.rot; $("#fnTit").textContent=P.tit; $("#fnTxt").textContent=P.txt||(cam==="f"?P.f:P.z) }
+  document.querySelectorAll("#fnCam button").forEach(b=>b.onclick=e=>{ e.stopPropagation(); cam=b.dataset.k;
+    document.querySelectorAll("#fnCam button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false")); texto(); aplica() });
+  function set(n,instant){ p=n; [...pontos.children].forEach((e,k)=>e.classList.toggle("at",k<=n)); texto(); aplica();
+    const pn=$("#fnPainel"); pn.classList.remove("troca"); void pn.offsetWidth; pn.classList.add("troca");
+    if(!instant&&n===4) L.hp.forEach((c,k)=>{ c.classList.remove("ac"); depois(k*6,()=>c.classList.add("ac")) }) }
+  return {ativar(v){ if(v&&!on) monta(); on=v }, passo:set, total:PASSOS.length-1};
+})();
+
+const degrau=(()=>{
+  const PASSOS=[
+    {rot:"O degrau",tit:"Entre o que o consumidor diz e o que ele faz existe um degrau.",txt:"Avance para ver como a população aprende a atravessá-lo."},
+    {rot:"O degrau existe",tit:"Só metade das intenções vira ação.",txt:"É o que mostra a revisão de Sheeran e Webb (2016) sobre a distância entre intenção e comportamento. E mudar muito a intenção muda pouco o comportamento (Webb e Sheeran, 2006, meta-análise)."},
+    {rot:"O andar de cima",tit:"A pesquisa mede o que as pessoas dizem.",txt:"Na hora de pagar, o valor que as pessoas declaram fica, na mediana, 35% acima do que elas pagam de verdade (Murphy e colegas, 2005, 83 observações)."},
+    {rot:"O andar de baixo",tit:"O comportamento mostra o que elas fazem.",txt:"Venda, painel de lares e tracking contam o que aconteceu. A distância entre os dois andares é o degrau."},
+    {rot:"Perfil a perfil",tit:"Cada perfil tem o seu degrau.",txt:"Quem compra toda semana diz quase o que faz. Quem compra raramente promete bem mais. A população aprende a altura do degrau de cada perfil e de cada região."},
+    {rot:"A prova",tit:"Ela prevê uma data que não viu.",txt:"A população aprende com um período e prevê outro sem ver o resultado. A distância entre o previsto e o real vira o índice de confiabilidade."},
+    {rot:"O resultado",tit:"O gêmeo responde perto do que se faz.",txt:"A pesquisa repete o que as pessoas dizem. A população calibrada chega perto do que elas fazem. Esse é o ganho."},
+    {fecho:true}];
+  const cv=$("#dgCanvas"), c=cv.getContext("2d"), W=920, H=640, R=rnd(77);
+  const COR={forte:"#F5F4F0",meio:"#9C9B96",fraco:"#6B6A65",bloco:"#2A2A2E",fundo:"#0F0F11",placa:"#1C1C1F"};
+  const DOT=[...Array(120)].map((_,k)=>({x0:70+R()*360,y0:206+R()*28,x1:500+R()*350,y1:406+R()*28,desce:k%2===0,d:R()*1500}));
+  let on=false,p=0,t0=0;
+  const fonte=(px,peso,mono)=>`${peso||400} ${px}px ${mono?"'JetBrains Mono',monospace":"Inter,system-ui,sans-serif"}`;
+  function tx(s,x,y,o){ o=o||{}; c.font=fonte(o.px||12,o.peso,o.mono); c.fillStyle=o.cor||COR.meio; c.textAlign=o.al||"left"; c.textBaseline="middle"; c.fillText(T(s),x,y) }
+  function barraH(x,y,w,v,lab,cor,prog){ tx(lab,x,y-14,{px:12,cor:COR.meio}); c.fillStyle=COR.placa; c.fillRect(x,y,w,12); c.fillStyle=cor; c.fillRect(x,y,w*v/100*prog,12); tx(Math.round(v*prog)+"%",x+w+10,y+6,{px:13,peso:700,cor:COR.forte,mono:1}) }
+  function andares(a){ c.globalAlpha=a; c.strokeStyle=COR.bloco; c.lineWidth=10; c.lineJoin="round"; c.beginPath(); c.moveTo(40,245); c.lineTo(460,245); c.lineTo(460,445); c.lineTo(880,445); c.stroke();
+    tx("O QUE DIZEM",40,270,{px:11,mono:1,cor:COR.meio}); tx("O QUE FAZEM",880,470,{px:11,mono:1,cor:COR.meio,al:"right"}); c.globalAlpha=1 }
+  function pontos(t){ let embaixo=0;
+    DOT.forEach(d=>{ let x=d.x0,y=d.y0;
+      if(d.desce&&p>=1){ const e=p===1?ease(clamp((t-400-d.d)/900)):1; x=lerp(d.x0,d.x1,e); y=lerp(d.y0,d.y1,e)-Math.sin(Math.PI*e)*70; if(e>.98) embaixo++ }
+      c.fillStyle=(d.desce&&p>=1&&y>300)?COR.meio:COR.forte; c.beginPath(); c.arc(x,y,3.6,0,7); c.fill() });
+    if(p>=1){ tx(T("dizem que vão comprar")+": 120",40,290,{px:12,cor:COR.forte}); tx(T("compram")+": "+embaixo,880,490,{px:12,cor:COR.forte,al:"right"}) } }
+  function desenha(now){ const t=now-t0; c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,W,H); c.fillStyle=COR.fundo; c.fillRect(0,0,W,H);
+    if(p<=3||p===7){ andares(1); pontos(t);
+      if(p>=2){ const pr=p===2?ease(clamp((t-300)/1100)):1; barraH(60,80,300,62,"Diz que compraria Rocher na Páscoa",COR.forte,pr); barraH(60,150,300,48,"Diz que pagaria mais por origem responsável",COR.forte,pr) }
+      if(p>=3){ const pr=p===3?ease(clamp((t-300)/1100)):1; barraH(500,540,300,21,"Comprou Rocher na Páscoa",COR.meio,pr); barraH(500,600,300,9,"Pagou mais pela origem",COR.meio,pr);
+        const g=p===3?clamp((t-1400)/700):1; c.globalAlpha=g; c.strokeStyle=COR.forte; c.lineWidth=1.5; c.setLineDash([5,4]); c.beginPath(); c.moveTo(490,260); c.lineTo(490,430); c.stroke(); c.setLineDash([]);
+        tx("O DEGRAU",505,320,{px:12,mono:1,peso:700,cor:COR.forte}); tx("62% dizem, 21% fazem",505,342,{px:13,cor:COR.forte}); tx("Nielsen · painel de lares · tracking",505,364,{px:10,mono:1,cor:COR.fraco}); c.globalAlpha=1 }
+      if(p===7){ const o=.5+.5*Math.sin(t/380); c.globalAlpha=.35+.65*o; tx("PULSO",505,400,{px:12,mono:1,peso:700,cor:COR.forte}); c.globalAlpha=1 } }
+    else if(p===4){ const PF=[["Compra toda semana",70,58],["Compra para presentear",64,36],["Compra raramente",55,12],["Nordeste",60,18]];
+      tx("O DEGRAU DE CADA PERFIL",40,50,{px:11,mono:1,cor:COR.meio});
+      PF.forEach(([n,d,f],k)=>{ const x=40+k*215, b=520, e=ease(clamp((t-200-k*260)/900)), hd=d*4.2*e, hf=f*4.2*e;
+        c.fillStyle=COR.bloco; c.fillRect(x,b-hd,92,hd); c.fillStyle=COR.placa; c.fillRect(x+98,b-hf,92,hf);
+        c.strokeStyle=COR.forte; c.lineWidth=2; c.beginPath(); c.moveTo(x,b-hd); c.lineTo(x+95,b-hd); c.lineTo(x+95,b-hf); c.lineTo(x+190,b-hf); c.stroke();
+        tx(Math.round(d*e)+"%",x+46,b-hd-14,{px:13,peso:700,mono:1,cor:COR.forte,al:"center"}); tx(Math.round(f*e)+"%",x+144,b-hf-14,{px:13,peso:700,mono:1,cor:COR.forte,al:"center"});
+        tx("diz",x+46,b+16,{px:10,mono:1,al:"center"}); tx("faz",x+144,b+16,{px:10,mono:1,al:"center"}); tx(n,x+95,b+44,{px:13,peso:600,cor:COR.forte,al:"center"}) }) }
+    else if(p===5){ c.fillStyle=COR.bloco; c.fillRect(60,90,370,64); tx("APRENDE · 2025",80,122,{px:12,mono:1,peso:700,cor:COR.forte});
+      c.strokeStyle=COR.meio; c.lineWidth=1.5; c.setLineDash([6,5]); c.strokeRect(490,90,370,64); c.setLineDash([]); tx("PREVÊ · PÁSCOA 2026, SEM VER",510,122,{px:12,mono:1,peso:700,cor:COR.forte});
+      c.strokeStyle=COR.fraco; c.beginPath(); c.moveTo(440,122); c.lineTo(478,122); c.stroke();
+      const R2=rnd(5); for(let k=0;k<90;k++){ c.fillStyle=COR.fraco; c.beginPath(); c.arc(80+(k%15)*23,210+Math.floor(k/15)*26+R2()*6,3,0,7); c.fill() }
+      const b=560, e1=ease(clamp((t-300)/900)), e2=ease(clamp((t-1700)/900));
+      c.setLineDash([6,5]); c.strokeStyle=COR.forte; c.lineWidth=1.5; c.strokeRect(520,b-24*12*e1,90,24*12*e1); c.setLineDash([]);
+      tx(Math.round(24*e1)+"%",565,b-24*12*e1-14,{px:14,peso:700,mono:1,cor:COR.forte,al:"center"}); tx("previsto",565,b+18,{px:11,mono:1,al:"center"});
+      c.fillStyle=COR.meio; c.fillRect(640,b-21*12*e2,90,21*12*e2); if(e2>0) tx(Math.round(21*e2)+"%",685,b-21*12*e2-14,{px:14,peso:700,mono:1,cor:COR.forte,al:"center"}); tx("real",685,b+18,{px:11,mono:1,al:"center"});
+      const g=clamp((t-2700)/600); c.globalAlpha=g; c.fillStyle=COR.forte; c.beginPath(); c.roundRect(760,330,120,84,14); c.fill();
+      tx("ÍNDICE",820,356,{px:11,mono:1,peso:700,cor:"#0C0C0E",al:"center"}); tx("88",820,388,{px:28,peso:800,cor:"#0C0C0E",al:"center"}); c.globalAlpha=1 }
+    else if(p===6){ const B=[["A pesquisa disse",62,COR.bloco],["Os gêmeos disseram",25,COR.forte],["Aconteceu",21,COR.meio]], b=540;
+      B.forEach(([n,v,cor],k)=>{ const x=150+k*230, e=ease(clamp((t-200-k*300)/900)), h=v*6*e; c.fillStyle=cor; c.fillRect(x,b-h,120,h);
+        tx(Math.round(v*e)+"%",x+60,b-h-16,{px:16,peso:800,mono:1,cor:COR.forte,al:"center"}); tx(n,x+60,b+22,{px:13,peso:600,cor:COR.forte,al:"center"}) });
+      const g=clamp((t-1400)/600); c.globalAlpha=g; c.strokeStyle=COR.meio; c.setLineDash([4,5]); c.lineWidth=1.2; c.beginPath(); c.moveTo(120,b-21*6); c.lineTo(860,b-21*6); c.stroke(); c.setLineDash([]);
+      tx("o que aconteceu",860,b-21*6-12,{px:11,mono:1,al:"right"}); tx("Exemplo: \"compraria Rocher na Páscoa\"",40,50,{px:11,mono:1}); c.globalAlpha=1 } }
+  (function loop(now){ if(on) desenha(now); requestAnimationFrame(loop) })(performance.now());
+  const pts=$("#dgPontos"); pts.innerHTML=PASSOS.map(()=>"<i></i>").join("");
+  function set(n,instant){ p=n; t0=instant?performance.now()-1e6:performance.now(); const P=PASSOS[n];
+    [...pts.children].forEach((e,k)=>e.classList.toggle("at",k<=n)); $("#dgFecho").hidden=!P.fecho;
+    ["#dgRot","#dgTit","#dgTxt"].forEach(id=>$(id).hidden=!!P.fecho);
+    if(!P.fecho){ $("#dgRot").textContent=P.rot; $("#dgTit").textContent=P.tit; $("#dgTxt").textContent=P.txt }
+    const pn=$("#dgPainel"); pn.classList.remove("troca"); void pn.offsetWidth; pn.classList.add("troca") }
+  return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
+})();
+
 function pares(){ const L=[...document.querySelectorAll("#pares .par")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(500+k*650,()=>l.classList.add("v"))) }
 const ENTRA={quem:etapas,cabeca:cabeca,agenda:agenda,quatrop:pares,calibracao:linha};
-const CENA="corredor";
+const CENAS={corredor:cena,funciona:mapa,degrau:degrau}; const sc=()=>CENAS[TELAS[atual].dataset.t];
 
 function render(){ $("#cont").textContent=String(atual+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
   $("#barra").style.width=((atual+1)/TELAS.length*100)+"%"; $("#ant").disabled=atual===0&&passo===0; $("#prox").disabled=atual===TELAS.length-1 }
 function vai(i,fim){ if(i<0||i>=TELAS.length) return; limpa();
   TELAS.forEach((t,k)=>{ t.classList.toggle("on",k===i); t.classList.toggle("antes",k<i); t.setAttribute("aria-hidden",k===i?"false":"true") });
   TELAS[i].scrollTop=0; atual=i;
-  const eCh=TELAS[i].dataset.t===CENA; cena.ativar(eCh);
-  if(eCh){ passo=fim?cena.total:0; cena.passo(passo,!!fim) } else passo=0;
+  Object.values(CENAS).forEach(x=>x.ativar(false)); const C=CENAS[TELAS[i].dataset.t];
+  if(C){ C.ativar(true); passo=fim?C.total:0; C.passo(passo,!!fim) } else passo=0;
   try{ history.replaceState(null,"","#"+TELAS[i].dataset.t) }catch(e){}
   render(); (ENTRA[TELAS[i].dataset.t]||(()=>{}))() }
-function prox(){ if(TELAS[atual].dataset.t===CENA&&passo<cena.total){ limpa(); passo++; cena.passo(passo,reduz); render(); return } vai(atual+1) }
-function ant(){ if(TELAS[atual].dataset.t===CENA&&passo>0){ limpa(); passo--; cena.passo(passo,true); render(); return } vai(atual-1,true) }
+function prox(){ const C=sc(); if(C&&passo<C.total){ limpa(); passo++; C.passo(passo,reduz); render(); return } vai(atual+1) }
+function ant(){ const C=sc(); if(C&&passo>0){ limpa(); passo--; C.passo(passo,true); render(); return } vai(atual-1,true) }
 $("#prox").onclick=e=>{ e.stopPropagation(); prox() };
 $("#ant").onclick=e=>{ e.stopPropagation(); ant() };
 document.addEventListener("keydown",e=>{ if(e.target.matches&&e.target.matches("input")) return; if(["ArrowRight","PageDown"," ","Enter"].includes(e.key)){ if(e.target.closest&&e.target.closest("button")&&e.key!=="ArrowRight") return; e.preventDefault(); prox() } else if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); ant() } });
