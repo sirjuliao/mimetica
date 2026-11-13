@@ -388,6 +388,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .linha13 .r{justify-content:flex-start!important;text-align:left!important;font-family:var(--f-mono);font-size:10.5px!important;letter-spacing:.06em;color:var(--sub);text-transform:uppercase}
 .linha13 .m{background:#F5F4F0;color:#0C0C0E;font-weight:600}
 .linha13 .f{border:1.5px dashed #F5F4F0;color:var(--texto)}
+.linha13 .u{border:1px solid #9C9B96;color:var(--texto)}
 .linha13 .p{background:#2A2A2E;color:var(--texto)}
 .linha13 .x{opacity:0;transform:scale(.9);transition:opacity .4s,transform .4s}
 .linha13 .x.v{opacity:1;transform:none}
@@ -447,9 +448,9 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 <section class="tela" data-t="cabeca">
   <div class="miolo capa cabq">
     <div>
-      <div class="rot aparece">Um consumidor, várias áreas</div>
-      <h2 class="aparece d1 h2m" style="margin-top:14px">Cada área da Ferrero faz uma pergunta. Todas falam com o mesmo consumidor.</h2>
-      <p class="lead aparece d2">Marketing, preço, inovação, trade e planejamento consultam a mesma população. O que uma área aprende fica disponível para as outras.</p>
+      <div class="rot aparece">Uma população, várias áreas</div>
+      <h2 class="aparece d1 h2m" style="margin-top:14px">Cada área pergunta. A população responde. O aprendizado circula.</h2>
+      <p class="lead aparece d2">Marketing, preço, inovação, trade e planejamento consultam a população artificial da Ferrero, sempre calibrada. O que uma área aprende fica disponível para as outras.</p>
     </div>
     <div class="aparece d1"><svg id="cbSvg" viewBox="0 0 860 520" role="img" aria-label="Uma cabeça formada por pontos ligada às áreas da Ferrero"></svg></div>
   </div>
@@ -462,7 +463,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     <h2 class="aparece d1 h2m" style="margin-top:14px">2027: um ano de decisões pela frente.</h2>
     <p class="lead aparece d1" style="max-width:84ch;margin-top:10px">A Ferrero chega a cada uma delas sabendo como o consumidor tende a reagir, e com que grau de acerto.</p>
     <div class="crono aparece d2"><div class="g" id="crono"></div></div>
-    <div class="canais aparece d3"><span class="rc">Cada data passa por quatro canais</span><span class="cn">Pequeno varejo</span><span class="cn">Supermercado</span><span class="cn">Hipermercado</span><span class="cn">Atacarejo e atacado</span></div>
+    <div class="canais aparece d3"><span class="rc">Cada data passa por cinco canais</span><span class="cn">Pequeno varejo</span><span class="cn">Conveniência</span><span class="cn">Supermercado</span><span class="cn">Hipermercado</span><span class="cn">Atacarejo e atacado</span></div>
     <p class="nota aparece d3">Exercício feito com a agenda pública da Ferrero e o calendário do varejo. A linha tracejada é o que só a Ferrero conhece.</p>
   </div>
 </section>
@@ -544,7 +545,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     <h2 class="aparece d1 h2m" style="margin-top:14px">A Ferrero escolhe a régua. O mapa mostra onde ir a campo para alcançá-la.</h2>
     <div class="regua aparece d2"><b id="rv">85%</b><input type="range" id="rr" min="75" max="97" value="85" aria-label="Régua de confiabilidade"><span class="rs" id="rs"></span></div>
     <div class="heat aparece d2" id="heat2"></div>
-    <p class="padrao aparece d3">* Padrão Mimetica: 85%. É o ponto de partida que recomendamos.</p>
+    <p class="padrao aparece d3">* Padrão Mimetica: 85%. Abaixo de 75%, não recomendamos usar a leitura sem campo. O sistema indica quais perguntas de campo sobem mais a régua.</p>
     <p class="nota aparece d3">A literatura parte de 85% de confiabilidade, medida contra as próprias pessoas respondendo de novo (Park e colegas, Stanford, 2024). Com o modelo híbrido e a recorrência de projetos, a meta é passar de 95%. Células tracejadas pedem campo pontual. Valores ilustrativos.</p>
   </div>
 </section>
@@ -554,9 +555,9 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   <div class="miolo">
     <div class="rot aparece">A agenda de calibração</div>
     <h2 class="aparece d1 h2m" style="margin-top:14px">Com a agenda à vista, o campo vem antes de cada data.</h2>
-    <p class="lead aparece d2" style="max-width:76ch">O campo com pessoas reais é contínuo e pontual: entra só onde o mapa pede, semanas antes de cada momento. Cada campo é um questionário curto, desenhado pela Mimetica para as células que pedem calibração. Entre um campo e outro, a população responde.</p>
+    <p class="lead aparece d2" style="max-width:78ch">Um único campo com pessoas reais cobre várias datas de uma vez. Reforços curtos entram só onde o mapa pede. O pulso acompanha mensagem, atributos e promoções entre um estudo e outro. No resto do tempo, a população responde.</p>
     <div class="linha13 aparece d3"><div class="g" id="l13"></div></div>
-    <p class="nota aparece d3">Agenda hipotética. As datas de campo são definidas com a Ferrero a partir do diagnóstico.</p>
+    <p class="nota aparece d3">Agenda hipotética. As datas de campo e a frequência do pulso são definidas com a Ferrero a partir do diagnóstico.</p>
   </div>
 </section>
 
@@ -564,7 +565,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 <section class="tela" data-t="quatrop">
   <div class="miolo quatrop">
     <div class="rot aparece"><span class="camada">O uso em escala</span></div>
-    <h2 class="aparece d1" style="margin-top:16px">A Ferrero mexe no P. O consumidor responde no A.</h2>
+    <h2 class="aparece d1" style="margin-top:16px">A Ferrero mexe no P.<br>O consumidor responde no A.</h2>
     <p class="lead aparece d2" style="max-width:70ch">Calibrada, a população testa cada decisão do ano, quantas vezes for preciso: as peças da Qualidade na Essência, o presente de cada data e as perguntas da Bold Snacks.</p>
     <div class="pares aparece d2" id="pares">
       <div class="ph"><span class="rot">P · a Ferrero decide</span><span></span><span class="rot">A · o consumidor responde</span></div>
@@ -583,16 +584,16 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   <div class="miolo dupla">
     <div>
       <div class="rot aparece">Como começamos</div>
-      <h2 class="aparece d1" style="margin-top:14px">Uma data da agenda, uma régua e um campo pontual.</h2>
-      <p class="lead aparece d2">Começamos pela Páscoa de 2027, em 28 de março: preço e mensagem do ovo infantil e do presente premium. A agenda segue para o Dia das Mães.</p>
+      <h2 class="aparece d1" style="margin-top:14px">Começamos agora, pelo diagnóstico.</h2>
+      <p class="lead aparece d2">Com o que a Ferrero já tem em mãos, ou com uma base nova, montamos a população artificial da Ferrero e medimos onde ela já responde bem. Daí saem a régua, a agenda e o primeiro campo.</p>
       <div class="cta aparece d3"><a class="btn" href="mailto:claugiunta@mimetica.net">claugiunta@mimetica.net</a><a class="btn" href="mailto:fernando@mimetica.net">fernando@mimetica.net</a><a class="btn claro" href="https://mimetica.institute/apoio/">Apresentação institucional</a></div>
     </div>
     <ol class="passos3 aparece d2">
-      <li><b>1</b><div><h3>Diagnóstico</h3><p>Com a base de entrevistas que a Ferrero já tem, medimos o índice por tema e por estado.</p></div></li>
+      <li><b>1</b><div><h3>Diagnóstico</h3><p>Medimos o índice de confiabilidade por tema e por estado.</p></div></li>
       <li><b>2</b><div><h3>Uma leitura conhecida</h3><p>A população reproduz um resultado que a Ferrero já tem em mãos.</p></div></li>
-      <li><b>3</b><div><h3>A régua</h3><p>Definimos juntos o nível de confiabilidade para a Páscoa.</p></div></li>
-      <li><b>4</b><div><h3>Campo pontual</h3><p>Só onde o mapa pedir, semanas antes da data.</p></div></li>
-      <li><b>5</b><div><h3>As respostas</h3><p>Preço e mensagem testados antes da campanha ir ao ar.</p></div></li>
+      <li><b>3</b><div><h3>A régua</h3><p>Definimos juntos o nível de confiabilidade para cada tema.</p></div></li>
+      <li><b>4</b><div><h3>Campo pontual</h3><p>Só se o mapa pedir, antes de cada data.</p></div></li>
+      <li><b>5</b><div><h3>As respostas</h3><p>As primeiras perguntas da agenda, testadas antes de ir à gôndola.</p></div></li>
     </ol>
   </div>
 </section>
@@ -619,9 +620,9 @@ const clamp=v=>Math.max(0,Math.min(1,v)), lerp=(a,b,t)=>a+(b-a)*t, ease=t=>1-Mat
 /* 1. a agenda */
 const CRMES=["dez/26","jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez/27"];
 const CRLIN=[
-  ["Presentes premium","Ferrero Rocher, Raffaello",[[0,1,"d","Natal"],[5,1,"d","Dia das Mães"],[6,1,"d","Namorados"],[10,1,"d","Professores"],[12,1,"d","Natal"]]],
+  ["Presentes premium","Ferrero Rocher, Raffaello",[[0,1,"d","Natal"],[5,1,"d","Dia das Mães"],[6,1,"d","Namorados"],[7,1,"d","Dia do Chocolate 7/7"],[10,1,"d","Professores"],[12,1,"d","Natal"]]],
   ["Infantil","Kinder",[[1,2,"d","Volta às aulas"],[3,1,"d","Páscoa"],[10,1,"d","Crianças · Halloween"]]],
-  ["Cremes","Nutella",[[1,2,"d","Café da manhã e lancheira"],[3,1,"d","Páscoa"]]],
+  ["Cremes","Nutella",[[1,1,"d","Lancheira"],[2,1,"d","Dia da Nutella 5/2"],[3,1,"d","Páscoa"]]],
   ["Better-for-you","Bold Snacks",[[0,13,"c","Proteína e better-for-you, o ano todo"]]],
   ["Institucional","Qualidade na Essência",[[0,13,"c","Origem, cuidado e sustentabilidade, o ano todo"]]],
   ["Trade, vendas e marketing","Demandas pontuais",[[0,13,"q","A completar com a Ferrero: promoções, parcerias, contas-chave e pedidos pontuais"]]]];
@@ -679,11 +680,13 @@ $("#rr").addEventListener("input",regua); regua();
 
 /* 7. a linha do ano */
 const MES=["dez/26","jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez/27"];
-const MOM={0:"Natal",1:"Volta às aulas",3:"Páscoa",5:"Mães",6:"Namorados",10:"Crianças · Halloween",12:"Natal"};
-const CAMPO={0:"Diagnóstico",1:"Campo",3:"Campo",8:"Campo",10:"Campo"};
+const MOM={0:"Natal",1:"Volta às aulas",2:"Nutella",3:"Páscoa",5:"Mães",6:"Namorados",7:"Chocolate",10:"Crianças · Halloween",12:"Natal"};
+const CAMPO={0:"Diagnóstico",1:"Campo",5:"Reforço",8:"Campo"};
+const PULSO={1:"Pulso",4:"Pulso",7:"Pulso",10:"Pulso"};
 (function(){ let h=`<div class="h"></div>`+MES.map(m=>`<div class="h">${m}</div>`).join("");
   h+=`<div class="r">Momento</div>`+MES.map((m,i)=>MOM[i]?`<div class="m x">${MOM[i]}</div>`:`<div></div>`).join("");
   h+=`<div class="r">Campo pontual</div>`+MES.map((m,i)=>CAMPO[i]?`<div class="f x">${CAMPO[i]}</div>`:`<div></div>`).join("");
+  h+=`<div class="r">Pulso de marca e produto</div>`+MES.map((m,i)=>PULSO[i]?`<div class="u x">${PULSO[i]}</div>`:`<div></div>`).join("");
   h+=`<div class="r">A população responde</div>`+MES.map(()=>`<div class="p x">✓</div>`).join("");
   $("#l13").innerHTML=h })();
 function linha(){ const X=[...document.querySelectorAll("#l13 .x")]; X.forEach(x=>x.classList.remove("v")); X.forEach((x,k)=>depois(200+(k%13)*90+Math.floor(k/13)*350,()=>x.classList.add("v"))) }
@@ -695,7 +698,7 @@ const cena=(()=>{
     {rot:"O corredor",tit:"Os gêmeos digitais entram, cada um com o seu perfil.",txt:"Cada um tem uma plaquinha com idade, classe e cidade. As plaquinhas claras são de consumidores GLP-1, que usam canetas emagrecedoras."},
     {rot:"A escolha",tit:"Cada gêmeo decide o que comprar.",txt:"A caixa premium, o creme de avelã, o ovo infantil, o chocolate tradicional, a marca própria ou nada. A escolha depende de quem ele é, do preço e de para quem é.",conta:true},
     {rot:"O porquê",tit:"E cada escolha tem um motivo.",txt:"A população guarda a razão de cada gêmeo, na linguagem de quem compra. As falas da cena são ilustrativas.",conta:true},
-    {rot:"Mude a cena",tit:"O mesmo consumidor diante de cenários diferentes.",cenas:true,conta:true},
+    {rot:"Mude a cena",tit:"A população diante de cenários diferentes.",cenas:true,conta:true},
     {rot:"A mensagem",tit:"A mensagem é uma. A porta de entrada muda conforme o perfil.",txt:"Sabor, cuidado com os ingredientes, origem responsável ou sustentabilidade. Cada perfil responde a um argumento, e o peso muda de estado para estado.",msg:true},
     {fecho:true}
   ];
