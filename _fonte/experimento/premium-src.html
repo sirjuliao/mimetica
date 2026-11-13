@@ -440,6 +440,23 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 #fnSvg .ex.ac{opacity:1}
 #dgCanvas{width:100%;aspect-ratio:920/640;display:block;border-radius:18px;background:#0F0F11;border:1px solid var(--linha)}
 @media (max-width:700px){ #fnSvg .nt{font-size:17px} #fnSvg .ns{display:none} }
+.gn-grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px) minmax(0,1fr);gap:28px;align-items:center;margin-top:14px}
+#gnCanvas{width:100%;max-height:58vh;aspect-ratio:460/620;object-fit:contain;display:block;margin:0 auto}
+.gn-card{background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:8px;min-height:230px}
+#gnF{border-color:#6B6A65}
+.gn-cam{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.gn-et{margin:2px 0 0;font-family:var(--f-titulo);font-size:24px;font-weight:700;letter-spacing:-.01em}
+.gn-d{margin:0;font-size:14.5px;line-height:1.45;color:var(--sub)}
+.gn-tempo{margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-top:1px solid var(--linha);padding-top:10px}
+.gn-mais{font-family:var(--f-mono);font-size:12px;color:var(--sub)}
+.gn-tot{font-family:var(--f-titulo);font-size:22px;font-weight:800;color:var(--texto)}
+.gn-card.troca>*{animation:cdSobe .45s ease both}
+.gn-card.fim{background:#F5F4F0;color:#0C0C0E}
+.gn-card.fim .gn-d,.gn-card.fim .gn-cam,.gn-card.fim .gn-mais{color:#3A3A3F}
+.gn-card.fim .gn-tot{color:#0C0C0E;font-size:30px}
+.gn-card.fim .gn-tempo{border-color:#C9C7C0}
+@media (max-width:900px){ .gn-grade{grid-template-columns:1fr 1fr} .gn-grade>div:nth-child(2){grid-column:1/-1;order:-1} #gnCanvas{max-height:46vh} .gn-card{min-height:0} }
+@media (max-width:560px){ .gn-grade{grid-template-columns:1fr} }
 </style>
 
 <div class="barra"><b id="barra"></b></div>
@@ -551,17 +568,30 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
   </div>
 </section>
 
-<!-- 7. COMO FUNCIONA (mapa, passos internos) -->
-<section class="tela" data-t="funciona" data-passos="8">
-  <div class="miolo churras fnq">
-    <div class="cd-painel" id="fnPainel">
-      <div class="rot" id="fnRot">Como funciona</div>
-      <h2 class="cd-tit" id="fnTit">Como funciona, passo a passo.</h2>
-      <p class="cd-txt" id="fnTxt">Escolha o ponto de partida. Depois avance pelos oito passos.</p>
-      <div class="cenas" id="fnCam"><button type="button" data-k="f" aria-pressed="true">A Ferrero já tem dados</button><button type="button" data-k="z" aria-pressed="false">Começando do zero</button></div>
-      <div class="cd-pontos" id="fnPontos"></div>
+<!-- 7. GÊNESE (estrada com bifurcação, passos internos) -->
+<section class="tela" data-t="genese" data-passos="6">
+  <div class="miolo">
+    <div class="gn-topo">
+      <div class="rot" id="gnRot">O método Gênese</div>
+      <h2 class="h2m" id="gnTit" style="margin:10px 0 0">Gênese: como a população da Ferrero nasce.</h2>
+      <p class="lead" id="gnTxt" style="margin-top:10px;max-width:86ch">Das bases da Ferrero à população. O MOS (Mimetica Operational System) percorre cinco etapas, e a estrada se divide em dois caminhos. Avance para percorrer.</p>
     </div>
-    <div><svg id="fnSvg" viewBox="0 0 920 580" role="img" aria-label="Mapa das fontes de dados alimentando a população artificial da Ferrero, que responde às áreas da empresa"></svg></div>
+    <div class="gn-grade">
+      <div class="gn-card" id="gnZ">
+        <span class="gn-cam">Começando do zero</span>
+        <h3 class="gn-et">Ponto de partida</h3>
+        <p class="gn-d">Sem bases próprias da Ferrero. A população nasce de fontes externas e de campo novo.</p>
+        <div class="gn-tempo"><span class="gn-mais"></span><span class="gn-tot"></span></div>
+      </div>
+      <div><canvas id="gnCanvas" width="920" height="1240" aria-label="Uma estrada que se divide em dois caminhos até a população da Ferrero: à esquerda, começando do zero; à direita, com o histórico da Ferrero"></canvas></div>
+      <div class="gn-card" id="gnF">
+        <span class="gn-cam">Com o histórico da Ferrero</span>
+        <h3 class="gn-et">Ponto de partida</h3>
+        <p class="gn-d">Com os estudos, o tracking e os dados de venda que a Ferrero já tem.</p>
+        <div class="gn-tempo"><span class="gn-mais"></span><span class="gn-tot"></span></div>
+      </div>
+    </div>
+    <p class="nota" id="gnNota" style="text-align:center">Prazos indicativos. Variam com o volume e a qualidade das bases.</p>
   </div>
 </section>
 
@@ -870,65 +900,79 @@ const cena=(()=>{
   return {ativar(v){ on=v }, passo:set, total:PASSOS.length-1};
 })();
 
-const mapa=(()=>{ const NS="http://www.w3.org/2000/svg", svg=$("#fnSvg");
-  const PASSOS=[
-    {rot:"Como funciona",tit:"Como funciona, passo a passo.",txt:"Escolha o ponto de partida. Depois avance pelos oito passos."},
-    {rot:"Passo 1 · A pergunta",tit:"Tudo começa pelas perguntas das áreas e pela agenda.",txt:"Que decisões vêm pela frente, para quais marcas, perfis e regiões. É isso que define o que a população precisa saber."},
-    {rot:"Passo 2 · O inventário",tit:"Reunimos tudo o que já existe.",f:"Os estudos que a Ferrero já fez, com o banco de respostas de cada um, o tracking de marca, a Nielsen e o painel de lares. Somamos a estrutura da população brasileira, bases externas de consumidores, comunidades e campo.",z:"A estrutura da população brasileira (IBGE e Critério Brasil), bases de consumidores, de preferência brasileiras, o que as pessoas contam em comunidades de chocolate e um campo com pessoas reais, do tamanho que o diagnóstico pedir."},
-    {rot:"Passo 3 · A harmonização",tit:"Fontes diferentes passam para uma régua só.",txt:"Cada estudo tem o seu questionário e o seu fornecedor. Alinhamos variáveis de perfil, pesos e perguntas equivalentes, para que todas as fontes falem a mesma língua."},
-    {rot:"Passo 4 · A população",tit:"Nasce a população artificial da Ferrero.",txt:"Milhares de gêmeos digitais nas proporções do Brasil, por estado, idade e classe. Cada gêmeo nasce de pessoas reais parecidas com ele e combina o que elas têm em comum. Ele não copia ninguém."},
-    {rot:"Passo 5 · O degrau",tit:"A população aprende a distância entre dizer e fazer.",txt:"Com os dados de comportamento, cada perfil aprende quanto da fala vira compra. A próxima tela mostra esse passo de perto."},
-    {rot:"Passo 6 · A validação",tit:"Ela prevê o que não viu, e daí nasce o índice.",txt:"Separamos um resultado que a população não usou para aprender. Ela prevê, comparamos com o real, e o índice de confiabilidade sai por tema e por estado."},
-    {rot:"Passo 7 · O uso",tit:"As áreas perguntam. Cada resposta vem com o seu índice.",txt:"Marketing, preço, trade, inovação e planejamento testam ideias e cenários quantas vezes precisarem. A resposta sempre diz o quanto dá para confiar nela."},
-    {rot:"Passo 8 · A manutenção",tit:"Tudo continua alimentando a população.",txt:"Novos estudos, dados de venda, comunidades e campos pontuais entram ao longo do ano. A população é só da Ferrero, tem versões e não guarda dado pessoal identificável."}];
-  const ENT=[["f","Estudos da Ferrero","Provokers, Ipsos, Toluna, Kantar"],["f","Tracking de marca","mudanças ano a ano"],["f","Nielsen e painel de lares","o que foi comprado de fato"],
-    ["a","IBGE e Critério Brasil","a estrutura da população"],["a","Bases de consumidores","globais, de preferência brasileiras"],["a","Comunidades de chocolate","o que as pessoas contam e avaliam"],["a","Campo com pessoas reais","dimensionado pelo diagnóstico"]];
-  const ARE=["Marketing e marca","Preço e revenue","Trade e vendas","Inovação e produto","Planejamento","Novos negócios"];
-  const PERFIL="M 262 452 C 214 430 182 378 180 306 C 176 196 248 108 340 106 C 430 104 480 176 480 251 C 480 278 476 294 490 316 C 500 332 504 342 490 348 L 476 352 C 479 368 474 377 468 384 C 474 394 470 403 460 407 C 460 434 448 448 415 446 L 382 444";
-  const S=.82, TX=262, TY=34, tr=([x,y])=>[x*S+TX,y*S+TY];
-  const cv=document.createElement("canvas").getContext("2d"), P2=new Path2D(PERFIL+" Z");
-  let r=11; const R=()=>{ r=(r*9301+49297)%233280; return r/233280 };
-  const pts=[]; for(let y=124;y<440;y+=19) for(let x=190;x<500;x+=19){ const px=x+(R()-.5)*10, py=y+(R()-.5)*10; if(cv.isPointInPath(P2,px,py)) pts.push(tr([px,py])) }
-  const perto=(x,y)=>pts.reduce((b,q)=>((q[0]-x)**2+(q[1]-y)**2<(b[0]-x)**2+(b[1]-y)**2)?q:b,pts[0]);
-  const el=(n,a,txt)=>{ const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); if(txt!=null) e.textContent=T(txt); return e };
-  let on=false, p=0, cam="f", L={};
-  function no(x,y,w,t,s,cls){ const g=el("g",{class:"nd "+cls}); g.append(el("rect",{x,y,width:w,height:50,rx:10}),el("text",{x:x+12,y:y+21,class:"nt"},t),el("text",{x:x+12,y:y+38,class:"ns"},s)); return g }
-  function monta(){ svg.innerHTML=""; L={ent:[],are:[],lIn:[],lBar:[],lOut:[],hp:[]};
-    const gl=el("g",{}), gn=el("g",{}); svg.append(gl,gn);
-    L.cabE=el("text",{x:4,y:18,class:"cab"},"O QUE ENTRA"); L.cabA=el("text",{x:916,y:18,class:"cab","text-anchor":"end"},"QUEM PERGUNTA");
-    L.cabP=el("text",{x:540,y:408,class:"cab","text-anchor":"middle"},"POPULAÇÃO ARTIFICIAL DA FERRERO"); gn.append(L.cabE,L.cabA,L.cabP);
-    ENT.forEach(([k,t,s],i)=>{ const y=34+i*72; const g=no(4,y,226,t,s,"ent"); g.dataset.k=k; gn.appendChild(g); L.ent.push(g);
-      const a=el("path",{d:`M 230 ${y+25} L 280 ${y+25}`,class:"lk"}); a.dataset.k=k; gl.appendChild(a); L.lIn.push(a) });
-    L.bar=el("rect",{x:280,y:40,width:22,height:480,rx:8,class:"rg2"}); gn.appendChild(L.bar);
-    const rb=el("text",{x:291,y:280,class:"cab","text-anchor":"middle",transform:"rotate(-90 291 280)"},"UMA RÉGUA SÓ"); L.cabR=rb; gn.appendChild(rb);
-    [130,190,250,310,370].forEach(y=>{ const q=perto(430,y); const a=el("path",{d:`M 302 ${y+40} C 360 ${y+40}, 380 ${q[1]}, ${q[0]} ${q[1]}`,class:"lk"}); gl.appendChild(a); L.lBar.push(a) });
-    L.perfil=el("path",{d:PERFIL,class:"perfil",transform:`translate(${TX} ${TY}) scale(${S})`}); gn.appendChild(L.perfil);
-    pts.forEach(q=>{ const c=el("circle",{cx:q[0],cy:q[1],r:2.1,class:"hp"}); gn.appendChild(c); L.hp.push(c) });
-    ARE.forEach((t,i)=>{ const y=40+i*78; const g=no(714,y,202,t,"",""); gn.appendChild(g); L.are.push(g);
-      const q=perto(600,y+25); const a=el("path",{d:`M ${q[0]} ${q[1]} C 660 ${q[1]}, 660 ${y+25}, 714 ${y+25}`,class:"lk"}); gl.appendChild(a); L.lOut.push(a) });
-    // degrau e índice, embaixo da cabeça
-    const gd=el("g",{class:"ex"}); gd.append(el("path",{d:"M 400 470 L 440 470 L 440 500 L 480 500 L 480 530",stroke:"#F5F4F0","stroke-width":2,fill:"none"}),el("text",{x:440,y:556,class:"ns","text-anchor":"middle"},"o degrau de cada perfil")); gn.appendChild(gd); L.deg=gd;
-    const gi=el("g",{class:"ex"}); const V=[92,88,90,79,85,74,91,86,70,88,83,77];
-    V.forEach((v,k)=>gi.appendChild(el("rect",{x:560+(k%4)*30,y:466+Math.floor(k/4)*22,width:26,height:18,rx:3,fill:`rgba(245,244,240,${((v-65)/32).toFixed(2)})`})));
-    gi.appendChild(el("text",{x:620,y:556,class:"ns","text-anchor":"middle"},"índice por tema e estado")); gn.appendChild(gi); L.ind=gi }
-  function aplica(){ const n=p, ok=k=>k==="a"||cam==="f";
-    const ac=(e,v)=>e&&e.classList.toggle("ac",!!v);
-    ac(L.cabA,n>=1); L.are.forEach(g=>ac(g,n===1||n>=7));
-    ac(L.cabE,n>=2); L.ent.forEach(g=>ac(g,n>=2&&ok(g.dataset.k)));
-    L.lIn.forEach(a=>ac(a,n>=3&&ok(a.dataset.k))); ac(L.bar,n>=3); ac(L.cabR,n>=3);
-    L.lBar.forEach(a=>ac(a,n>=4)); L.hp.forEach(c=>ac(c,n>=4)); ac(L.perfil,n>=4); ac(L.cabP,n>=4);
-    ac(L.deg,n>=5); ac(L.ind,n>=6);
-    L.lOut.forEach(a=>{ ac(a,n>=7); a.classList.toggle("flui",n===7) });
-    svg.classList.toggle("vivo",n>=8);
-  }
-  const pontos=$("#fnPontos"); pontos.innerHTML=PASSOS.map(()=>"<i></i>").join("");
-  function texto(){ const P=PASSOS[p]; $("#fnRot").textContent=P.rot; $("#fnTit").textContent=P.tit; $("#fnTxt").textContent=P.txt||(cam==="f"?P.f:P.z) }
-  document.querySelectorAll("#fnCam button").forEach(b=>b.onclick=e=>{ e.stopPropagation(); cam=b.dataset.k;
-    document.querySelectorAll("#fnCam button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false")); texto(); aplica() });
-  function set(n,instant){ p=n; [...pontos.children].forEach((e,k)=>e.classList.toggle("at",k<=n)); texto(); aplica();
-    const pn=$("#fnPainel"); pn.classList.remove("troca"); void pn.offsetWidth; pn.classList.add("troca");
-    if(!instant&&n===4) L.hp.forEach((c,k)=>{ c.classList.remove("ac"); depois(k*6,()=>c.classList.add("ac")) }) }
-  return {ativar(v){ if(v&&!on) monta(); on=v }, passo:set, total:PASSOS.length-1};
+const genese=(()=>{
+  const GERAL=[
+    {rot:"O método Gênese",txt:"Das bases da Ferrero à população. O MOS (Mimetica Operational System) percorre cinco etapas, e a estrada se divide em dois caminhos. Avance para percorrer."},
+    {rot:"1 · Ler",txt:"Reunimos as bases e avaliamos qualidade e cobertura."},
+    {rot:"2 · Semear",txt:"Organizamos perfis, respostas e comportamentos reais numa semente, que dá origem à população."},
+    {rot:"3 · Gerar",txt:"A partir da semente, o MOS gera milhares de gêmeos digitais, cada um com perfil, região e histórico próprios."},
+    {rot:"4 · Calibrar",txt:"A população aprende a distância entre o que as pessoas dizem e o que elas fazem. A próxima tela mostra esse degrau de perto."},
+    {rot:"5 · Medir",txt:"Calculamos o índice de confiabilidade por tema e por estado e mostramos onde o campo ainda é necessário."},
+    {rot:"A chegada",txt:"Os dois caminhos chegam à mesma população. O histórico da Ferrero encurta a estrada e traz anos de comportamento real que nenhum campo novo recupera."}];
+  const ET=["Ponto de partida","Ler","Semear","Gerar","Calibrar","Medir","População pronta"];
+  const Z=[
+    [0,"Sem bases próprias da Ferrero. A população nasce de fontes externas e de campo novo."],
+    [2,"Levantamos a estrutura da população (IBGE e Critério Brasil), bases de consumidores, de preferência brasileiras, e comunidades de chocolate. Avaliamos qualidade e cobertura."],
+    [4,"Sem respostas da categoria, a semente pede campo com pessoas reais, do tamanho que a pergunta exigir."],
+    [1,"O MOS gera os gêmeos a partir da semente."],
+    [3,"Sem histórico de compra, um segundo campo mede a distância entre dizer e fazer."],
+    [1,"Índice por tema e por estado. Onde ficar baixo, mais campo."],
+    [0,"A população nasce, com o índice medido. O histórico começa a ser construído agora."]];
+  const F=[
+    [0,"Com os estudos, o tracking e os dados de venda que a Ferrero já tem."],
+    [1,"Recebemos uma ou várias bases da Ferrero: entrevistas, estudos, tracking, Nielsen e painel de lares. Avaliamos qualidade e cobertura."],
+    [1,"Os perfis, respostas e comportamentos dos estudos já feitos viram a semente. O campo entra só onde falta cobertura."],
+    [1,"O MOS gera os gêmeos a partir da semente."],
+    [1,"Tracking, Nielsen e painel de lares mostram o que aconteceu de fato. A população aprende o degrau de cada perfil."],
+    [1,"Índice por tema e por estado. Campo só nas células que pedirem."],
+    [0,"A população nasce com anos de comportamento real dentro dela."]];
+  const cv=$("#gnCanvas"), c=cv.getContext("2d"), W=460, H=620;
+  const COR={forte:"#F5F4F0",meio:"#9C9B96",fraco:"#6B6A65",estrada:"#1E1E22",borda:"#2E2E33",fundo:"#0C0C0E"};
+  const bez=(a,b,cc,d,t)=>{ const u=1-t; return [u*u*u*a[0]+3*u*u*t*b[0]+3*u*t*t*cc[0]+t*t*t*d[0], u*u*u*a[1]+3*u*u*t*b[1]+3*u*t*t*cc[1]+t*t*t*d[1]] };
+  function amostra(segs){ const pts=[]; segs.forEach(s=>{ for(let k=0;k<=60;k++) pts.push(bez(s[0],s[1],s[2],s[3],k/60)) }); const L=[0]; for(let i=1;i<pts.length;i++) L.push(L[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1])); return {pts,L,tot:L[L.length-1]} }
+  function em(r,f){ const alvo=f*r.tot; let i=1; while(i<r.L.length-1&&r.L[i]<alvo) i++; const a=r.pts[i-1], b=r.pts[i], s=(alvo-r.L[i-1])/((r.L[i]-r.L[i-1])||1); return [lerp(a[0],b[0],s),lerp(a[1],b[1],s)] }
+  const INI=[230,600], BIF=[230,505], CHEGA=[230,168];
+  const zz=(a,b)=>[a,[(a[0]+b[0])/2,a[1]],[(a[0]+b[0])/2,b[1]],b];
+  const ESQ=amostra([zz(BIF,[70,462]),zz([70,462],[195,410]),zz([195,410],[60,356]),zz([60,356],[195,302]),zz([195,302],[60,248]),zz([60,248],CHEGA)]);
+  const DIR=amostra([[BIF,[300,500],[330,470],[330,430]],[[330,430],[330,360],[330,300],[330,250]],[[330,250],[330,200],[290,168],CHEGA]]);
+  const FRAC=[0,.14,.34,.54,.74,.92,1];
+  const HEAD=(()=>{ const R=rnd(9), a=[]; for(let k=0;k<70;k++){ const t=R()*6.283, r=Math.sqrt(R())*52; a.push([230+Math.cos(t)*r*.92,92+Math.sin(t)*r*.78]) } return a })();
+  let on=false,p=0,t0=0,pAnt=0;
+  function estrada(r,alpha){ c.globalAlpha=alpha; c.strokeStyle=COR.borda; c.lineWidth=30; c.lineCap="round"; c.lineJoin="round"; c.beginPath(); r.pts.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1])); c.stroke();
+    c.strokeStyle=COR.estrada; c.lineWidth=26; c.stroke(); c.strokeStyle="#3A3A3F"; c.lineWidth=1.5; c.setLineDash([7,9]); c.stroke(); c.setLineDash([]); c.globalAlpha=1 }
+  function tx(s,x,y,o){ o=o||{}; c.font=`${o.peso||400} ${o.px||11}px ${o.mono?"'JetBrains Mono',monospace":"Inter,system-ui,sans-serif"}`; c.fillStyle=o.cor||COR.meio; c.textAlign=o.al||"left"; c.textBaseline="middle"; c.fillText(T(s),x,y) }
+  function viajante(r,fa,fb,e,lado){ const q=em(r,lerp(fa,fb,e)); for(let k=0;k<6;k++){ const a=k*1.047+performance.now()/900; c.fillStyle=COR.forte; c.beginPath(); c.arc(q[0]+Math.cos(a)*6,q[1]+Math.sin(a)*6,2.6,0,7); c.fill() } return q }
+  function desenha(now){ const t=now-t0; c.setTransform(2,0,0,2,0,0); c.clearRect(0,0,W,H);
+    // tronco
+    c.strokeStyle=COR.borda; c.lineWidth=30; c.lineCap="round"; c.beginPath(); c.moveTo(INI[0],INI[1]); c.lineTo(BIF[0],BIF[1]); c.stroke(); c.strokeStyle=COR.estrada; c.lineWidth=26; c.stroke();
+    estrada(ESQ,1); estrada(DIR,1);
+    tx("A PERGUNTA DA FERRERO",230,612,{px:10,mono:1,al:"center"});
+    tx("DO ZERO",34,500,{px:10,mono:1,peso:700,cor:COR.meio}); tx("COM HISTÓRICO",426,500,{px:10,mono:1,peso:700,cor:COR.forte,al:"right"});
+    // estações
+    for(let k=1;k<=5;k++){ const a=em(ESQ,FRAC[k]), b=em(DIR,FRAC[k]), vis=p>=k?1:.35;
+      c.globalAlpha=vis; [a,b].forEach((q,i)=>{ c.fillStyle=p>=k?COR.forte:COR.fundo; c.strokeStyle=COR.meio; c.lineWidth=1.5; c.beginPath(); c.arc(q[0],q[1],5,0,7); c.fill(); c.stroke() });
+      if(a[0]>130) tx(ET[k],a[0]-14,a[1],{px:11,peso:600,cor:COR.forte,al:"right"}); else tx(ET[k],a[0]+12,a[1]-15,{px:11,peso:600,cor:COR.forte}); tx(ET[k],b[0]+14,b[1],{px:11,peso:600,cor:COR.forte}); c.globalAlpha=1 }
+    // chegada
+    const ch=p>=6?ease(clamp((t-900)/900)):0;
+    HEAD.forEach((h,k)=>{ c.globalAlpha=.25+.75*ch; c.fillStyle=ch>0?COR.forte:COR.fraco; c.beginPath(); c.arc(h[0],h[1],1.9+ch*.6,0,7); c.fill() }); c.globalAlpha=1;
+    tx("POPULAÇÃO DA FERRERO",230,24,{px:10,mono:1,al:"center",cor:ch>0?COR.forte:COR.meio});
+    // viajantes
+    const e=ease(clamp(t/1300)), fa=FRAC[Math.min(pAnt,6)], fb=FRAC[Math.min(p,6)];
+    const qz=viajante(ESQ,fa,fb,e), qf=viajante(DIR,fa,fb,e);
+    const sz=semanas(Z,p), sf=semanas(F,p);
+    if(p>=1&&p<6){ tx(sz+" "+T("sem."),qz[0],qz[1]+18,{px:10,mono:1,peso:700,cor:COR.meio,al:"center"}); tx(sf+" "+T("sem."),qf[0],qf[1]+18,{px:10,mono:1,peso:700,cor:COR.forte,al:"center"}) } }
+  const semanas=(A,n)=>A.slice(0,n+1).reduce((s,x)=>s+x[0],0);
+  (function loop(now){ if(on) desenha(now); requestAnimationFrame(loop) })(performance.now());
+  function card(id,A,n){ const el=$(id), et=el.querySelector(".gn-et"), d=el.querySelector(".gn-d"), m=el.querySelector(".gn-mais"), tot=el.querySelector(".gn-tot"), s=semanas(A,n);
+    et.textContent=ET[n]; d.textContent=A[n][1];
+    m.textContent=n===0?"":(n===6?T("Tempo total"):(A[n][0]?"+"+A[n][0]+" "+T(A[n][0]===1?"semana":"semanas"):""));
+    tot.textContent=n===0?"":(s+" "+T(s===1?"semana":"semanas"));
+    el.classList.toggle("fim",n===6&&id==="#gnF"); el.classList.remove("troca"); void el.offsetWidth; el.classList.add("troca") }
+  function set(n,instant){ pAnt=instant?n:p; p=n; t0=instant?performance.now()-1e6:performance.now();
+    $("#gnRot").textContent=GERAL[n].rot; $("#gnTxt").textContent=GERAL[n].txt;
+    $("#gnTit").textContent=n===6?"Com o histórico da Ferrero, a população nasce em menos da metade do tempo.":"Gênese: como a população da Ferrero nasce.";
+    card("#gnZ",Z,n); card("#gnF",F,n) }
+  return {ativar(v){ on=v }, passo:set, total:6};
 })();
 
 const degrau=(()=>{
@@ -996,7 +1040,7 @@ const degrau=(()=>{
 
 function pares(){ const L=[...document.querySelectorAll("#pares .par")]; L.forEach(l=>l.classList.remove("v")); L.forEach((l,k)=>depois(500+k*650,()=>l.classList.add("v"))) }
 const ENTRA={quem:etapas,cabeca:cabeca,agenda:agenda,quatrop:pares,calibracao:linha};
-const CENAS={corredor:cena,funciona:mapa,degrau:degrau}; const sc=()=>CENAS[TELAS[atual].dataset.t];
+const CENAS={corredor:cena,genese:genese,degrau:degrau}; const sc=()=>CENAS[TELAS[atual].dataset.t];
 
 function render(){ $("#cont").textContent=String(atual+1).padStart(2,"0")+" / "+String(TELAS.length).padStart(2,"0");
   $("#barra").style.width=((atual+1)/TELAS.length*100)+"%"; $("#ant").disabled=atual===0&&passo===0; $("#prox").disabled=atual===TELAS.length-1 }
