@@ -493,7 +493,7 @@
 "A população nasce com o índice medido. O histórico começa a ser construído agora.":"The population is born with its index measured. Its history starts being built now.",
 "Duas pistas de tempo: em cima, com o histórico da Ferrero; embaixo, começando do zero":"Two time lanes: on top, with Ferrero's history; below, starting from scratch",
 "A PERGUNTA":"FERRERO'S",
-"DA FERRERO":"QUESTION",
+"DA FERRERO":"FROM FERRERO",
 "SEMANAS":"WEEKS",
 "COM O HISTÓRICO DA FERRERO":"WITH FERRERO'S HISTORY",
 "COMEÇANDO DO ZERO":"STARTING FROM SCRATCH",
@@ -582,5 +582,8 @@
 "Social listening em Meta (Instagram e Facebook), TikTok, X, YouTube, Reddit, fóruns e comunidades de consumo":"Social listening on Meta (Instagram and Facebook), TikTok, X, YouTube, Reddit, forums and consumer communities",
 "Jornais, portais, publicações setoriais, periódicos científicos e preprints":"Newspapers, news sites, trade publications, scientific journals and preprints",
 "Fontes públicas ou autorizadas. Dados agregados e anonimizados, de acordo com a LGPD e os termos de cada plataforma. Cada registro vira leitura: o que mudou, por que importa e o que fazer. Contador ilustrativo.":"Public or authorized sources. Aggregated and anonymized data, in line with Brazil's data protection law (LGPD) and each platform's terms. Every record becomes a reading: what changed, why it matters and what to do. Illustrative counter.",
-"REGISTROS LIDOS HOJE":"RECORDS READ TODAY"
+"REGISTROS LIDOS HOJE":"RECORDS READ TODAY",
+"Com o histórico da Ferrero, a população já nasce sabendo, em um terço do tempo.":"With Ferrero's history, the population is born already knowing, in a third of the time.",
+"ÍNDICE POR TEMA E POR ESTADO":"INDEX BY TOPIC AND BY STATE",
+"Estudos e pesquisas anteriores, dados internos de vendas e CRM, relatórios de mercado contratados, newsletters e fontes que o time já acompanha. Uso exclusivo da Ferrero.":"Past studies and research, internal sales and CRM data, commissioned market reports, newsletters and sources the team already follows. For Ferrero's exclusive use."
 }

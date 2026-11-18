@@ -474,6 +474,9 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
 .rd-fontes{display:flex;flex-direction:column;gap:9px}
 .rd-fontes div{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:baseline;border-top:1px solid var(--linha);padding-top:8px}
 .rd-fontes b{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--sub);font-weight:600}
+.rd-fontes .rd-cli{background:#E4E3DE;border-top:0;border-radius:10px;padding:10px 12px;margin-top:4px}
+.rd-fontes .rd-cli b{color:#0C0C0E}
+.rd-fontes .rd-cli span{color:#0C0C0E!important;font-weight:500}
 .rd-fontes span{font-size:13.5px;line-height:1.4;color:var(--texto)}
 @media (max-width:900px){ .rd-grade{grid-template-columns:1fr} .rd-nums b{font-size:24px} .rd-fontes div{grid-template-columns:84px 1fr} }
 .gn-dica{display:none;font-family:var(--f-mono);font-size:10px;color:var(--fraco);margin-top:4px}
@@ -624,7 +627,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
     <h2 class="aparece d1 h2m" style="margin-top:12px">O MOS lê o Brasil todos os dias.</h2>
     <p class="lead aparece d2" style="max-width:86ch;margin-top:10px">Enquanto a Ferrero alimenta a população com os próprios estudos, o MOS acompanha o país. Cerca de 90 coletas automáticas leem mais de 60 fontes brasileiras e trazem uns 60 mil registros novos por dia. Assim a população sabe o que acontece com o preço, a conversa e o humor do consumidor.</p>
     <div class="rd-grade">
-      <div class="aparece d2"><canvas id="rdCanvas" width="1120" height="940" aria-label="Mapa do Brasil em pontos recebendo registros de cinco famílias de fontes"></canvas></div>
+      <div class="aparece d2"><canvas id="rdCanvas" width="1120" height="940" aria-label="Mapa do Brasil em pontos recebendo registros de seis famílias de fontes, incluindo as fontes da Ferrero"></canvas></div>
       <div class="aparece d3">
         <div class="rd-nums"><div><b>60+</b><span>fontes primárias brasileiras</span></div><div><b>~90</b><span>coletas automáticas, permanentes</span></div><div><b>~60 mil</b><span>registros novos por dia</span></div></div>
         <div class="rd-fontes">
@@ -633,6 +636,7 @@ h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04}
           <div><b>CONSUMO</b><span>iFood, Google Trends, Reclame Aqui e buscas por categoria e marca</span></div>
           <div><b>REDES</b><span>Social listening em Meta (Instagram e Facebook), TikTok, X, YouTube, Reddit, fóruns e comunidades de consumo</span></div>
           <div><b>IMPRENSA</b><span>Jornais, portais, publicações setoriais, periódicos científicos e preprints</span></div>
+          <div class="rd-cli"><b>DA FERRERO</b><span>Estudos e pesquisas anteriores, dados internos de vendas e CRM, relatórios de mercado contratados, newsletters e fontes que o time já acompanha. Uso exclusivo da Ferrero.</span></div>
         </div>
       </div>
     </div>
@@ -1055,10 +1059,9 @@ const genese=(()=>{
       PL.forEach(q=>{ c.strokeStyle=COR.fraco; c.lineWidth=1; c.setLineDash([2,3]); c.beginPath(); c.moveTo(q.x,CH); c.lineTo(q.x,CH-q.h); c.stroke(); c.setLineDash([]); c.fillStyle=COR.fraco; c.beginPath(); c.arc(q.x,CH-q.h,2,0,7); c.fill(); planta(q.x,lerp(q.h,q.real,e),1,true) });
       c.setLineDash([2,3]); c.strokeStyle=COR.fraco; c.beginPath(); c.moveTo(60,22); c.lineTo(84,22); c.stroke(); c.setLineDash([]); tx("o que dizem",92,22,{px:10,mono:1,cor:COR.meio});
       c.strokeStyle=COR.forte; c.lineWidth=1.6; c.beginPath(); c.moveTo(200,22); c.lineTo(224,22); c.stroke(); tx("o que fazem",232,22,{px:10,mono:1,cor:COR.forte}); return }
-    if(p===5){ PL.forEach(q=>planta(q.x,q.real,1,true));
-      const G=[[80,300,"91%",1],[300,560,"88%",1],[560,840,"72%",0]];
-      G.forEach(([a,b,v,ok],k)=>{ const e=clamp((t-k*350)/500); if(e<=0) return; c.globalAlpha=e; c.strokeStyle=ok?COR.meio:COR.forte; c.lineWidth=1.2; if(!ok) c.setLineDash([5,4]); c.beginPath(); c.roundRect(a,CH-104,b-a,96,10); c.stroke(); c.setLineDash([]);
-        tx(v,a+10,CH-90,{px:15,peso:800,mono:1,cor:COR.forte}); if(!ok) tx("pede campo",b-10,CH-90,{px:10,mono:1,al:"right",cor:COR.forte}); c.globalAlpha=1 }); return }
+    if(p===5){ const sx=lerp(50,870,clamp((t-200)/1800)); PL.forEach(q=>planta(q.x,q.real,1,q.x<sx));
+      c.strokeStyle=COR.meio; c.lineWidth=1; c.setLineDash([3,4]); c.beginPath(); c.moveTo(sx,CH-110); c.lineTo(sx,CH); c.stroke(); c.setLineDash([]);
+      if(t>600){ c.globalAlpha=clamp((t-600)/500); tx("ÍNDICE POR TEMA E POR ESTADO",460,CH+22,{px:10,mono:1,al:"center",cor:COR.meio}); c.globalAlpha=1 } return }
     // chegada: cada planta vira um gêmeo
     const e=ease(clamp((t-200)/1200)); PL.forEach(q=>planta(q.x,q.real,1-e,true));
     for(let k=0;k<16;k++){ const a=clamp(e*1.6-k*.04); if(a<=0) continue; c.globalAlpha=a; silh(78+k*50,CH-58-(k%3)*8,true,.03); c.globalAlpha=1 }
@@ -1082,8 +1085,7 @@ const genese=(()=>{
     if(p===3&&t>1500){ c.globalAlpha=clamp((t-1500)/500); tx("MILHARES DE GÊMEOS A PARTIR DA SEMENTE",HX-30,CH+10,{px:10,mono:1,al:"right",cor:COR.meio}); c.globalAlpha=1 }
     if(p===4){ const e=ease(clamp((t-300)/1200)); tx("o que dizem",HX-40,70,{px:11,mono:1,al:"right",cor:COR.meio}); c.fillStyle=COR.placa; c.fillRect(HX-240,82,200,10); c.fillStyle=COR.meio; c.fillRect(HX-240,82,200*.62,10);
       tx("o que fazem",HX-40,120,{px:11,mono:1,al:"right",cor:COR.forte}); c.fillStyle=COR.placa; c.fillRect(HX-240,132,200,10); c.fillStyle=COR.forte; c.fillRect(HX-240,132,200*lerp(.62,.25,e),10) }
-    if(p===5){ const G=[["Premium contra tradicional","91%",1],["Presente de Natal","88%",1],["Consumidor GLP-1","72%",0]];
-      G.forEach(([l,v,ok],k)=>{ const e=clamp((t-k*350)/500); if(e<=0) return; c.globalAlpha=e; const y=56+k*46; tx(l,HX-60,y,{px:12,al:"right",cor:COR.meio}); tx(v,HX-60,y+17,{px:15,peso:800,mono:1,al:"right",cor:COR.forte}); if(!ok) tx("pede campo",HX-112,y+17,{px:10,mono:1,al:"right",cor:COR.forte}); c.globalAlpha=1 }) }
+    if(p===5&&t>400){ c.globalAlpha=clamp((t-400)/500); tx("ÍNDICE POR TEMA E POR ESTADO",HX-30,CH+10,{px:10,mono:1,al:"right",cor:COR.meio}); c.globalAlpha=1 }
     if(p===6){ const e=ease(clamp((t-200)/1200)); for(let k=0;k<9;k++){ const a=clamp(e*1.5-k*.06); if(a>0){ c.globalAlpha=a; silh(40+k*58,CH-80,true,.04); c.globalAlpha=1 } }
       if(t>1300){ c.globalAlpha=clamp((t-1300)/500); tx("A POPULAÇÃO ARTIFICIAL DA FERRERO",300,CH+10,{px:10,mono:1,al:"center",cor:COR.forte}); c.globalAlpha=1 } } }
 
@@ -1113,7 +1115,7 @@ const genese=(()=>{
   (function loop(now){ if(on) desenha(now); requestAnimationFrame(loop) })(performance.now());
   function set(n,instant){ p=n; t0=instant?performance.now()-1e6:performance.now();
     $("#gnRot").textContent=GERAL[n].rot; $("#gnTxt").textContent=GERAL[n].txt;
-    $("#gnTit").textContent=n===6?"Com o histórico da Ferrero, a população nasce em um terço do tempo.":"Gênese: como a população da Ferrero nasce.";
+    $("#gnTit").textContent=n===6?"Com o histórico da Ferrero, a população já nasce sabendo, em um terço do tempo.":"Gênese: como a população da Ferrero nasce.";
     [["#gnF",F],["#gnZ",Z]].forEach(([id,A])=>{ const el=$(id), d=el.querySelector(".gn-d"); d.textContent=A[1][n]; el.classList.remove("troca"); void el.offsetWidth; el.classList.add("troca") }) }
   return {ativar(v){ on=v }, passo:set, total:6};
 })();
@@ -1124,8 +1126,8 @@ const radar=(()=>{
   const COR={forte:"#F5F4F0",meio:"#9C9B96",fraco:"#6B6A65",bloco:"#2A2A2E",placa:"#1C1C1F"};
   const MH=400, MW=MH*0.975, MX=W-MW-6, MY=18;
   const MAP=BRPTS.map(([x,y])=>({x:MX+x*MW,y:MY+y*MH,l:0}));
-  const FAM=["OFICIAL","MERCADO","CONSUMO","REDES","IMPRENSA"];
-  const FY=FAM.map((_,k)=>70+k*78), FX=14;
+  const FAM=["OFICIAL","MERCADO","CONSUMO","REDES","IMPRENSA","DA FERRERO"];
+  const FY=FAM.map((_,k)=>48+k*66), FX=14;
   let on=false,t0=0,last=0; const voo=[];
   function tx(s,x,y,o){ o=o||{}; c.font=`${o.peso||400} ${o.px||11}px ${o.mono?"'JetBrains Mono',monospace":"Inter,system-ui,sans-serif"}`; c.fillStyle=o.cor||COR.meio; c.textAlign=o.al||"left"; c.textBaseline="middle"; c.fillText(T(s),x,y) }
   const fmt=n=>Math.round(n).toLocaleString(document.documentElement.lang==="en"?"en-US":"pt-BR");
@@ -1136,7 +1138,7 @@ const radar=(()=>{
     // mapa
     MAP.forEach(p=>{ p.l=Math.max(0,p.l-dt/1400); const a=.28+p.l*.72; c.fillStyle=p.l>.05?COR.forte:"#3A3A3F"; c.globalAlpha=Math.min(1,a+.2); c.beginPath(); c.arc(p.x,p.y,1.6+p.l*1.6,0,7); c.fill() }); c.globalAlpha=1;
     // famílias
-    FAM.forEach((f,k)=>{ const e=clamp((t-k*150)/500); c.globalAlpha=e; c.strokeStyle=COR.bloco; c.lineWidth=1; c.beginPath(); c.roundRect(FX,FY[k]-15,104,30,15); c.stroke(); tx(f,FX+52,FY[k],{px:10,mono:1,peso:700,al:"center",cor:COR.forte}); c.fillStyle=COR.forte; c.beginPath(); c.arc(FX+104,FY[k],2.5,0,7); c.fill(); c.globalAlpha=1 });
+    FAM.forEach((f,k)=>{ const e=clamp((t-k*150)/500); c.globalAlpha=e; const cli=k===5; c.strokeStyle=COR.bloco; c.lineWidth=1; c.beginPath(); c.roundRect(FX,FY[k]-15,104,30,15); if(cli){ c.fillStyle="#E4E3DE"; c.fill() } else c.stroke(); tx(f,FX+52,FY[k],{px:10,mono:1,peso:700,al:"center",cor:cli?"#0C0C0E":COR.forte}); c.fillStyle=COR.forte; c.beginPath(); c.arc(FX+104,FY[k],2.5,0,7); c.fill(); c.globalAlpha=1 });
     // voos
     for(let i=voo.length-1;i>=0;i--){ const v=voo[i], e=(now-v.s)/v.dur; if(e>=1){ v.d.l=1; voo.splice(i,1); continue }
       const x0=FX+104, y0=FY[v.f], q=ease(e), u=1-q;
